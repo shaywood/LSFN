@@ -1,0 +1,12 @@
+This is the development repo for...
+
+--------------------------
+Lower Shields, Fire Nukes!
+--------------------------
+
+Soon to be the best at space.
+
+
+=== Git development strategy ===
+
+Features to be developed are to be branched off the 'dev' branch. Features should merge the dev branch into the feature branch and tested for stability before the branch is merged into the dev branch. The dev branch may only be merged into the master branch if the you are confident that the dev branch is stable (i.e. no known bugs).
