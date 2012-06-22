@@ -9,60 +9,6 @@ public class EnvironmentServer {
      */
     public static void main(String[] args) {
         // TODO Auto-generated method stub
-        /*ServerSocket socket_server = null;
-        try {
-            socket_server = new ServerSocket(14612); 
-        } catch (IOException e) {
-            failAndExit("Could not open on port 14612: " + e.getLocalizedMessage());
-        }
-        
-        System.out.println("ServerSocket open.");
-        
-        Socket client_socket = null;
-        try {
-            client_socket = socket_server.accept();
-        } catch (IOException e) {
-            failAndExit("Failed to accept connection: " + e.getLocalizedMessage());
-        }
-        
-        System.out.println("Accepted connection.");
-        
-        PrintWriter to_client = null;
-        BufferedReader from_client = null;
-        try {
-            to_client = new PrintWriter(client_socket.getOutputStream(), true);
-            from_client = new BufferedReader(new InputStreamReader(client_socket.getInputStream()));
-        } catch (IOException e) {
-            failAndExit("Failed to create connection reader / writer: " + e.getLocalizedMessage());
-        }
-            
-        String inputLine = "";
-        
-        while(true) {
-            try {
-                inputLine = from_client.readLine();
-            } catch (IOException e) {
-                failAndExit("Error in reading from client: " + e.getLocalizedMessage());
-            }
-            
-            System.out.println("Echoing: " + inputLine);
-            to_client.println(inputLine);
-            
-            if (inputLine.equals("Bye.")) {
-                break;
-            }
-        }
-        
-        System.out.println("Closing connections.");
-        
-        try {
-            to_client.close();
-            from_client.close();
-            client_socket.close();
-            socket_server.close();
-        } catch (IOException e) {
-            failAndExit("Failed to close buffers / connections: " + e.getLocalizedMessage());                
-        }*/
         ClientHandler clientHandler = null;
         try {
             clientHandler = new ClientHandler();
@@ -91,12 +37,6 @@ public class EnvironmentServer {
         }
         
         clientHandler.close();
-        try {
-            client_thread.join();
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 
     public static void failAndExit(String str) {

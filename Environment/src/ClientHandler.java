@@ -8,7 +8,6 @@ public class ClientHandler implements Runnable {
     private HashMap<Integer, BufferedReader> readers;
     private HashMap<Integer, PrintWriter> writers;
     private int next_connection_ID;
-    private Object lock;
     
     private static final int default_port = 14612;
     /**
@@ -21,7 +20,6 @@ public class ClientHandler implements Runnable {
         readers = new HashMap<Integer, BufferedReader>();
         writers = new HashMap<Integer, PrintWriter>();
         next_connection_ID = 0;
-        lock = new Object();
     }
     
     /**
@@ -35,19 +33,16 @@ public class ClientHandler implements Runnable {
         readers = new HashMap<Integer, BufferedReader>();
         writers = new HashMap<Integer, PrintWriter>();
         next_connection_ID = 0;
-        lock = new Object();
     }
     
     public void run() {
         while (!server.isClosed()) {
             try {
                 Socket incoming_connection = server.accept();
-                synchronized(lock) {
-                    connections.put(next_connection_ID, incoming_connection);
-                    readers.put(next_connection_ID, new BufferedReader(new InputStreamReader(incoming_connection.getInputStream())));
-                    writers.put(next_connection_ID, new PrintWriter(incoming_connection.getOutputStream(), true));
-                    next_connection_ID++;
-                }
+                connections.put(next_connection_ID, incoming_connection);
+                readers.put(next_connection_ID, new BufferedReader(new InputStreamReader(incoming_connection.getInputStream())));
+                writers.put(next_connection_ID, new PrintWriter(incoming_connection.getOutputStream(), true));
+                next_connection_ID++;
             } catch (SocketException e) {
                 if(!server.isClosed()) {
                     System.err.println("Could not accept the socket (socket).");
@@ -61,19 +56,6 @@ public class ClientHandler implements Runnable {
                 System.err.println(e.getLocalizedMessage());
             } catch (Exception e) {
                 System.err.println("Some other error occured.");
-                System.err.println(e.getLocalizedMessage());
-            }
-        }
-        
-        Iterator<Integer> connection_iterator = connections.keySet().iterator();
-        while(connection_iterator.hasNext()) {
-            Integer current_socket_id = connection_iterator.next();
-            Socket current_socket = connections.get(current_socket_id);
-            try {
-                current_socket.close();
-                connections.remove(current_socket_id);
-            } catch (IOException e) {
-                System.err.println("Failed to close socket.");
                 System.err.println(e.getLocalizedMessage());
             }
         }
