@@ -1,5 +1,4 @@
 import java.io.*;
-import java.net.*;
 
 public class InterfaceClient {
 
@@ -7,44 +6,34 @@ public class InterfaceClient {
      * @param args
      */
     public static void main(String[] args) {
-        // TODO Auto-generated method stub
-        Socket echoSocket = null;
-        PrintWriter out = null;
-        BufferedReader in = null;
-        String hostStr = "localhost";
-
-        try {
-            echoSocket = new Socket(hostStr, 14612);
-            out = new PrintWriter(echoSocket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
-        } catch (UnknownHostException e) {
-            System.err.println("Don't know about host: " + hostStr);
-            System.exit(1);
-        } catch (IOException e) {
-            System.err.println("Couldn't get I/O for the connection to: " + hostStr);
-            System.exit(1);
-        }
-
-        System.out.println("Connected to host.");
+        Listener listener = new Listener();
+        String host_str = "localhost";
+        int port = 14612;
+        listener.set_host_and_port(host_str, port);
+        Thread listen_thread = new Thread(listener);
+        listen_thread.start();
 
         BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-        String userInput = "";
+        String userInput;
     
         while(true) {
+            userInput = "";
             try {
-               userInput = stdIn.readLine(); 
+                if(stdIn.ready()) {
+                    userInput = stdIn.readLine();
+                    listener.send(userInput);
+                    
+                }
             } catch (IOException e) {
-                System.err.println("Failed to read from socket.");
+                System.err.println("Failed to read from stdin.");
+                e.printStackTrace();
                 break;
             }
             
-            out.println(userInput);
+            String[] messages = listener.get_messages();
             
-            try {
-                System.out.println("echo: " + in.readLine());
-            } catch (IOException e) {
-                System.err.println("Failed to read from socket.");
-                break;
+            for(int i = 0; i < messages.length; i++) {
+                System.out.println("Received message \"" + messages[i] + "\"");
             }
             
             if(userInput.equals("Bye.")) {
@@ -54,13 +43,12 @@ public class InterfaceClient {
         
         System.out.println("Shutting down.");
         
+        listener.close();
         try {
-            out.close();
-            in.close();
-            stdIn.close();
-            echoSocket.close();
-        } catch (IOException e) {
-            System.err.println("Failed to close socket / buffers.");
+            listen_thread.join();
+        } catch (InterruptedException e) {
+            // TODO
+            e.printStackTrace();
         }
     }
 

@@ -17,6 +17,7 @@ public class ClientHandler implements Runnable {
      */
     ClientHandler() throws IOException {
         port = default_port;
+        server = null;
         connections = new HashMap<Integer, Socket>();
         readers = new HashMap<Integer, BufferedReader>();
         writers = new HashMap<Integer, PrintWriter>();
@@ -30,6 +31,7 @@ public class ClientHandler implements Runnable {
      */
     ClientHandler(int port) throws IOException {
         this.port = port;
+        server = null;
         connections = new HashMap<Integer, Socket>();
         readers = new HashMap<Integer, BufferedReader>();
         writers = new HashMap<Integer, PrintWriter>();
