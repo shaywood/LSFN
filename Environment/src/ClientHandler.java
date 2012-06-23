@@ -3,10 +3,11 @@ import java.net.*;
 import java.util.*;
 
 public class ClientHandler implements Runnable {
-    private ServerSocket server;
+    private ServerSocket server; // TODO move this to run() from both constructors
     private HashMap<Integer, Socket> connections;
     private HashMap<Integer, BufferedReader> readers;
     private HashMap<Integer, PrintWriter> writers;
+    private int port;
     private int next_connection_ID;
     
     private static final int default_port = 14612;
@@ -15,7 +16,7 @@ public class ClientHandler implements Runnable {
      * @throws IOException
      */
     ClientHandler() throws IOException {
-        server = new ServerSocket(default_port);
+        port = default_port;
         connections = new HashMap<Integer, Socket>();
         readers = new HashMap<Integer, BufferedReader>();
         writers = new HashMap<Integer, PrintWriter>();
@@ -28,7 +29,7 @@ public class ClientHandler implements Runnable {
      * @throws IOException
      */
     ClientHandler(int port) throws IOException {
-        server = new ServerSocket(port);
+        this.port = port;
         connections = new HashMap<Integer, Socket>();
         readers = new HashMap<Integer, BufferedReader>();
         writers = new HashMap<Integer, PrintWriter>();
@@ -36,27 +37,28 @@ public class ClientHandler implements Runnable {
     }
     
     public void run() {
-        while (!server.isClosed()) {
+        try {
+            server = new ServerSocket(port);
+        } catch (IOException e) {
+            // TODO
+            e.printStackTrace();
+        }
+        while (server != null && !server.isClosed()) {
             try {
                 Socket incoming_connection = server.accept();
-                connections.put(next_connection_ID, incoming_connection);
-                readers.put(next_connection_ID, new BufferedReader(new InputStreamReader(incoming_connection.getInputStream())));
-                writers.put(next_connection_ID, new PrintWriter(incoming_connection.getOutputStream(), true));
-                next_connection_ID++;
-            } catch (SocketException e) {
                 if(!server.isClosed()) {
-                    System.err.println("Could not accept the socket (socket).");
-                    System.err.println(e.getLocalizedMessage());
+                    add_socket(incoming_connection);
+                }
+            } catch (SocketException e) {
+                if(server.isClosed()) {
+                    shut_down();                    
+                } else {
+                    // TODO
+                    e.printStackTrace();
                 }
             } catch (IOException e) {
-                System.err.println("Could not accept the socket (IO).");
-                System.err.println(e.getLocalizedMessage());
-            } catch (SecurityException e) {
-                System.err.println("Security error.");
-                System.err.println(e.getLocalizedMessage());
-            } catch (Exception e) {
-                System.err.println("Some other error occured.");
-                System.err.println(e.getLocalizedMessage());
+                // TODO
+                e.printStackTrace();
             }
         }
     }
@@ -65,49 +67,106 @@ public class ClientHandler implements Runnable {
         Iterator<Integer> connection_iterator = connections.keySet().iterator();
         HashMap<Integer, String> messages = new HashMap<Integer, String>();
         while(connection_iterator.hasNext()) {
-            
-            Integer current_socket_id = connection_iterator.next();
-            Socket current_socket = connections.get(current_socket_id);
-            if(current_socket.isConnected()) {
-                BufferedReader current_reader = readers.get(current_socket_id);
-                try {
-                    if(current_reader != null && current_reader.ready()) {
-                        messages.put(current_socket_id, current_reader.readLine());
-                    }
-                } catch (IOException e) {
-                    System.err.println("Could not read socket.");
-                    System.err.println(e.getLocalizedMessage());
+            Integer current_socket_ID = connection_iterator.next();
+            Socket current_socket = connections.get(current_socket_ID);
+            if(current_socket.isConnected() && !current_socket.isClosed()) {
+                String message = receive(current_socket_ID);
+                if(message != null) {
+                    messages.put(current_socket_ID, message);
                 }
             } else {
-                try {
-                    System.out.println("Closing socket " + current_socket_id);
-                    current_socket.close();
-                    connections.remove(current_socket_id);
-                } catch (IOException e) {
-                    System.err.println("Failed to close socket.");
-                    System.err.println(e.getLocalizedMessage());
-                }
+                remove_socket(current_socket_ID);
             }
         }
         return messages;
     }
     
-    public void send(Integer socket_id, String message) {
-        PrintWriter writer = writers.get(socket_id);
-        if(writer != null) {
-            System.out.println("Sending message.");
-            writer.println(message);
+    public String receive(Integer socket_ID) {
+        Socket socket = connections.get(socket_ID);
+        if(socket == null || !socket.isConnected() || socket.isClosed()) {
+            remove_socket(socket_ID);
+            return null;
+        }
+        BufferedReader current_reader = readers.get(socket_ID);
+        try {
+            if(!current_reader.ready()) {
+                return null;
+            }
+        } catch (IOException e1) {
+            // TODO
+            e1.printStackTrace();
+            remove_socket(socket_ID);
+            return null;
+        }
+        
+        String message = null;
+        try {
+            message = current_reader.readLine();
+        } catch (IOException e) {
+            // TODO
+            e.printStackTrace();
+        }
+        if(message == null) {
+            remove_socket(socket_ID);
+        }
+        
+        return message;
+    }
+    
+    public void send(Integer socket_ID, String message) {
+        Socket socket = connections.get(socket_ID);
+        if(socket.isConnected()) {
+            writers.get(socket_ID).println(message);
         } else {
-            System.out.println("Writer " + socket_id + " is null.");
+            remove_socket(socket_ID);
         }
     }
     
-    public void close() {
+    public void close() {        
         try {
             server.close();
         } catch (IOException e) {
-            System.err.println("Failed to close ServerSocket.");
-            System.err.println(e.getLocalizedMessage());
+            e.printStackTrace();
         }
+    }
+    
+    private synchronized void shut_down() {
+        // We are shutting down the client handler,
+        // close and remove all connections
+        Iterator<Integer> connection_ID_iterator = connections.keySet().iterator();
+        while(connection_ID_iterator.hasNext()) {
+            Integer ID = connection_ID_iterator.next();
+            try {
+                connections.get(ID).close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        connections.clear();
+        readers.clear();
+        writers.clear();
+        next_connection_ID = 0;
+    }
+    
+    private synchronized void add_socket(Socket socket) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        PrintWriter pw = new PrintWriter(socket.getOutputStream(), true);
+        connections.put(next_connection_ID, socket);
+        readers.put(next_connection_ID, br);
+        writers.put(next_connection_ID, pw);
+        System.out.println("New socket opened: " + next_connection_ID);
+        next_connection_ID++;
+    }
+    
+    private synchronized void remove_socket(Integer socket_ID) {
+        try {
+            connections.get(socket_ID).close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        connections.remove(socket_ID);
+        readers.remove(socket_ID);
+        writers.remove(socket_ID);
+        System.out.println("Closed socket: " + socket_ID);
     }
 }

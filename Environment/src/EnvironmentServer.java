@@ -28,12 +28,16 @@ public class EnvironmentServer {
                 String message = messages.get(message_ID);
                 System.out.println("Socket " + message_ID + " sent: \"" + message + "\" length " + message.length());
                 clientHandler.send(message_ID, message);
-                System.out.println("Sent message.");
                 if(message.equals("Stop server")) {
                     stop = true;
                 }
             }
             if(stop) break;
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         
         clientHandler.close();
