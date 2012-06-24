@@ -47,6 +47,8 @@ public class ClientHandler implements Runnable {
         }
         while (server != null && !server.isClosed()) {
             try {
+                // We don't need a sleep() because this is blocking.
+                // This thread basically accepts all incoming connections.
                 Socket incoming_connection = server.accept();
                 if(!server.isClosed()) {
                     add_socket(incoming_connection);
@@ -124,10 +126,19 @@ public class ClientHandler implements Runnable {
         }
     }
     
+    public void send_to_all(String message) {
+        Iterator<Integer> writer_iterator = writers.keySet().iterator();
+        while(writer_iterator.hasNext()) {
+            Integer current_socket_ID = writer_iterator.next();
+            writers.get(current_socket_ID).println(message);
+        }
+    }
+    
     public void close() {        
         try {
             server.close();
         } catch (IOException e) {
+            // TODO
             e.printStackTrace();
         }
     }
@@ -148,6 +159,7 @@ public class ClientHandler implements Runnable {
         readers.clear();
         writers.clear();
         next_connection_ID = 0;
+        server = null;
     }
     
     private synchronized void add_socket(Socket socket) throws IOException {

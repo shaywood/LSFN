@@ -8,7 +8,6 @@ public class EnvironmentServer {
      * @param args
      */
     public static void main(String[] args) {
-        // TODO Auto-generated method stub
         ClientHandler clientHandler = null;
         try {
             clientHandler = new ClientHandler();
@@ -19,28 +18,27 @@ public class EnvironmentServer {
         Thread client_thread = new Thread(clientHandler);
         client_thread.start();
         
-        while(true) {
+        boolean running = true;
+        while(running) {
             HashMap<Integer, String> messages = clientHandler.read_all();
             Iterator<Integer> message_iterator = messages.keySet().iterator();
-            boolean stop = false;
             while(message_iterator.hasNext()) {
                 Integer message_ID = message_iterator.next();
                 String message = messages.get(message_ID);
                 System.out.println("Socket " + message_ID + " sent: \"" + message + "\" length " + message.length());
                 clientHandler.send(message_ID, message);
-                if(message.equals("Stop server")) {
-                    stop = true;
-                }
+                if(message.equals("Stop server.")) running = false;
             }
-            if(stop) break;
             
             try {
                 Thread.sleep(20);
             } catch (InterruptedException e) {
+                // TODO
                 e.printStackTrace();
             }
         }
         
+        clientHandler.send_to_all("Server shutting down.");        
         clientHandler.close();
     }
 
