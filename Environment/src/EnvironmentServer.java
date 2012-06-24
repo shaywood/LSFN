@@ -23,17 +23,20 @@ public class EnvironmentServer {
             
             boolean running = true;
             while(running) {
-                HashMap<Integer, String> messages = client_handler.read_all();
+                HashMap<Integer, String[]> messages = client_handler.read_all();
                 Iterator<Integer> message_iterator = messages.keySet().iterator();
                 while(message_iterator.hasNext()) {
                     Integer message_ID = message_iterator.next();
-                    String message = messages.get(message_ID);
-                    System.out.println("Socket " + message_ID + " sent: \"" + message + "\" length " + message.length());
-                    client_handler.send(message_ID, message);
-                    if(message.equals("Stop server.")) {
-                        running = false;
-                    } else if(message.equals("Bye.")) {
-                        client_handler.remove_socket(message_ID);
+                    String[] message_array = messages.get(message_ID);
+                    for(int i = 0; i < message_array.length; i++) {
+                        System.out.println("Socket " + message_ID + " sent: \"" + message_array[i] + "\" length " + message_array[i].length());
+                        client_handler.send(message_ID, message_array[i]);
+                        if(message_array[i].equals("Stop server.")) {
+                            running = false;
+                        } else if(message_array[i].equals("Bye.")) {
+                            client_handler.remove_socket(message_ID);
+                            break;
+                        }
                     }
                 }
                 
