@@ -2,12 +2,10 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class ClientHandler implements Runnable {
-    private ServerSocket server; // TODO move this to run() from both constructors
+public class ClientHandler extends ServerSocket implements Runnable {
     private HashMap<Integer, Socket> connections;
     private HashMap<Integer, BufferedReader> readers;
     private HashMap<Integer, PrintWriter> writers;
-    private int port;
     private int next_connection_ID;
     
     private static final int default_port = 14612;
@@ -16,8 +14,7 @@ public class ClientHandler implements Runnable {
      * @throws IOException
      */
     ClientHandler() throws IOException {
-        port = default_port;
-        server = null;
+        super(default_port);
         connections = new HashMap<Integer, Socket>();
         readers = new HashMap<Integer, BufferedReader>();
         writers = new HashMap<Integer, PrintWriter>();
@@ -30,8 +27,7 @@ public class ClientHandler implements Runnable {
      * @throws IOException
      */
     ClientHandler(int port) throws IOException {
-        this.port = port;
-        server = null;
+        super(port);
         connections = new HashMap<Integer, Socket>();
         readers = new HashMap<Integer, BufferedReader>();
         writers = new HashMap<Integer, PrintWriter>();
@@ -39,22 +35,16 @@ public class ClientHandler implements Runnable {
     }
     
     public void run() {
-        try {
-            server = new ServerSocket(port);
-        } catch (IOException e) {
-            // TODO
-            e.printStackTrace();
-        }
-        while (server != null && !server.isClosed()) {
+        while (!this.isClosed()) {
             try {
                 // We don't need a sleep() because this is blocking.
                 // This thread basically accepts all incoming connections.
-                Socket incoming_connection = server.accept();
-                if(!server.isClosed()) {
+                Socket incoming_connection = this.accept();
+                if(!this.isClosed()) {
                     add_socket(incoming_connection);
                 }
             } catch (SocketException e) {
-                if(server.isClosed()) {
+                if(this.isClosed()) {
                     shut_down();                    
                 } else {
                     // TODO
@@ -134,32 +124,13 @@ public class ClientHandler implements Runnable {
         }
     }
     
-    public void close() {        
-        try {
-            server.close();
-        } catch (IOException e) {
-            // TODO
-            e.printStackTrace();
-        }
-    }
-    
     private synchronized void shut_down() {
         // We are shutting down the client handler,
         // close and remove all connections
-        Iterator<Integer> connection_ID_iterator = connections.keySet().iterator();
-        while(connection_ID_iterator.hasNext()) {
-            Integer ID = connection_ID_iterator.next();
-            try {
-                connections.get(ID).close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        Integer[] remove_IDs = connections.keySet().toArray(new Integer[0]);
+        for(int i = 0; i < remove_IDs.length; i++) {
+            remove_socket(remove_IDs[i]);
         }
-        connections.clear();
-        readers.clear();
-        writers.clear();
-        next_connection_ID = 0;
-        server = null;
     }
     
     private synchronized void add_socket(Socket socket) throws IOException {
@@ -172,15 +143,18 @@ public class ClientHandler implements Runnable {
         next_connection_ID++;
     }
     
-    private synchronized void remove_socket(Integer socket_ID) {
-        try {
-            connections.get(socket_ID).close();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public synchronized void remove_socket(Integer socket_ID) {
+        Socket socket = connections.get(socket_ID);
+        if(socket != null) {
+            try {
+                connections.get(socket_ID).close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            connections.remove(socket_ID);
+            readers.remove(socket_ID);
+            writers.remove(socket_ID);
+            System.out.println("Closed socket: " + socket_ID);
         }
-        connections.remove(socket_ID);
-        readers.remove(socket_ID);
-        writers.remove(socket_ID);
-        System.out.println("Closed socket: " + socket_ID);
     }
 }
