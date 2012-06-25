@@ -9,30 +9,18 @@
 		<delete dir="bin"/>
 	</target>
 	
-	<target name="Environment" depends="init">
-		<mkdir dir="build/Environment"/>
-		<javac srcdir="src" destdir="build/Environment" includeantruntime="false">
-			<include name="Environment/*.java"/>
-			<include name="Shared/*.java"/>
-		</javac>
+	<target name="Compile" depends="init">
+		<javac srcdir="src" destdir="build" includeantruntime="false"/>
 	</target>
 	
-	<target name="Interface" depends="init">
-		<mkdir dir="build/Interface"/>
-		<javac srcdir="src" destdir="build/Interface" includeantruntime="false">
-			<include name="Interface/*.java"/>
-			<include name="Shared/*.java"/>
-		</javac>
-	</target>
-	
-	<target name="Release" depends="init, Environment,Interface">
+	<target name="Release" depends="init, Compile">
 		<mkdir dir="bin"/>
-		<jar jarfile="bin/Interface-${DSTAMP}.jar" basedir="build/Interface">
+		<jar jarfile="bin/Interface-${DSTAMP}.jar" basedir="build" includes="com/wikispaces/lsfn/Interface/* com/wikispaces/lsfn/Shared/*">
 			<manifest>
 				<attribute name="Main-Class" value="com.wikispaces.lsfn.Interface.InterfaceClient"/>
 			</manifest>
 		</jar>
-		<jar jarfile="bin/Environment-${DSTAMP}.jar" basedir="build/Environment">
+		<jar jarfile="bin/Environment-${DSTAMP}.jar" basedir="build" includes="com/wikispaces/lsfn/Environment/* com/wikispaces/lsfn/Shared/*">
 			<manifest>
 				<attribute name="Main-Class" value="com.wikispaces.lsfn.Environment.EnvironmentServer"/>
 			</manifest>
