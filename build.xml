@@ -29,12 +29,12 @@
 		<mkdir dir="bin"/>
 		<jar jarfile="bin/Interface-${DSTAMP}.jar" basedir="build/Interface">
 			<manifest>
-				<attribute name="Main-Class" value="InterfaceClient"/>
+				<attribute name="Main-Class" value="com.wikispaces.lsfn.Interface.InterfaceClient"/>
 			</manifest>
 		</jar>
 		<jar jarfile="bin/Environment-${DSTAMP}.jar" basedir="build/Environment">
 			<manifest>
-				<attribute name="Main-Class" value="EnvironmentServer"/>
+				<attribute name="Main-Class" value="com.wikispaces.lsfn.Environment.EnvironmentServer"/>
 			</manifest>
 		</jar>
 	</target>

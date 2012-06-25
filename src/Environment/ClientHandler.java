@@ -1,3 +1,5 @@
+package com.wikispaces.lsfn.Environment;
+
 import java.io.*;
 import java.net.*;
 import java.util.*;

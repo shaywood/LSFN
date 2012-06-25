@@ -1,3 +1,4 @@
+package com.wikispaces.lsfn.Environment;
 
 public class Ship {
     private double x, y;

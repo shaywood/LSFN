@@ -1,6 +1,7 @@
+package com.wikispaces.lsfn.Environment;
+
 import java.io.*;
 import java.util.*;
-
 
 public class EnvironmentServer {
 

@@ -1,3 +1,5 @@
+package com.wikispaces.lsfn.Interface;
+
 import java.io.*;
 import java.util.*;
 import java.net.*;
