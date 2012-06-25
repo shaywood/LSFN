@@ -1,5 +1,6 @@
 package com.wikispaces.lsfn.Interface;
 
+import com.wikispaces.lsfn.Shared.*;
 import java.io.*;
 
 public class InterfaceClient {

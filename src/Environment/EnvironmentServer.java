@@ -1,5 +1,6 @@
 package com.wikispaces.lsfn.Environment;
 
+import com.wikispaces.lsfn.Shared.*;
 import java.io.*;
 import java.util.*;
 

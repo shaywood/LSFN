@@ -1,4 +1,4 @@
-package com.wikispaces.lsfn.Interface;
+package com.wikispaces.lsfn.Shared;
 
 import java.io.*;
 import java.util.*;
