@@ -1,0 +1,41 @@
+<project name="LSFN" default="Release">
+	<target name="init">
+		<tstamp/> <!-- Lets us use ${DSTAMP} elsewhere. -->
+		<mkdir dir="build"/>
+	</target>
+	
+	<target name="clean">
+		<delete dir="build"/>
+		<delete dir="bin"/>
+	</target>
+	
+	<target name="Environment" depends="init">
+		<mkdir dir="build/Environment"/>
+		<javac srcdir="src" destdir="build/Environment" includeantruntime="false">
+			<include name="Environment/*.java"/>
+			<include name="Shared/*.java"/>
+		</javac>
+	</target>
+	
+	<target name="Interface" depends="init">
+		<mkdir dir="build/Interface"/>
+		<javac srcdir="src" destdir="build/Interface" includeantruntime="false">
+			<include name="Interface/*.java"/>
+			<include name="Shared/*.java"/>
+		</javac>
+	</target>
+	
+	<target name="Release" depends="init, Environment,Interface">
+		<mkdir dir="bin"/>
+		<jar jarfile="bin/Interface-${DSTAMP}.jar" basedir="build/Interface">
+			<manifest>
+				<attribute name="Main-Class" value="InterfaceClient"/>
+			</manifest>
+		</jar>
+		<jar jarfile="bin/Environment-${DSTAMP}.jar" basedir="build/Environment">
+			<manifest>
+				<attribute name="Main-Class" value="EnvironmentServer"/>
+			</manifest>
+		</jar>
+	</target>
+</project>
