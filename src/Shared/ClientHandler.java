@@ -16,7 +16,7 @@ public class ClientHandler extends ServerSocket implements Runnable {
      * This class accepts all incoming connections from InterfaceClients on the default port.
      * @throws IOException
      */
-    ClientHandler() throws IOException {
+    public ClientHandler() throws IOException {
         super(default_port);
         connections = new HashMap<Integer, Socket>();
         readers = new HashMap<Integer, BufferedReader>();
@@ -29,7 +29,7 @@ public class ClientHandler extends ServerSocket implements Runnable {
      * @param port The port to listen for clients on.
      * @throws IOException
      */
-    ClientHandler(int port) throws IOException {
+    public ClientHandler(int port) throws IOException {
         super(port);
         this.setSoTimeout(20);
         connections = new HashMap<Integer, Socket>();

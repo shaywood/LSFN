@@ -15,7 +15,7 @@ public class Listener extends Socket implements Runnable {
      * @param port The port that the Socket will connect to.
      * @throws IOException
      */
-    Listener(String host, int port) throws IOException {
+    public Listener(String host, int port) throws IOException {
         super(host, port);
         input = new BufferedReader(new InputStreamReader(this.getInputStream()));
         output = new PrintWriter(this.getOutputStream(), true);
