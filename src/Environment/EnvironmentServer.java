@@ -4,12 +4,9 @@ import com.wikispaces.lsfn.Shared.*;
 import java.io.*;
 import java.util.*;
 
-public class EnvironmentServer {
+public class EnvironmentServer implements Runnable {
 
-    /**
-     * @param args
-     */
-    public static void main(String[] args) {
+    public void run() {
         ClientHandler SHIP_server = null;
         try {
             SHIP_server = new ClientHandler(14613);
@@ -65,5 +62,12 @@ public class EnvironmentServer {
                 e.printStackTrace();
             }
         }
+    }
+    
+    /**
+     * @param args
+     */
+    public static void main(String[] args) {
+        new EnvironmentServer().run();
     }
 }
