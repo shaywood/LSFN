@@ -31,7 +31,6 @@ public class ClientHandler extends ServerSocket implements Runnable {
      */
     public ClientHandler(int port) throws IOException {
         super(port);
-        this.setSoTimeout(20);
         connections = new HashMap<Integer, Socket>();
         readers = new HashMap<Integer, BufferedReader>();
         writers = new HashMap<Integer, PrintWriter>();

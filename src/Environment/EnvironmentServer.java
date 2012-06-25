@@ -10,33 +10,33 @@ public class EnvironmentServer {
      * @param args
      */
     public static void main(String[] args) {
-        ClientHandler client_handler = null;
+        ClientHandler SHIP_server = null;
         try {
-            client_handler = new ClientHandler();
+            SHIP_server = new ClientHandler(14613);
         } catch (IOException e) {
             //TODO
             e.printStackTrace();
         }
         
         // Check if the ClientHandler opened successfully.
-        if(client_handler != null) {
-            Thread client_thread = new Thread(client_handler);
+        if(SHIP_server != null) {
+            Thread client_thread = new Thread(SHIP_server);
             client_thread.start();
             
             boolean running = true;
             while(running) {
-                HashMap<Integer, String[]> messages = client_handler.read_all();
+                HashMap<Integer, String[]> messages = SHIP_server.read_all();
                 Iterator<Integer> message_iterator = messages.keySet().iterator();
                 while(message_iterator.hasNext()) {
                     Integer message_ID = message_iterator.next();
                     String[] message_array = messages.get(message_ID);
                     for(int i = 0; i < message_array.length; i++) {
                         System.out.println("Socket " + message_ID + " sent: \"" + message_array[i] + "\" length " + message_array[i].length());
-                        client_handler.send(message_ID, message_array[i]);
+                        SHIP_server.send(message_ID, message_array[i]);
                         if(message_array[i].equals("Stop server.")) {
                             running = false;
                         } else if(message_array[i].equals("Bye.")) {
-                            client_handler.remove_socket(message_ID);
+                            SHIP_server.remove_socket(message_ID);
                             break;
                         }
                     }
@@ -51,11 +51,11 @@ public class EnvironmentServer {
             }
             
             // Tells the clients that the server is shutting down
-            client_handler.send_to_all("Server shutting down.");
+            SHIP_server.send_to_all("Server shutting down.");
             
-            // Tries to close and join the client_handler.
+            // Tries to close and join the SHIP_server.
             try {
-                client_handler.close();
+                SHIP_server.close();
                 client_thread.join();
             } catch (IOException e) {
                 // TODO If this exception occurs, nothing will come of it, the program is ending anyway.

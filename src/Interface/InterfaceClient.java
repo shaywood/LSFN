@@ -11,17 +11,17 @@ public class InterfaceClient {
     public static void main(String[] args) {
         String host_str = "localhost";
         int port = 14612;
-        Listener listener = null;;
+        Listener SHIP_client = null;
         try {
-            listener = new Listener(host_str, port);
+            SHIP_client = new Listener(host_str, port);
         } catch (IOException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
         
         // Check if socket creation succeeded
-        if(listener != null) {
-            Thread listen_thread = new Thread(listener);
+        if(SHIP_client != null) {
+            Thread listen_thread = new Thread(SHIP_client);
             listen_thread.start();
             boolean running = true;
             BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
@@ -34,7 +34,7 @@ public class InterfaceClient {
                     if(stdIn.ready()) {
                         // If there is we send it to the server.
                         userInput = stdIn.readLine();
-                        listener.send(userInput);
+                        SHIP_client.send(userInput);
                     }
                 } catch (IOException e) {
                     System.err.println("Failed to read from stdin.");
@@ -43,7 +43,7 @@ public class InterfaceClient {
                 }
                 
                 // Then we get any messages the server has sent to us, if any.
-                String[] messages = listener.get_messages();
+                String[] messages = SHIP_client.get_messages();
                 for(int i = 0; i < messages.length; i++) {
                     System.out.println("Received message \"" + messages[i] + "\"");
                     if(messages[i].equals("Server shutting down.")) running = false;
@@ -62,7 +62,7 @@ public class InterfaceClient {
                 }
             }
             
-            // When we shut down, we close the listener and join the thread.
+            // When we shut down, we close the SHIP_client and join the thread.
             System.out.println("Shutting down.");
             try {
                 listen_thread.interrupt();
@@ -73,7 +73,7 @@ public class InterfaceClient {
             }
             
             try {
-                listener.close();
+                SHIP_client.close();
             } catch (IOException e1) {
                 // TODO
                 e1.printStackTrace();

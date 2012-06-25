@@ -46,6 +46,11 @@
 				<attribute name="Main-Class" value="com.wikispaces.lsfn.Interface.InterfaceClient"/>
 			</manifest>
 		</jar>
+		<jar jarfile="bin/Ship-${DSTAMP}.jar" basedir="build" includes="com/wikispaces/lsfn/Ship/* com/wikispaces/lsfn/Shared/*">
+			<manifest>
+				<attribute name="Main-Class" value="com.wikispaces.lsfn.Ship.ShipServer"/>
+			</manifest>
+		</jar>
 		<jar jarfile="bin/Environment-${DSTAMP}.jar" basedir="build" includes="com/wikispaces/lsfn/Environment/* com/wikispaces/lsfn/Shared/*">
 			<manifest>
 				<attribute name="Main-Class" value="com.wikispaces.lsfn.Environment.EnvironmentServer"/>
