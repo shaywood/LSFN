@@ -9,8 +9,15 @@
 		<delete dir="buildtests"/>
 		<delete dir="testoutput"/>
 	</target>
+    
+    <target name="ProtoToJava" depends="init">
+        <exec executable="protoc">
+            <arg value="src/Shared/*.proto" />
+            <arg value="--java_out=src/Shared/Generated" />
+        </exec>
+    </target>
 	
-	<target name="Compile" depends="init">
+	<target name="Compile" depends="init, ProtoToJava">
 		<mkdir dir="build"/>
 		<javac srcdir="src" destdir="build" includeantruntime="false">
             <classpath>
