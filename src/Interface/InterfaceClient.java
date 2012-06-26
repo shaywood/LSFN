@@ -23,6 +23,10 @@ public class InterfaceClient {
         if(SHIP_client != null) {
             Thread listen_thread = new Thread(SHIP_client);
             listen_thread.start();
+            
+            // Perform Handshake with SHIP
+            //SHIP_client
+            
             boolean running = true;
             BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
             String userInput;

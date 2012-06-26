@@ -116,7 +116,7 @@ message SE {
     }
     
     message Ship_movement {
-        repeated sint32 axis_accel = 1;
+        repeated double axis_accel = 1;
     }
     
     optional Handshake handshake = 16;
