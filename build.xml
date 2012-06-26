@@ -12,9 +12,13 @@
 	
 	<target name="Compile" depends="init">
 		<mkdir dir="build"/>
-		<javac srcdir="src" destdir="build" includeantruntime="false"/>
+		<javac srcdir="src" destdir="build" includeantruntime="false">
+            <classpath>
+                <fileset dir="lib"/>
+            </classpath>
+        </javac>
 	</target>
-	
+
 	<path id="test.classpath">
 		<pathelement location="build"/>
 		<pathelement location="buildtests"/>
