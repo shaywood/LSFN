@@ -18,12 +18,13 @@ message IS {
     }
     
     message Subscribe {
-        repeated int32 subscription_IDs = 1;
+        repeated int32 output_IDs = 1;
+        repeated int32 input_IDs = 2;
     }
     
     message Subscription_input_updates {
         message Subscription_update {
-            required int32 subscription_ID = 1;
+            required int32 input_ID = 1;
             optional float float_value = 2;
             optional double double_value = 3;
             optional int32 int32_value = 4;
@@ -89,7 +90,7 @@ message SI {
     
     message Subscription_output_updates {
         message Subscription_update {
-            required int32 subscription_ID = 1;
+            required int32 output_ID = 1;
             optional float float_value = 2;
             optional double double_value = 3;
             optional int32 int32_value = 4;

@@ -706,10 +706,15 @@ public final class LSFN {
     public interface SubscribeOrBuilder
         extends com.google.protobuf.MessageOrBuilder {
       
-      // repeated int32 subscription_IDs = 1;
-      java.util.List<java.lang.Integer> getSubscriptionIDsList();
-      int getSubscriptionIDsCount();
-      int getSubscriptionIDs(int index);
+      // repeated int32 output_IDs = 1;
+      java.util.List<java.lang.Integer> getOutputIDsList();
+      int getOutputIDsCount();
+      int getOutputIDs(int index);
+      
+      // repeated int32 input_IDs = 2;
+      java.util.List<java.lang.Integer> getInputIDsList();
+      int getInputIDsCount();
+      int getInputIDs(int index);
     }
     public static final class Subscribe extends
         com.google.protobuf.GeneratedMessage
@@ -739,22 +744,37 @@ public final class LSFN {
         return LSFN.internal_static_IS_Subscribe_fieldAccessorTable;
       }
       
-      // repeated int32 subscription_IDs = 1;
-      public static final int SUBSCRIPTION_IDS_FIELD_NUMBER = 1;
-      private java.util.List<java.lang.Integer> subscriptionIDs_;
+      // repeated int32 output_IDs = 1;
+      public static final int OUTPUT_IDS_FIELD_NUMBER = 1;
+      private java.util.List<java.lang.Integer> outputIDs_;
       public java.util.List<java.lang.Integer>
-          getSubscriptionIDsList() {
-        return subscriptionIDs_;
+          getOutputIDsList() {
+        return outputIDs_;
       }
-      public int getSubscriptionIDsCount() {
-        return subscriptionIDs_.size();
+      public int getOutputIDsCount() {
+        return outputIDs_.size();
       }
-      public int getSubscriptionIDs(int index) {
-        return subscriptionIDs_.get(index);
+      public int getOutputIDs(int index) {
+        return outputIDs_.get(index);
+      }
+      
+      // repeated int32 input_IDs = 2;
+      public static final int INPUT_IDS_FIELD_NUMBER = 2;
+      private java.util.List<java.lang.Integer> inputIDs_;
+      public java.util.List<java.lang.Integer>
+          getInputIDsList() {
+        return inputIDs_;
+      }
+      public int getInputIDsCount() {
+        return inputIDs_.size();
+      }
+      public int getInputIDs(int index) {
+        return inputIDs_.get(index);
       }
       
       private void initFields() {
-        subscriptionIDs_ = java.util.Collections.emptyList();;
+        outputIDs_ = java.util.Collections.emptyList();;
+        inputIDs_ = java.util.Collections.emptyList();;
       }
       private byte memoizedIsInitialized = -1;
       public final boolean isInitialized() {
@@ -768,8 +788,11 @@ public final class LSFN {
       public void writeTo(com.google.protobuf.CodedOutputStream output)
                           throws java.io.IOException {
         getSerializedSize();
-        for (int i = 0; i < subscriptionIDs_.size(); i++) {
-          output.writeInt32(1, subscriptionIDs_.get(i));
+        for (int i = 0; i < outputIDs_.size(); i++) {
+          output.writeInt32(1, outputIDs_.get(i));
+        }
+        for (int i = 0; i < inputIDs_.size(); i++) {
+          output.writeInt32(2, inputIDs_.get(i));
         }
         getUnknownFields().writeTo(output);
       }
@@ -782,12 +805,21 @@ public final class LSFN {
         size = 0;
         {
           int dataSize = 0;
-          for (int i = 0; i < subscriptionIDs_.size(); i++) {
+          for (int i = 0; i < outputIDs_.size(); i++) {
             dataSize += com.google.protobuf.CodedOutputStream
-              .computeInt32SizeNoTag(subscriptionIDs_.get(i));
+              .computeInt32SizeNoTag(outputIDs_.get(i));
           }
           size += dataSize;
-          size += 1 * getSubscriptionIDsList().size();
+          size += 1 * getOutputIDsList().size();
+        }
+        {
+          int dataSize = 0;
+          for (int i = 0; i < inputIDs_.size(); i++) {
+            dataSize += com.google.protobuf.CodedOutputStream
+              .computeInt32SizeNoTag(inputIDs_.get(i));
+          }
+          size += dataSize;
+          size += 1 * getInputIDsList().size();
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSerializedSize = size;
@@ -913,8 +945,10 @@ public final class LSFN {
         
         public Builder clear() {
           super.clear();
-          subscriptionIDs_ = java.util.Collections.emptyList();;
+          outputIDs_ = java.util.Collections.emptyList();;
           bitField0_ = (bitField0_ & ~0x00000001);
+          inputIDs_ = java.util.Collections.emptyList();;
+          bitField0_ = (bitField0_ & ~0x00000002);
           return this;
         }
         
@@ -953,10 +987,15 @@ public final class LSFN {
           LSFN.IS.Subscribe result = new LSFN.IS.Subscribe(this);
           int from_bitField0_ = bitField0_;
           if (((bitField0_ & 0x00000001) == 0x00000001)) {
-            subscriptionIDs_ = java.util.Collections.unmodifiableList(subscriptionIDs_);
+            outputIDs_ = java.util.Collections.unmodifiableList(outputIDs_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
-          result.subscriptionIDs_ = subscriptionIDs_;
+          result.outputIDs_ = outputIDs_;
+          if (((bitField0_ & 0x00000002) == 0x00000002)) {
+            inputIDs_ = java.util.Collections.unmodifiableList(inputIDs_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.inputIDs_ = inputIDs_;
           onBuilt();
           return result;
         }
@@ -972,13 +1011,23 @@ public final class LSFN {
         
         public Builder mergeFrom(LSFN.IS.Subscribe other) {
           if (other == LSFN.IS.Subscribe.getDefaultInstance()) return this;
-          if (!other.subscriptionIDs_.isEmpty()) {
-            if (subscriptionIDs_.isEmpty()) {
-              subscriptionIDs_ = other.subscriptionIDs_;
+          if (!other.outputIDs_.isEmpty()) {
+            if (outputIDs_.isEmpty()) {
+              outputIDs_ = other.outputIDs_;
               bitField0_ = (bitField0_ & ~0x00000001);
             } else {
-              ensureSubscriptionIDsIsMutable();
-              subscriptionIDs_.addAll(other.subscriptionIDs_);
+              ensureOutputIDsIsMutable();
+              outputIDs_.addAll(other.outputIDs_);
+            }
+            onChanged();
+          }
+          if (!other.inputIDs_.isEmpty()) {
+            if (inputIDs_.isEmpty()) {
+              inputIDs_ = other.inputIDs_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureInputIDsIsMutable();
+              inputIDs_.addAll(other.inputIDs_);
             }
             onChanged();
           }
@@ -1014,15 +1063,29 @@ public final class LSFN {
                 break;
               }
               case 8: {
-                ensureSubscriptionIDsIsMutable();
-                subscriptionIDs_.add(input.readInt32());
+                ensureOutputIDsIsMutable();
+                outputIDs_.add(input.readInt32());
                 break;
               }
               case 10: {
                 int length = input.readRawVarint32();
                 int limit = input.pushLimit(length);
                 while (input.getBytesUntilLimit() > 0) {
-                  addSubscriptionIDs(input.readInt32());
+                  addOutputIDs(input.readInt32());
+                }
+                input.popLimit(limit);
+                break;
+              }
+              case 16: {
+                ensureInputIDsIsMutable();
+                inputIDs_.add(input.readInt32());
+                break;
+              }
+              case 18: {
+                int length = input.readRawVarint32();
+                int limit = input.pushLimit(length);
+                while (input.getBytesUntilLimit() > 0) {
+                  addInputIDs(input.readInt32());
                 }
                 input.popLimit(limit);
                 break;
@@ -1033,47 +1096,92 @@ public final class LSFN {
         
         private int bitField0_;
         
-        // repeated int32 subscription_IDs = 1;
-        private java.util.List<java.lang.Integer> subscriptionIDs_ = java.util.Collections.emptyList();;
-        private void ensureSubscriptionIDsIsMutable() {
+        // repeated int32 output_IDs = 1;
+        private java.util.List<java.lang.Integer> outputIDs_ = java.util.Collections.emptyList();;
+        private void ensureOutputIDsIsMutable() {
           if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-            subscriptionIDs_ = new java.util.ArrayList<java.lang.Integer>(subscriptionIDs_);
+            outputIDs_ = new java.util.ArrayList<java.lang.Integer>(outputIDs_);
             bitField0_ |= 0x00000001;
            }
         }
         public java.util.List<java.lang.Integer>
-            getSubscriptionIDsList() {
-          return java.util.Collections.unmodifiableList(subscriptionIDs_);
+            getOutputIDsList() {
+          return java.util.Collections.unmodifiableList(outputIDs_);
         }
-        public int getSubscriptionIDsCount() {
-          return subscriptionIDs_.size();
+        public int getOutputIDsCount() {
+          return outputIDs_.size();
         }
-        public int getSubscriptionIDs(int index) {
-          return subscriptionIDs_.get(index);
+        public int getOutputIDs(int index) {
+          return outputIDs_.get(index);
         }
-        public Builder setSubscriptionIDs(
+        public Builder setOutputIDs(
             int index, int value) {
-          ensureSubscriptionIDsIsMutable();
-          subscriptionIDs_.set(index, value);
+          ensureOutputIDsIsMutable();
+          outputIDs_.set(index, value);
           onChanged();
           return this;
         }
-        public Builder addSubscriptionIDs(int value) {
-          ensureSubscriptionIDsIsMutable();
-          subscriptionIDs_.add(value);
+        public Builder addOutputIDs(int value) {
+          ensureOutputIDsIsMutable();
+          outputIDs_.add(value);
           onChanged();
           return this;
         }
-        public Builder addAllSubscriptionIDs(
+        public Builder addAllOutputIDs(
             java.lang.Iterable<? extends java.lang.Integer> values) {
-          ensureSubscriptionIDsIsMutable();
-          super.addAll(values, subscriptionIDs_);
+          ensureOutputIDsIsMutable();
+          super.addAll(values, outputIDs_);
           onChanged();
           return this;
         }
-        public Builder clearSubscriptionIDs() {
-          subscriptionIDs_ = java.util.Collections.emptyList();;
+        public Builder clearOutputIDs() {
+          outputIDs_ = java.util.Collections.emptyList();;
           bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+          return this;
+        }
+        
+        // repeated int32 input_IDs = 2;
+        private java.util.List<java.lang.Integer> inputIDs_ = java.util.Collections.emptyList();;
+        private void ensureInputIDsIsMutable() {
+          if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+            inputIDs_ = new java.util.ArrayList<java.lang.Integer>(inputIDs_);
+            bitField0_ |= 0x00000002;
+           }
+        }
+        public java.util.List<java.lang.Integer>
+            getInputIDsList() {
+          return java.util.Collections.unmodifiableList(inputIDs_);
+        }
+        public int getInputIDsCount() {
+          return inputIDs_.size();
+        }
+        public int getInputIDs(int index) {
+          return inputIDs_.get(index);
+        }
+        public Builder setInputIDs(
+            int index, int value) {
+          ensureInputIDsIsMutable();
+          inputIDs_.set(index, value);
+          onChanged();
+          return this;
+        }
+        public Builder addInputIDs(int value) {
+          ensureInputIDsIsMutable();
+          inputIDs_.add(value);
+          onChanged();
+          return this;
+        }
+        public Builder addAllInputIDs(
+            java.lang.Iterable<? extends java.lang.Integer> values) {
+          ensureInputIDsIsMutable();
+          super.addAll(values, inputIDs_);
+          onChanged();
+          return this;
+        }
+        public Builder clearInputIDs() {
+          inputIDs_ = java.util.Collections.emptyList();;
+          bitField0_ = (bitField0_ & ~0x00000002);
           onChanged();
           return this;
         }
@@ -1133,9 +1241,9 @@ public final class LSFN {
       public interface Subscription_updateOrBuilder
           extends com.google.protobuf.MessageOrBuilder {
         
-        // required int32 subscription_ID = 1;
-        boolean hasSubscriptionID();
-        int getSubscriptionID();
+        // required int32 input_ID = 1;
+        boolean hasInputID();
+        int getInputID();
         
         // optional float float_value = 2;
         boolean hasFloatValue();
@@ -1186,14 +1294,14 @@ public final class LSFN {
         }
         
         private int bitField0_;
-        // required int32 subscription_ID = 1;
-        public static final int SUBSCRIPTION_ID_FIELD_NUMBER = 1;
-        private int subscriptionID_;
-        public boolean hasSubscriptionID() {
+        // required int32 input_ID = 1;
+        public static final int INPUT_ID_FIELD_NUMBER = 1;
+        private int inputID_;
+        public boolean hasInputID() {
           return ((bitField0_ & 0x00000001) == 0x00000001);
         }
-        public int getSubscriptionID() {
-          return subscriptionID_;
+        public int getInputID() {
+          return inputID_;
         }
         
         // optional float float_value = 2;
@@ -1269,7 +1377,7 @@ public final class LSFN {
         }
         
         private void initFields() {
-          subscriptionID_ = 0;
+          inputID_ = 0;
           floatValue_ = 0F;
           doubleValue_ = 0D;
           int32Value_ = 0;
@@ -1281,7 +1389,7 @@ public final class LSFN {
           byte isInitialized = memoizedIsInitialized;
           if (isInitialized != -1) return isInitialized == 1;
           
-          if (!hasSubscriptionID()) {
+          if (!hasInputID()) {
             memoizedIsInitialized = 0;
             return false;
           }
@@ -1293,7 +1401,7 @@ public final class LSFN {
                             throws java.io.IOException {
           getSerializedSize();
           if (((bitField0_ & 0x00000001) == 0x00000001)) {
-            output.writeInt32(1, subscriptionID_);
+            output.writeInt32(1, inputID_);
           }
           if (((bitField0_ & 0x00000002) == 0x00000002)) {
             output.writeFloat(2, floatValue_);
@@ -1321,7 +1429,7 @@ public final class LSFN {
           size = 0;
           if (((bitField0_ & 0x00000001) == 0x00000001)) {
             size += com.google.protobuf.CodedOutputStream
-              .computeInt32Size(1, subscriptionID_);
+              .computeInt32Size(1, inputID_);
           }
           if (((bitField0_ & 0x00000002) == 0x00000002)) {
             size += com.google.protobuf.CodedOutputStream
@@ -1467,7 +1575,7 @@ public final class LSFN {
           
           public Builder clear() {
             super.clear();
-            subscriptionID_ = 0;
+            inputID_ = 0;
             bitField0_ = (bitField0_ & ~0x00000001);
             floatValue_ = 0F;
             bitField0_ = (bitField0_ & ~0x00000002);
@@ -1520,7 +1628,7 @@ public final class LSFN {
             if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
               to_bitField0_ |= 0x00000001;
             }
-            result.subscriptionID_ = subscriptionID_;
+            result.inputID_ = inputID_;
             if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
               to_bitField0_ |= 0x00000002;
             }
@@ -1557,8 +1665,8 @@ public final class LSFN {
           
           public Builder mergeFrom(LSFN.IS.Subscription_input_updates.Subscription_update other) {
             if (other == LSFN.IS.Subscription_input_updates.Subscription_update.getDefaultInstance()) return this;
-            if (other.hasSubscriptionID()) {
-              setSubscriptionID(other.getSubscriptionID());
+            if (other.hasInputID()) {
+              setInputID(other.getInputID());
             }
             if (other.hasFloatValue()) {
               setFloatValue(other.getFloatValue());
@@ -1580,7 +1688,7 @@ public final class LSFN {
           }
           
           public final boolean isInitialized() {
-            if (!hasSubscriptionID()) {
+            if (!hasInputID()) {
               
               return false;
             }
@@ -1612,7 +1720,7 @@ public final class LSFN {
                 }
                 case 8: {
                   bitField0_ |= 0x00000001;
-                  subscriptionID_ = input.readInt32();
+                  inputID_ = input.readInt32();
                   break;
                 }
                 case 21: {
@@ -1646,23 +1754,23 @@ public final class LSFN {
           
           private int bitField0_;
           
-          // required int32 subscription_ID = 1;
-          private int subscriptionID_ ;
-          public boolean hasSubscriptionID() {
+          // required int32 input_ID = 1;
+          private int inputID_ ;
+          public boolean hasInputID() {
             return ((bitField0_ & 0x00000001) == 0x00000001);
           }
-          public int getSubscriptionID() {
-            return subscriptionID_;
+          public int getInputID() {
+            return inputID_;
           }
-          public Builder setSubscriptionID(int value) {
+          public Builder setInputID(int value) {
             bitField0_ |= 0x00000001;
-            subscriptionID_ = value;
+            inputID_ = value;
             onChanged();
             return this;
           }
-          public Builder clearSubscriptionID() {
+          public Builder clearInputID() {
             bitField0_ = (bitField0_ & ~0x00000001);
-            subscriptionID_ = 0;
+            inputID_ = 0;
             onChanged();
             return this;
           }
@@ -6594,9 +6702,9 @@ public final class LSFN {
       public interface Subscription_updateOrBuilder
           extends com.google.protobuf.MessageOrBuilder {
         
-        // required int32 subscription_ID = 1;
-        boolean hasSubscriptionID();
-        int getSubscriptionID();
+        // required int32 output_ID = 1;
+        boolean hasOutputID();
+        int getOutputID();
         
         // optional float float_value = 2;
         boolean hasFloatValue();
@@ -6647,14 +6755,14 @@ public final class LSFN {
         }
         
         private int bitField0_;
-        // required int32 subscription_ID = 1;
-        public static final int SUBSCRIPTION_ID_FIELD_NUMBER = 1;
-        private int subscriptionID_;
-        public boolean hasSubscriptionID() {
+        // required int32 output_ID = 1;
+        public static final int OUTPUT_ID_FIELD_NUMBER = 1;
+        private int outputID_;
+        public boolean hasOutputID() {
           return ((bitField0_ & 0x00000001) == 0x00000001);
         }
-        public int getSubscriptionID() {
-          return subscriptionID_;
+        public int getOutputID() {
+          return outputID_;
         }
         
         // optional float float_value = 2;
@@ -6730,7 +6838,7 @@ public final class LSFN {
         }
         
         private void initFields() {
-          subscriptionID_ = 0;
+          outputID_ = 0;
           floatValue_ = 0F;
           doubleValue_ = 0D;
           int32Value_ = 0;
@@ -6742,7 +6850,7 @@ public final class LSFN {
           byte isInitialized = memoizedIsInitialized;
           if (isInitialized != -1) return isInitialized == 1;
           
-          if (!hasSubscriptionID()) {
+          if (!hasOutputID()) {
             memoizedIsInitialized = 0;
             return false;
           }
@@ -6754,7 +6862,7 @@ public final class LSFN {
                             throws java.io.IOException {
           getSerializedSize();
           if (((bitField0_ & 0x00000001) == 0x00000001)) {
-            output.writeInt32(1, subscriptionID_);
+            output.writeInt32(1, outputID_);
           }
           if (((bitField0_ & 0x00000002) == 0x00000002)) {
             output.writeFloat(2, floatValue_);
@@ -6782,7 +6890,7 @@ public final class LSFN {
           size = 0;
           if (((bitField0_ & 0x00000001) == 0x00000001)) {
             size += com.google.protobuf.CodedOutputStream
-              .computeInt32Size(1, subscriptionID_);
+              .computeInt32Size(1, outputID_);
           }
           if (((bitField0_ & 0x00000002) == 0x00000002)) {
             size += com.google.protobuf.CodedOutputStream
@@ -6928,7 +7036,7 @@ public final class LSFN {
           
           public Builder clear() {
             super.clear();
-            subscriptionID_ = 0;
+            outputID_ = 0;
             bitField0_ = (bitField0_ & ~0x00000001);
             floatValue_ = 0F;
             bitField0_ = (bitField0_ & ~0x00000002);
@@ -6981,7 +7089,7 @@ public final class LSFN {
             if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
               to_bitField0_ |= 0x00000001;
             }
-            result.subscriptionID_ = subscriptionID_;
+            result.outputID_ = outputID_;
             if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
               to_bitField0_ |= 0x00000002;
             }
@@ -7018,8 +7126,8 @@ public final class LSFN {
           
           public Builder mergeFrom(LSFN.SI.Subscription_output_updates.Subscription_update other) {
             if (other == LSFN.SI.Subscription_output_updates.Subscription_update.getDefaultInstance()) return this;
-            if (other.hasSubscriptionID()) {
-              setSubscriptionID(other.getSubscriptionID());
+            if (other.hasOutputID()) {
+              setOutputID(other.getOutputID());
             }
             if (other.hasFloatValue()) {
               setFloatValue(other.getFloatValue());
@@ -7041,7 +7149,7 @@ public final class LSFN {
           }
           
           public final boolean isInitialized() {
-            if (!hasSubscriptionID()) {
+            if (!hasOutputID()) {
               
               return false;
             }
@@ -7073,7 +7181,7 @@ public final class LSFN {
                 }
                 case 8: {
                   bitField0_ |= 0x00000001;
-                  subscriptionID_ = input.readInt32();
+                  outputID_ = input.readInt32();
                   break;
                 }
                 case 21: {
@@ -7107,23 +7215,23 @@ public final class LSFN {
           
           private int bitField0_;
           
-          // required int32 subscription_ID = 1;
-          private int subscriptionID_ ;
-          public boolean hasSubscriptionID() {
+          // required int32 output_ID = 1;
+          private int outputID_ ;
+          public boolean hasOutputID() {
             return ((bitField0_ & 0x00000001) == 0x00000001);
           }
-          public int getSubscriptionID() {
-            return subscriptionID_;
+          public int getOutputID() {
+            return outputID_;
           }
-          public Builder setSubscriptionID(int value) {
+          public Builder setOutputID(int value) {
             bitField0_ |= 0x00000001;
-            subscriptionID_ = value;
+            outputID_ = value;
             onChanged();
             return this;
           }
-          public Builder clearSubscriptionID() {
+          public Builder clearOutputID() {
             bitField0_ = (bitField0_ & ~0x00000001);
-            subscriptionID_ = 0;
+            outputID_ = 0;
             onChanged();
             return this;
           }
@@ -11921,7 +12029,7 @@ public final class LSFN {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\025src/Shared/LSFN.proto\"\200\005\n\002IS\022 \n\thandsh" +
+      "\n\025src/Shared/LSFN.proto\"\206\005\n\002IS\022 \n\thandsh" +
       "ake\030\020 \001(\0162\r.IS.Handshake\022%\n\007command\030\021 \001(" +
       "\0132\024.IS.SHIP_ENV_command\022 \n\tsubscribe\030\022 \001" +
       "(\0132\r.IS.Subscribe\0225\n\rinput_updates\030\023 \001(\013" +
@@ -11929,41 +12037,41 @@ public final class LSFN {
       "P_ENV_command\022\'\n\004type\030\001 \002(\0162\031.IS.SHIP_EN" +
       "V_command.Type\022\014\n\004host\030\002 \001(\t\022\014\n\004port\030\003 \001" +
       "(\005\"2\n\004Type\022\013\n\007CONNECT\020\000\022\016\n\nDISCONNECT\020\001\022" +
-      "\r\n\tRECONNECT\020\002\032%\n\tSubscribe\022\030\n\020subscript" +
-      "ion_IDs\030\001 \003(\005\032\375\001\n\032Subscription_input_upd",
-      "ates\022C\n\007updates\030\001 \003(\01322.IS.Subscription_" +
-      "input_updates.Subscription_update\032\231\001\n\023Su" +
-      "bscription_update\022\027\n\017subscription_ID\030\001 \002" +
-      "(\005\022\023\n\013float_value\030\002 \001(\002\022\024\n\014double_value\030" +
-      "\003 \001(\001\022\023\n\013int32_value\030\004 \001(\005\022\023\n\013int64_valu" +
-      "e\030\005 \001(\003\022\024\n\014string_value\030\017 \001(\t\"#\n\tHandsha" +
-      "ke\022\t\n\005HELLO\020\000\022\013\n\007GOODBYE\020\001\"\216\t\n\002SI\022 \n\than" +
-      "dshake\030\020 \001(\0132\r.SI.Handshake\022$\n\007command\030\021" +
-      " \001(\0132\023.SI.SHIP_ENV_status\022%\n\tpositions\030\022" +
-      " \001(\0132\022.SI.Ship_positions\022<\n\027subscription",
-      "s_available\030\023 \001(\0132\033.SI.Subscriptions_ava" +
-      "ilable\0227\n\016output_updates\030\024 \001(\0132\037.SI.Subs" +
-      "cription_output_updates\032`\n\tHandshake\022 \n\004" +
-      "type\030\001 \002(\0162\022.SI.Handshake.Type\022\021\n\tplayer" +
-      "_ID\030\002 \001(\005\"\036\n\004Type\022\t\n\005HELLO\020\000\022\013\n\007GOODBYE\020" +
-      "\001\032v\n\017SHIP_ENV_status\022(\n\005state\030\001 \002(\0162\031.SI" +
-      ".SHIP_ENV_status.State\022\017\n\007ship_ID\030\002 \001(\005\"" +
-      "(\n\005State\022\020\n\014DISCONNECTED\020\000\022\r\n\tCONNECTED\020" +
-      "\001\032|\n\016Ship_positions\0223\n\tpositions\030\001 \003(\0132 " +
-      ".SI.Ship_positions.Ship_position\0325\n\rShip",
-      "_position\022\017\n\007ship_ID\030\001 \002(\005\022\023\n\013coordinate" +
-      "s\030\002 \003(\001\032\307\002\n\027Subscriptions_available\022:\n\007o" +
-      "utputs\030\001 \003(\0132).SI.Subscriptions_availabl" +
-      "e.Value_details\0229\n\006inputs\030\002 \003(\0132).SI.Sub" +
-      "scriptions_available.Value_details\032\264\001\n\rV" +
-      "alue_details\022\014\n\004name\030\001 \002(\t\022\n\n\002ID\030\002 \002(\005\022B" +
-      "\n\004type\030\003 \002(\01624.SI.Subscriptions_availabl" +
-      "e.Value_details.Value_type\"E\n\nValue_type" +
-      "\022\t\n\005FLOAT\020\000\022\n\n\006DOUBLE\020\001\022\t\n\005INT32\020\002\022\t\n\005IN" +
-      "T64\020\003\022\n\n\006STRING\020\r\032\377\001\n\033Subscription_outpu",
-      "t_updates\022D\n\007updates\030\001 \003(\01323.SI.Subscrip" +
-      "tion_output_updates.Subscription_update\032" +
-      "\231\001\n\023Subscription_update\022\027\n\017subscription_" +
+      "\r\n\tRECONNECT\020\002\0322\n\tSubscribe\022\022\n\noutput_ID" +
+      "s\030\001 \003(\005\022\021\n\tinput_IDs\030\002 \003(\005\032\366\001\n\032Subscript",
+      "ion_input_updates\022C\n\007updates\030\001 \003(\01322.IS." +
+      "Subscription_input_updates.Subscription_" +
+      "update\032\222\001\n\023Subscription_update\022\020\n\010input_" +
+      "ID\030\001 \002(\005\022\023\n\013float_value\030\002 \001(\002\022\024\n\014double_" +
+      "value\030\003 \001(\001\022\023\n\013int32_value\030\004 \001(\005\022\023\n\013int6" +
+      "4_value\030\005 \001(\003\022\024\n\014string_value\030\017 \001(\t\"#\n\tH" +
+      "andshake\022\t\n\005HELLO\020\000\022\013\n\007GOODBYE\020\001\"\210\t\n\002SI\022" +
+      " \n\thandshake\030\020 \001(\0132\r.SI.Handshake\022$\n\007com" +
+      "mand\030\021 \001(\0132\023.SI.SHIP_ENV_status\022%\n\tposit" +
+      "ions\030\022 \001(\0132\022.SI.Ship_positions\022<\n\027subscr",
+      "iptions_available\030\023 \001(\0132\033.SI.Subscriptio" +
+      "ns_available\0227\n\016output_updates\030\024 \001(\0132\037.S" +
+      "I.Subscription_output_updates\032`\n\tHandsha" +
+      "ke\022 \n\004type\030\001 \002(\0162\022.SI.Handshake.Type\022\021\n\t" +
+      "player_ID\030\002 \001(\005\"\036\n\004Type\022\t\n\005HELLO\020\000\022\013\n\007GO" +
+      "ODBYE\020\001\032v\n\017SHIP_ENV_status\022(\n\005state\030\001 \002(" +
+      "\0162\031.SI.SHIP_ENV_status.State\022\017\n\007ship_ID\030" +
+      "\002 \001(\005\"(\n\005State\022\020\n\014DISCONNECTED\020\000\022\r\n\tCONN" +
+      "ECTED\020\001\032|\n\016Ship_positions\0223\n\tpositions\030\001" +
+      " \003(\0132 .SI.Ship_positions.Ship_position\0325",
+      "\n\rShip_position\022\017\n\007ship_ID\030\001 \002(\005\022\023\n\013coor" +
+      "dinates\030\002 \003(\001\032\307\002\n\027Subscriptions_availabl" +
+      "e\022:\n\007outputs\030\001 \003(\0132).SI.Subscriptions_av" +
+      "ailable.Value_details\0229\n\006inputs\030\002 \003(\0132)." +
+      "SI.Subscriptions_available.Value_details" +
+      "\032\264\001\n\rValue_details\022\014\n\004name\030\001 \002(\t\022\n\n\002ID\030\002" +
+      " \002(\005\022B\n\004type\030\003 \002(\01624.SI.Subscriptions_av" +
+      "ailable.Value_details.Value_type\"E\n\nValu" +
+      "e_type\022\t\n\005FLOAT\020\000\022\n\n\006DOUBLE\020\001\022\t\n\005INT32\020\002" +
+      "\022\t\n\005INT64\020\003\022\n\n\006STRING\020\r\032\371\001\n\033Subscription",
+      "_output_updates\022D\n\007updates\030\001 \003(\01323.SI.Su" +
+      "bscription_output_updates.Subscription_u" +
+      "pdate\032\223\001\n\023Subscription_update\022\021\n\toutput_" +
       "ID\030\001 \002(\005\022\023\n\013float_value\030\002 \001(\002\022\024\n\014double_" +
       "value\030\003 \001(\001\022\023\n\013int32_value\030\004 \001(\005\022\023\n\013int6" +
       "4_value\030\005 \001(\003\022\024\n\014string_value\030\017 \001(\t\"\225\001\n\002" +
@@ -12006,7 +12114,7 @@ public final class LSFN {
           internal_static_IS_Subscribe_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_IS_Subscribe_descriptor,
-              new java.lang.String[] { "SubscriptionIDs", },
+              new java.lang.String[] { "OutputIDs", "InputIDs", },
               LSFN.IS.Subscribe.class,
               LSFN.IS.Subscribe.Builder.class);
           internal_static_IS_Subscription_input_updates_descriptor =
@@ -12022,7 +12130,7 @@ public final class LSFN {
           internal_static_IS_Subscription_input_updates_Subscription_update_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_IS_Subscription_input_updates_Subscription_update_descriptor,
-              new java.lang.String[] { "SubscriptionID", "FloatValue", "DoubleValue", "Int32Value", "Int64Value", "StringValue", },
+              new java.lang.String[] { "InputID", "FloatValue", "DoubleValue", "Int32Value", "Int64Value", "StringValue", },
               LSFN.IS.Subscription_input_updates.Subscription_update.class,
               LSFN.IS.Subscription_input_updates.Subscription_update.Builder.class);
           internal_static_SI_descriptor =
@@ -12094,7 +12202,7 @@ public final class LSFN {
           internal_static_SI_Subscription_output_updates_Subscription_update_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_SI_Subscription_output_updates_Subscription_update_descriptor,
-              new java.lang.String[] { "SubscriptionID", "FloatValue", "DoubleValue", "Int32Value", "Int64Value", "StringValue", },
+              new java.lang.String[] { "OutputID", "FloatValue", "DoubleValue", "Int32Value", "Int64Value", "StringValue", },
               LSFN.SI.Subscription_output_updates.Subscription_update.class,
               LSFN.SI.Subscription_output_updates.Subscription_update.Builder.class);
           internal_static_SE_descriptor =
