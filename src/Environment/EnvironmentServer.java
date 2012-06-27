@@ -20,6 +20,7 @@ public class EnvironmentServer implements Runnable {
             Thread client_thread = new Thread(SHIP_server);
             client_thread.start();
             
+            /*
             boolean running = true;
             while(running) {
                 HashMap<Integer, String[]> messages = SHIP_server.read_all();
@@ -49,6 +50,7 @@ public class EnvironmentServer implements Runnable {
             
             // Tells the clients that the server is shutting down
             SHIP_server.send_to_all("Server shutting down.");
+            */
             
             // Tries to close and join the SHIP_server.
             try {

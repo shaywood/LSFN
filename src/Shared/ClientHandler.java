@@ -24,7 +24,7 @@ public class ClientHandler extends ServerSocket implements Runnable {
      */
     public ClientHandler() throws IOException {
         super(default_port);
-        connections = new HashMap<Integer, Socket>();
+        connections = new HashMap<Integer, SocketData>();
         next_connection_ID = 0;
     }
     
@@ -35,7 +35,7 @@ public class ClientHandler extends ServerSocket implements Runnable {
      */
     public ClientHandler(int port) throws IOException {
         super(port);
-        connections = new HashMap<Integer, Socket>();
+        connections = new HashMap<Integer, SocketData>();
         next_connection_ID = 0;
     }
     
@@ -78,7 +78,7 @@ public class ClientHandler extends ServerSocket implements Runnable {
             if(socket_data.socket.isConnected() && !socket_data.socket.isClosed()) {
                 byte[][] message_array = receive(current_socket_ID);
                 if(message_array != null) {
-                    messages.put(current_socket_ID, message_list);
+                    messages.put(current_socket_ID, message_array);
                 }
             } else {
                 remove_socket(current_socket_ID);
@@ -113,9 +113,9 @@ public class ClientHandler extends ServerSocket implements Runnable {
                 } else {
                     socket_data.bytes_read += socket_data.socket.getInputStream().read(socket_data.length_bytes, socket_data.bytes_read, socket_data.message_size - socket_data.bytes_read);
                     if(socket_data.bytes_read < socket_data.message_size) {
-                        socket_data.more_bytes = false;
+                        more_bytes = false;
                     } else {
-                        add_message(socket_data.message_bytes);
+                        message_list.add(socket_data.message_bytes);
                         socket_data.message_bytes = null;
                         socket_data.bytes_read = -4;
                         socket_data.message_size = 0;
@@ -143,11 +143,16 @@ public class ClientHandler extends ServerSocket implements Runnable {
         SocketData socket_data = connections.get(socket_ID);
         if(socket_data.socket != null) {
             if(socket_data.socket.isConnected()) {
-                socket_data.socket.getOutputStream().write(message.length >> 24);
-                socket_data.socket.getOutputStream().write(message.length >> 16);
-                socket_data.socket.getOutputStream().write(message.length >> 8);
-                socket_data.socket.getOutputStream().write(message.length);
-                socket_data.socket.getOutputStream().write(message);
+                try {
+                    socket_data.socket.getOutputStream().write(message.length >> 24);
+                    socket_data.socket.getOutputStream().write(message.length >> 16);
+                    socket_data.socket.getOutputStream().write(message.length >> 8);
+                    socket_data.socket.getOutputStream().write(message.length);
+                    socket_data.socket.getOutputStream().write(message);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    remove_socket(socket_ID);
+                }
             } else {
                 remove_socket(socket_ID);
             }

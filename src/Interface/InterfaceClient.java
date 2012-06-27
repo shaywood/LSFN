@@ -25,8 +25,10 @@ public class InterfaceClient {
             listen_thread.start();
             
             // Perform Handshake with SHIP
-            //SHIP_client
+            LSFN.IS handshake = LSFN.IS.newBuilder().setHandshake(LSFN.IS.Handshake.HELLO).build();
+            SHIP_client.send(handshake.toByteArray());
             
+            /*
             boolean running = true;
             BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
             String userInput;
@@ -65,7 +67,7 @@ public class InterfaceClient {
                     }
                 }
             }
-            
+            */
             // When we shut down, we close the SHIP_client and join the thread.
             System.out.println("Shutting down.");
             try {

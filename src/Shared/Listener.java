@@ -88,11 +88,15 @@ public class Listener extends Socket implements Runnable {
      */
     public void send(byte[] message) {
         if(message.length < Integer.MAX_VALUE) {
-            this.getOutputStream().write(message.length >> 24);
-            this.getOutputStream().write(message.length >> 16);
-            this.getOutputStream().write(message.length >> 8);
-            this.getOutputStream().write(message.length);
-            this.getOutputStream().write(message);
+            try {
+                this.getOutputStream().write(message.length >> 24);
+                this.getOutputStream().write(message.length >> 16);
+                this.getOutputStream().write(message.length >> 8);
+                this.getOutputStream().write(message.length);
+                this.getOutputStream().write(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
     

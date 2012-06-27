@@ -1,6 +1,7 @@
 package com.wikispaces.lsfn.Ship;
 
 import com.wikispaces.lsfn.Shared.*;
+import com.google.protobuf.*;
 import java.io.*;
 import java.util.*;
 
@@ -38,23 +39,24 @@ public class ShipServer implements Runnable {
             running = true;
             while(running) {
                 // Get all messages fron connected INTs
-                HashMap<Integer, String[]> all_messages = INT_server.read_all();
+                HashMap<Integer, byte[][]> all_messages = INT_server.read_all();
                 Iterator<Integer> INT_ID_iterator = all_messages.keySet().iterator();
                 while(INT_ID_iterator.hasNext()) {
                     Integer INT_ID = INT_ID_iterator.next();
-                    String[] messages = all_messages.get(INT_ID);
+                    byte[][] messages = all_messages.get(INT_ID);
                     if(messages == null) continue;
                     for(int i = 0; i < messages.length; i++) {
                         process_INT_message(INT_ID, messages[i]);
                     }
                 }
                 
+                /*
                 if(ENV_client != null) {
                     String[] messages = ENV_client.get_messages();
                     for(int i = 0; i < messages.length; i++) {
                         process_ENV_message(messages[i]);
                     }
-                }
+                }*/
                 
                 try {
                     Thread.sleep(20);
@@ -63,16 +65,26 @@ public class ShipServer implements Runnable {
                 }
             }
             
+            /*
             if(ENV_client != null) {
                 ENV_client.send("Bye.");
                 stop_ENV_client();
-            }
+            }*/
             
             stop_INT_server();
         }
     }
     
-    private void process_INT_message(Integer INT_ID, String message) {
+    private void process_INT_message(Integer INT_ID, byte[] message) {
+        System.out.println("message bytes: " + message.toString());
+        try {
+            LSFN.IS parsed_message = LSFN.IS.parseFrom(message);
+            System.out.println(parsed_message.toString());
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
+        }
+        
+        /*
         if(message.equals("Connect to ENV.")) {
             if(ENV_client == null) {
                 // Start the ENV_client.
@@ -117,9 +129,10 @@ public class ShipServer implements Runnable {
         } else {
             // Echo the message.
             INT_server.send(INT_ID, message);
-        }
+        }*/
     }
     
+    /*
     private void process_ENV_message(String message) {
         if(message.equals("Server shutting down.")) {
             stop_ENV_client();
@@ -150,7 +163,7 @@ public class ShipServer implements Runnable {
         }
         ENV_client = null;
         ENV_client_thread = null;
-    }
+    }*/
     
     private void stop_INT_server() {
         try {
