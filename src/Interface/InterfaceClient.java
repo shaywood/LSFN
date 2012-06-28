@@ -31,8 +31,6 @@ public class InterfaceClient {
             
             // Perform Handshake with SHIP
             LSFN.IS handshake = LSFN.IS.newBuilder().setHandshake(LSFN.IS.Handshake.HELLO).build();
-            byte[] bytes = handshake.toByteArray();
-            System.out.println(Listener.bytes_to_hex(bytes));
             SHIP_client.send(handshake.toByteArray());
             
             BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
@@ -46,9 +44,8 @@ public class InterfaceClient {
                     if(stdIn.ready()) {
                         // If there is we send it to the server.
                         userInput = stdIn.readLine();
-                        if(userInput.equals("Bye.")) {
+                        if(userInput.equals("stop")) {
                             handshake = LSFN.IS.newBuilder().setHandshake(LSFN.IS.Handshake.GOODBYE).build();
-                            bytes = handshake.toByteArray();
                             SHIP_client.send(handshake.toByteArray());
                         }
                     }
@@ -68,7 +65,6 @@ public class InterfaceClient {
                 try {
                     Thread.sleep(20);
                 } catch (InterruptedException e) {
-                    // TODO
                     e.printStackTrace();
                 }
             }

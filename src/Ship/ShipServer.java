@@ -12,12 +12,14 @@ public class ShipServer implements Runnable {
     private Listener ENV_client;
     private Thread ENV_client_thread;
     private boolean running;
+    private BufferedReader stdin;
     
     ShipServer() {
         INT_server = null;
         INT_server_thread = null;
         ENV_client = null;
         ENV_client_thread = null;
+        stdin = new BufferedReader(new InputStreamReader(System.in));
     }
     
     /**
@@ -35,20 +37,17 @@ public class ShipServer implements Runnable {
             INT_server_thread = new Thread(INT_server);
             INT_server_thread.start();
             
+            BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
+            String userInput;
+            
             // Now start processing INT input
             running = true;
             while(running) {
+                // Collect input from stdin
+                process_stdin();
+                
                 // Get all messages fron connected INTs
-                HashMap<Integer, byte[][]> all_messages = INT_server.read_all();
-                Iterator<Integer> INT_ID_iterator = all_messages.keySet().iterator();
-                while(INT_ID_iterator.hasNext()) {
-                    Integer INT_ID = INT_ID_iterator.next();
-                    byte[][] messages = all_messages.get(INT_ID);
-                    if(messages == null) continue;
-                    for(int i = 0; i < messages.length; i++) {
-                        process_INT_message(INT_ID, messages[i]);
-                    }
-                }
+                process_INTs();
                 
                 /*
                 if(ENV_client != null) {
@@ -72,6 +71,35 @@ public class ShipServer implements Runnable {
             }*/
             
             stop_INT_server();
+        }
+    }
+    
+    private void process_stdin() {
+        try {
+            while(stdin.ready()) {
+                process_stdin_message(stdin.readLine());
+            }
+        } catch (IOException e) {
+            System.err.println("Failed to read from stdin.");
+            e.printStackTrace();
+            running = false;
+        }
+    }
+    
+    private void process_stdin_message(String message) {
+        if(message.equals("stop")) running = false;
+    }
+    
+    private void process_INTs() {
+        HashMap<Integer, byte[][]> all_messages = INT_server.read_all();
+        Iterator<Integer> INT_ID_iterator = all_messages.keySet().iterator();
+        while(INT_ID_iterator.hasNext()) {
+            Integer INT_ID = INT_ID_iterator.next();
+            byte[][] messages = all_messages.get(INT_ID);
+            if(messages == null) continue;
+            for(int i = 0; i < messages.length; i++) {
+                process_INT_message(INT_ID, messages[i]);
+            }
         }
     }
     
