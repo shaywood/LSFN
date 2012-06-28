@@ -35,25 +35,20 @@ public class Listener extends Socket implements Runnable {
         boolean running = true;
         while(running) {
             try {
-                boolean more_bytes = true;
-                while(more_bytes) {
+                while(this.getInputStream().available() > 0) {
                     if(bytes_read < 0) {
                         // We need to read a new message size from the input first
                         // This is 32 bits / 4 bytes long
                         bytes_read += this.getInputStream().read(length_bytes, 4 + bytes_read, -bytes_read);
-                        if(bytes_read < 0) {
-                            more_bytes = false;
-                        } else {
+                        if(bytes_read == 0) {
                             for(int i = 0; i < 4; i++) {
                                 message_size = (message_size << 8) + length_bytes[i];
                             }
                             message_bytes = new byte[message_size];
                         }
                     } else {
-                        bytes_read += this.getInputStream().read(length_bytes, bytes_read, message_size - bytes_read);
-                        if(bytes_read < message_size) {
-                            more_bytes = false;
-                        } else {
+                        bytes_read += this.getInputStream().read(message_bytes, bytes_read, message_size - bytes_read);
+                        if(bytes_read == message_size) {
                             add_message(message_bytes);
                             message_bytes = null;
                             bytes_read = -4;
@@ -110,12 +105,14 @@ public class Listener extends Socket implements Runnable {
     }
     
     public static String bytes_to_hex(byte[] bytes) {
-        String byte_str = "";
-        for(int i = 0; i < bytes.length; i++) {
-            String hex_pair = Integer.toHexString(bytes[i]);
-            if(hex_pair.length() == 1) hex_pair = "0" + hex_pair;
-            byte_str += hex_pair;
+        final char[] hexArray = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+        char[] hexChars = new char[bytes.length * 2];
+        int v;
+        for ( int j = 0; j < bytes.length; j++ ) {
+            v = bytes[j] & 0xFF;
+            hexChars[j * 2] = hexArray[v >>> 4];
+            hexChars[j * 2 + 1] = hexArray[v & 0x0F];
         }
-        return byte_str;
+        return new String(hexChars);
     }
 }

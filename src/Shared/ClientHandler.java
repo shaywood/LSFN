@@ -96,25 +96,20 @@ public class ClientHandler extends ServerSocket implements Runnable {
         ArrayList<byte[]> message_list = new ArrayList<byte[]>();
         
         try {
-            boolean more_bytes = true;
-            while(more_bytes) {
+            while(socket_data.socket.getInputStream().available() > 0) {
                 if(socket_data.bytes_read < 0) {
                     // We need to read a new message size from the input first
                     // This is 32 bits / 4 bytes long
                     socket_data.bytes_read += socket_data.socket.getInputStream().read(socket_data.length_bytes, 4 + socket_data.bytes_read, -socket_data.bytes_read);
-                    if(socket_data.bytes_read < 0) {
-                        more_bytes = false;
-                    } else {
+                    if(socket_data.bytes_read == 0) {
                         for(int i = 0; i < 4; i++) {
                             socket_data.message_size = (socket_data.message_size << 8) + socket_data.length_bytes[i];
                         }
                         socket_data.message_bytes = new byte[socket_data.message_size];
                     }
                 } else {
-                    socket_data.bytes_read += socket_data.socket.getInputStream().read(socket_data.length_bytes, socket_data.bytes_read, socket_data.message_size - socket_data.bytes_read);
-                    if(socket_data.bytes_read < socket_data.message_size) {
-                        more_bytes = false;
-                    } else {
+                    socket_data.bytes_read += socket_data.socket.getInputStream().read(socket_data.message_bytes, socket_data.bytes_read, socket_data.message_size - socket_data.bytes_read);
+                    if(socket_data.bytes_read == socket_data.message_size) {
                         message_list.add(socket_data.message_bytes);
                         socket_data.message_bytes = null;
                         socket_data.bytes_read = -4;
@@ -123,7 +118,6 @@ public class ClientHandler extends ServerSocket implements Runnable {
                 }
             }
         } catch (IOException e) {
-            // TODO
             e.printStackTrace();
             remove_socket(socket_ID);
             return null;
