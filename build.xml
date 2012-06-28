@@ -50,22 +50,26 @@
         </junit>
 	</target>
 	
+    <property name="protobuflib" value="lib/protobuf-java-2.4.1.jar"/>
 	<target name="Release" depends="init, Compile, RunTests">
 		<mkdir dir="bin"/>
 		<jar jarfile="bin/Interface-${DSTAMP}.jar" basedir="build" includes="com/wikispaces/lsfn/Interface/* com/wikispaces/lsfn/Shared/* com/google/protobuf/*">
 			<manifest>
 				<attribute name="Main-Class" value="com.wikispaces.lsfn.Interface.InterfaceClient"/>
 			</manifest>
+            <zipfileset src="${protobuflib}"/>
 		</jar>
 		<jar jarfile="bin/Ship-${DSTAMP}.jar" basedir="build" includes="com/wikispaces/lsfn/Ship/* com/wikispaces/lsfn/Shared/* com/google/protobuf/*">
 			<manifest>
 				<attribute name="Main-Class" value="com.wikispaces.lsfn.Ship.ShipServer"/>
 			</manifest>
+            <zipfileset src="${protobuflib}"/>
 		</jar>
 		<jar jarfile="bin/Environment-${DSTAMP}.jar" basedir="build" includes="com/wikispaces/lsfn/Environment/* com/wikispaces/lsfn/Shared/* com/google/protobuf/*">
 			<manifest>
 				<attribute name="Main-Class" value="com.wikispaces.lsfn.Environment.EnvironmentServer"/>
 			</manifest>
+            <zipfileset src="${protobuflib}"/>
 		</jar>
 	</target>
 </project>
