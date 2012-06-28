@@ -76,7 +76,13 @@ public class ShipServer implements Runnable {
     }
     
     private void process_INT_message(Integer INT_ID, byte[] message) {
-        System.out.println("message bytes: " + message.toString());
+        String byte_str = "";
+        for(int i = 0; i < message.length; i++) {
+            String hex_pair = Integer.toHexString(message[i]);
+            if(hex_pair.length() == 1) hex_pair = "0" + hex_pair;
+            byte_str += hex_pair;
+        }
+        System.out.println("message bytes: " + byte_str);
         try {
             LSFN.IS parsed_message = LSFN.IS.parseFrom(message);
             System.out.println(parsed_message.toString());

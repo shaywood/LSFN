@@ -8,7 +8,7 @@ public class ClientHandler extends ServerSocket implements Runnable {
     private class SocketData {
         public Socket socket;
         public byte[] message_bytes;
-        public byte[] length_bytes = new byte[4];
+        public byte[] length_bytes;
         public int bytes_read;
         public int message_size;
     }
@@ -75,7 +75,7 @@ public class ClientHandler extends ServerSocket implements Runnable {
         while(connection_iterator.hasNext()) {
             Integer current_socket_ID = connection_iterator.next();
             SocketData socket_data = connections.get(current_socket_ID);
-            if(socket_data.socket.isConnected() && !socket_data.socket.isClosed()) {
+            if(socket_data.socket != null && socket_data.socket.isConnected() && !socket_data.socket.isClosed()) {
                 byte[][] message_array = receive(current_socket_ID);
                 if(message_array != null) {
                     messages.put(current_socket_ID, message_array);
@@ -101,7 +101,7 @@ public class ClientHandler extends ServerSocket implements Runnable {
                 if(socket_data.bytes_read < 0) {
                     // We need to read a new message size from the input first
                     // This is 32 bits / 4 bytes long
-                    socket_data.bytes_read += socket_data.socket.getInputStream().read(socket_data.length_bytes, 4 - socket_data.bytes_read, -socket_data.bytes_read);
+                    socket_data.bytes_read += socket_data.socket.getInputStream().read(socket_data.length_bytes, 4 + socket_data.bytes_read, -socket_data.bytes_read);
                     if(socket_data.bytes_read < 0) {
                         more_bytes = false;
                     } else {
@@ -181,9 +181,11 @@ public class ClientHandler extends ServerSocket implements Runnable {
     
     private synchronized void add_socket(Socket socket) throws IOException {
         SocketData socket_data = new SocketData();
+        socket_data.socket = socket;
         socket_data.bytes_read = -4;
         socket_data.message_bytes = null;
         socket_data.message_size = 0;
+        socket_data.length_bytes = new byte[4];
         connections.put(next_connection_ID, socket_data);
         System.out.println("New socket opened: " + next_connection_ID);
         next_connection_ID++;

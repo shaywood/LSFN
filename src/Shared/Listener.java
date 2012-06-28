@@ -7,7 +7,7 @@ import java.net.*;
 public class Listener extends Socket implements Runnable {
     private ArrayList<byte[]> message_buffer;
     private byte[] message_bytes;
-    private byte[] length_bytes = new byte[4];
+    private byte[] length_bytes;
     private int bytes_read;
     private int message_size;
     
@@ -21,6 +21,7 @@ public class Listener extends Socket implements Runnable {
         super(host, port);
         message_buffer = new ArrayList<byte[]>();
         message_bytes = null;
+        length_bytes = new byte[4];
         bytes_read = -4;
         message_size = 0;
     }
@@ -39,7 +40,7 @@ public class Listener extends Socket implements Runnable {
                     if(bytes_read < 0) {
                         // We need to read a new message size from the input first
                         // This is 32 bits / 4 bytes long
-                        bytes_read += this.getInputStream().read(length_bytes, 4 - bytes_read, -bytes_read);
+                        bytes_read += this.getInputStream().read(length_bytes, 4 + bytes_read, -bytes_read);
                         if(bytes_read < 0) {
                             more_bytes = false;
                         } else {
@@ -87,13 +88,17 @@ public class Listener extends Socket implements Runnable {
      * @param message The message to be sent.
      */
     public void send(byte[] message) {
+        byte[] to_send = new byte[4 + message.length];
+        for(int i = 0; i < 4; i++) {
+            to_send[i] = (byte)(message.length >> ((3 - i) * 8));
+        }
+        for(int i = 4; i < message.length + 4; i++) {
+            to_send[i] = message[i - 4];
+        }
+        System.out.println(bytes_to_hex(to_send));
         if(message.length < Integer.MAX_VALUE) {
             try {
-                this.getOutputStream().write(message.length >> 24);
-                this.getOutputStream().write(message.length >> 16);
-                this.getOutputStream().write(message.length >> 8);
-                this.getOutputStream().write(message.length);
-                this.getOutputStream().write(message);
+                this.getOutputStream().write(to_send);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -102,5 +107,15 @@ public class Listener extends Socket implements Runnable {
     
     private synchronized void add_message(byte[] message) {
         message_buffer.add(message);
+    }
+    
+    public static String bytes_to_hex(byte[] bytes) {
+        String byte_str = "";
+        for(int i = 0; i < bytes.length; i++) {
+            String hex_pair = Integer.toHexString(bytes[i]);
+            if(hex_pair.length() == 1) hex_pair = "0" + hex_pair;
+            byte_str += hex_pair;
+        }
+        return byte_str;
     }
 }

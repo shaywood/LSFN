@@ -26,6 +26,14 @@ public class InterfaceClient {
             
             // Perform Handshake with SHIP
             LSFN.IS handshake = LSFN.IS.newBuilder().setHandshake(LSFN.IS.Handshake.HELLO).build();
+            byte[] bytes = handshake.toByteArray();
+            String byte_str = "";
+            for(int i = 0; i < bytes.length; i++) {
+                String hex_pair = Integer.toHexString(bytes[i]);
+                if(hex_pair.length() == 1) hex_pair = "0" + hex_pair;
+                byte_str += hex_pair;
+            }
+            System.out.println(byte_str);
             SHIP_client.send(handshake.toByteArray());
             
             /*
