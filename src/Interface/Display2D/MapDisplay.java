@@ -10,7 +10,7 @@ public class MapDisplay extends JFrame {
 
 	public MapDisplay() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setPreferredSize(new Dimension(128, 128));
+		this.setMinimumSize(new Dimension(512, 512));
 		getRootPane().setDoubleBuffered(true);
 		getContentPane().add(new SpacePanel());
 		setVisible(true);
