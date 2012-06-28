@@ -8,10 +8,12 @@ public class InterfaceClient {
     private Listener SHIP_client;
     private Thread listen_thread;
     private boolean running;
+    private BufferedReader stdin;
     
     InterfaceClient() {
         SHIP_client = null;
         listen_thread = null;
+        stdin = new BufferedReader(new InputStreamReader(System.in));
     }
     
     public void run() {
@@ -33,33 +35,13 @@ public class InterfaceClient {
             LSFN.IS handshake = LSFN.IS.newBuilder().setHandshake(LSFN.IS.Handshake.HELLO).build();
             SHIP_client.send(handshake.toByteArray());
             
-            BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-            String userInput;
-        
             running = true;
             while(running) {
-                userInput = "";
                 // First we try to read some input from stdin if there is any.
-                try {
-                    if(stdIn.ready()) {
-                        // If there is we send it to the server.
-                        userInput = stdIn.readLine();
-                        if(userInput.equals("stop")) {
-                            handshake = LSFN.IS.newBuilder().setHandshake(LSFN.IS.Handshake.GOODBYE).build();
-                            SHIP_client.send(handshake.toByteArray());
-                        }
-                    }
-                } catch (IOException e) {
-                    System.err.println("Failed to read from stdin.");
-                    e.printStackTrace();
-                    running = false;
-                }
+                process_stdin();
                 
                 // Then we get any messages the server has sent to us, if any. TODO
-                byte[][] messages = SHIP_client.get_messages();
-                for(int i = 0; i < messages.length; i++) {
-                    process_SHIP_message(messages[i]);
-                }
+                process_SHIP();
                 
                 // Lastly, if we haven't told the program to stop, we sleep for 1/50 seconds (20ms)
                 try {
@@ -86,6 +68,32 @@ public class InterfaceClient {
         }
     }
     
+    private void process_stdin() {
+        try {
+            while(stdin.ready()) {
+                process_stdin_message(stdin.readLine());
+            }
+        } catch (IOException e) {
+            System.err.println("Failed to read from stdin.");
+            e.printStackTrace();
+            running = false;
+        }
+    }
+    
+    private void process_stdin_message(String message) {
+        if(message.equals("stop")) {
+            LSFN.IS handshake = LSFN.IS.newBuilder().setHandshake(LSFN.IS.Handshake.GOODBYE).build();
+            SHIP_client.send(handshake.toByteArray());
+        }
+    }
+    
+    private void process_SHIP() {
+        byte[][] messages = SHIP_client.get_messages();
+        for(int i = 0; i < messages.length; i++) {
+            process_SHIP_message(messages[i]);
+        }
+    }
+        
     private void process_SHIP_message(byte[] message) {
         try {
             LSFN.SI parsed_message = LSFN.SI.parseFrom(message);
