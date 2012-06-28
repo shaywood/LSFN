@@ -1,5 +1,6 @@
 package com.wikispaces.lsfn.Interface;
 
+import com.wikispaces.lsfn.Interface.Display2D.MapDisplay;
 import com.wikispaces.lsfn.Shared.*;
 import java.io.*;
 
@@ -27,7 +28,7 @@ public class InterfaceClient {
             BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
             String userInput;
 			
-			new MapDisplay2D();
+			new com.wikispaces.lsfn.Interface.Display2D.MapDisplay();
         
             while(running) {
                 userInput = "";

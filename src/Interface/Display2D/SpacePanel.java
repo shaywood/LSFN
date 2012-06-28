@@ -1,4 +1,4 @@
-package com.wikispaces.lsfn.Interface;
+package com.wikispaces.lsfn.Interface.Display2D;
 
 import java.awt.Color;
 import java.awt.Graphics;
