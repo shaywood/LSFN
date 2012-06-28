@@ -76,66 +76,41 @@ public class ShipServer implements Runnable {
     }
     
     private void process_INT_message(Integer INT_ID, byte[] message) {
-        String byte_str = "";
-        for(int i = 0; i < message.length; i++) {
-            String hex_pair = Integer.toHexString(message[i]);
-            if(hex_pair.length() == 1) hex_pair = "0" + hex_pair;
-            byte_str += hex_pair;
-        }
-        System.out.println("message bytes: " + byte_str);
+        LSFN.IS parsed_message = null;
         try {
-            LSFN.IS parsed_message = LSFN.IS.parseFrom(message);
-            System.out.println(parsed_message.toString());
+            parsed_message = LSFN.IS.parseFrom(message);
+            System.out.print(parsed_message.toString());
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         }
         
-        /*
-        if(message.equals("Connect to ENV.")) {
-            if(ENV_client == null) {
-                // Start the ENV_client.
-                if(start_ENV_client()) {
-                    // Tell the client the good news.
-                    INT_server.send(INT_ID, "Connected to ENV successfully.");
-                } else {
-                    // Tell the client the bad news.
-                    INT_server.send(INT_ID, "Failed to connect to ENV.");
+        if(parsed_message != null) {
+            LSFN.SI.Builder return_message_builder = LSFN.SI.newBuilder();
+            
+            if(parsed_message.hasHandshake()) {
+                switch(parsed_message.getHandshake()) {
+                    case HELLO:
+                        return_message_builder
+                                .setHandshake(LSFN.SI.Handshake.newBuilder()
+                                        .setType(LSFN.SI.Handshake.Type.HELLO)
+                                        .setPlayerID(INT_ID)
+                                        .build());
+                        break;
+                    case GOODBYE:
+                        return_message_builder
+                            .setHandshake(LSFN.SI.Handshake.newBuilder()
+                                    .setType(LSFN.SI.Handshake.Type.GOODBYE)
+                                    .build());
+                        break;
                 }
-            } else {
-                // Tell the INT that the SHIP is not connected to ENV.
-                INT_server.send(INT_ID, "Cannot send message to ENV, not connected.");
             }
-        } else if (message.equals("Disconnect from ENV.")) {
-            if(ENV_client != null) {
-                ENV_client.send("Bye.");
-                stop_ENV_client();
-                INT_server.send(INT_ID, "Disconnected from ENV.");
-            } else {
-                // Tell the INT that the SHIP is not connected to ENV.
-                INT_server.send(INT_ID, "Cannot send message to ENV, not connected.");
+            
+            LSFN.SI return_message = return_message_builder.build();
+            INT_server.send(INT_ID, return_message.toByteArray());
+            if(return_message.hasHandshake() && return_message.getHandshake().getType() == LSFN.SI.Handshake.Type.GOODBYE) {
+                INT_server.remove_socket(INT_ID);
             }
-        } else if(message.equals("Stop ENV.")) {
-            if(ENV_client != null) {
-                ENV_client.send("Stop server.");
-            } else {
-                // Tell the INT that the SHIP is not connected to ENV.
-                INT_server.send(INT_ID, "Cannot send message to ENV, not connected.");
-            }
-        } else if(message.equals("Stop server.")) {
-            running = false;
-            INT_server.send_to_all("Server shutting down.");
-        } else if(message.startsWith("Tell ENV ") && message.length() > 9) {
-            if(ENV_client != null) {
-                // Send a message to the ENV.
-                ENV_client.send("Client " + INT_ID + " says \"" + message.substring(9) + "\"");
-            } else {
-                // Tell the INT that the SHIP is not connected to ENV.
-                INT_server.send(INT_ID, "Cannot send message to ENV, not connected.");
-            }
-        } else {
-            // Echo the message.
-            INT_server.send(INT_ID, message);
-        }*/
+        }
     }
     
     /*
@@ -172,6 +147,15 @@ public class ShipServer implements Runnable {
     }*/
     
     private void stop_INT_server() {
+        // Send a goodbye to each connected client
+        LSFN.SI goodbye_message = LSFN.SI.newBuilder()
+                .setHandshake(LSFN.SI.Handshake.newBuilder()
+                        .setType(LSFN.SI.Handshake.Type.GOODBYE)
+                        .build())
+                .build();
+        INT_server.send_to_all(goodbye_message.toByteArray());
+        
+        // Close the server
         try {
             INT_server.close();
             INT_server_thread.join();

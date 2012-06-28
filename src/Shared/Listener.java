@@ -83,17 +83,13 @@ public class Listener extends Socket implements Runnable {
      * @param message The message to be sent.
      */
     public void send(byte[] message) {
-        byte[] to_send = new byte[4 + message.length];
-        for(int i = 0; i < 4; i++) {
-            to_send[i] = (byte)(message.length >> ((3 - i) * 8));
-        }
-        for(int i = 4; i < message.length + 4; i++) {
-            to_send[i] = message[i - 4];
-        }
-        System.out.println(bytes_to_hex(to_send));
         if(message.length < Integer.MAX_VALUE) {
             try {
-                this.getOutputStream().write(to_send);
+                this.getOutputStream().write(message.length >> 24);
+                this.getOutputStream().write(message.length >> 16);
+                this.getOutputStream().write(message.length >> 8);
+                this.getOutputStream().write(message.length);
+                this.getOutputStream().write(message);
             } catch (IOException e) {
                 e.printStackTrace();
             }
