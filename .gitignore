@@ -4,3 +4,7 @@ bin
 build
 buildtests
 testoutput
+
+.classpath
+.externalToolBuilders/
+.project
