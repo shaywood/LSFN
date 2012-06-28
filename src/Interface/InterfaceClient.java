@@ -26,6 +26,8 @@ public class InterfaceClient {
             boolean running = true;
             BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
             String userInput;
+			
+			new MapDisplay2D();
         
             while(running) {
                 userInput = "";
