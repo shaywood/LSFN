@@ -1,6 +1,7 @@
 package com.wikispaces.lsfn.Interface;
 
-import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.protobuf.*;
+import com.wikispaces.lsfn.Interface.Display2D.MapDisplay;
 import com.wikispaces.lsfn.Shared.*;
 import java.io.*;
 
@@ -14,6 +15,7 @@ public class InterfaceClient {
         SHIP_client = null;
         SHIP_client_thread = null;
         stdin = new BufferedReader(new InputStreamReader(System.in));
+        new com.wikispaces.lsfn.Interface.Display2D.MapDisplay();
     }
     
     public void run() {        
