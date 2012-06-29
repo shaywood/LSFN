@@ -37,8 +37,8 @@ public class InterfaceClient {
         
         // When we shut down, we close the SHIP_client and join the thread.
         System.out.println("Shutting down.");
-
         stop_SHIP_client(true);
+        System.out.println("Shut down (window needs closing).");
     }
     
     private void process_stdin() {
