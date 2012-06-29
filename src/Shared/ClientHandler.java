@@ -15,6 +15,8 @@ public class ClientHandler extends ServerSocket implements Runnable {
     
     private HashMap<Integer, SocketData> connections;
     private int next_connection_ID;
+    private ArrayList<Integer> new_connections;
+    private ArrayList<Integer> new_disconnections;
     
     private static final int default_port = 14612;
     
@@ -26,6 +28,8 @@ public class ClientHandler extends ServerSocket implements Runnable {
         super(default_port);
         connections = new HashMap<Integer, SocketData>();
         next_connection_ID = 0;
+        new_connections = new ArrayList<Integer>();
+        new_disconnections = new ArrayList<Integer>();
     }
     
     /**
@@ -37,6 +41,8 @@ public class ClientHandler extends ServerSocket implements Runnable {
         super(port);
         connections = new HashMap<Integer, SocketData>();
         next_connection_ID = 0;
+        new_connections = new ArrayList<Integer>();
+        new_disconnections = new ArrayList<Integer>();
     }
     
     /**
@@ -52,10 +58,7 @@ public class ClientHandler extends ServerSocket implements Runnable {
                     add_socket(incoming_connection);
                 }
             } catch (SocketException e) {
-                if(this.isClosed()) {
-                    shut_down();                    
-                } else {
-                    // TODO
+                if(!this.isClosed()) {
                     e.printStackTrace();
                 }
             } catch (IOException e) {
@@ -164,7 +167,7 @@ public class ClientHandler extends ServerSocket implements Runnable {
         }
     }
     
-    private synchronized void shut_down() {
+    public synchronized void close_all() {
         // We are shutting down the client handler,
         // close and remove all connections
         Integer[] remove_IDs = connections.keySet().toArray(new Integer[0]);
@@ -181,6 +184,7 @@ public class ClientHandler extends ServerSocket implements Runnable {
         socket_data.message_size = 0;
         socket_data.length_bytes = new byte[4];
         connections.put(next_connection_ID, socket_data);
+        new_connections.add(next_connection_ID);
         System.out.println("New socket opened: " + next_connection_ID);
         next_connection_ID++;
     }
@@ -198,7 +202,20 @@ public class ClientHandler extends ServerSocket implements Runnable {
                 e.printStackTrace();
             }
             connections.remove(socket_ID);
+            new_disconnections.add(socket_ID);
             System.out.println("Closed socket: " + socket_ID);
         }
+    }
+    
+    public synchronized Integer[] get_new_connections() {
+        Integer[] IDs = new_connections.toArray(new Integer[0]);
+        new_connections.clear();
+        return IDs;
+    }
+    
+    public synchronized Integer[] get_new_disconnections() {
+        Integer[] IDs = new_disconnections.toArray(new Integer[0]);
+        new_disconnections.clear();
+        return IDs;
     }
 }

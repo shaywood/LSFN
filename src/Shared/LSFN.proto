@@ -104,7 +104,7 @@ message SI {
     }
     
     optional Handshake handshake = 16;
-    optional SHIP_ENV_status command = 17;
+    optional SHIP_ENV_status status = 17;
     optional Ship_positions positions = 18;
     optional Subscriptions_available subscriptions_available = 19;
     optional Subscription_output_updates output_updates = 20;
