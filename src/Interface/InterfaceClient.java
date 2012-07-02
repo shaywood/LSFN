@@ -15,7 +15,7 @@ public class InterfaceClient {
         SHIP_client = null;
         SHIP_client_thread = null;
         stdin = new BufferedReader(new InputStreamReader(System.in));
-        new com.wikispaces.lsfn.Interface.Display2D.MapDisplay();
+        new MapDisplay();
     }
     
     public void run() {        
@@ -38,7 +38,7 @@ public class InterfaceClient {
         // When we shut down, we close the SHIP_client and join the thread.
         System.out.println("Shutting down.");
         stop_SHIP_client(true);
-        System.out.println("Shut down (window needs closing).");
+        System.exit(0);
     }
     
     private void process_stdin() {
