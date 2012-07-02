@@ -22,11 +22,12 @@ public class EnvironmentServer implements Runnable {
         
         running = true;
         while(running) {
-            // Process user input;
-            process_stdin();
+        	process_user_input();
             
-            // Process messages from SHIPs
-            process_SHIP();
+            if(SHIP_server != null) {
+            	handshake_new_SHIP_connections();
+            	process_messages_from_existing_SHIP_connections();
+            }
             
             try {
                 Thread.sleep(20);
@@ -39,7 +40,7 @@ public class EnvironmentServer implements Runnable {
         stop_SHIP_server();
     }
     
-    private void process_stdin() {
+    private void process_user_input() {
         try {
             while(stdin.ready()) {
                 process_stdin_message(stdin.readLine());
@@ -55,29 +56,27 @@ public class EnvironmentServer implements Runnable {
         if(message.equals("stop")) running = false;
     }
     
-    private void process_SHIP() {
-        if(SHIP_server != null) {
-            // Handle new connections
-            Integer[] SHIP_IDs = SHIP_server.get_new_connections();
-            for(int i = 0; i < SHIP_IDs.length; i++) {
-                LSFN.ES handshake = LSFN.ES.newBuilder()
-                        .setHandshake(LSFN.ES.Handshake.newBuilder()
-                                .setType(LSFN.ES.Handshake.Type.HELLO)
-                                .setShipID(SHIP_IDs[i])
-                                .build())
-                        .build();
-                SHIP_server.send(SHIP_IDs[i], handshake.toByteArray());
-            }
-            
-            // Handle existing connections
-            HashMap<Integer, byte[][]> messages = SHIP_server.read_all();
-            Iterator<Integer> message_iterator = messages.keySet().iterator();
-            while(message_iterator.hasNext()) {
-                Integer message_ID = message_iterator.next();
-                byte[][] message_array = messages.get(message_ID);
-                for(int i = 0; i < message_array.length; i++) {
-                    process_SHIP_message(message_ID, message_array[i]);
-                }
+    private void handshake_new_SHIP_connections() {
+        Integer[] SHIP_IDs = SHIP_server.get_new_connections();
+        for(int i = 0; i < SHIP_IDs.length; i++) {
+            LSFN.ES handshake = LSFN.ES.newBuilder()
+                    .setHandshake(LSFN.ES.Handshake.newBuilder()
+                            .setType(LSFN.ES.Handshake.Type.HELLO)
+                            .setShipID(SHIP_IDs[i])
+                            .build())
+                    .build();
+            SHIP_server.send(SHIP_IDs[i], handshake.toByteArray());
+        }
+    }
+    
+    private void process_messages_from_existing_SHIP_connections() {    	
+        HashMap<Integer, byte[][]> messages = SHIP_server.read_all();
+        Iterator<Integer> message_iterator = messages.keySet().iterator();
+        while(message_iterator.hasNext()) {
+            Integer message_ID = message_iterator.next();
+            byte[][] message_array = messages.get(message_ID);
+            for(int i = 0; i < message_array.length; i++) {
+                process_SHIP_message(message_ID, message_array[i]);
             }
         }
     }
