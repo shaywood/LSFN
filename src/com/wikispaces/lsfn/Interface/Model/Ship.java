@@ -1,7 +1,6 @@
 package com.wikispaces.lsfn.Interface.Model;
 
 import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Double;
 
 public class Ship {
 	int id;
@@ -32,7 +31,7 @@ public class Ship {
 	}
 	
 	public void new_data(Point2D position, Point2D velocity) {
-		position = position;
-		velocity = velocity;
+		this.position = position;
+		this.velocity = velocity;
 	}
 }

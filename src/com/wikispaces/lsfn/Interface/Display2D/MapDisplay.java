@@ -2,8 +2,6 @@ package com.wikispaces.lsfn.Interface.Display2D;
 
 import com.wikispaces.lsfn.Interface.Model.*;
 
-import java.awt.Graphics2D;
-import java.awt.geom.*;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 
