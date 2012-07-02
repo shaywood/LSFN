@@ -1,8 +1,10 @@
 package com.wikispaces.lsfn.Interface;
 
-import com.google.protobuf.*;
 import com.wikispaces.lsfn.Interface.Display2D.MapDisplay;
+import com.wikispaces.lsfn.Interface.Model.*;
 import com.wikispaces.lsfn.Shared.*;
+
+import com.google.protobuf.*;
 import java.io.*;
 
 public class InterfaceClient {
@@ -10,12 +12,17 @@ public class InterfaceClient {
     private Thread SHIP_client_thread;
     private boolean running;
     private BufferedReader stdin;
+	
+	KnownSpace world;
+	MapDisplay display;
     
     InterfaceClient() {
         SHIP_client = null;
         SHIP_client_thread = null;
         stdin = new BufferedReader(new InputStreamReader(System.in));
-        new com.wikispaces.lsfn.Interface.Display2D.MapDisplay();
+		
+		world = new DummyUniverse();
+		display = new MapDisplay(world);
     }
     
     public void run() {        
@@ -26,6 +33,9 @@ public class InterfaceClient {
             
             // Then we get any messages the server has sent to us, if any. TODO
             process_SHIP();
+			
+			world.update(0.02);
+			display.repaint();
             
             // Lastly, if we haven't told the program to stop, we sleep for 1/50 seconds (20ms)
             try {
@@ -38,7 +48,7 @@ public class InterfaceClient {
         // When we shut down, we close the SHIP_client and join the thread.
         System.out.println("Shutting down.");
         stop_SHIP_client(true);
-        System.out.println("Shut down (window needs closing).");
+        System.exit(0);
     }
     
     private void process_stdin() {

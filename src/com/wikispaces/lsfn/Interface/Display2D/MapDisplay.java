@@ -1,18 +1,16 @@
 package com.wikispaces.lsfn.Interface.Display2D;
 
-import java.awt.Graphics2D;
-import java.awt.geom.*;
+import com.wikispaces.lsfn.Interface.Model.*;
+
 import java.awt.Dimension;
 import javax.swing.JFrame;
 
-
 public class MapDisplay extends JFrame {
-
-	public MapDisplay() {
+	public MapDisplay(KnownSpace world) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setMinimumSize(new Dimension(512, 512));
+		this.setMinimumSize(new Dimension(1024, 1024));
 		getRootPane().setDoubleBuffered(true);
-		getContentPane().add(new SpacePanel());
+		getContentPane().add(new SpacePanel(world));
 		setVisible(true);
 	}
 	
