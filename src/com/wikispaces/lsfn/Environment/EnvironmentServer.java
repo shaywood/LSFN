@@ -2,6 +2,7 @@ package com.wikispaces.lsfn.Environment;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.wikispaces.lsfn.Shared.*;
+import com.wikispaces.lsfn.Shared.LSFN.*;
 import java.io.*;
 import java.util.*;
 
@@ -11,10 +12,14 @@ public class EnvironmentServer implements Runnable {
     private boolean running;
     private BufferedReader stdin;
     
+    private Space space;
+    
     EnvironmentServer() {
         SHIP_server = null;
         SHIP_server_thread = null;
         stdin = new BufferedReader(new InputStreamReader(System.in));
+        
+        space = new Space(1000, 1000);
     }
     
     public void run() {
@@ -27,6 +32,12 @@ public class EnvironmentServer implements Runnable {
             
             // Process messages from SHIPs
             process_SHIP();
+            
+            // Run the tick() functions of everything in space
+            space.tick();
+            
+            // Send back state output
+            send_position_output();
             
             try {
                 Thread.sleep(20);
@@ -60,9 +71,9 @@ public class EnvironmentServer implements Runnable {
             // Handle new connections
             Integer[] SHIP_IDs = SHIP_server.get_new_connections();
             for(int i = 0; i < SHIP_IDs.length; i++) {
-                LSFN.ES handshake = LSFN.ES.newBuilder()
-                        .setHandshake(LSFN.ES.Handshake.newBuilder()
-                                .setType(LSFN.ES.Handshake.Type.HELLO)
+                ES handshake = ES.newBuilder()
+                        .setHandshake(ES.Handshake.newBuilder()
+                                .setType(ES.Handshake.Type.HELLO)
                                 .setShipID(SHIP_IDs[i])
                                 .build())
                         .build();
@@ -83,9 +94,9 @@ public class EnvironmentServer implements Runnable {
     }
     
     private void process_SHIP_message(Integer SHIP_ID, byte[] message) {
-        LSFN.SE parsed_message = null;
+        SE parsed_message = null;
         try {
-            parsed_message = LSFN.SE.parseFrom(message);
+            parsed_message = SE.parseFrom(message);
             System.out.print(parsed_message.toString());
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
@@ -101,6 +112,10 @@ public class EnvironmentServer implements Runnable {
                         SHIP_server.remove_socket(SHIP_ID);
                         break;
                 }
+            }
+            
+            if(parsed_message.hasMovement()) {
+                Ship.data_from_SHIPs(SHIP_ID, parsed_message.getMovement());
             }
         }
     }
@@ -122,9 +137,9 @@ public class EnvironmentServer implements Runnable {
     private void stop_SHIP_server() {
         if(SHIP_server != null) {
             // Send a goodbye to each connected client
-            LSFN.ES goodbye_message = LSFN.ES.newBuilder()
-                    .setHandshake(LSFN.ES.Handshake.newBuilder()
-                            .setType(LSFN.ES.Handshake.Type.GOODBYE)
+            ES goodbye_message = ES.newBuilder()
+                    .setHandshake(ES.Handshake.newBuilder()
+                            .setType(ES.Handshake.Type.GOODBYE)
                             .build())
                     .build();
             SHIP_server.send_to_all(goodbye_message.toByteArray());
@@ -142,6 +157,13 @@ public class EnvironmentServer implements Runnable {
             SHIP_server = null;
             SHIP_server_thread = null;
         }
+    }
+    
+    private void send_position_output() {
+        ES state_output = ES.newBuilder()
+                .setPositions(Ship.get_proto_positions())
+                .build();
+        SHIP_server.send_to_all(state_output.toByteArray());
     }
     
     /**
