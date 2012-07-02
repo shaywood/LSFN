@@ -1,8 +1,10 @@
 package com.wikispaces.lsfn.Interface;
 
-import com.google.protobuf.*;
 import com.wikispaces.lsfn.Interface.Display2D.MapDisplay;
+import com.wikispaces.lsfn.Interface.Model.*;
 import com.wikispaces.lsfn.Shared.*;
+
+import com.google.protobuf.*;
 import java.io.*;
 
 public class InterfaceClient {
@@ -10,12 +12,17 @@ public class InterfaceClient {
     private Thread SHIP_client_thread;
     private boolean running;
     private BufferedReader stdin;
+	
+	KnownSpace world;
+	MapDisplay display;
     
     InterfaceClient() {
         SHIP_client = null;
         SHIP_client_thread = null;
         stdin = new BufferedReader(new InputStreamReader(System.in));
-        new MapDisplay();
+		
+		world = new DummyUniverse();
+		display = new MapDisplay(world);
     }
     
     public void run() {        
