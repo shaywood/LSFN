@@ -33,6 +33,9 @@ public class InterfaceClient {
             
             // Then we get any messages the server has sent to us, if any. TODO
             process_SHIP();
+			
+			world.update(0.02);
+			display.repaint();
             
             // Lastly, if we haven't told the program to stop, we sleep for 1/50 seconds (20ms)
             try {

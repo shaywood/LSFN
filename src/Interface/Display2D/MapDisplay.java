@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 public class MapDisplay extends JFrame {
 	public MapDisplay(KnownSpace world) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setMinimumSize(new Dimension(512, 512));
+		this.setMinimumSize(new Dimension(1024, 1024));
 		getRootPane().setDoubleBuffered(true);
 		getContentPane().add(new SpacePanel(world));
 		setVisible(true);
