@@ -1,6 +1,7 @@
 package com.wikispaces.lsfn.Ship;
 
 import com.wikispaces.lsfn.Shared.*;
+import com.wikispaces.lsfn.Shared.LSFN.*;
 import com.google.protobuf.*;
 import java.io.*;
 import java.util.*;
@@ -72,9 +73,9 @@ public class ShipServer implements Runnable {
             // Handle new connections
             Integer[] INT_IDs = INT_server.get_new_connections();
             for(int i = 0; i < INT_IDs.length; i++) {
-                LSFN.SI handshake = LSFN.SI.newBuilder()
-                        .setHandshake(LSFN.SI.Handshake.newBuilder()
-                                .setType(LSFN.SI.Handshake.Type.HELLO)
+                SI handshake = SI.newBuilder()
+                        .setHandshake(SI.Handshake.newBuilder()
+                                .setType(SI.Handshake.Type.HELLO)
                                 .setPlayerID(INT_IDs[i])
                                 .build())
                         .build();
@@ -98,7 +99,7 @@ public class ShipServer implements Runnable {
     }
     
     private void process_INT_message(Integer INT_ID, byte[] message) {
-        LSFN.IS parsed_message = null;
+        IS parsed_message = null;
         try {
             parsed_message = LSFN.IS.parseFrom(message);
             System.out.print(parsed_message.toString());
@@ -119,7 +120,7 @@ public class ShipServer implements Runnable {
             }
             
             if(parsed_message.hasCommand()) {
-                LSFN.IS.SHIP_ENV_command command = parsed_message.getCommand();
+                IS.SHIP_ENV_command command = parsed_message.getCommand();
                 switch(command.getType()) {
                     case CONNECT:
                         start_ENV_client(command.getHost(), command.getPort());
@@ -159,9 +160,9 @@ public class ShipServer implements Runnable {
             }
             
             // Send a goodbye to each connected client
-            LSFN.SI goodbye_message = LSFN.SI.newBuilder()
-                    .setHandshake(LSFN.SI.Handshake.newBuilder()
-                            .setType(LSFN.SI.Handshake.Type.GOODBYE)
+            SI goodbye_message = SI.newBuilder()
+                    .setHandshake(SI.Handshake.newBuilder()
+                            .setType(SI.Handshake.Type.GOODBYE)
                             .build())
                     .build();
             INT_server.send_to_all(goodbye_message.toByteArray());
@@ -188,9 +189,9 @@ public class ShipServer implements Runnable {
     }
     
     private void process_ENV_message(byte[] message) {
-        LSFN.ES parsed_message = null;
+        ES parsed_message = null;
         try {
-            parsed_message = LSFN.ES.parseFrom(message);
+            parsed_message = ES.parseFrom(message);
             System.out.print(parsed_message.toString());
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
@@ -198,26 +199,37 @@ public class ShipServer implements Runnable {
         
         if(parsed_message != null) {
             if(parsed_message.hasHandshake()) {
-                LSFN.SI return_message = null;
+                SI return_message = null;
                 switch(parsed_message.getHandshake().getType()) {
                     case HELLO:
-                        return_message = LSFN.SI.newBuilder()
-                                .setStatus(LSFN.SI.SHIP_ENV_status.newBuilder()
-                                        .setState(LSFN.SI.SHIP_ENV_status.State.CONNECTED)
+                        return_message = SI.newBuilder()
+                                .setStatus(SI.SHIP_ENV_status.newBuilder()
+                                        .setState(SI.SHIP_ENV_status.State.CONNECTED)
                                         .setShipID(parsed_message.getHandshake().getShipID())
                                         .build())
                                 .build();
                         break;
                     case GOODBYE:
-                        return_message = LSFN.SI.newBuilder()
-                                .setStatus(LSFN.SI.SHIP_ENV_status.newBuilder()
-                                        .setState(LSFN.SI.SHIP_ENV_status.State.DISCONNECTED)
+                        return_message = SI.newBuilder()
+                                .setStatus(SI.SHIP_ENV_status.newBuilder()
+                                        .setState(SI.SHIP_ENV_status.State.DISCONNECTED)
                                         .build())
                                 .build();
                         stop_ENV_client(false);
                         break;
                 }
                 INT_server.send_to_all(return_message.toByteArray());
+            } else if(parsed_message.hasPositions()) {
+                Iterator<ES.Ship_positions.Ship_position> parsed_positions_iterator = parsed_message.getPositions().getPositionsList().iterator();
+                SI.Ship_positions.Builder positions_builder = SI.Ship_positions.newBuilder();
+                while(parsed_positions_iterator.hasNext()) {
+                    ES.Ship_positions.Ship_position pos = parsed_positions_iterator.next();
+                    positions_builder.addPositions(SI.Ship_positions.Ship_position.newBuilder()
+                            .setShipID(pos.getShipID())
+                            .addAllCoordinates(pos.getCoordinatesList())
+                            .build());
+                }
+                INT_server.send_to_all(SI.newBuilder().setPositions(positions_builder.build()).build().toByteArray());
             }
         }
     }
@@ -245,7 +257,7 @@ public class ShipServer implements Runnable {
             }
             
             if(send_goodbye) {
-                LSFN.SE handshake = LSFN.SE.newBuilder().setHandshake(LSFN.SE.Handshake.GOODBYE).build();
+                SE handshake = SE.newBuilder().setHandshake(SE.Handshake.GOODBYE).build();
                 ENV_client.send(handshake.toByteArray());
             }
             
