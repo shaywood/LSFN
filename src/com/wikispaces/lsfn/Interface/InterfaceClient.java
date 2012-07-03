@@ -3,6 +3,7 @@ package com.wikispaces.lsfn.Interface;
 import com.wikispaces.lsfn.Interface.Display2D.MapDisplay;
 import com.wikispaces.lsfn.Interface.Model.*;
 import com.wikispaces.lsfn.Shared.*;
+import com.wikispaces.lsfn.Shared.LSFN.*;
 
 import com.google.protobuf.*;
 import java.io.*;
@@ -25,21 +26,20 @@ public class InterfaceClient {
 		display = new MapDisplay(world);
     }
     
+    int cycle_time_ms = 20;
+    double cycle_time = ((double)cycle_time_ms)/1000.0;
+    
     public void run() {        
         running = true;
         while(running) {
-            // First we try to read some input from stdin if there is any.
-            process_stdin();
-            
-            // Then we get any messages the server has sent to us, if any. TODO
-            process_SHIP();
+            process_user_input();
+            process_incoming_SHIP_messages();
 			
-			world.update(0.02);
+			world.update(cycle_time);
 			display.repaint();
             
-            // Lastly, if we haven't told the program to stop, we sleep for 1/50 seconds (20ms)
             try {
-                Thread.sleep(20);
+                Thread.sleep(cycle_time_ms);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -51,7 +51,7 @@ public class InterfaceClient {
         System.exit(0);
     }
     
-    private void process_stdin() {
+    private void process_user_input() {
         try {
             while(stdin.ready()) {
                 process_stdin_message(stdin.readLine());
@@ -71,9 +71,9 @@ public class InterfaceClient {
             running = false;
         } else if(num_parts >= 1 && parts[0].equals("connect")) {
             if(num_parts == 4 && parts[1].equals("remote")) {
-                LSFN.IS sendable = LSFN.IS.newBuilder()
-                        .setCommand(LSFN.IS.SHIP_ENV_command.newBuilder()
-                                .setType(LSFN.IS.SHIP_ENV_command.Type.CONNECT)
+                IS sendable = IS.newBuilder()
+                        .setCommand(IS.SHIP_ENV_command.newBuilder()
+                                .setType(IS.SHIP_ENV_command.Type.CONNECT)
                                 .setHost(parts[2])
                                 .setPort(Integer.parseInt(parts[3]))
                                 .build())
@@ -84,9 +84,9 @@ public class InterfaceClient {
             }
         } else if(num_parts >= 1 && parts[0].equals("disconnect")) {
             if(num_parts == 2 && parts[1].equals("remote")) {
-                LSFN.IS sendable = LSFN.IS.newBuilder()
-                        .setCommand(LSFN.IS.SHIP_ENV_command.newBuilder()
-                                .setType(LSFN.IS.SHIP_ENV_command.Type.DISCONNECT)
+                IS sendable = IS.newBuilder()
+                        .setCommand(IS.SHIP_ENV_command.newBuilder()
+                                .setType(IS.SHIP_ENV_command.Type.DISCONNECT)
                                 .build())
                         .build();
                 SHIP_client.send(sendable.toByteArray());
@@ -96,7 +96,7 @@ public class InterfaceClient {
         }
     }
     
-    private void process_SHIP() {
+    private void process_incoming_SHIP_messages() {
         if(SHIP_client != null) {
             byte[][] messages = SHIP_client.get_messages();
             for(int i = 0; i < messages.length; i++) {
@@ -107,9 +107,9 @@ public class InterfaceClient {
         
     private void process_SHIP_message(byte[] message) {
         try {
-            LSFN.SI parsed_message = LSFN.SI.parseFrom(message);
+            SI parsed_message = SI.parseFrom(message);
             System.out.print(parsed_message.toString());
-            if(parsed_message.hasHandshake() && parsed_message.getHandshake().getType() == LSFN.SI.Handshake.Type.GOODBYE) {
+            if(parsed_message.hasHandshake() && parsed_message.getHandshake().getType() == SI.Handshake.Type.GOODBYE) {
                 stop_SHIP_client(false);
             }
         } catch (InvalidProtocolBufferException e) {
@@ -142,7 +142,7 @@ public class InterfaceClient {
             }
     
             if(send_goodbye) {
-                LSFN.IS handshake = LSFN.IS.newBuilder().setHandshake(LSFN.IS.Handshake.GOODBYE).build();
+                IS handshake = IS.newBuilder().setHandshake(IS.Handshake.GOODBYE).build();
                 SHIP_client.send(handshake.toByteArray());
             }
             
