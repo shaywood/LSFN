@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial") // not intending to serialize UI elements
 public class SpacePanel extends JPanel {
 	KnownSpace world;
 	ShipDot draw_ships = new ShipDot();

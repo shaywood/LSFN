@@ -15,8 +15,8 @@ public class ClientHandler extends ServerSocket implements Runnable {
     
     private HashMap<Integer, SocketData> connections;
     private int next_connection_ID;
-    private ArrayList<Integer> new_connections;
-    private ArrayList<Integer> new_disconnections;
+    private List<Integer> new_connections;
+    private List<Integer> new_disconnections;
     
     private static final int default_port = 14612;
     

@@ -5,6 +5,7 @@ import com.wikispaces.lsfn.Interface.Model.*;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 
+@SuppressWarnings("serial") // not intending to serialize UI elements
 public class MapDisplay extends JFrame {
 	public MapDisplay(KnownSpace world) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
