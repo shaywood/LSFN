@@ -67,9 +67,9 @@ public class InterfaceClient {
         String[] parts = message.split(" ");
         int num_parts = parts.length;
         
-        if(num_parts >= 1 && parts[0].equals("stop")) {
+        if(message.equals("stop")) {
             running = false;
-        } else if(num_parts >= 1 && parts[0].equals("connect")) {
+        } else if(num_parts >= 1 && parts[0].equals("connect")) { // "connect remote" connects the ship to the environment server.
             if(num_parts == 4 && parts[1].equals("remote")) {
                 IS sendable = IS.newBuilder()
                         .setCommand(IS.SHIP_ENV_command.newBuilder()
@@ -79,21 +79,22 @@ public class InterfaceClient {
                                 .build())
                         .build();
                 SHIP_client.send(sendable.toByteArray());
-            } else if(num_parts == 3) {
+            } else if(num_parts == 3) { // "connect" connects the interface to the ship. Port 14613 is default on the Ship server.
                 start_SHIP_client(parts[1], Integer.parseInt(parts[2]));
             }
-        } else if(num_parts >= 1 && parts[0].equals("disconnect")) {
-            if(num_parts == 2 && parts[1].equals("remote")) {
+        } else if(message.equals("disconnect remote")) { // "disconnect remote" disconnect the ship from the environment server.
                 IS sendable = IS.newBuilder()
                         .setCommand(IS.SHIP_ENV_command.newBuilder()
                                 .setType(IS.SHIP_ENV_command.Type.DISCONNECT)
                                 .build())
                         .build();
                 SHIP_client.send(sendable.toByteArray());
-            } else if(num_parts == 1) {
-                stop_SHIP_client(true);
-            }
+        } else if(message.equals("disconnect")) {
+            stop_SHIP_client(true);
+        } else {
+        	System.out.println("Unknown message: " + message);
         }
+        
     }
     
     private void process_incoming_SHIP_messages() {
