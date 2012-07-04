@@ -15,6 +15,7 @@ public class ShipServer implements Runnable {
     private boolean running;
     private BufferedReader stdin;
     private Subscriptions interface_client_subscriptions = new Subscriptions();
+    private Subscribe subscriber = new Subscribe(Subscribeable.get_all_available_subscribeables());
     
     ShipServer() {
         INT_server = null;
@@ -136,6 +137,15 @@ public class ShipServer implements Runnable {
             
             if(parsed_message.getAvailableSubscriptionsList()) {
             	INT_server.send(INT_ID, new ListAvailableSubscriptions().build_message(INT_ID).toByteArray());
+            }
+            if(parsed_message.hasSubscribe()) {
+            	try {
+					interface_client_subscriptions.subscribe(INT_ID, subscriber.parse_message(parsed_message));
+				} catch (SubscribeableNotFoundException e) {
+					e.printStackTrace();
+				} catch (UnavailableSubscriptionExeption e) {
+					e.printStackTrace();
+				}
             }
         }
     }

@@ -7,6 +7,7 @@ import com.wikispaces.lsfn.Shared.LSFN.*;
 
 import com.google.protobuf.*;
 import java.io.*;
+import java.util.Arrays;
 import java.util.List;
 
 public class InterfaceClient {
@@ -14,7 +15,7 @@ public class InterfaceClient {
     private Thread SHIP_client_thread;
     private boolean running;
     private BufferedReader stdin;
-    private List<Subscribeable> available_subscriptions;
+    private Subscribe subscriber;
 	
 	KnownSpace world;
 	MapDisplay display;
@@ -116,16 +117,24 @@ public class InterfaceClient {
                 stop_SHIP_client(false);
             }
             if(parsed_message.hasSubscriptionsAvailable()) {
-            	available_subscriptions = new ListAvailableSubscriptions().parse_message(parsed_message);
+            	subscriber = new Subscribe(new ListAvailableSubscriptions().parse_message(parsed_message));
+            	request_default_subscriptions();
             }
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         } catch (SubscribeableNotFoundException e) {
         	e.printStackTrace();
-        }
+        } catch (UnavailableSubscriptionExeption e) {
+	    	e.printStackTrace();
+	    }
     }
     
-    private void start_SHIP_client(String host, int port) {
+    List<Subscribeable> default_subscriptions = Arrays.asList(Subscribeable.TEST); // this probably belongs somewhere else
+	private void request_default_subscriptions() throws UnavailableSubscriptionExeption {
+		SHIP_client.send(subscriber.build_message(default_subscriptions).toByteArray());
+	}
+
+	private void start_SHIP_client(String host, int port) {
         try {
             SHIP_client = new Listener(host, port);
         } catch (IOException e) {
