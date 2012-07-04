@@ -12,7 +12,7 @@
 
 	<property name="srcWithPackage" value="src/com/wikispaces/lsfn"/>
     <target name="ProtoToJava" depends="init">
-        <exec executable="protoc">
+        <exec executable="protoc" failonerror="true">
             <arg value="${srcWithPackage}/Shared/LSFN.proto" />
             <arg value="--java_out=src" />
         </exec>
