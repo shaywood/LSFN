@@ -7,12 +7,14 @@ import com.wikispaces.lsfn.Shared.LSFN.*;
 
 import com.google.protobuf.*;
 import java.io.*;
+import java.util.List;
 
 public class InterfaceClient {
     private Listener SHIP_client;
     private Thread SHIP_client_thread;
     private boolean running;
     private BufferedReader stdin;
+    private List<Subscribeable> available_subscriptions;
 	
 	KnownSpace world;
 	MapDisplay display;
@@ -28,8 +30,8 @@ public class InterfaceClient {
     
     int cycle_time_ms = 20;
     double cycle_time = ((double)cycle_time_ms)/1000.0;
-    
-    public void run() {        
+ 
+    public void run() {      
         running = true;
         while(running) {
             process_user_input();
@@ -113,8 +115,14 @@ public class InterfaceClient {
             if(parsed_message.hasHandshake() && parsed_message.getHandshake().getType() == SI.Handshake.Type.GOODBYE) {
                 stop_SHIP_client(false);
             }
+            if(parsed_message.hasSubscriptionsAvailable()) {
+            	System.out.println("Received subscriptions");
+            	available_subscriptions = new ListAvailableSubscriptions().parse_message(parsed_message);
+            }
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
+        } catch (SubscribeableNotFoundException e) {
+        	e.printStackTrace();
         }
     }
     
@@ -131,6 +139,12 @@ public class InterfaceClient {
             SHIP_client_thread = new Thread(SHIP_client);
             SHIP_client_thread.start();
         }
+        
+        on_connect();
+    }
+    
+    private void on_connect() {
+        SHIP_client.send(new RequestAvailableSubscriptions().build_message().toByteArray());
     }
     
     private void stop_SHIP_client(boolean send_goodbye) {

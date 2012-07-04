@@ -14,6 +14,7 @@ public class ShipServer implements Runnable {
     private Thread ENV_client_thread;
     private boolean running;
     private BufferedReader stdin;
+    private Subscriptions interface_client_subscriptions = new Subscriptions();
     
     ShipServer() {
         INT_server = null;
@@ -31,12 +32,12 @@ public class ShipServer implements Runnable {
         
         running = true;
         while(running) {
-            
-            // Collect input from stdin
-            process_stdin();
-            
-            // Get all messages fron connected INTs
-            process_INTs();
+        	process_user_input();
+
+            if(INT_server != null) {
+                handshake_new_interface_connections();
+                process_messages_from_existing_INT_connections();
+            }
             
             // Get messages from the ENV (if it's connected)
             process_ENV();
@@ -52,7 +53,7 @@ public class ShipServer implements Runnable {
         stop_INT_server();
     }
     
-    private void process_stdin() {
+    private void process_user_input() {
         try {
             while(stdin.ready()) {
                 process_stdin_message(stdin.readLine());
@@ -68,35 +69,33 @@ public class ShipServer implements Runnable {
         if(message.equals("stop")) running = false;
     }
     
-    private void process_INTs() {
-        if(INT_server != null) {
-            // Handle new connections
-            Integer[] INT_IDs = INT_server.get_new_connections();
-            for(int i = 0; i < INT_IDs.length; i++) {
-                SI handshake = SI.newBuilder()
-                        .setHandshake(SI.Handshake.newBuilder()
-                                .setType(SI.Handshake.Type.HELLO)
-                                .setPlayerID(INT_IDs[i])
-                                .build())
-                        .build();
-                INT_server.send(INT_IDs[i], handshake.toByteArray());
-            }
-            
-            // Handle existing connections
-            HashMap<Integer, byte[][]> all_messages = INT_server.read_all();
-            Iterator<Integer> INT_ID_iterator = all_messages.keySet().iterator();
-            while(INT_ID_iterator.hasNext()) {
-                Integer INT_ID = INT_ID_iterator.next();
-                byte[][] messages = all_messages.get(INT_ID);
-                if(messages == null) continue;
-                for(int i = 0; i < messages.length; i++) {
-                    process_INT_message(INT_ID, messages[i]);
-                }
-            }
-            
-            // Handle new disconnections
-        }
-    }
+	private void process_messages_from_existing_INT_connections() {
+		// Handle existing connections
+		HashMap<Integer, byte[][]> all_messages = INT_server.read_all();
+		Iterator<Integer> INT_ID_iterator = all_messages.keySet().iterator();
+		while(INT_ID_iterator.hasNext()) {
+		    Integer INT_ID = INT_ID_iterator.next();
+		    byte[][] messages = all_messages.get(INT_ID);
+		    if(messages == null) continue;
+		    for(int i = 0; i < messages.length; i++) {
+		        process_INT_message(INT_ID, messages[i]);
+		    }
+		}
+	}
+
+	private void handshake_new_interface_connections() {
+		// Handle new connections
+		Integer[] INT_IDs = INT_server.get_new_connections();
+		for(int i = 0; i < INT_IDs.length; i++) {
+		    SI handshake = SI.newBuilder()
+		            .setHandshake(SI.Handshake.newBuilder()
+		                    .setType(SI.Handshake.Type.HELLO)
+		                    .setPlayerID(INT_IDs[i])
+		                    .build())
+		            .build();
+		    INT_server.send(INT_IDs[i], handshake.toByteArray());
+		}
+	}
     
     private void process_INT_message(Integer INT_ID, byte[] message) {
         IS parsed_message = null;
@@ -134,10 +133,15 @@ public class ShipServer implements Runnable {
                         break;
                 }
             }
+            
+            if(parsed_message.getAvailableSubscriptionsList()) {
+            	INT_server.send(INT_ID, new ListAvailableSubscriptions().build_message(INT_ID).toByteArray());
+            }
         }
     }
-    
-    private void start_INT_server() {
+
+
+	private void start_INT_server() {
         try {
             INT_server = new ClientHandler();
         } catch(IOException e) {
