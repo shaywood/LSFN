@@ -116,7 +116,6 @@ public class InterfaceClient {
                 stop_SHIP_client(false);
             }
             if(parsed_message.hasSubscriptionsAvailable()) {
-            	System.out.println("Received subscriptions");
             	available_subscriptions = new ListAvailableSubscriptions().parse_message(parsed_message);
             }
         } catch (InvalidProtocolBufferException e) {
