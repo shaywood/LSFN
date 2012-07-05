@@ -219,7 +219,9 @@ public class ShipServer implements Runnable {
                         break;
                 }
                 INT_server.send_to_all(return_message.toByteArray());
-            } else if(parsed_message.hasPositions()) {
+            }
+            
+            if(parsed_message.hasPositions()) {
                 Iterator<ES.Ship_positions.Ship_position> parsed_positions_iterator = parsed_message.getPositions().getPositionsList().iterator();
                 SI.Ship_positions.Builder positions_builder = SI.Ship_positions.newBuilder();
                 while(parsed_positions_iterator.hasNext()) {
