@@ -29,6 +29,10 @@ public final class LSFN {
     boolean hasInputUpdates();
     com.wikispaces.lsfn.Shared.LSFN.IS.Subscription_input_updates getInputUpdates();
     com.wikispaces.lsfn.Shared.LSFN.IS.Subscription_input_updatesOrBuilder getInputUpdatesOrBuilder();
+    
+    // optional bool available_subscriptions_list = 20;
+    boolean hasAvailableSubscriptionsList();
+    boolean getAvailableSubscriptionsList();
   }
   public static final class IS extends
       com.google.protobuf.GeneratedMessage
@@ -2480,11 +2484,22 @@ public final class LSFN {
       return inputUpdates_;
     }
     
+    // optional bool available_subscriptions_list = 20;
+    public static final int AVAILABLE_SUBSCRIPTIONS_LIST_FIELD_NUMBER = 20;
+    private boolean availableSubscriptionsList_;
+    public boolean hasAvailableSubscriptionsList() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    public boolean getAvailableSubscriptionsList() {
+      return availableSubscriptionsList_;
+    }
+    
     private void initFields() {
       handshake_ = com.wikispaces.lsfn.Shared.LSFN.IS.Handshake.HELLO;
       command_ = com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.getDefaultInstance();
       subscribe_ = com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe.getDefaultInstance();
       inputUpdates_ = com.wikispaces.lsfn.Shared.LSFN.IS.Subscription_input_updates.getDefaultInstance();
+      availableSubscriptionsList_ = false;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -2522,6 +2537,9 @@ public final class LSFN {
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeMessage(19, inputUpdates_);
       }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeBool(20, availableSubscriptionsList_);
+      }
       getUnknownFields().writeTo(output);
     }
     
@@ -2546,6 +2564,10 @@ public final class LSFN {
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(19, inputUpdates_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(20, availableSubscriptionsList_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -2694,6 +2716,8 @@ public final class LSFN {
           inputUpdatesBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000008);
+        availableSubscriptionsList_ = false;
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
       
@@ -2760,6 +2784,10 @@ public final class LSFN {
         } else {
           result.inputUpdates_ = inputUpdatesBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.availableSubscriptionsList_ = availableSubscriptionsList_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -2787,6 +2815,9 @@ public final class LSFN {
         }
         if (other.hasInputUpdates()) {
           mergeInputUpdates(other.getInputUpdates());
+        }
+        if (other.hasAvailableSubscriptionsList()) {
+          setAvailableSubscriptionsList(other.getAvailableSubscriptionsList());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -2867,6 +2898,11 @@ public final class LSFN {
               }
               input.readMessage(subBuilder, extensionRegistry);
               setInputUpdates(subBuilder.buildPartial());
+              break;
+            }
+            case 160: {
+              bitField0_ |= 0x00000010;
+              availableSubscriptionsList_ = input.readBool();
               break;
             }
           }
@@ -3167,6 +3203,27 @@ public final class LSFN {
           inputUpdates_ = null;
         }
         return inputUpdatesBuilder_;
+      }
+      
+      // optional bool available_subscriptions_list = 20;
+      private boolean availableSubscriptionsList_ ;
+      public boolean hasAvailableSubscriptionsList() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      public boolean getAvailableSubscriptionsList() {
+        return availableSubscriptionsList_;
+      }
+      public Builder setAvailableSubscriptionsList(boolean value) {
+        bitField0_ |= 0x00000010;
+        availableSubscriptionsList_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearAvailableSubscriptionsList() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        availableSubscriptionsList_ = false;
+        onChanged();
+        return this;
       }
       
       // @@protoc_insertion_point(builder_scope:IS)
@@ -12029,64 +12086,65 @@ public final class LSFN {
   static {
     java.lang.String[] descriptorData = {
       "\n)src/com/wikispaces/lsfn/Shared/LSFN.pr" +
-      "oto\"\206\005\n\002IS\022 \n\thandshake\030\020 \001(\0162\r.IS.Hands" +
+      "oto\"\254\005\n\002IS\022 \n\thandshake\030\020 \001(\0162\r.IS.Hands" +
       "hake\022%\n\007command\030\021 \001(\0132\024.IS.SHIP_ENV_comm" +
       "and\022 \n\tsubscribe\030\022 \001(\0132\r.IS.Subscribe\0225\n" +
       "\rinput_updates\030\023 \001(\0132\036.IS.Subscription_i" +
-      "nput_updates\032\213\001\n\020SHIP_ENV_command\022\'\n\004typ" +
-      "e\030\001 \002(\0162\031.IS.SHIP_ENV_command.Type\022\014\n\004ho" +
-      "st\030\002 \001(\t\022\014\n\004port\030\003 \001(\005\"2\n\004Type\022\013\n\007CONNEC" +
-      "T\020\000\022\016\n\nDISCONNECT\020\001\022\r\n\tRECONNECT\020\002\0322\n\tSu" +
-      "bscribe\022\022\n\noutput_IDs\030\001 \003(\005\022\021\n\tinput_IDs",
-      "\030\002 \003(\005\032\366\001\n\032Subscription_input_updates\022C\n" +
-      "\007updates\030\001 \003(\01322.IS.Subscription_input_u" +
-      "pdates.Subscription_update\032\222\001\n\023Subscript" +
-      "ion_update\022\020\n\010input_ID\030\001 \002(\005\022\023\n\013float_va" +
-      "lue\030\002 \001(\002\022\024\n\014double_value\030\003 \001(\001\022\023\n\013int32" +
-      "_value\030\004 \001(\005\022\023\n\013int64_value\030\005 \001(\003\022\024\n\014str" +
-      "ing_value\030\017 \001(\t\"#\n\tHandshake\022\t\n\005HELLO\020\000\022" +
-      "\013\n\007GOODBYE\020\001\"\207\t\n\002SI\022 \n\thandshake\030\020 \001(\0132\r" +
-      ".SI.Handshake\022#\n\006status\030\021 \001(\0132\023.SI.SHIP_" +
-      "ENV_status\022%\n\tpositions\030\022 \001(\0132\022.SI.Ship_",
-      "positions\022<\n\027subscriptions_available\030\023 \001" +
-      "(\0132\033.SI.Subscriptions_available\0227\n\016outpu" +
-      "t_updates\030\024 \001(\0132\037.SI.Subscription_output" +
-      "_updates\032`\n\tHandshake\022 \n\004type\030\001 \002(\0162\022.SI" +
-      ".Handshake.Type\022\021\n\tplayer_ID\030\002 \001(\005\"\036\n\004Ty" +
-      "pe\022\t\n\005HELLO\020\000\022\013\n\007GOODBYE\020\001\032v\n\017SHIP_ENV_s" +
-      "tatus\022(\n\005state\030\001 \002(\0162\031.SI.SHIP_ENV_statu" +
-      "s.State\022\017\n\007ship_ID\030\002 \001(\005\"(\n\005State\022\020\n\014DIS" +
-      "CONNECTED\020\000\022\r\n\tCONNECTED\020\001\032|\n\016Ship_posit" +
-      "ions\0223\n\tpositions\030\001 \003(\0132 .SI.Ship_positi",
-      "ons.Ship_position\0325\n\rShip_position\022\017\n\007sh" +
-      "ip_ID\030\001 \002(\005\022\023\n\013coordinates\030\002 \003(\001\032\307\002\n\027Sub" +
-      "scriptions_available\022:\n\007outputs\030\001 \003(\0132)." +
-      "SI.Subscriptions_available.Value_details" +
-      "\0229\n\006inputs\030\002 \003(\0132).SI.Subscriptions_avai" +
-      "lable.Value_details\032\264\001\n\rValue_details\022\014\n" +
-      "\004name\030\001 \002(\t\022\n\n\002ID\030\002 \002(\005\022B\n\004type\030\003 \002(\01624." +
-      "SI.Subscriptions_available.Value_details" +
-      ".Value_type\"E\n\nValue_type\022\t\n\005FLOAT\020\000\022\n\n\006" +
-      "DOUBLE\020\001\022\t\n\005INT32\020\002\022\t\n\005INT64\020\003\022\n\n\006STRING",
-      "\020\r\032\371\001\n\033Subscription_output_updates\022D\n\007up" +
-      "dates\030\001 \003(\01323.SI.Subscription_output_upd" +
-      "ates.Subscription_update\032\223\001\n\023Subscriptio" +
-      "n_update\022\021\n\toutput_ID\030\001 \002(\005\022\023\n\013float_val" +
-      "ue\030\002 \001(\002\022\024\n\014double_value\030\003 \001(\001\022\023\n\013int32_" +
-      "value\030\004 \001(\005\022\023\n\013int64_value\030\005 \001(\003\022\024\n\014stri" +
-      "ng_value\030\017 \001(\t\"\225\001\n\002SE\022 \n\thandshake\030\020 \001(\016" +
-      "2\r.SE.Handshake\022#\n\010movement\030\021 \001(\0132\021.SE.S" +
-      "hip_movement\032#\n\rShip_movement\022\022\n\naxis_ac" +
-      "cel\030\001 \003(\001\"#\n\tHandshake\022\t\n\005HELLO\020\000\022\013\n\007GOO",
-      "DBYE\020\001\"\253\002\n\002ES\022 \n\thandshake\030\020 \001(\0132\r.ES.Ha" +
-      "ndshake\022%\n\tpositions\030\021 \001(\0132\022.ES.Ship_pos" +
-      "itions\032^\n\tHandshake\022 \n\004type\030\001 \002(\0162\022.ES.H" +
-      "andshake.Type\022\017\n\007ship_ID\030\002 \001(\005\"\036\n\004Type\022\t" +
-      "\n\005HELLO\020\000\022\013\n\007GOODBYE\020\001\032|\n\016Ship_positions" +
-      "\0223\n\tpositions\030\001 \003(\0132 .ES.Ship_positions." +
-      "Ship_position\0325\n\rShip_position\022\017\n\007ship_I" +
-      "D\030\001 \002(\005\022\023\n\013coordinates\030\002 \003(\001B\"\n\032com.wiki" +
-      "spaces.lsfn.SharedB\004LSFN"
+      "nput_updates\022$\n\034available_subscriptions_" +
+      "list\030\024 \001(\010\032\213\001\n\020SHIP_ENV_command\022\'\n\004type\030" +
+      "\001 \002(\0162\031.IS.SHIP_ENV_command.Type\022\014\n\004host" +
+      "\030\002 \001(\t\022\014\n\004port\030\003 \001(\005\"2\n\004Type\022\013\n\007CONNECT\020" +
+      "\000\022\016\n\nDISCONNECT\020\001\022\r\n\tRECONNECT\020\002\0322\n\tSubs",
+      "cribe\022\022\n\noutput_IDs\030\001 \003(\005\022\021\n\tinput_IDs\030\002" +
+      " \003(\005\032\366\001\n\032Subscription_input_updates\022C\n\007u" +
+      "pdates\030\001 \003(\01322.IS.Subscription_input_upd" +
+      "ates.Subscription_update\032\222\001\n\023Subscriptio" +
+      "n_update\022\020\n\010input_ID\030\001 \002(\005\022\023\n\013float_valu" +
+      "e\030\002 \001(\002\022\024\n\014double_value\030\003 \001(\001\022\023\n\013int32_v" +
+      "alue\030\004 \001(\005\022\023\n\013int64_value\030\005 \001(\003\022\024\n\014strin" +
+      "g_value\030\017 \001(\t\"#\n\tHandshake\022\t\n\005HELLO\020\000\022\013\n" +
+      "\007GOODBYE\020\001\"\207\t\n\002SI\022 \n\thandshake\030\020 \001(\0132\r.S" +
+      "I.Handshake\022#\n\006status\030\021 \001(\0132\023.SI.SHIP_EN",
+      "V_status\022%\n\tpositions\030\022 \001(\0132\022.SI.Ship_po" +
+      "sitions\022<\n\027subscriptions_available\030\023 \001(\013" +
+      "2\033.SI.Subscriptions_available\0227\n\016output_" +
+      "updates\030\024 \001(\0132\037.SI.Subscription_output_u" +
+      "pdates\032`\n\tHandshake\022 \n\004type\030\001 \002(\0162\022.SI.H" +
+      "andshake.Type\022\021\n\tplayer_ID\030\002 \001(\005\"\036\n\004Type" +
+      "\022\t\n\005HELLO\020\000\022\013\n\007GOODBYE\020\001\032v\n\017SHIP_ENV_sta" +
+      "tus\022(\n\005state\030\001 \002(\0162\031.SI.SHIP_ENV_status." +
+      "State\022\017\n\007ship_ID\030\002 \001(\005\"(\n\005State\022\020\n\014DISCO" +
+      "NNECTED\020\000\022\r\n\tCONNECTED\020\001\032|\n\016Ship_positio",
+      "ns\0223\n\tpositions\030\001 \003(\0132 .SI.Ship_position" +
+      "s.Ship_position\0325\n\rShip_position\022\017\n\007ship" +
+      "_ID\030\001 \002(\005\022\023\n\013coordinates\030\002 \003(\001\032\307\002\n\027Subsc" +
+      "riptions_available\022:\n\007outputs\030\001 \003(\0132).SI" +
+      ".Subscriptions_available.Value_details\0229" +
+      "\n\006inputs\030\002 \003(\0132).SI.Subscriptions_availa" +
+      "ble.Value_details\032\264\001\n\rValue_details\022\014\n\004n" +
+      "ame\030\001 \002(\t\022\n\n\002ID\030\002 \002(\005\022B\n\004type\030\003 \002(\01624.SI" +
+      ".Subscriptions_available.Value_details.V" +
+      "alue_type\"E\n\nValue_type\022\t\n\005FLOAT\020\000\022\n\n\006DO",
+      "UBLE\020\001\022\t\n\005INT32\020\002\022\t\n\005INT64\020\003\022\n\n\006STRING\020\r" +
+      "\032\371\001\n\033Subscription_output_updates\022D\n\007upda" +
+      "tes\030\001 \003(\01323.SI.Subscription_output_updat" +
+      "es.Subscription_update\032\223\001\n\023Subscription_" +
+      "update\022\021\n\toutput_ID\030\001 \002(\005\022\023\n\013float_value" +
+      "\030\002 \001(\002\022\024\n\014double_value\030\003 \001(\001\022\023\n\013int32_va" +
+      "lue\030\004 \001(\005\022\023\n\013int64_value\030\005 \001(\003\022\024\n\014string" +
+      "_value\030\017 \001(\t\"\225\001\n\002SE\022 \n\thandshake\030\020 \001(\0162\r" +
+      ".SE.Handshake\022#\n\010movement\030\021 \001(\0132\021.SE.Shi" +
+      "p_movement\032#\n\rShip_movement\022\022\n\naxis_acce",
+      "l\030\001 \003(\001\"#\n\tHandshake\022\t\n\005HELLO\020\000\022\013\n\007GOODB" +
+      "YE\020\001\"\253\002\n\002ES\022 \n\thandshake\030\020 \001(\0132\r.ES.Hand" +
+      "shake\022%\n\tpositions\030\021 \001(\0132\022.ES.Ship_posit" +
+      "ions\032^\n\tHandshake\022 \n\004type\030\001 \002(\0162\022.ES.Han" +
+      "dshake.Type\022\017\n\007ship_ID\030\002 \001(\005\"\036\n\004Type\022\t\n\005" +
+      "HELLO\020\000\022\013\n\007GOODBYE\020\001\032|\n\016Ship_positions\0223" +
+      "\n\tpositions\030\001 \003(\0132 .ES.Ship_positions.Sh" +
+      "ip_position\0325\n\rShip_position\022\017\n\007ship_ID\030" +
+      "\001 \002(\005\022\023\n\013coordinates\030\002 \003(\001B\"\n\032com.wikisp" +
+      "aces.lsfn.SharedB\004LSFN"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -12098,7 +12156,7 @@ public final class LSFN {
           internal_static_IS_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_IS_descriptor,
-              new java.lang.String[] { "Handshake", "Command", "Subscribe", "InputUpdates", },
+              new java.lang.String[] { "Handshake", "Command", "Subscribe", "InputUpdates", "AvailableSubscriptionsList", },
               com.wikispaces.lsfn.Shared.LSFN.IS.class,
               com.wikispaces.lsfn.Shared.LSFN.IS.Builder.class);
           internal_static_IS_SHIP_ENV_command_descriptor =

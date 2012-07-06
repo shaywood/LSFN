@@ -9,7 +9,7 @@ public class Ship {
     private double v_x, v_y;
     private double a_x, a_y;
     
-    private static HashMap<Integer, Ship> ships;
+    private static Map<Integer, Ship> ships = new HashMap<Integer, Ship>();
     private static int next_ship_ID = 0;
     
     Ship(double x, double y) {

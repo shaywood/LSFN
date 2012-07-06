@@ -3,15 +3,19 @@ package com.wikispaces.lsfn.Interface;
 import com.wikispaces.lsfn.Interface.Display2D.MapDisplay;
 import com.wikispaces.lsfn.Interface.Model.*;
 import com.wikispaces.lsfn.Shared.*;
+import com.wikispaces.lsfn.Shared.LSFN.*;
 
 import com.google.protobuf.*;
 import java.io.*;
+import java.util.Arrays;
+import java.util.List;
 
 public class InterfaceClient {
     private Listener SHIP_client;
     private Thread SHIP_client_thread;
     private boolean running;
     private BufferedReader stdin;
+    private Subscribe subscriber;
 	
 	KnownSpace world;
 	MapDisplay display;
@@ -25,21 +29,20 @@ public class InterfaceClient {
 		display = new MapDisplay(world);
     }
     
-    public void run() {        
+    int cycle_time_ms = 20;
+    double cycle_time = ((double)cycle_time_ms)/1000.0;
+ 
+    public void run() {      
         running = true;
         while(running) {
-            // First we try to read some input from stdin if there is any.
-            process_stdin();
-            
-            // Then we get any messages the server has sent to us, if any. TODO
-            process_SHIP();
+            process_user_input();
+            process_incoming_SHIP_messages();
 			
-			world.update(0.02);
+			world.update(cycle_time);
 			display.repaint();
             
-            // Lastly, if we haven't told the program to stop, we sleep for 1/50 seconds (20ms)
             try {
-                Thread.sleep(20);
+                Thread.sleep(cycle_time_ms);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -51,7 +54,7 @@ public class InterfaceClient {
         System.exit(0);
     }
     
-    private void process_stdin() {
+    private void process_user_input() {
         try {
             while(stdin.ready()) {
                 process_stdin_message(stdin.readLine());
@@ -67,36 +70,37 @@ public class InterfaceClient {
         String[] parts = message.split(" ");
         int num_parts = parts.length;
         
-        if(num_parts >= 1 && parts[0].equals("stop")) {
+        if(message.equals("stop")) {
             running = false;
-        } else if(num_parts >= 1 && parts[0].equals("connect")) {
+        } else if(num_parts >= 1 && parts[0].equals("connect")) { // "connect remote" connects the ship to the environment server.
             if(num_parts == 4 && parts[1].equals("remote")) {
-                LSFN.IS sendable = LSFN.IS.newBuilder()
-                        .setCommand(LSFN.IS.SHIP_ENV_command.newBuilder()
-                                .setType(LSFN.IS.SHIP_ENV_command.Type.CONNECT)
+                IS sendable = IS.newBuilder()
+                        .setCommand(IS.SHIP_ENV_command.newBuilder()
+                                .setType(IS.SHIP_ENV_command.Type.CONNECT)
                                 .setHost(parts[2])
                                 .setPort(Integer.parseInt(parts[3]))
                                 .build())
                         .build();
                 SHIP_client.send(sendable.toByteArray());
-            } else if(num_parts == 3) {
+            } else if(num_parts == 3) { // "connect" connects the interface to the ship. Port 14613 is default on the Ship server.
                 start_SHIP_client(parts[1], Integer.parseInt(parts[2]));
             }
-        } else if(num_parts >= 1 && parts[0].equals("disconnect")) {
-            if(num_parts == 2 && parts[1].equals("remote")) {
-                LSFN.IS sendable = LSFN.IS.newBuilder()
-                        .setCommand(LSFN.IS.SHIP_ENV_command.newBuilder()
-                                .setType(LSFN.IS.SHIP_ENV_command.Type.DISCONNECT)
+        } else if(message.equals("disconnect remote")) { // "disconnect remote" disconnect the ship from the environment server.
+                IS sendable = IS.newBuilder()
+                        .setCommand(IS.SHIP_ENV_command.newBuilder()
+                                .setType(IS.SHIP_ENV_command.Type.DISCONNECT)
                                 .build())
                         .build();
                 SHIP_client.send(sendable.toByteArray());
-            } else if(num_parts == 1) {
-                stop_SHIP_client(true);
-            }
+        } else if(message.equals("disconnect")) {
+            stop_SHIP_client(true);
+        } else {
+        	System.out.println("Unknown message: " + message);
         }
+        
     }
     
-    private void process_SHIP() {
+    private void process_incoming_SHIP_messages() {
         if(SHIP_client != null) {
             byte[][] messages = SHIP_client.get_messages();
             for(int i = 0; i < messages.length; i++) {
@@ -107,17 +111,30 @@ public class InterfaceClient {
         
     private void process_SHIP_message(byte[] message) {
         try {
-            LSFN.SI parsed_message = LSFN.SI.parseFrom(message);
+            SI parsed_message = SI.parseFrom(message);
             System.out.print(parsed_message.toString());
-            if(parsed_message.hasHandshake() && parsed_message.getHandshake().getType() == LSFN.SI.Handshake.Type.GOODBYE) {
+            if(parsed_message.hasHandshake() && parsed_message.getHandshake().getType() == SI.Handshake.Type.GOODBYE) {
                 stop_SHIP_client(false);
+            }
+            if(parsed_message.hasSubscriptionsAvailable()) {
+            	subscriber = new Subscribe(new ListAvailableSubscriptions().parse_message(parsed_message));
+            	request_default_subscriptions();
             }
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
-        }
+        } catch (SubscribeableNotFoundException e) {
+        	e.printStackTrace();
+        } catch (UnavailableSubscriptionExeption e) {
+	    	e.printStackTrace();
+	    }
     }
     
-    private void start_SHIP_client(String host, int port) {
+    List<Subscribeable> default_subscriptions = Arrays.asList(Subscribeable.TEST); // this probably belongs somewhere else
+	private void request_default_subscriptions() throws UnavailableSubscriptionExeption {
+		SHIP_client.send(subscriber.build_message(default_subscriptions).toByteArray());
+	}
+
+	private void start_SHIP_client(String host, int port) {
         try {
             SHIP_client = new Listener(host, port);
         } catch (IOException e) {
@@ -130,6 +147,12 @@ public class InterfaceClient {
             SHIP_client_thread = new Thread(SHIP_client);
             SHIP_client_thread.start();
         }
+        
+        on_connect();
+    }
+    
+    private void on_connect() {
+        SHIP_client.send(new RequestAvailableSubscriptions().build_message().toByteArray());
     }
     
     private void stop_SHIP_client(boolean send_goodbye) {
@@ -142,7 +165,7 @@ public class InterfaceClient {
             }
     
             if(send_goodbye) {
-                LSFN.IS handshake = LSFN.IS.newBuilder().setHandshake(LSFN.IS.Handshake.GOODBYE).build();
+                IS handshake = IS.newBuilder().setHandshake(IS.Handshake.GOODBYE).build();
                 SHIP_client.send(handshake.toByteArray());
             }
             

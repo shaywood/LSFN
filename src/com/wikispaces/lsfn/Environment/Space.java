@@ -1,8 +1,5 @@
 package com.wikispaces.lsfn.Environment;
 
-import java.util.HashMap;
-import java.util.Iterator;
-
 public class Space {
     private int width, height;
     
