@@ -56,6 +56,7 @@ public abstract class Subscribeable {
 	}
 	
 	public abstract Subscription_update build_subscription_update();
+	public abstract boolean has_updated();
 	public abstract void parse_subscription_update(Subscription_update s) throws PublishFailedException;
 	
 	@SuppressWarnings("serial")

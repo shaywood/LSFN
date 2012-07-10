@@ -1,5 +1,7 @@
 package com.wikispaces.lsfn.Shared.Subscriptions;
 
+import java.util.Random;
+
 import com.wikispaces.lsfn.Shared.LSFN.SI.Subscription_output_updates.Subscription_update;
 import com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Value_type;
 
@@ -10,6 +12,7 @@ public class TestSubscribeable extends Subscribeable {
 		super(1, "Test subscribeable.", Value_type.STRING);
 	}
 	
+	@Override
 	public Subscription_update build_subscription_update() {
 		return Subscription_update.newBuilder()
 			.setOutputID(get_id())
@@ -17,9 +20,15 @@ public class TestSubscribeable extends Subscribeable {
 			.build();
 	}
 	
+	@Override
 	public void parse_subscription_update(Subscription_update s) throws Subscribeable.PublishFailedException {
 		if(s.getStringValue() != TEST_MESSAGE) {
 			Publish_Failed_Exception(s.getStringValue());
 		}
+	}
+
+	@Override
+	public boolean has_updated() {
+		return new Random().nextInt(1000) % 1000 == 0;
 	}
 }

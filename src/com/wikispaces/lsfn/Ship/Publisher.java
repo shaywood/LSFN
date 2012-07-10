@@ -18,12 +18,18 @@ public class Publisher {
 	public void add_subscription_outputs_data(SI.Builder message_builder, int INT_id) throws UnknownInterfaceClientException {
 		
 		Set<Subscribeable> subscriptions = subscriber.get_subscriptions(INT_id);
+		boolean update_happened = false;
 		Subscription_output_updates.Builder builder = Subscription_output_updates.newBuilder(); 
 		
 		for (Subscribeable s : subscriptions) {
-			builder.addUpdates(s.build_subscription_update());
+			if(s.has_updated()) {
+				builder.addUpdates(s.build_subscription_update());
+				update_happened = true;
+			}
 		}
 		
-		message_builder.setOutputUpdates(builder.build());
+		if(update_happened) {
+			message_builder.setOutputUpdates(builder.build());
+		}
 	}
 }
