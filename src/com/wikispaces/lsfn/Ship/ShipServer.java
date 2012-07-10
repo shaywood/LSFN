@@ -2,7 +2,6 @@ package com.wikispaces.lsfn.Ship;
 
 import com.wikispaces.lsfn.Shared.*;
 import com.wikispaces.lsfn.Shared.LSFN.*;
-import com.wikispaces.lsfn.Shared.Subscriptions.Subscribeable;
 import com.google.protobuf.*;
 import java.io.*;
 import java.util.*;
@@ -66,6 +65,8 @@ public class ShipServer implements Runnable {
     		try {
 				publisher.add_subscription_outputs_data(builder, id);
 			} catch (UnknownInterfaceClientException e) {
+				e.printStackTrace();
+			} catch (NoSubscriptionBuilderDefinedException e) {
 				e.printStackTrace();
 			}
     		INT_server.send(id, builder.build().toByteArray());

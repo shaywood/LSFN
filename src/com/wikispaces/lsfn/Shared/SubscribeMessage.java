@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.wikispaces.lsfn.Shared.LSFN.IS;
-import com.wikispaces.lsfn.Shared.Subscriptions.Subscribeable;
 
 // If anyone can think of a better name for it, please change this.
 public class SubscribeMessage {

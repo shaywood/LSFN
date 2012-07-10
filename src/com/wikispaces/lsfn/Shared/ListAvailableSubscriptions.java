@@ -8,7 +8,6 @@ import java.util.Set;
 import com.wikispaces.lsfn.Shared.LSFN.SI;
 import com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available;
 import com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details;
-import com.wikispaces.lsfn.Shared.Subscriptions.Subscribeable;
 
 public class ListAvailableSubscriptions {
 

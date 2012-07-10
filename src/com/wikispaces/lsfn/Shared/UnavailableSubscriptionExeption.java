@@ -2,7 +2,6 @@ package com.wikispaces.lsfn.Shared;
 
 import java.util.Set;
 
-import com.wikispaces.lsfn.Shared.Subscriptions.Subscribeable;
 
 @SuppressWarnings("serial")
 public class UnavailableSubscriptionExeption extends Exception {
