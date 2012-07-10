@@ -11,7 +11,7 @@ public class TestParser extends SubscriptionMessageParser {
 
 	@Override
 	public void parse_subscription_update(Subscription_update s) throws SubscriptionMessageParser.PublishFailedException {
-		if(s.getStringValue() != Subscribeable.TEST_MESSAGE) {
+		if(!s.getStringValue().equals(Subscribeable.TEST_MESSAGE)) {
 			Publish_Failed_Exception(s.getStringValue());
 		}
 	}

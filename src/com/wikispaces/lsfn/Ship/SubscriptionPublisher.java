@@ -7,10 +7,10 @@ import com.wikispaces.lsfn.Shared.LSFN.SI;
 import com.wikispaces.lsfn.Shared.LSFN.SI.Subscription_output_updates;
 
 // Builds up a subscription outputs section to for subscribed INT_clients.
-public class Publisher {
+public class SubscriptionPublisher {
 	private Subscriptions subscriber;
 	
-	public Publisher(Subscriptions subscriber) {
+	public SubscriptionPublisher(Subscriptions subscriber) {
 		this.subscriber = subscriber;
 	}
 	
