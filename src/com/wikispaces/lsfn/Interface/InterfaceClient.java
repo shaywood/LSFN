@@ -84,7 +84,7 @@ public class InterfaceClient {
                                 .build())
                         .build();
                 SHIP_client.send(sendable.toByteArray());
-            } else if(num_parts == 3) { // "connect" connects the interface to the ship. Port 14613 is default on the Ship server.
+            } else if(num_parts == 3) { // "connect" connects the interface to the ship. Port 14612 is default on the Ship server.
                 start_SHIP_client(parts[1], Integer.parseInt(parts[2]));
             }
         } else if(message.equals("disconnect remote")) { // "disconnect remote" disconnect the ship from the environment server.

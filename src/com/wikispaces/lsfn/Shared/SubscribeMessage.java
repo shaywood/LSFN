@@ -1,6 +1,5 @@
 package com.wikispaces.lsfn.Shared;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,7 +16,7 @@ public class SubscribeMessage {
 	}
 	
 	public IS build_message(List<Subscribeable> requested_subscriptions) throws UnavailableSubscriptionExeption {
-		List<Integer> ids = new ArrayList<Integer>(); 
+		Set<Integer> ids = new HashSet<Integer>(); 
 		Set<Subscribeable> refusals = new HashSet<Subscribeable>();
 		for (Subscribeable request : requested_subscriptions) {
 			if(!available_subscriptions.contains(request)) {

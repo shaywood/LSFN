@@ -64,4 +64,18 @@ public abstract class Subscribeable {
 			super("Publishing subcription with id " + s.get_id() + " and name " + s.get_description() + " failed. Received value: " + failed_value);
 		}
 	}
+	
+	@Override public boolean equals(Object that) {
+		if ( this == that ) return true;
+		
+		if (!(that instanceof Subscribeable)) {
+			return false;
+		}
+		
+		return ((Subscribeable)that).get_id() == this.get_id();
+	}
+	
+    @Override public int hashCode() {
+        return this.get_id();
+    }
 }
