@@ -15,7 +15,8 @@ public class ShipServer implements Runnable {
     private boolean running;
     private BufferedReader stdin;
     private Subscriptions interface_client_subscriptions = new Subscriptions();
-    private Subscribe subscriber = new Subscribe(Subscribeable.get_all_available_subscribeables());
+    private SubscribeMessage subscriber = new SubscribeMessage(Subscribeable.get_all_available_subscribeables());
+    private SubscriptionPublisher publisher = new SubscriptionPublisher(interface_client_subscriptions);
     
     ShipServer() {
         INT_server = null;
@@ -43,6 +44,9 @@ public class ShipServer implements Runnable {
             // Get messages from the ENV (if it's connected)
             process_ENV();
             
+            // Do we want to move this inside process_ENV?
+            publish_updates_to_INT();
+            
             try {
                 Thread.sleep(20);
             } catch (InterruptedException e) {
@@ -54,7 +58,22 @@ public class ShipServer implements Runnable {
         stop_INT_server();
     }
     
-    private void process_user_input() {
+    private void publish_updates_to_INT() {
+    	Set<Integer> INT_ids =  interface_client_subscriptions.get_subscribers();
+    	for(Integer id : INT_ids) { 
+    		SI.Builder builder = SI.newBuilder();
+    		try {
+				publisher.add_subscription_outputs_data(builder, id);
+			} catch (UnknownInterfaceClientException e) {
+				e.printStackTrace();
+			} catch (NoSubscriptionBuilderDefinedException e) {
+				e.printStackTrace();
+			}
+    		INT_server.send(id, builder.build().toByteArray());
+    	}
+	}
+
+	private void process_user_input() {
         try {
             while(stdin.ready()) {
                 process_stdin_message(stdin.readLine());

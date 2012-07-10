@@ -1,5 +1,6 @@
 package com.wikispaces.lsfn.Interface;
 
+import com.wikispaces.lsfn.Interface.SubscriptionMessageParser.PublishFailedException;
 import com.wikispaces.lsfn.Interface.Display2D.MapDisplay;
 import com.wikispaces.lsfn.Interface.Model.*;
 import com.wikispaces.lsfn.Shared.*;
@@ -15,7 +16,8 @@ public class InterfaceClient {
     private Thread SHIP_client_thread;
     private boolean running;
     private BufferedReader stdin;
-    private Subscribe subscriber;
+    private SubscribeMessage subscriber;
+    private SubscriptionReceiver receiver = new SubscriptionReceiver();
 	
 	KnownSpace world;
 	MapDisplay display;
@@ -26,7 +28,7 @@ public class InterfaceClient {
         stdin = new BufferedReader(new InputStreamReader(System.in));
 		
 		world = new DummyUniverse();
-		display = new MapDisplay(world);
+		display = new MapDisplay(this, world);
     }
     
     int cycle_time_ms = 20;
@@ -82,7 +84,7 @@ public class InterfaceClient {
                                 .build())
                         .build();
                 SHIP_client.send(sendable.toByteArray());
-            } else if(num_parts == 3) { // "connect" connects the interface to the ship. Port 14613 is default on the Ship server.
+            } else if(num_parts == 3) { // "connect" connects the interface to the ship. Port 14612 is default on the Ship server.
                 start_SHIP_client(parts[1], Integer.parseInt(parts[2]));
             }
         } else if(message.equals("disconnect remote")) { // "disconnect remote" disconnect the ship from the environment server.
@@ -117,8 +119,11 @@ public class InterfaceClient {
                 stop_SHIP_client(false);
             }
             if(parsed_message.hasSubscriptionsAvailable()) {
-            	subscriber = new Subscribe(new ListAvailableSubscriptions().parse_message(parsed_message));
+            	subscriber = new SubscribeMessage(new ListAvailableSubscriptions().parse_message(parsed_message));
             	request_default_subscriptions();
+            }
+            if(parsed_message.hasOutputUpdates()) {
+            	receiver.parse_subscription_outputs_data(parsed_message.getOutputUpdates());
             }
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
@@ -126,7 +131,11 @@ public class InterfaceClient {
         	e.printStackTrace();
         } catch (UnavailableSubscriptionExeption e) {
 	    	e.printStackTrace();
-	    }
+	    } catch (PublishFailedException e) {
+			e.printStackTrace();
+		} catch (NoSubscriptionParserDefinedException e) {
+			e.printStackTrace();
+		}
     }
     
     List<Subscribeable> default_subscriptions = Arrays.asList(Subscribeable.TEST); // this probably belongs somewhere else
@@ -134,7 +143,7 @@ public class InterfaceClient {
 		SHIP_client.send(subscriber.build_message(default_subscriptions).toByteArray());
 	}
 
-	private void start_SHIP_client(String host, int port) {
+	public void start_SHIP_client(String host, int port) {
         try {
             SHIP_client = new Listener(host, port);
         } catch (IOException e) {
