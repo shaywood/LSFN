@@ -7,6 +7,9 @@ import com.wikispaces.lsfn.Shared.Subscriptions.Subscribeable;
 public class Subscriptions {
 	Map<Integer, Set<Subscribeable>> current = new HashMap<Integer, Set<Subscribeable>>();
 	
+	public Set<Integer> get_subscribers() {
+		return current.keySet();
+	}
 	
 	public void subscribe(int subscriber_id, Set<Subscribeable> subscribe_to) {
 		if(!current.containsKey(subscriber_id)) {

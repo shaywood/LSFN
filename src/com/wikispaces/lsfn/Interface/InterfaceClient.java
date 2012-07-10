@@ -17,7 +17,7 @@ public class InterfaceClient {
     private Thread SHIP_client_thread;
     private boolean running;
     private BufferedReader stdin;
-    private Subscribe subscriber;
+    private SubscribeMessage subscriber;
 	
 	KnownSpace world;
 	MapDisplay display;
@@ -119,7 +119,7 @@ public class InterfaceClient {
                 stop_SHIP_client(false);
             }
             if(parsed_message.hasSubscriptionsAvailable()) {
-            	subscriber = new Subscribe(new ListAvailableSubscriptions().parse_message(parsed_message));
+            	subscriber = new SubscribeMessage(new ListAvailableSubscriptions().parse_message(parsed_message));
             	request_default_subscriptions();
             }
         } catch (InvalidProtocolBufferException e) {
