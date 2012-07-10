@@ -2,13 +2,13 @@ package com.wikispaces.lsfn.Ship;
 
 import java.util.*;
 
-import com.wikispaces.lsfn.Shared.Subscribeable;
+import com.wikispaces.lsfn.Shared.Subscriptions.Subscribeable;
 
 public class Subscriptions {
 	Map<Integer, Set<Subscribeable>> current = new HashMap<Integer, Set<Subscribeable>>();
 	
 	
-	public void subscribe(int subscriber_id, List<Subscribeable> subscribe_to) {
+	public void subscribe(int subscriber_id, Set<Subscribeable> subscribe_to) {
 		if(!current.containsKey(subscriber_id)) {
 			current.put(subscriber_id, new HashSet<Subscribeable>()); 
 		}

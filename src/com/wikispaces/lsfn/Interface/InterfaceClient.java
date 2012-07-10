@@ -4,6 +4,8 @@ import com.wikispaces.lsfn.Interface.Display2D.MapDisplay;
 import com.wikispaces.lsfn.Interface.Model.*;
 import com.wikispaces.lsfn.Shared.*;
 import com.wikispaces.lsfn.Shared.LSFN.*;
+import com.wikispaces.lsfn.Shared.Subscriptions.Subscribeable;
+import com.wikispaces.lsfn.Shared.Subscriptions.TestSubscribeable;
 
 import com.google.protobuf.*;
 import java.io.*;
@@ -129,7 +131,7 @@ public class InterfaceClient {
 	    }
     }
     
-    List<Subscribeable> default_subscriptions = Arrays.asList(Subscribeable.TEST); // this probably belongs somewhere else
+    List<Subscribeable> default_subscriptions = Arrays.asList((Subscribeable)new TestSubscribeable()); // this probably belongs somewhere else
 	private void request_default_subscriptions() throws UnavailableSubscriptionExeption {
 		SHIP_client.send(subscriber.build_message(default_subscriptions).toByteArray());
 	}

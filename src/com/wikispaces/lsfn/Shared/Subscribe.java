@@ -1,21 +1,24 @@
 package com.wikispaces.lsfn.Shared;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.wikispaces.lsfn.Shared.LSFN.IS;
+import com.wikispaces.lsfn.Shared.Subscriptions.Subscribeable;
 
 // If anyone can think of a better name for it, please change this.
 public class Subscribe {
-	private final List<Subscribeable> available_subscriptions;
+	private Set<Subscribeable> available_subscriptions;
 
-	public Subscribe(List<Subscribeable> available_subscriptions) {
+	public Subscribe(Set<Subscribeable> available_subscriptions) {
 		this.available_subscriptions = available_subscriptions;
 	}
 	
 	public IS build_message(List<Subscribeable> requested_subscriptions) throws UnavailableSubscriptionExeption {
 		List<Integer> ids = new ArrayList<Integer>(); 
-		List<Subscribeable> refusals = new ArrayList<Subscribeable>();
+		Set<Subscribeable> refusals = new HashSet<Subscribeable>();
 		for (Subscribeable request : requested_subscriptions) {
 			if(!available_subscriptions.contains(request)) {
 				refusals.add(request);
@@ -32,11 +35,11 @@ public class Subscribe {
 			.build();
 	}
 	
-	public List<Subscribeable> parse_message(IS message) throws SubscribeableNotFoundException, UnavailableSubscriptionExeption {
+	public Set<Subscribeable> parse_message(IS message) throws SubscribeableNotFoundException, UnavailableSubscriptionExeption {
 		
     	List<Integer> ids = message.getSubscribe().getOutputIDsList();
-    	List<Subscribeable> acceptances = new ArrayList<Subscribeable>();
-    	List<Subscribeable> refusals = new ArrayList<Subscribeable>();
+    	Set<Subscribeable> acceptances = new HashSet<Subscribeable>();
+    	Set<Subscribeable> refusals = new HashSet<Subscribeable>();
     	
     	for(Integer id : ids) {
     		Subscribeable request = Subscribeable.lookup_by_id(id);

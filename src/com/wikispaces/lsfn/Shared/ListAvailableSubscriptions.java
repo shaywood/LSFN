@@ -1,11 +1,14 @@
 package com.wikispaces.lsfn.Shared;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.wikispaces.lsfn.Shared.LSFN.SI;
 import com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available;
 import com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details;
+import com.wikispaces.lsfn.Shared.Subscriptions.Subscribeable;
 
 public class ListAvailableSubscriptions {
 
@@ -30,9 +33,9 @@ public class ListAvailableSubscriptions {
     			.build();
     }
     
-    public List<Subscribeable> parse_message(SI message) throws SubscribeableNotFoundException {
+    public Set<Subscribeable> parse_message(SI message) throws SubscribeableNotFoundException {
     	List<Value_details> value_details = message.getSubscriptionsAvailable().getOutputsList();
-    	List<Subscribeable> available_subscriptions = new ArrayList<Subscribeable>();
+    	Set<Subscribeable> available_subscriptions = new HashSet<Subscribeable>();
     	for (Value_details v : value_details) {
     		available_subscriptions.add(Subscribeable.lookup_by_id(v.getID()));
     	}

@@ -2,6 +2,7 @@ package com.wikispaces.lsfn.Ship;
 
 import com.wikispaces.lsfn.Shared.*;
 import com.wikispaces.lsfn.Shared.LSFN.*;
+import com.wikispaces.lsfn.Shared.Subscriptions.Subscribeable;
 import com.google.protobuf.*;
 import java.io.*;
 import java.util.*;
