@@ -28,7 +28,7 @@ public class InterfaceClient {
         stdin = new BufferedReader(new InputStreamReader(System.in));
 		
 		world = new DummyUniverse();
-		display = new MapDisplay(world);
+		display = new MapDisplay(this, world);
     }
     
     int cycle_time_ms = 20;
@@ -143,7 +143,7 @@ public class InterfaceClient {
 		SHIP_client.send(subscriber.build_message(default_subscriptions).toByteArray());
 	}
 
-	private void start_SHIP_client(String host, int port) {
+	public void start_SHIP_client(String host, int port) {
         try {
             SHIP_client = new Listener(host, port);
         } catch (IOException e) {
