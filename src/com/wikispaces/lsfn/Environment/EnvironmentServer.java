@@ -70,25 +70,34 @@ public class EnvironmentServer implements Runnable {
     private void handshake_new_SHIP_connections() {
         Integer[] SHIP_IDs = SHIP_server.get_new_connections();
         for(int i = 0; i < SHIP_IDs.length; i++) {
+            // This creates a new ship and adds it to the collection that is staic to Ship.
+            Ship ship = new Ship(SHIP_IDs[i], 0, 0);
+            
+            // Send a handshake to the SHIP
             LSFN.ES handshake = LSFN.ES.newBuilder()
                     .setHandshake(LSFN.ES.Handshake.newBuilder()
                             .setType(LSFN.ES.Handshake.Type.HELLO)
-                            .setShipID(SHIP_IDs[i])
+                            .setShipID(ship.get_ID())
                             .build())
                     .build();
-            SHIP_server.send(SHIP_IDs[i], handshake.toByteArray());
+            SHIP_server.send(ship.get_ID(), handshake.toByteArray());
         }
     }
     
     private void process_messages_from_existing_SHIP_connections() {    	
         HashMap<Integer, byte[][]> messages = SHIP_server.read_all();
-        Iterator<Integer> message_iterator = messages.keySet().iterator();
-        while(message_iterator.hasNext()) {
-            Integer message_ID = message_iterator.next();
+        for(Integer message_ID : messages.keySet()) {
             byte[][] message_array = messages.get(message_ID);
             for(int i = 0; i < message_array.length; i++) {
                 process_SHIP_message(message_ID, message_array[i]);
             }
+        }
+    }
+    
+    private void handleDisconnections() {
+        Integer[] SHIP_IDs = SHIP_server.get_new_connections();
+        for(int i = 0; i < SHIP_IDs.length; i++) {
+            Ship.remove(i);
         }
     }
     
