@@ -35,7 +35,6 @@ public class SpacePanel extends JPanel {
 	}
 	
 	private void centre_view_on_point(Graphics2D draw_on, Point2D centre_on) {
-		
 		draw_on.translate(centre_point.getX() - centre_on.getX(), centre_point.getY() - centre_on.getY());
 	}
 }

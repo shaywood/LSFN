@@ -1,6 +1,7 @@
 package com.wikispaces.lsfn.Interface.Display2D;
 
 import java.awt.geom.Point2D;
+import java.util.Arrays;
 
 import javax.swing.JFrame;
 
@@ -17,8 +18,10 @@ public class MapDisplay extends JFrame {
 		this.setSize(width, height);
 		getRootPane().setDoubleBuffered(true);
 		SpacePanel panel = new SpacePanel(world, new Point2D.Double(width/2, height/2));
+		new ShipMovement(panel, Arrays.asList(Controls.values()));
 		
 		getContentPane().add(new ConnectButtonWrapperPanel(interface_client, panel));
+		
 		setVisible(true);
 	}
 	
