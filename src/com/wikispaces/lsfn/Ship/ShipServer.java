@@ -162,7 +162,7 @@ public class ShipServer implements Runnable {
 					interface_client_subscriptions.subscribe(INT_ID, subscriber.parse_message(parsed_message));
 				} catch (SubscribeableNotFoundException e) {
 					e.printStackTrace();
-				} catch (UnavailableSubscriptionExeption e) {
+				} catch (UnavailableSubscriptionException e) {
 					e.printStackTrace();
 				}
             }

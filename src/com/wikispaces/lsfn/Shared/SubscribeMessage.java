@@ -14,7 +14,7 @@ public class SubscribeMessage {
 		this.available_subscriptions = available_subscriptions;
 	}
 	
-	public IS build_message(List<Subscribeable> requested_subscriptions) throws UnavailableSubscriptionExeption {
+	public IS build_message(List<Subscribeable> requested_subscriptions) throws UnavailableSubscriptionException {
 		Set<Integer> ids = new HashSet<Integer>(); 
 		Set<Subscribeable> refusals = new HashSet<Subscribeable>();
 		for (Subscribeable request : requested_subscriptions) {
@@ -25,7 +25,7 @@ public class SubscribeMessage {
 		}
 		
 		if(refusals.size() > 0) {
-			throw new UnavailableSubscriptionExeption(refusals);
+			throw new UnavailableSubscriptionException(refusals);
 		}
 		
 		return IS.newBuilder().setSubscribe(
@@ -33,7 +33,7 @@ public class SubscribeMessage {
 			.build();
 	}
 	
-	public Set<Subscribeable> parse_message(IS message) throws SubscribeableNotFoundException, UnavailableSubscriptionExeption {
+	public Set<Subscribeable> parse_message(IS message) throws SubscribeableNotFoundException, UnavailableSubscriptionException {
 		
     	List<Integer> ids = message.getSubscribe().getOutputIDsList();
     	Set<Subscribeable> acceptances = new HashSet<Subscribeable>();
@@ -50,7 +50,7 @@ public class SubscribeMessage {
     	}
     	
     	if(refusals.size() > 0) {
-    		throw new UnavailableSubscriptionExeption(refusals);
+    		throw new UnavailableSubscriptionException(refusals);
     	}
     	
     	return acceptances;

@@ -129,7 +129,7 @@ public class InterfaceClient {
             e.printStackTrace();
         } catch (SubscribeableNotFoundException e) {
         	e.printStackTrace();
-        } catch (UnavailableSubscriptionExeption e) {
+        } catch (UnavailableSubscriptionException e) {
 	    	e.printStackTrace();
 	    } catch (PublishFailedException e) {
 			e.printStackTrace();
@@ -139,7 +139,7 @@ public class InterfaceClient {
     }
     
     List<Subscribeable> default_subscriptions = Arrays.asList(Subscribeable.TEST); // this probably belongs somewhere else
-	private void request_default_subscriptions() throws UnavailableSubscriptionExeption {
+	private void request_default_subscriptions() throws UnavailableSubscriptionException {
 		SHIP_client.send(subscriber.build_message(default_subscriptions).toByteArray());
 	}
 

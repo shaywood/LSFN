@@ -4,8 +4,8 @@ import java.util.Set;
 
 
 @SuppressWarnings("serial")
-public class UnavailableSubscriptionExeption extends Exception {
-	public UnavailableSubscriptionExeption(Set<Subscribeable> refusals) {
+public class UnavailableSubscriptionException extends Exception {
+	public UnavailableSubscriptionException(Set<Subscribeable> refusals) {
 		super("Interface wanted the following subscriptions, which were not provided by the Ship server:\\r\\n" + build_refusal_list(refusals));
 	}
 	
