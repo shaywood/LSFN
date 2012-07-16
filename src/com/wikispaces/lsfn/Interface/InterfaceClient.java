@@ -4,12 +4,17 @@ import com.wikispaces.lsfn.Interface.SubscriptionMessageParser.PublishFailedExce
 import com.wikispaces.lsfn.Interface.Display2D.MapDisplay;
 import com.wikispaces.lsfn.Interface.Model.*;
 import com.wikispaces.lsfn.Shared.*;
+import com.wikispaces.lsfn.Shared.LSFN.IS.Subscription_input_updates.Subscription_update;
 import com.wikispaces.lsfn.Shared.LSFN.*;
+import com.wikispaces.lsfn.Shared.LSFN.IS.Subscription_input_updates;
 
 import com.google.protobuf.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class InterfaceClient {
     private Listener SHIP_client;
@@ -18,6 +23,7 @@ public class InterfaceClient {
     private BufferedReader stdin;
     private SubscribeMessage subscriber;
     private SubscriptionReceiver receiver = new SubscriptionReceiver();
+    private BlockingQueue<PlayerCommand> player_input_queue = new LinkedBlockingQueue<PlayerCommand>();
 	
 	KnownSpace world;
 	MapDisplay display;
@@ -28,7 +34,7 @@ public class InterfaceClient {
         stdin = new BufferedReader(new InputStreamReader(System.in));
 		
 		world = new DummyUniverse();
-		display = new MapDisplay(this, world);
+		display = new MapDisplay(this, player_input_queue, world);
     }
     
     int cycle_time_ms = 20;
@@ -37,8 +43,12 @@ public class InterfaceClient {
     public void run() {      
         running = true;
         while(running) {
-            process_user_input();
+            process_console_input();
             process_incoming_SHIP_messages();
+            
+            if(SHIP_client != null) {
+            	process_player_input();
+            }
 			
 			world.update(cycle_time);
 			display.repaint();
@@ -56,7 +66,28 @@ public class InterfaceClient {
         System.exit(0);
     }
     
-    private void process_user_input() {
+    private void process_player_input() {
+    	List<PlayerCommand> commands = new ArrayList<PlayerCommand>();
+		player_input_queue.drainTo(commands);
+		
+		commands = new PlayerCommandSimplifier().merge(commands);
+		
+		List<Subscription_update> updates = new ArrayList<Subscription_update>();
+		for(PlayerCommand c : commands) {
+			c.update_local_model(world);
+			updates.addAll((c.build_message_update()));
+		}
+		
+		if(updates.size() > 0) {
+			IS.Builder message_builder = IS.newBuilder();
+			Subscription_input_updates.Builder subscription_builder = Subscription_input_updates.newBuilder();
+			subscription_builder.addAllUpdates(updates);
+			message_builder.setInputUpdates(subscription_builder.build());
+			SHIP_client.send(message_builder.build().toByteArray());
+		}
+	}
+
+	private void process_console_input() {
         try {
             while(stdin.ready()) {
                 process_stdin_message(stdin.readLine());
@@ -138,7 +169,7 @@ public class InterfaceClient {
 		}
     }
     
-    List<Subscribeable> default_subscriptions = Arrays.asList(Subscribeable.TEST); // this probably belongs somewhere else
+    List<SubscribeableOutput> default_subscriptions = Arrays.asList(SubscribeableOutput.TEST); // this probably belongs somewhere else
 	private void request_default_subscriptions() throws UnavailableSubscriptionException {
 		SHIP_client.send(subscriber.build_message(default_subscriptions).toByteArray());
 	}

@@ -5,16 +5,16 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.wikispaces.lsfn.Shared.LSFN.SI.Subscription_output_updates.Subscription_update;
-import com.wikispaces.lsfn.Shared.Subscribeable;
+import com.wikispaces.lsfn.Shared.SubscribeableOutput;
 
 public abstract class SubscriptionMessageParser {
 	private static Set<SubscriptionMessageParser> parsers = new HashSet<SubscriptionMessageParser>(Arrays.asList(
 			new TestParser()
 	));
 	
-	protected Subscribeable subscribeable;
+	protected SubscribeableOutput subscribeable;
 	
-	protected SubscriptionMessageParser(Subscribeable subscribeable) {
+	protected SubscriptionMessageParser(SubscribeableOutput subscribeable) {
 		this.subscribeable = subscribeable;
 	}
 	
@@ -26,12 +26,12 @@ public abstract class SubscriptionMessageParser {
 
 	@SuppressWarnings("serial")
 	public class PublishFailedException extends Exception {
-		public PublishFailedException(Subscribeable s, String failed_value) {
+		public PublishFailedException(SubscribeableOutput s, String failed_value) {
 			super("Publishing subcription with id " + s.get_id() + " and name " + s.get_description() + " failed. Received value: " + failed_value);
 		}
 	}
 	
-	public static SubscriptionMessageParser get_parser(Subscribeable s) throws NoSubscriptionParserDefinedException {
+	public static SubscriptionMessageParser get_parser(SubscribeableOutput s) throws NoSubscriptionParserDefinedException {
 		for (SubscriptionMessageParser p : parsers) {
 			if(p.subscribeable == s) {
 				return p;

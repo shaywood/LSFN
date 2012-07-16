@@ -5,7 +5,7 @@ import java.util.List;
 import com.wikispaces.lsfn.Interface.SubscriptionMessageParser.PublishFailedException;
 import com.wikispaces.lsfn.Shared.LSFN.SI.Subscription_output_updates;
 import com.wikispaces.lsfn.Shared.LSFN.SI.Subscription_output_updates.Subscription_update;
-import com.wikispaces.lsfn.Shared.Subscribeable;
+import com.wikispaces.lsfn.Shared.SubscribeableOutput;
 import com.wikispaces.lsfn.Shared.SubscribeableNotFoundException;
 
 public class SubscriptionReceiver {
@@ -13,7 +13,7 @@ public class SubscriptionReceiver {
 		List<Subscription_update> updates = output_updates.getUpdatesList();
 		
 		for (Subscription_update u : updates) {
-			Subscribeable s = Subscribeable.lookup_by_id(u.getOutputID());
+			SubscribeableOutput s = SubscribeableOutput.lookup_by_id(u.getOutputID());
 			SubscriptionMessageParser.get_parser(s).parse_subscription_update(u);
 		}
 	}

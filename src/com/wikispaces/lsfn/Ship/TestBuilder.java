@@ -2,19 +2,19 @@ package com.wikispaces.lsfn.Ship;
 
 import java.util.Random;
 
-import com.wikispaces.lsfn.Shared.Subscribeable;
+import com.wikispaces.lsfn.Shared.SubscribeableOutput;
 import com.wikispaces.lsfn.Shared.LSFN.SI.Subscription_output_updates.Subscription_update;
 
 public class TestBuilder extends SubscriptionMessageBuilder {
 	public TestBuilder() {
-		super(Subscribeable.TEST);
+		super(SubscribeableOutput.TEST);
 	}
 	
 	@Override
 	public Subscription_update build_subscription_update() {
 		return Subscription_update.newBuilder()
 			.setOutputID(subscribeable.get_id())
-			.setStringValue(Subscribeable.TEST_MESSAGE)
+			.setStringValue(SubscribeableOutput.TEST_MESSAGE)
 			.build();
 	}
 

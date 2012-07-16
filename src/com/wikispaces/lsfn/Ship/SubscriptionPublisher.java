@@ -2,7 +2,7 @@ package com.wikispaces.lsfn.Ship;
 
 import java.util.Set;
 
-import com.wikispaces.lsfn.Shared.Subscribeable;
+import com.wikispaces.lsfn.Shared.SubscribeableOutput;
 import com.wikispaces.lsfn.Shared.LSFN.SI;
 import com.wikispaces.lsfn.Shared.LSFN.SI.Subscription_output_updates;
 
@@ -16,11 +16,11 @@ public class SubscriptionPublisher {
 	
 	public void add_subscription_outputs_data(SI.Builder message_builder, int INT_id) throws UnknownInterfaceClientException, NoSubscriptionBuilderDefinedException {
 		
-		Set<Subscribeable> subscriptions = subscriber.get_subscriptions(INT_id);
+		Set<SubscribeableOutput> subscriptions = subscriber.get_subscriptions(INT_id);
 		boolean update_happened = false;
 		Subscription_output_updates.Builder builder = Subscription_output_updates.newBuilder(); 
 		
-		for (Subscribeable s : subscriptions) {
+		for (SubscribeableOutput s : subscriptions) {
 			SubscriptionMessageBuilder s_builder = SubscriptionMessageBuilder.get_builder(s);
 			if(s_builder.has_updated()) {
 				builder.addUpdates(s_builder.build_subscription_update());

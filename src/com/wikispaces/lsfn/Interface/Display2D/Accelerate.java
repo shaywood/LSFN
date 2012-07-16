@@ -1,41 +1,47 @@
 package com.wikispaces.lsfn.Interface.Display2D;
 
-import java.awt.event.ActionEvent;
-import java.beans.PropertyChangeListener;
+import java.util.Arrays;
+import java.util.List;
 
-import javax.swing.Action;
+import com.wikispaces.lsfn.Interface.PlayerCommand;
+import com.wikispaces.lsfn.Interface.Model.KnownSpace;
+import com.wikispaces.lsfn.Shared.LSFN.IS.Subscription_input_updates.Subscription_update;
+import com.wikispaces.lsfn.Shared.SubscribeableInput;
 
-public class Accelerate implements Action {
+public class Accelerate implements PlayerCommand {
 
-	private Direction where_to;
+	UnitDirection where_to;
 
-	public Accelerate(Direction where_to) {
+	public Accelerate(UnitDirection where_to) {
 		this.where_to = where_to;
 	}
 	
-	public void actionPerformed(ActionEvent e) {
-		System.out.println("Accelerating  " + where_to);
+	public boolean can_combine(PlayerCommand c) {
+		return c instanceof Accelerate;
 	}
 
-	public Object getValue(String key) {
-		return null;
+	public PlayerCommand combine_with(PlayerCommand c){
+		if(can_combine(c)) {
+			Accelerate a = (Accelerate)c;
+			return new Accelerate(this.where_to.combine(a.where_to));
+		}
+		else throw new RuntimeException("Cannot combine commands of type " + this + " and " + c);
 	}
 
-	public void putValue(String key, Object value) {
+	public void update_local_model(KnownSpace model) {
+		System.out.println("Accelerating " + where_to);
+	}
+
+	public List<Subscription_update> build_message_update() {
 		
-	}
-
-	public void setEnabled(boolean b) {
-	}
-
-	public boolean isEnabled() {
-		return true;
-	}
-
-	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		Subscription_update.Builder ns_builder = Subscription_update.newBuilder();
+		ns_builder.setInputID(SubscribeableInput.ACCELERATE_NORTHSOUTH.get_id());
+		ns_builder.setInt32Value(where_to.get_north_south());
 		
-	}
-
-	public void removePropertyChangeListener(PropertyChangeListener listener) {
+		Subscription_update.Builder ew_builder = Subscription_update.newBuilder();
+		ew_builder.setInputID(SubscribeableInput.ACCELERATE_EASTWEST.get_id());
+		ew_builder.setInt32Value(where_to.get_east_west());
+		
+		return Arrays.asList(ns_builder.build(), ew_builder.build());
 	}
 }

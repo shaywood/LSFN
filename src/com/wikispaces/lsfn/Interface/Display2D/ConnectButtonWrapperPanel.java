@@ -3,6 +3,7 @@ package com.wikispaces.lsfn.Interface.Display2D;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.BlockingQueue;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -10,16 +11,18 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.wikispaces.lsfn.Interface.InterfaceClient;
+import com.wikispaces.lsfn.Interface.PlayerCommand;
 
 @SuppressWarnings("serial")
 public class ConnectButtonWrapperPanel extends JPanel implements ActionListener {
 	private JButton connect;
 	private JTextField host;
 	private JTextField port;
-	private InterfaceClient interface_client;
+	private BlockingQueue<PlayerCommand> player_input_queue;
+	private InterfaceClient client;
 
-	public ConnectButtonWrapperPanel(InterfaceClient interface_client, JPanel wrapped) {
-		this.interface_client = interface_client;
+	public ConnectButtonWrapperPanel(InterfaceClient client, JPanel wrapped) {
+		this.client = client;
 		connect = new JButton();
 		connect.setText("Connect");
 		connect.addActionListener(this);
@@ -41,7 +44,7 @@ public class ConnectButtonWrapperPanel extends JPanel implements ActionListener 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		interface_client.start_SHIP_client(host.getText(), Integer.parseInt(port.getText()));
+		client.start_SHIP_client(host.getText(), Integer.parseInt(port.getText()));
 		connect.setEnabled(false);
 	}
 }
