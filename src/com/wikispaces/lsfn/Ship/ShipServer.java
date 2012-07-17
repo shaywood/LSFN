@@ -15,7 +15,7 @@ public class ShipServer implements Runnable {
     private boolean running;
     private BufferedReader stdin;
     private Subscriptions interface_client_subscriptions = new Subscriptions();
-    private SubscribeMessage subscriber = new SubscribeMessage(SubscribeableOutput.get_all_available_subscribeables());
+    private SubscribeMessage subscriber = new SubscribeMessage(Subscribeable.get_output_subscribeables());
     private SubscriptionPublisher publisher = new SubscriptionPublisher(interface_client_subscriptions);
     
     ShipServer() {

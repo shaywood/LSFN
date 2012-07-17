@@ -14,7 +14,7 @@ public class ListAvailableSubscriptions {
     public SI build_message(Integer INT_ID) {
     	List<Value_details> available_subscriptions = new ArrayList<Value_details>();
     	
-    	for(SubscribeableOutput s : SubscribeableOutput.get_all_available_subscribeables()) {
+    	for(Subscribeable s : Subscribeable.get_output_subscribeables()) {
     		available_subscriptions.add(build_value_details(s));
     	}
     	
@@ -24,7 +24,7 @@ public class ListAvailableSubscriptions {
 			.build();
 	}
     
-    private Value_details build_value_details(SubscribeableOutput subscribeable) {
+    private Value_details build_value_details(Subscribeable subscribeable) {
     	return Value_details.newBuilder()
     			.setID(subscribeable.get_id())
     			.setName(subscribeable.get_description())
@@ -32,11 +32,11 @@ public class ListAvailableSubscriptions {
     			.build();
     }
     
-    public Set<SubscribeableOutput> parse_message(SI message) throws SubscribeableNotFoundException {
+    public Set<Subscribeable> parse_message(SI message) throws SubscribeableNotFoundException {
     	List<Value_details> value_details = message.getSubscriptionsAvailable().getOutputsList();
-    	Set<SubscribeableOutput> available_subscriptions = new HashSet<SubscribeableOutput>();
+    	Set<Subscribeable> available_subscriptions = new HashSet<Subscribeable>();
     	for (Value_details v : value_details) {
-    		available_subscriptions.add(SubscribeableOutput.lookup_by_id(v.getID()));
+    		available_subscriptions.add(Subscribeable.lookup_by_id(v.getID()));
     	}
     	return available_subscriptions;
     }

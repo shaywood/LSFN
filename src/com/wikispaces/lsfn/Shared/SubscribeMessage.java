@@ -8,16 +8,16 @@ import com.wikispaces.lsfn.Shared.LSFN.IS;
 
 // If anyone can think of a better name for it, please change this.
 public class SubscribeMessage {
-	private Set<SubscribeableOutput> available_subscriptions;
+	private Set<Subscribeable> available_subscriptions;
 
-	public SubscribeMessage(Set<SubscribeableOutput> available_subscriptions) {
+	public SubscribeMessage(Set<Subscribeable> available_subscriptions) {
 		this.available_subscriptions = available_subscriptions;
 	}
 	
-	public IS build_message(List<SubscribeableOutput> requested_subscriptions) throws UnavailableSubscriptionException {
+	public IS build_message(List<Subscribeable> requested_subscriptions) throws UnavailableSubscriptionException {
 		Set<Integer> ids = new HashSet<Integer>(); 
-		Set<SubscribeableOutput> refusals = new HashSet<SubscribeableOutput>();
-		for (SubscribeableOutput request : requested_subscriptions) {
+		Set<Subscribeable> refusals = new HashSet<Subscribeable>();
+		for (Subscribeable request : requested_subscriptions) {
 			if(!available_subscriptions.contains(request)) {
 				refusals.add(request);
 			}
@@ -33,14 +33,14 @@ public class SubscribeMessage {
 			.build();
 	}
 	
-	public Set<SubscribeableOutput> parse_message(IS message) throws SubscribeableNotFoundException, UnavailableSubscriptionException {
+	public Set<Subscribeable> parse_message(IS message) throws SubscribeableNotFoundException, UnavailableSubscriptionException {
 		
     	List<Integer> ids = message.getSubscribe().getOutputIDsList();
-    	Set<SubscribeableOutput> acceptances = new HashSet<SubscribeableOutput>();
-    	Set<SubscribeableOutput> refusals = new HashSet<SubscribeableOutput>();
+    	Set<Subscribeable> acceptances = new HashSet<Subscribeable>();
+    	Set<Subscribeable> refusals = new HashSet<Subscribeable>();
     	
     	for(Integer id : ids) {
-    		SubscribeableOutput request = SubscribeableOutput.lookup_by_id(id);
+    		Subscribeable request = Subscribeable.lookup_by_id(id);
     		if(available_subscriptions.contains(request)) {
     			acceptances.add(request);
     		}

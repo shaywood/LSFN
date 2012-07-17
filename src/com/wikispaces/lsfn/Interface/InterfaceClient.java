@@ -4,9 +4,8 @@ import com.wikispaces.lsfn.Interface.SubscriptionMessageParser.PublishFailedExce
 import com.wikispaces.lsfn.Interface.Display2D.MapDisplay;
 import com.wikispaces.lsfn.Interface.Model.*;
 import com.wikispaces.lsfn.Shared.*;
-import com.wikispaces.lsfn.Shared.LSFN.IS.Subscription_input_updates.Subscription_update;
+import com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update;
 import com.wikispaces.lsfn.Shared.LSFN.*;
-import com.wikispaces.lsfn.Shared.LSFN.IS.Subscription_input_updates;
 
 import com.google.protobuf.*;
 import java.io.*;
@@ -80,7 +79,7 @@ public class InterfaceClient {
 		
 		if(updates.size() > 0) {
 			IS.Builder message_builder = IS.newBuilder();
-			Subscription_input_updates.Builder subscription_builder = Subscription_input_updates.newBuilder();
+			Subscription_updates.Builder subscription_builder = Subscription_updates.newBuilder();
 			subscription_builder.addAllUpdates(updates);
 			message_builder.setInputUpdates(subscription_builder.build());
 			SHIP_client.send(message_builder.build().toByteArray());
@@ -154,7 +153,7 @@ public class InterfaceClient {
             	request_default_subscriptions();
             }
             if(parsed_message.hasOutputUpdates()) {
-            	receiver.parse_subscription_outputs_data(parsed_message.getOutputUpdates());
+            	receiver.parse_subscription_data(parsed_message.getOutputUpdates());
             }
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
@@ -169,7 +168,7 @@ public class InterfaceClient {
 		}
     }
     
-    List<SubscribeableOutput> default_subscriptions = Arrays.asList(SubscribeableOutput.TEST); // this probably belongs somewhere else
+    List<Subscribeable> default_subscriptions = Arrays.asList(Subscribeable.TEST); // this probably belongs somewhere else
 	private void request_default_subscriptions() throws UnavailableSubscriptionException {
 		SHIP_client.send(subscriber.build_message(default_subscriptions).toByteArray());
 	}

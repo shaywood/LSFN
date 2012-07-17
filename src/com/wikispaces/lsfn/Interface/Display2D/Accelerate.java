@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.wikispaces.lsfn.Interface.PlayerCommand;
 import com.wikispaces.lsfn.Interface.Model.KnownSpace;
-import com.wikispaces.lsfn.Shared.LSFN.IS.Subscription_input_updates.Subscription_update;
-import com.wikispaces.lsfn.Shared.SubscribeableInput;
+import com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update;
+import com.wikispaces.lsfn.Shared.Subscribeable;
 
 public class Accelerate implements PlayerCommand {
 
@@ -35,11 +35,11 @@ public class Accelerate implements PlayerCommand {
 	public List<Subscription_update> build_message_update() {
 		
 		Subscription_update.Builder ns_builder = Subscription_update.newBuilder();
-		ns_builder.setInputID(SubscribeableInput.ACCELERATE_NORTHSOUTH.get_id());
+		ns_builder.setID(Subscribeable.ACCELERATE_NORTHSOUTH.get_id());
 		ns_builder.setInt32Value(where_to.get_north_south());
 		
 		Subscription_update.Builder ew_builder = Subscription_update.newBuilder();
-		ew_builder.setInputID(SubscribeableInput.ACCELERATE_EASTWEST.get_id());
+		ew_builder.setID(Subscribeable.ACCELERATE_EASTWEST.get_id());
 		ew_builder.setInt32Value(where_to.get_east_west());
 		
 		return Arrays.asList(ns_builder.build(), ew_builder.build());

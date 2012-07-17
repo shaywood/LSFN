@@ -3,7 +3,7 @@ package com.wikispaces.lsfn.Interface;
 import java.util.List;
 
 import com.wikispaces.lsfn.Interface.Model.KnownSpace;
-import com.wikispaces.lsfn.Shared.LSFN.IS.Subscription_input_updates.Subscription_update;
+import com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update;
 
 public interface PlayerCommand {
 	boolean can_combine(PlayerCommand c);

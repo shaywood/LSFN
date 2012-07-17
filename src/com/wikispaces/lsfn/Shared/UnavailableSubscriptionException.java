@@ -5,13 +5,13 @@ import java.util.Set;
 
 @SuppressWarnings("serial")
 public class UnavailableSubscriptionException extends Exception {
-	public UnavailableSubscriptionException(Set<SubscribeableOutput> refusals) {
+	public UnavailableSubscriptionException(Set<Subscribeable> refusals) {
 		super("Interface wanted the following subscriptions, which were not provided by the Ship server:\\r\\n" + build_refusal_list(refusals));
 	}
 	
-	private static String build_refusal_list(Set<SubscribeableOutput> refusals) {
+	private static String build_refusal_list(Set<Subscribeable> refusals) {
 		StringBuilder sb = new StringBuilder();
-	    for(SubscribeableOutput r: refusals) {
+	    for(Subscribeable r: refusals) {
 	    	sb.append("id: " + r.get_id() + " name: " + r.get_description() + "\\r\\n");
 	    }
 	    return sb.toString();
