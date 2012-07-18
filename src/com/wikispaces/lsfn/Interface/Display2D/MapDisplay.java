@@ -24,7 +24,7 @@ public class MapDisplay extends JFrame {
 		new ShipMovement(player_input_queue, panel, Arrays.asList(Controls.values()));
 		
 		// It's pretty bad to be passing the whole interface client passing through here, but since the ConnectButtonWrapperPanel is a temporary quick-fix for testing purposes that we will tear out at some point, I've left it this way. If we find ourselves needing to use the InterfaceClient for anything else in here, then we should pull some bits out into new classes.
-		getContentPane().add(new ConnectButtonWrapperPanel(client, panel));
+		getContentPane().add(new ShipConnect(client, new EnvConnect(client, panel)));
 		
 		setVisible(true);
 	}

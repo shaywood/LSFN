@@ -126,14 +126,7 @@ public class InterfaceClient {
             running = false;
         } else if(num_parts >= 1 && parts[0].equals("connect")) { // "connect remote" connects the ship to the environment server.
             if(num_parts == 4 && parts[1].equals("remote")) {
-                IS sendable = IS.newBuilder()
-                        .setCommand(IS.SHIP_ENV_command.newBuilder()
-                                .setType(IS.SHIP_ENV_command.Type.CONNECT)
-                                .setHost(parts[2])
-                                .setPort(Integer.parseInt(parts[3]))
-                                .build())
-                        .build();
-                SHIP_client.send(sendable.toByteArray());
+                connect_SHIP_to_ENV(parts[2], Integer.parseInt(parts[3]));
             } else if(num_parts == 3) { // "connect" connects the interface to the ship. Port 14612 is default on the Ship server.
                 start_SHIP_client(parts[1], Integer.parseInt(parts[2]));
             }
@@ -151,6 +144,17 @@ public class InterfaceClient {
         }
         
     }
+
+	public void connect_SHIP_to_ENV(String host, int port) {
+		IS sendable = IS.newBuilder()
+		        .setCommand(IS.SHIP_ENV_command.newBuilder()
+		                .setType(IS.SHIP_ENV_command.Type.CONNECT)
+		                .setHost(host)
+		                .setPort(port)
+		                .build())
+		        .build();
+		SHIP_client.send(sendable.toByteArray());
+	}
     
     private void process_incoming_SHIP_messages() {
         if(SHIP_client != null) {
