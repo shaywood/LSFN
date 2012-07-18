@@ -21,7 +21,7 @@ public class MapDisplay extends JFrame {
 		this.setSize(width, height);
 		getRootPane().setDoubleBuffered(true);
 		SpacePanel panel = new SpacePanel(world, new Point2D.Double(width/2, height/2));
-		new ShipMovement(player_input_queue, panel, Arrays.asList(Controls.values()));
+		new ShipMovement(player_input_queue, panel, Arrays.asList(KeyControl.values()));
 		
 		// It's pretty bad to be passing the whole interface client passing through here, but since the ConnectButtonWrapperPanel is a temporary quick-fix for testing purposes that we will tear out at some point, I've left it this way. If we find ourselves needing to use the InterfaceClient for anything else in here, then we should pull some bits out into new classes.
 		getContentPane().add(new ShipConnect(client, new EnvConnect(client, panel)));
