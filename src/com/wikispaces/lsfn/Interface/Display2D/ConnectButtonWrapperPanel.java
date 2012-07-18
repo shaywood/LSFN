@@ -3,7 +3,6 @@ package com.wikispaces.lsfn.Interface.Display2D;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.concurrent.BlockingQueue;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -11,14 +10,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.wikispaces.lsfn.Interface.InterfaceClient;
-import com.wikispaces.lsfn.Interface.PlayerCommand;
 
 @SuppressWarnings("serial")
 public class ConnectButtonWrapperPanel extends JPanel implements ActionListener {
 	private JButton connect;
 	private JTextField host;
 	private JTextField port;
-	private BlockingQueue<PlayerCommand> player_input_queue;
 	private InterfaceClient client;
 
 	public ConnectButtonWrapperPanel(InterfaceClient client, JPanel wrapped) {

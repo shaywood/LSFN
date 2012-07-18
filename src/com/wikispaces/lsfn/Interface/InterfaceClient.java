@@ -1,11 +1,22 @@
 package com.wikispaces.lsfn.Interface;
 
-import com.wikispaces.lsfn.Interface.SubscriptionMessageParser.PublishFailedException;
 import com.wikispaces.lsfn.Interface.Display2D.MapDisplay;
 import com.wikispaces.lsfn.Interface.Model.*;
 import com.wikispaces.lsfn.Shared.*;
 import com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update;
 import com.wikispaces.lsfn.Shared.LSFN.*;
+import com.wikispaces.lsfn.Shared.Subscription.AvailableSubscriptionsList;
+import com.wikispaces.lsfn.Shared.Subscription.NoSubscriptionBuilderDefinedException;
+import com.wikispaces.lsfn.Shared.Subscription.NoSubscriptionParserDefinedException;
+import com.wikispaces.lsfn.Shared.Subscription.Subscribeable;
+import com.wikispaces.lsfn.Shared.Subscription.SubscribeableFactory;
+import com.wikispaces.lsfn.Shared.Subscription.SubscribeableSimplifier;
+import com.wikispaces.lsfn.Shared.Subscription.SubscriptionMessageBuilderFactory;
+import com.wikispaces.lsfn.Shared.Subscription.SubscriptionMessageParserFactory;
+import com.wikispaces.lsfn.Shared.Subscription.SubscriptionRequest;
+import com.wikispaces.lsfn.Shared.Subscription.Test;
+import com.wikispaces.lsfn.Shared.Subscription.UnavailableSubscriptionException;
+import com.wikispaces.lsfn.Shared.Subscription.SubscriptionMessageParser.PublishFailedException;
 
 import com.google.protobuf.*;
 import java.io.*;
@@ -20,9 +31,13 @@ public class InterfaceClient {
     private Thread SHIP_client_thread;
     private boolean running;
     private BufferedReader stdin;
-    private SubscribeMessage subscriber;
-    private SubscriptionReceiver receiver = new SubscriptionReceiver();
-    private BlockingQueue<PlayerCommand> player_input_queue = new LinkedBlockingQueue<PlayerCommand>();
+    private SubscriptionRequest subscriber;
+    private SubscribeableFactory subscribeable_factory = new SubscribeableFactory();
+    private SubscriptionMessageParserFactory receiver = new SubscriptionMessageParserFactory(subscribeable_factory, new TestParser());
+    private SubscriptionMessageBuilderFactory transmitter = new SubscriptionMessageBuilderFactory(
+    		new AccelerateNorthSouthBuilder(),
+    		new AccelerateEastWestBuilder());
+    private BlockingQueue<Subscribeable> player_input_queue = new LinkedBlockingQueue<Subscribeable>();
 	
 	KnownSpace world;
 	MapDisplay display;
@@ -38,6 +53,7 @@ public class InterfaceClient {
     
     int cycle_time_ms = 20;
     double cycle_time = ((double)cycle_time_ms)/1000.0;
+	
  
     public void run() {      
         running = true;
@@ -66,15 +82,19 @@ public class InterfaceClient {
     }
     
     private void process_player_input() {
-    	List<PlayerCommand> commands = new ArrayList<PlayerCommand>();
+    	List<Subscribeable> commands = new ArrayList<Subscribeable>();
 		player_input_queue.drainTo(commands);
 		
-		commands = new PlayerCommandSimplifier().merge(commands);
+		commands = new SubscribeableSimplifier().merge(commands);
 		
 		List<Subscription_update> updates = new ArrayList<Subscription_update>();
-		for(PlayerCommand c : commands) {
-			c.update_local_model(world);
-			updates.addAll((c.build_message_update()));
+		for(Subscribeable c : commands) {
+			// We should also do any local model updates needed here.
+			try {
+				updates.add((transmitter.get_builder(c).build_subscription_update(c)));
+			} catch (NoSubscriptionBuilderDefinedException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		if(updates.size() > 0) {
@@ -149,7 +169,7 @@ public class InterfaceClient {
                 stop_SHIP_client(false);
             }
             if(parsed_message.hasSubscriptionsAvailable()) {
-            	subscriber = new SubscribeMessage(new ListAvailableSubscriptions().parse_message(parsed_message));
+            	subscriber = new SubscriptionRequest(subscribeable_factory, new AvailableSubscriptionsList(subscribeable_factory).parse_message(parsed_message));
             	request_default_subscriptions();
             }
             if(parsed_message.hasOutputUpdates()) {
@@ -157,7 +177,7 @@ public class InterfaceClient {
             }
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
-        } catch (SubscribeableNotFoundException e) {
+        } catch (SubscribeableFactory.SubscribeableNotFoundException e) {
         	e.printStackTrace();
         } catch (UnavailableSubscriptionException e) {
 	    	e.printStackTrace();
@@ -168,7 +188,7 @@ public class InterfaceClient {
 		}
     }
     
-    List<Subscribeable> default_subscriptions = Arrays.asList(Subscribeable.TEST); // this probably belongs somewhere else
+    List<Subscribeable> default_subscriptions = Arrays.asList((Subscribeable)new Test()); // this probably belongs somewhere else
 	private void request_default_subscriptions() throws UnavailableSubscriptionException {
 		SHIP_client.send(subscriber.build_message(default_subscriptions).toByteArray());
 	}

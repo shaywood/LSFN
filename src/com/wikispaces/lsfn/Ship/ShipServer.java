@@ -1,10 +1,36 @@
 package com.wikispaces.lsfn.Ship;
 
-import com.wikispaces.lsfn.Shared.*;
-import com.wikispaces.lsfn.Shared.LSFN.*;
-import com.google.protobuf.*;
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+
+import com.google.protobuf.InvalidProtocolBufferException;
+import com.wikispaces.lsfn.Shared.ClientHandler;
+import com.wikispaces.lsfn.Shared.LSFN;
+import com.wikispaces.lsfn.Shared.LSFN.ES;
+import com.wikispaces.lsfn.Shared.LSFN.IS;
+import com.wikispaces.lsfn.Shared.LSFN.SE;
+import com.wikispaces.lsfn.Shared.LSFN.SI;
+import com.wikispaces.lsfn.Shared.Listener;
+import com.wikispaces.lsfn.Shared.Subscription.AvailableSubscriptionsList;
+import com.wikispaces.lsfn.Shared.Subscription.NoSubscriptionBuilderDefinedException;
+import com.wikispaces.lsfn.Shared.Subscription.NoSubscriptionParserDefinedException;
+import com.wikispaces.lsfn.Shared.Subscription.Subscribeable;
+import com.wikispaces.lsfn.Shared.Subscription.SubscribeableFactory;
+import com.wikispaces.lsfn.Shared.Subscription.SubscribeableFactory.SubscribeableNotFoundException;
+import com.wikispaces.lsfn.Shared.Subscription.SubscribeableSimplifier;
+import com.wikispaces.lsfn.Shared.Subscription.SubscriptionMessageBuilderFactory;
+import com.wikispaces.lsfn.Shared.Subscription.SubscriptionMessageParser.PublishFailedException;
+import com.wikispaces.lsfn.Shared.Subscription.SubscriptionMessageParserFactory;
+import com.wikispaces.lsfn.Shared.Subscription.SubscriptionRequest;
+import com.wikispaces.lsfn.Shared.Subscription.UnavailableSubscriptionException;
 
 public class ShipServer implements Runnable {
 
@@ -15,8 +41,16 @@ public class ShipServer implements Runnable {
     private boolean running;
     private BufferedReader stdin;
     private Subscriptions interface_client_subscriptions = new Subscriptions();
-    private SubscribeMessage subscriber = new SubscribeMessage(Subscribeable.get_output_subscribeables());
-    private SubscriptionPublisher publisher = new SubscriptionPublisher(interface_client_subscriptions);
+    private SubscribeableFactory subscribeable_factory = new SubscribeableFactory();
+    private SubscriptionRequest subscriber = new SubscriptionRequest(subscribeable_factory, subscribeable_factory.get_outputs());
+    private SubscriptionPublisher publisher = new SubscriptionPublisher(interface_client_subscriptions, new SubscriptionMessageBuilderFactory(new TestBuilder()));
+    private SubscriptionMessageParserFactory receiver = new SubscriptionMessageParserFactory(subscribeable_factory,	
+    		new AccelerateNorthSouthParser(),
+    		new AccelerateEastWestParser());
+    
+    private BlockingQueue<Subscribeable> updates_for_INT = new LinkedBlockingQueue<Subscribeable>();
+    private BlockingQueue<Subscribeable> updates_for_ENV = new LinkedBlockingQueue<Subscribeable>();
+	private SubscribeableSimplifier subscribeable_simplifier = new SubscribeableSimplifier();
     
     ShipServer() {
         INT_server = null;
@@ -60,10 +94,14 @@ public class ShipServer implements Runnable {
     
     private void publish_updates_to_INT() {
     	Set<Integer> INT_ids =  interface_client_subscriptions.get_subscribers();
+    	List<Subscribeable> updates = new ArrayList<Subscribeable>();
+    	updates_for_INT.drainTo(updates);
+    	updates = subscribeable_simplifier.merge(updates);
+    	
     	for(Integer id : INT_ids) { 
     		SI.Builder builder = SI.newBuilder();
     		try {
-				publisher.add_subscription_outputs_data(builder, id);
+				publisher.add_subscription_outputs_data(builder, id, updates);
 			} catch (UnknownInterfaceClientException e) {
 				e.printStackTrace();
 			} catch (NoSubscriptionBuilderDefinedException e) {
@@ -155,7 +193,7 @@ public class ShipServer implements Runnable {
             }
             
             if(parsed_message.getAvailableSubscriptionsList()) {
-            	INT_server.send(INT_ID, new ListAvailableSubscriptions().build_message(INT_ID).toByteArray());
+            	INT_server.send(INT_ID, new AvailableSubscriptionsList(subscribeable_factory).build_message(INT_ID).toByteArray());
             }
             if(parsed_message.hasSubscribe()) {
             	try {
@@ -163,6 +201,18 @@ public class ShipServer implements Runnable {
 				} catch (SubscribeableNotFoundException e) {
 					e.printStackTrace();
 				} catch (UnavailableSubscriptionException e) {
+					e.printStackTrace();
+				}
+            }
+            if(parsed_message.hasInputUpdates()) {
+        		try {
+					Set<Subscribeable> updates = receiver.parse_subscription_data(parsed_message.getInputUpdates());
+					updates_for_ENV.addAll(updates); // Dumping updates from INT straight to ENV for now. We may want to do more here later.
+				} catch (PublishFailedException e) {
+					e.printStackTrace();
+				} catch (NoSubscriptionParserDefinedException e) {
+					e.printStackTrace();
+				} catch (SubscribeableNotFoundException e) {
 					e.printStackTrace();
 				}
             }

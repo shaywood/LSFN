@@ -2,8 +2,7 @@ package com.wikispaces.lsfn.Ship;
 
 import java.util.*;
 
-import com.wikispaces.lsfn.Shared.Subscribeable;
-
+import com.wikispaces.lsfn.Shared.Subscription.Subscribeable;
 
 public class Subscriptions {
 	Map<Integer, Set<Subscribeable>> current = new HashMap<Integer, Set<Subscribeable>>();
@@ -31,5 +30,13 @@ public class Subscriptions {
 			throw new UnknownInterfaceClientException(subscriber_id);
 		}
 		return current.get(subscriber_id);
+	}
+
+	public Set<Integer> get_subscription_ids(int subscriber_id) throws UnknownInterfaceClientException {
+		Set<Integer> ids = new HashSet<Integer>();
+		for(Subscribeable s : get_subscriptions(subscriber_id)) {
+			ids.add(s.get_id());
+		}
+		return ids;
 	}
 }

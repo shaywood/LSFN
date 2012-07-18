@@ -1,20 +1,28 @@
-package com.wikispaces.lsfn.Shared;
+package com.wikispaces.lsfn.Shared.Subscription;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+
 import com.wikispaces.lsfn.Shared.LSFN.SI;
 import com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available;
 import com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details;
+import com.wikispaces.lsfn.Shared.Subscription.SubscribeableFactory.SubscribeableNotFoundException;
 
-public class ListAvailableSubscriptions {
+public class AvailableSubscriptionsList {
+	private SubscribeableFactory subscribeable_factory;
 
+	public AvailableSubscriptionsList(SubscribeableFactory subscribeable_factory) {
+		this.subscribeable_factory = subscribeable_factory;
+	}
+	
+	
     public SI build_message(Integer INT_ID) {
     	List<Value_details> available_subscriptions = new ArrayList<Value_details>();
     	
-    	for(Subscribeable s : Subscribeable.get_output_subscribeables()) {
+    	for(Subscribeable s : subscribeable_factory.get_outputs()) {
     		available_subscriptions.add(build_value_details(s));
     	}
     	
@@ -36,7 +44,7 @@ public class ListAvailableSubscriptions {
     	List<Value_details> value_details = message.getSubscriptionsAvailable().getOutputsList();
     	Set<Subscribeable> available_subscriptions = new HashSet<Subscribeable>();
     	for (Value_details v : value_details) {
-    		available_subscriptions.add(Subscribeable.lookup_by_id(v.getID()));
+    		available_subscriptions.add(subscribeable_factory.lookup_by_id(v.getID()));
     	}
     	return available_subscriptions;
     }

@@ -1,6 +1,5 @@
-package com.wikispaces.lsfn.Ship;
+package com.wikispaces.lsfn.Shared.Subscription;
 
-import com.wikispaces.lsfn.Shared.Subscribeable;
 
 @SuppressWarnings("serial")
 public class NoSubscriptionBuilderDefinedException extends Exception {

@@ -5,18 +5,22 @@ import java.util.Set;
 
 import javax.swing.KeyStroke;
 
-import com.wikispaces.lsfn.Interface.PlayerCommand;
+
+import com.wikispaces.lsfn.Shared.UnitDirection;
+import com.wikispaces.lsfn.Shared.Subscription.AccelerateEastWest;
+import com.wikispaces.lsfn.Shared.Subscription.AccelerateNorthSouth;
+import com.wikispaces.lsfn.Shared.Subscription.Subscribeable;
 
 public enum Controls implements KeyControl {
-	ACCELERATE_FORWARD(new Accelerate(UnitDirection.NORTH), "W", "UP"),
-	ACCELERATE_BACKWARD(new Accelerate(UnitDirection.SOUTH), "S", "DOWN"),
-	ACCELERATE_PORT(new Accelerate(UnitDirection.EAST), "A", "LEFT"),
-	ACCELERATE_STARBOARD(new Accelerate(UnitDirection.WEST), "D", "RIGHT");
+	ACCELERATE_FORWARD(new AccelerateNorthSouth(UnitDirection.NORTH), "W", "UP"),
+	ACCELERATE_BACKWARD(new AccelerateNorthSouth(UnitDirection.SOUTH), "S", "DOWN"),
+	ACCELERATE_PORT(new AccelerateEastWest(UnitDirection.EAST), "A", "LEFT"),
+	ACCELERATE_STARBOARD(new AccelerateEastWest(UnitDirection.WEST), "D", "RIGHT");
 	
-	private PlayerCommand command;
+	private Subscribeable command;
 	private Set<KeyStroke> bindings = new HashSet<KeyStroke>();
 
-	Controls(PlayerCommand command, String... default_bindings) {
+	Controls(Subscribeable command, String... default_bindings) {
 		this.command = command;
 		for(String key_name : default_bindings) {
 			try {
@@ -32,7 +36,7 @@ public enum Controls implements KeyControl {
 		return this.name();
 	}
 	
-	public PlayerCommand get_control() {
+	public Subscribeable get_control() {
 		return command;
 	}
 

@@ -1,6 +1,6 @@
-package com.wikispaces.lsfn.Interface;
+package com.wikispaces.lsfn.Shared.Subscription;
 
-import com.wikispaces.lsfn.Shared.Subscribeable;
+
 
 @SuppressWarnings("serial")
 public class NoSubscriptionParserDefinedException extends Exception {

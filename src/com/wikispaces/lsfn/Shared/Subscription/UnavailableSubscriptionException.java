@@ -1,6 +1,7 @@
-package com.wikispaces.lsfn.Shared;
+package com.wikispaces.lsfn.Shared.Subscription;
 
 import java.util.Set;
+
 
 
 @SuppressWarnings("serial")
