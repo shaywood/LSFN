@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class InterfaceClient {
-    private Listener SHIP_client;
+    private ServerListener SHIP_client;
     private Thread SHIP_client_thread;
     private boolean running;
     private BufferedReader stdin;
@@ -136,7 +136,7 @@ public class InterfaceClient {
 
 	private void start_SHIP_client(String host, int port) {
         try {
-            SHIP_client = new Listener(host, port);
+            SHIP_client = new ServerListener(host, port);
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Failed to connect to the SHIP.");
