@@ -4,7 +4,8 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class ClientHandler extends ServerSocket implements Runnable {    
+public class ClientHandler implements Runnable {
+    private ServerSocket server;
     private HashMap<Integer, SocketListener> connections;
     private int nextConnectionID;
     private List<Integer> newConnections;
@@ -18,21 +19,7 @@ public class ClientHandler extends ServerSocket implements Runnable {
      * @throws IOException
      */
     public ClientHandler() throws IOException {
-        super(defaultPort);
-        commonSetup();
-    }
-    
-    /**
-     * This class accepts all incoming connections from InterfaceClients.
-     * @param port The port to listen for clients on.
-     * @throws IOException
-     */
-    public ClientHandler(int port) throws IOException {
-        super(port);
-        commonSetup();
-    }
-    
-    private void commonSetup() {
+        server = null;
         connections = new HashMap<Integer, SocketListener>();
         nextConnectionID = 0;
         newConnections = new ArrayList<Integer>();
@@ -40,20 +27,32 @@ public class ClientHandler extends ServerSocket implements Runnable {
         uncontrolledDisconnections = new ArrayList<Integer>();
     }
     
+    private void open() throws IOException {
+        if(server == null) {
+            server = new ServerSocket(defaultPort);
+        }
+    }
+    
+    private void open(int port) throws IOException {
+        if(server == null) {
+            server = new ServerSocket(port);
+        }
+    }
+    
     /**
      * As described by Runnable.
      */
     public void run() {
-        while (!this.isClosed()) {
+        while(server != null && !server.isClosed()) {
             try {
                 // We don't need a sleep() because this is blocking.
                 // This thread basically accepts all incoming connections.
-                Socket incomingConnection = this.accept();
-                if(!this.isClosed()) {
+                Socket incomingConnection = server.accept();
+                if(!server.isClosed()) {
                     add_socket(incomingConnection);
                 }
             } catch (SocketException e) {
-                if(!this.isClosed()) {
+                if(!server.isClosed()) {
                     e.printStackTrace();
                 }
             } catch (IOException e) {
@@ -68,25 +67,29 @@ public class ClientHandler extends ServerSocket implements Runnable {
      * @return The map key is the socket ID, the value is an array of messages. If a socket ID has no map entry, then no messages have been received from this client since the last read_all()
      */
     public HashMap<Integer, byte[][]> readAll() {
-        Integer[] socketIDs = connections.keySet().toArray(new Integer[0]);
-        HashMap<Integer, byte[][]> messages = new HashMap<Integer, byte[][]>();
-        
-        for(int i = 0; i < socketIDs.length; i++) {
-            Integer currentSocketID = socketIDs[i];
-            SocketListener socketListener = connections.get(currentSocketID);
-            if(socketListener.isConnected()) {
-                try {
-                    byte[][] messageSet = socketListener.receive();
-                    messages.put(currentSocketID, messageSet);
-                } catch (IOException e) {
+        if(server != null && !server.isClosed()) {
+            Integer[] socketIDs = connections.keySet().toArray(new Integer[0]);
+            HashMap<Integer, byte[][]> messages = new HashMap<Integer, byte[][]>();
+            
+            for(int i = 0; i < socketIDs.length; i++) {
+                Integer currentSocketID = socketIDs[i];
+                SocketListener socketListener = connections.get(currentSocketID);
+                if(socketListener.isConnected()) {
+                    try {
+                        byte[][] messageSet = socketListener.receive();
+                        messages.put(currentSocketID, messageSet);
+                    } catch (IOException e) {
+                        removeSocket(currentSocketID);
+                    }
+                } else {
                     removeSocket(currentSocketID);
                 }
-            } else {
-                removeSocket(currentSocketID);
             }
+            
+            return messages;
+        } else {
+            return null;
         }
-        
-        return messages;
     }
     
     /**
@@ -95,12 +98,14 @@ public class ClientHandler extends ServerSocket implements Runnable {
      * @param message The message to be sent. An additional newline character will separate this message from future messages.
      */
     public void send(Integer socketID, byte[] message) {
-        SocketListener socketListener = connections.get(socketID);
-        if(socketListener != null && socketListener.isConnected()) {
-            try {
-                socketListener.send(message);
-            } catch (IOException e) {
-                removeSocket(socketID);
+        if(server != null && !server.isClosed()) {
+            SocketListener socketListener = connections.get(socketID);
+            if(socketListener != null && socketListener.isConnected()) {
+                try {
+                    socketListener.send(message);
+                } catch (IOException e) {
+                    removeSocket(socketID);
+                }
             }
         }
     }
@@ -110,22 +115,40 @@ public class ClientHandler extends ServerSocket implements Runnable {
      * @param message The message to be sent. An additional newline character will separate this message from future messages.
      */
     public void sendToAll(byte[] message) {
-        Integer[] socketIDs = connections.keySet().toArray(new Integer[0]);
-        for(int i = 0; i < socketIDs.length; i++) {
-            send(socketIDs[i], message);
+        if(server != null && !server.isClosed()) {
+            Integer[] socketIDs = connections.keySet().toArray(new Integer[0]);
+            for(int i = 0; i < socketIDs.length; i++) {
+                send(socketIDs[i], message);
+            }
         }
     }
     
     public synchronized void disconnect(Integer socketID) {
-        removeSocket(socketID);
+        if(server != null && !server.isClosed()) {
+            removeSocket(socketID);
+        }
     }
     
     public synchronized void disconnectAll() {
-        // We are shutting down the client handler,
-        // close and remove all connections
-        Integer[] removeIDs = connections.keySet().toArray(new Integer[0]);
-        for(int i = 0; i < removeIDs.length; i++) {
-            removeSocket(removeIDs[i]);
+        if(server != null && !server.isClosed()) {
+            // We are shutting down the client handler,
+            // close and remove all connections
+            Integer[] removeIDs = connections.keySet().toArray(new Integer[0]);
+            for(int i = 0; i < removeIDs.length; i++) {
+                removeSocket(removeIDs[i]);
+            }
+        }
+    }
+    
+    public void close() {
+        if(server != null && !server.isClosed()) {
+            disconnectAll();
+            try {
+                server.close();
+            } catch (IOException e) {
+                // We don't care if it fails, we're getting rid of this.
+            }
+            server = null;
         }
     }
     
