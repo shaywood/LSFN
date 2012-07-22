@@ -4,14 +4,8 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class ClientHandler extends ServerSocket implements Runnable {
-    private class SocketData {
-        public Socket socket;
-        public SocketBitJockey jockey;
-        public TimeoutManager timeoutManager;
-    }
-    
-    private HashMap<Integer, SocketData> connections;
+public class ClientHandler extends ServerSocket implements Runnable {    
+    private HashMap<Integer, SocketListener> connections;
     private int nextConnectionID;
     private List<Integer> newConnections;
     private List<Integer> controlledDisconnections;
@@ -39,7 +33,7 @@ public class ClientHandler extends ServerSocket implements Runnable {
     }
     
     private void commonSetup() {
-        connections = new HashMap<Integer, SocketData>();
+        connections = new HashMap<Integer, SocketListener>();
         nextConnectionID = 0;
         newConnections = new ArrayList<Integer>();
         controlledDisconnections = new ArrayList<Integer>();
@@ -79,49 +73,20 @@ public class ClientHandler extends ServerSocket implements Runnable {
         
         for(int i = 0; i < socketIDs.length; i++) {
             Integer currentSocketID = socketIDs[i];
-            SocketData socketData = connections.get(currentSocketID);
-            
-            if(socketData.timeoutManager.shouldTimeout()) {
-                removeSocket(currentSocketID, false);
-            } else {
+            SocketListener socketListener = connections.get(currentSocketID);
+            if(socketListener.isConnected()) {
                 try {
-                    byte[][] messageArray = socketData.jockey.readMessages();
-                    
-                    if(messageArray != null) {
-                        socketData.timeoutManager.receiveOccured();
-                        ArrayList<byte[]> messageList = new ArrayList<byte[]>();
-                        for(int j = 0; j < messageArray.length; j++) {
-                            if(!checkMessageForSignal(currentSocketID, socketData, messageArray[j])) {
-                                messageList.add(messageArray[j]);
-                            }
-                        }
-                    
-                        messages.put(currentSocketID, messageList.toArray(new byte[0][]));
-                    }
-                    
+                    byte[][] messageSet = socketListener.receive();
+                    messages.put(currentSocketID, messageSet);
                 } catch (IOException e) {
-                    removeSocket(currentSocketID, false);
+                    removeSocket(currentSocketID);
                 }
+            } else {
+                removeSocket(currentSocketID);
             }
         }
         
         return messages;
-    }
-    
-    private boolean checkMessageForSignal(Integer socketID, SocketData socketData, byte[] signalBytes) {
-        if(signalBytes.length != 1) return false;
-        switch ((char)signalBytes[0]) {
-        case 'P':
-            // The pong signal has been received
-            // We've actually already done what we needed (resetting the receive counter)
-            return true;
-        case 'D':
-            // The disconnect signal has been received
-            removeSocket(socketID, true);
-            return true;
-        default:
-            return false;    
-        }
     }
     
     /**
@@ -129,13 +94,13 @@ public class ClientHandler extends ServerSocket implements Runnable {
      * @param socket_ID The ID of the socket to send the message to.
      * @param message The message to be sent. An additional newline character will separate this message from future messages.
      */
-    public void send(Integer socket_ID, byte[] message) {
-        SocketData socketData = connections.get(socket_ID);
-        if(socketData.socket != null) {
+    public void send(Integer socketID, byte[] message) {
+        SocketListener socketListener = connections.get(socketID);
+        if(socketListener != null && socketListener.isConnected()) {
             try {
-                socketData.jockey.send(message);
+                socketListener.send(message);
             } catch (IOException e) {
-                removeSocket(socket_ID, false);
+                removeSocket(socketID);
             }
         }
     }
@@ -145,14 +110,14 @@ public class ClientHandler extends ServerSocket implements Runnable {
      * @param message The message to be sent. An additional newline character will separate this message from future messages.
      */
     public void sendToAll(byte[] message) {
-        Iterator<Integer> socket_ID_iterator = connections.keySet().iterator();
-        while(socket_ID_iterator.hasNext()) {
-            send(socket_ID_iterator.next(), message);
+        Integer[] socketIDs = connections.keySet().toArray(new Integer[0]);
+        for(int i = 0; i < socketIDs.length; i++) {
+            send(socketIDs[i], message);
         }
     }
     
     public synchronized void disconnect(Integer socketID) {
-        removeSocket(socketID, false);
+        removeSocket(socketID);
     }
     
     public synchronized void disconnectAll() {
@@ -160,41 +125,35 @@ public class ClientHandler extends ServerSocket implements Runnable {
         // close and remove all connections
         Integer[] removeIDs = connections.keySet().toArray(new Integer[0]);
         for(int i = 0; i < removeIDs.length; i++) {
-            removeSocket(removeIDs[i], false);
+            removeSocket(removeIDs[i]);
         }
     }
     
-    private synchronized void add_socket(Socket socket) throws IOException {
-        SocketData socketData = new SocketData();
-        socketData.socket = socket;
-        socketData.jockey = new SocketBitJockey(socket.getInputStream(), socket.getOutputStream());
-        socketData.timeoutManager = new TimeoutManager(6000, 10000);
-        connections.put(nextConnectionID, socketData);
-        newConnections.add(nextConnectionID);
-        
-        System.out.println("New socket opened: " + nextConnectionID);
-        nextConnectionID++;
+    private synchronized void add_socket(Socket socket) {
+        try {
+            SocketListener socketListener = new SocketListener(socket);
+            connections.put(nextConnectionID, socketListener);
+            newConnections.add(nextConnectionID);
+            
+            System.out.println("New socket opened: " + nextConnectionID);
+            nextConnectionID++;
+        } catch (IOException e) {
+            // We simply ignore the new socket. The garbage collector will take care of this end of the connection, liveness testing the other. 
+        }
     }
     
     /**
      * Disconnects and removes a socket from the ClientHandler.
      * @param socket_ID The ID of the socket to be removed.
      */
-    private synchronized void removeSocket(Integer socketID, boolean expected) {
-        SocketData socketData = connections.get(socketID);
-        if(socketData != null) {
-            try {
-                if(!expected) {
-                    byte[] dc = {(byte)'D'};
-                    socketData.jockey.send(dc);
-                }
-                socketData.socket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    private synchronized void removeSocket(Integer socketID) {
+        SocketListener socketListener = connections.get(socketID);
+        if(socketListener != null) {
+            if(socketListener.isConnected()) socketListener.close();
+            
             connections.remove(socketID);
             
-            if(expected) {
+            if(socketListener.wasCleanDisconnect()) {
                 controlledDisconnections.add(socketID);
             } else {
                 uncontrolledDisconnections.add(socketID);

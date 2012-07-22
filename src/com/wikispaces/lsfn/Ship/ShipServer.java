@@ -10,7 +10,7 @@ public class ShipServer implements Runnable {
 
     private ClientHandler INT_server;
     private Thread INT_server_thread;
-    private ServerListener ENV_client;
+    private SocketListener ENV_client;
     private Thread ENV_client_thread;
     private boolean running;
     private BufferedReader stdin;
@@ -252,7 +252,7 @@ public class ShipServer implements Runnable {
     
     private void start_ENV_client(String host, int port) {
         try {
-            ENV_client = new ServerListener(host, port);
+            ENV_client = new SocketListener(host, port);
         } catch (IOException e) {
             ENV_client = null;
         }

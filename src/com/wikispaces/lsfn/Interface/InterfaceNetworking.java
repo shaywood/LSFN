@@ -4,15 +4,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.google.protobuf.InvalidProtocolBufferException;
-import com.wikispaces.lsfn.Shared.ServerListener;
+import com.wikispaces.lsfn.Shared.SocketListener;
 import com.wikispaces.lsfn.Shared.LSFN.SI;
 import com.wikispaces.lsfn.Shared.LSFN.IS;
 
 public class InterfaceNetworking {
-    private ServerListener client;
+    private SocketListener client;
     
     InterfaceNetworking() {
-        client = new ServerListener();
+        client = new SocketListener();
     }
     
     public void connect(String host, int port) throws IOException {
