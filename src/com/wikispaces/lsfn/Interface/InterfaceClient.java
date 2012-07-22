@@ -48,7 +48,7 @@ public class InterfaceClient {
         
         // When we shut down, we close the SHIP_client and join the thread.
         System.out.println("Shutting down.");
-        network.close();
+        network.disconnectFromSHIP();
         System.exit(0);
     }
     
@@ -72,7 +72,7 @@ public class InterfaceClient {
             running = false;
         } else if(num_parts >= 1 && parts[0].equals("connect")) { // "connect remote" connects the ship to the environment server.
             if(num_parts == 4 && parts[1].equals("remote")) {
-                if(network.isConnected()) {
+                if(network.isConnectedToSHIP()) {
                     IS sendable = IS.newBuilder()
                             .setCommand(IS.SHIP_ENV_command.newBuilder()
                                     .setType(IS.SHIP_ENV_command.Type.CONNECT)
@@ -81,7 +81,7 @@ public class InterfaceClient {
                                     .build())
                             .build();
                     try {
-                        network.send(sendable);
+                        network.sendToSHIP(sendable);
                     } catch (IOException e) {
                         System.err.println("Could not send connect command to remote.");
                         e.printStackTrace();
@@ -91,7 +91,7 @@ public class InterfaceClient {
                 }
             } else if(num_parts == 3) { // "connect" connects the interface to the ship. Port 14613 is default on the Ship server.
                 try {
-                    network.connect(parts[1], Integer.parseInt(parts[2]));
+                    network.connectToSHIP(parts[1], Integer.parseInt(parts[2]));
                     on_connect();
                 } catch (NumberFormatException e) {
                     System.err.println("\"" + parts[2] + "\" is not a valid integer.");
@@ -102,14 +102,14 @@ public class InterfaceClient {
                 }
             }
         } else if(message.equals("disconnect remote")) { // "disconnect remote" disconnect the ship from the environment server.
-            if(network.isConnected()) {
+            if(network.isConnectedToSHIP()) {
                 IS sendable = IS.newBuilder()
                         .setCommand(IS.SHIP_ENV_command.newBuilder()
                                 .setType(IS.SHIP_ENV_command.Type.DISCONNECT)
                                 .build())
                         .build();
                 try {
-                    network.send(sendable);
+                    network.sendToSHIP(sendable);
                 } catch (IOException e) {
                     System.err.println("Could not send disconnect command to remote.");
                     e.printStackTrace();
@@ -118,7 +118,7 @@ public class InterfaceClient {
                 System.err.println("Could not send: Not connected");
             }
         } else if(message.equals("disconnect")) {
-            network.close();
+            network.disconnectFromSHIP();
         } else {
         	System.out.println("Unknown message: " + message);
         }
@@ -128,7 +128,7 @@ public class InterfaceClient {
     private void process_network() {
         SI[] messages;
         try {
-            messages = network.receive();
+            messages = network.receiveFromSHIP();
             for(int i = 0; i < messages.length; i++) {
                 process_SHIP_message(messages[i]);
             }
@@ -155,7 +155,7 @@ public class InterfaceClient {
     List<Subscribeable> default_subscriptions = Arrays.asList(Subscribeable.TEST); // this probably belongs somewhere else
 	private void request_default_subscriptions() throws UnavailableSubscriptionExeption {
 		try {
-            network.send(subscriber.build_message(default_subscriptions));
+            network.sendToSHIP(subscriber.build_message(default_subscriptions));
         } catch (IOException e) {
             System.err.println("Could not send subscribe message.");
             e.printStackTrace();
@@ -164,7 +164,7 @@ public class InterfaceClient {
 
 	private void on_connect() {
         try {
-            network.send(new RequestAvailableSubscriptions().build_message());
+            network.sendToSHIP(new RequestAvailableSubscriptions().build_message());
         } catch (IOException e) {
             System.err.println("Could not send subscription get request.");
             e.printStackTrace();

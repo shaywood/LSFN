@@ -18,7 +18,7 @@ public class ClientHandler implements Runnable {
      * This class accepts all incoming connections from InterfaceClients on the default port.
      * @throws IOException
      */
-    public ClientHandler() throws IOException {
+    public ClientHandler() {
         server = null;
         connections = new HashMap<Integer, SocketListener>();
         nextConnectionID = 0;
@@ -27,14 +27,14 @@ public class ClientHandler implements Runnable {
         uncontrolledDisconnections = new ArrayList<Integer>();
     }
     
-    private void open() throws IOException {
-        if(server == null) {
+    public void open() throws IOException {
+        if(!isOpen()) {
             server = new ServerSocket(defaultPort);
         }
     }
     
-    private void open(int port) throws IOException {
-        if(server == null) {
+    public void open(int port) throws IOException {
+        if(!isOpen()) {
             server = new ServerSocket(port);
         }
     }
@@ -43,16 +43,16 @@ public class ClientHandler implements Runnable {
      * As described by Runnable.
      */
     public void run() {
-        while(server != null && !server.isClosed()) {
+        while(isOpen()) {
             try {
                 // We don't need a sleep() because this is blocking.
                 // This thread basically accepts all incoming connections.
                 Socket incomingConnection = server.accept();
                 if(!server.isClosed()) {
-                    add_socket(incomingConnection);
+                    addSocket(incomingConnection);
                 }
             } catch (SocketException e) {
-                if(!server.isClosed()) {
+                if(isOpen()) {
                     e.printStackTrace();
                 }
             } catch (IOException e) {
@@ -67,7 +67,7 @@ public class ClientHandler implements Runnable {
      * @return The map key is the socket ID, the value is an array of messages. If a socket ID has no map entry, then no messages have been received from this client since the last read_all()
      */
     public HashMap<Integer, byte[][]> readAll() {
-        if(server != null && !server.isClosed()) {
+        if(isOpen()) {
             Integer[] socketIDs = connections.keySet().toArray(new Integer[0]);
             HashMap<Integer, byte[][]> messages = new HashMap<Integer, byte[][]>();
             
@@ -98,7 +98,7 @@ public class ClientHandler implements Runnable {
      * @param message The message to be sent. An additional newline character will separate this message from future messages.
      */
     public void send(Integer socketID, byte[] message) {
-        if(server != null && !server.isClosed()) {
+        if(isOpen()) {
             SocketListener socketListener = connections.get(socketID);
             if(socketListener != null && socketListener.isConnected()) {
                 try {
@@ -115,7 +115,7 @@ public class ClientHandler implements Runnable {
      * @param message The message to be sent. An additional newline character will separate this message from future messages.
      */
     public void sendToAll(byte[] message) {
-        if(server != null && !server.isClosed()) {
+        if(isOpen()) {
             Integer[] socketIDs = connections.keySet().toArray(new Integer[0]);
             for(int i = 0; i < socketIDs.length; i++) {
                 send(socketIDs[i], message);
@@ -124,13 +124,13 @@ public class ClientHandler implements Runnable {
     }
     
     public synchronized void disconnect(Integer socketID) {
-        if(server != null && !server.isClosed()) {
+        if(isOpen()) {
             removeSocket(socketID);
         }
     }
     
     public synchronized void disconnectAll() {
-        if(server != null && !server.isClosed()) {
+        if(isOpen()) {
             // We are shutting down the client handler,
             // close and remove all connections
             Integer[] removeIDs = connections.keySet().toArray(new Integer[0]);
@@ -141,7 +141,7 @@ public class ClientHandler implements Runnable {
     }
     
     public void close() {
-        if(server != null && !server.isClosed()) {
+        if(isOpen()) {
             disconnectAll();
             try {
                 server.close();
@@ -152,7 +152,11 @@ public class ClientHandler implements Runnable {
         }
     }
     
-    private synchronized void add_socket(Socket socket) {
+    public boolean isOpen() {
+        return server != null && !server.isClosed();
+    }
+    
+    private synchronized void addSocket(Socket socket) {
         try {
             SocketListener socketListener = new SocketListener(socket);
             connections.put(nextConnectionID, socketListener);

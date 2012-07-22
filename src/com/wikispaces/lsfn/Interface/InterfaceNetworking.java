@@ -15,11 +15,11 @@ public class InterfaceNetworking {
         client = new SocketListener();
     }
     
-    public void connect(String host, int port) throws IOException {
+    public void connectToSHIP(String host, int port) throws IOException {
         if(!client.isConnected()) client.connect(host, port);
     }
     
-    public SI[] receive() throws IOException {
+    public SI[] receiveFromSHIP() throws IOException {
         if(client.isConnected()) {
             byte[][] messages = client.receive();
             ArrayList<SI> messageList = new ArrayList<SI>();
@@ -38,15 +38,15 @@ public class InterfaceNetworking {
         }
     }
     
-    public void send(IS message) throws IOException {
+    public void sendToSHIP(IS message) throws IOException {
         if(client.isConnected()) client.send(message.toByteArray());
     }
     
-    public boolean isConnected() {
+    public boolean isConnectedToSHIP() {
         return client.isConnected();
     }
     
-    public void close() {
+    public void disconnectFromSHIP() {
         if(client.isConnected()) client.close();
     }
 }
