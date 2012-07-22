@@ -9,7 +9,7 @@ public class ServerListener {
     private SocketBitJockey jockey;
     private TimeoutManager timeoutManager;
     
-    private boolean serverDisconnected;
+    private boolean connected;
     
     /**
      * Creates a Listener that asynchronously collects input from a declareAliveIntervalSocket .
@@ -22,19 +22,21 @@ public class ServerListener {
         jockey = null;
         timeoutManager = new TimeoutManager(6000, 10000);
         
-        serverDisconnected = false;
+        connected = false;
     }
     
     public void connect(String host, int port) throws IOException {
         if(socket == null) {
             socket = new Socket(host, port);
             jockey = new SocketBitJockey(socket.getInputStream(), socket.getOutputStream());
+            timeoutManager = new TimeoutManager(6000, 10000);
+            connected = true;
         }
     }
     
     public byte[][] receive() throws IOException {
         checkTimeouts();
-        if(socket != null) {
+        if(connected) {
             byte[][] messages = jockey.readMessages();
             ArrayList<byte[]> messageList = new ArrayList<byte[]>();
             if(messages.length > 0) {
@@ -46,16 +48,21 @@ public class ServerListener {
                 }
             }
             return messageList.toArray(new byte[0][]);
+        } else {
+            return null;
         }
-        return null;
     }
     
     public void send(byte[] message) throws IOException {
         checkTimeouts();
-        if(socket != null) {
+        if(connected) {
             jockey.send(message);
             timeoutManager.sendOccured();
         }
+    }
+    
+    public boolean isConnected() {
+        return connected;
     }
     
     private boolean checkMessageForSignal(byte[] signalBytes) {
@@ -67,7 +74,8 @@ public class ServerListener {
             return true;
         case 'D':
             // The disconnect signal has been received
-            serverDisconnected = true;
+            connected = false;
+            close();
             return true;
         default:
             return false;    
@@ -90,7 +98,7 @@ public class ServerListener {
     }
     
     public void close() {
-        if(!serverDisconnected) {
+        if(connected) {
             byte[] dc = {(byte)'D'};
             try {
                 jockey.send(dc);
