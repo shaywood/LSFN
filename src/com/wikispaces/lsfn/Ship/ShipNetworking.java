@@ -9,6 +9,8 @@ import com.wikispaces.lsfn.Shared.ClientHandler;
 import com.wikispaces.lsfn.Shared.SocketListener;
 import com.wikispaces.lsfn.Shared.LSFN.IS;
 import com.wikispaces.lsfn.Shared.LSFN.SI;
+import com.wikispaces.lsfn.Shared.LSFN.SE;
+import com.wikispaces.lsfn.Shared.LSFN.ES;
 
 public class ShipNetworking {
     private SocketListener client;
@@ -26,26 +28,26 @@ public class ShipNetworking {
         if(!client.isConnected()) client.connect(host, port);
     }
     
-    public SI[] receiveFromENV() throws IOException {
+    public ES[] receiveFromENV() throws IOException {
         if(client.isConnected()) {
             byte[][] messages = client.receive();
-            ArrayList<SI> messageList = new ArrayList<SI>();
+            ArrayList<ES> messageList = new ArrayList<ES>();
             for(int i = 0; i < messages.length; i++) {
                 try {
-                    SI message = SI.parseFrom(messages[i]);
+                    ES message = ES.parseFrom(messages[i]);
                     messageList.add(message);
                 } catch (InvalidProtocolBufferException e) {
                     
                 }
             }
             if(messageList.size() == 0) return null;
-            return messageList.toArray(new SI[0]);
+            return messageList.toArray(new ES[0]);
         } else {
             return null;
         }
     }
     
-    public void sendToENV(IS message) throws IOException {
+    public void sendToENV(SE message) throws IOException {
         if(client.isConnected()) client.send(message.toByteArray());
     }
     
@@ -64,7 +66,7 @@ public class ShipNetworking {
         serverThread = new Thread(server);
     }
     
-    public HashMap<Integer, IS[]> readAll() {
+    public HashMap<Integer, IS[]> readAllFromINTs() {
         HashMap<Integer, byte[][]> messages = server.readAll();
         if(messages == null) return null;
         HashMap<Integer, IS[]> parsedMessages = new HashMap<Integer, IS[]>();
@@ -108,7 +110,7 @@ public class ShipNetworking {
         return server.isOpen();
     }
     
-    public void closeINTServer() throws IOException {
+    public void closeINTServer() {
         server.close();
         try {
             serverThread.join();

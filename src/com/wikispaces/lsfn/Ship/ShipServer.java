@@ -8,20 +8,14 @@ import java.util.*;
 
 public class ShipServer implements Runnable {
 
-    private ClientHandler INT_server;
-    private Thread INT_server_thread;
-    private SocketListener ENV_client;
-    private Thread ENV_client_thread;
+    private ShipNetworking network;
     private boolean running;
     private BufferedReader stdin;
     private Subscriptions interface_client_subscriptions = new Subscriptions();
     private Subscribe subscriber = new Subscribe(Subscribeable.get_all_available_subscribeables());
     
     ShipServer() {
-        INT_server = null;
-        INT_server_thread = null;
-        ENV_client = null;
-        ENV_client_thread = null;
+        network = new ShipNetworking();
         stdin = new BufferedReader(new InputStreamReader(System.in));
     }
     
@@ -29,16 +23,19 @@ public class ShipServer implements Runnable {
      * Treat this as the SHIP program's main entry point.
      */
     public void run() {
-        start_INT_server();
+        try {
+            network.openINTServer();
+        } catch (IOException e1) {
+            System.err.println("Failed to open the server socket.");
+            e1.printStackTrace();
+        }
         
         running = true;
         while(running) {
-        	process_user_input();
+        	processUserInput();
 
-            if(INT_server != null) {
-                handshake_new_interface_connections();
-                process_messages_from_existing_INT_connections();
-            }
+            handshakeNewInterfaceConnections();
+            process_messages_from_existing_INT_connections();
             
             // Get messages from the ENV (if it's connected)
             process_ENV();
@@ -50,11 +47,11 @@ public class ShipServer implements Runnable {
             }
         }
         
-        stop_ENV_client(true);
-        stop_INT_server();
+        network.closeINTServer();
+        network.disconnectFromENV();
     }
     
-    private void process_user_input() {
+    private void processUserInput() {
         try {
             while(stdin.ready()) {
                 process_stdin_message(stdin.readLine());
@@ -72,21 +69,21 @@ public class ShipServer implements Runnable {
     
 	private void process_messages_from_existing_INT_connections() {
 		// Handle existing connections
-		HashMap<Integer, byte[][]> all_messages = INT_server.read_all();
-		Iterator<Integer> INT_ID_iterator = all_messages.keySet().iterator();
-		while(INT_ID_iterator.hasNext()) {
-		    Integer INT_ID = INT_ID_iterator.next();
-		    byte[][] messages = all_messages.get(INT_ID);
+		HashMap<Integer, IS[]> all_messages = network.readAllFromINTs();
+		Iterator<Integer> INTIDIterator = all_messages.keySet().iterator();
+		while(INTIDIterator.hasNext()) {
+		    Integer INTID = INTIDIterator.next();
+		    IS[] messages = all_messages.get(INTID);
 		    if(messages == null) continue;
 		    for(int i = 0; i < messages.length; i++) {
-		        process_INT_message(INT_ID, messages[i]);
+		        processINTMessages(INTID, messages[i]);
 		    }
 		}
 	}
 
-	private void handshake_new_interface_connections() {
+	private void handshakeNewInterfaceConnections() {
 		// Handle new connections
-		Integer[] INT_IDs = INT_server.get_new_connections();
+		Integer[] INT_IDs = network.getNewINTConnections();
 		for(int i = 0; i < INT_IDs.length; i++) {
 		    SI handshake = SI.newBuilder()
 		            .setHandshake(SI.Handshake.newBuilder()
@@ -94,53 +91,55 @@ public class ShipServer implements Runnable {
 		                    .setPlayerID(INT_IDs[i])
 		                    .build())
 		            .build();
-		    INT_server.send(INT_IDs[i], handshake.toByteArray());
+		    network.sendToINT(INT_IDs[i], handshake);
 		}
 	}
     
-    private void process_INT_message(Integer INT_ID, byte[] message) {
-        IS parsed_message = null;
-        try {
-            parsed_message = LSFN.IS.parseFrom(message);
-            System.out.print(parsed_message.toString());
-        } catch (InvalidProtocolBufferException e) {
-            e.printStackTrace();
-        }
-        
-        if(parsed_message != null) {
-            if(parsed_message.hasHandshake()) {
-                switch(parsed_message.getHandshake()) {
+    private void processINTMessages(Integer INTID, IS message) {        
+        if(message != null) {
+            if(message.hasHandshake()) {
+                switch(message.getHandshake()) {
                     case HELLO:
                         // Obsolete
                         break;
                     case GOODBYE:
-                        INT_server.remove_socket(INT_ID);
+                        network.disconnectINT(INTID);
                         break;
                 }
             }
             
-            if(parsed_message.hasCommand()) {
-                IS.SHIP_ENV_command command = parsed_message.getCommand();
+            if(message.hasCommand()) {
+                IS.SHIP_ENV_command command = message.getCommand();
                 switch(command.getType()) {
                     case CONNECT:
-                        start_ENV_client(command.getHost(), command.getPort());
+                    try {
+                        network.connectToENV(command.getHost(), command.getPort());
+                    } catch (IOException e) {
+                        System.out.println("Failed to connect to server.");
+                        e.printStackTrace();
+                    }
                         break;
                     case DISCONNECT:
-                        stop_ENV_client(true);
+                        network.disconnectFromENV();
                         break;
                     case RECONNECT:
-                        stop_ENV_client(true);
-                        start_ENV_client(command.getHost(), command.getPort());
+                        network.disconnectFromENV();
+                        try {
+                            network.connectToENV(command.getHost(), command.getPort());
+                        } catch (IOException e) {
+                            System.out.println("Failed to reconnect to server.");
+                            e.printStackTrace();
+                        }
                         break;
                 }
             }
             
-            if(parsed_message.getAvailableSubscriptionsList()) {
-            	INT_server.send(INT_ID, new ListAvailableSubscriptions().build_message(INT_ID).toByteArray());
+            if(message.getAvailableSubscriptionsList()) {
+            	network.sendToINT(INTID, new ListAvailableSubscriptions().build_message(INTID));
             }
-            if(parsed_message.hasSubscribe()) {
+            if(message.hasSubscribe()) {
             	try {
-					interface_client_subscriptions.subscribe(INT_ID, subscriber.parse_message(parsed_message));
+					interface_client_subscriptions.subscribe(INTID, subscriber.parse_message(message));
 				} catch (SubscribeableNotFoundException e) {
 					e.printStackTrace();
 				} catch (UnavailableSubscriptionExeption e) {
@@ -150,141 +149,58 @@ public class ShipServer implements Runnable {
         }
     }
 
-
-	private void start_INT_server() {
-        try {
-            INT_server = new ClientHandler();
-        } catch(IOException e) {
-            INT_server = null;
-        }
-        
-        // Check if we have successfully created a ClientHandler to serve as a host for INTs
-        if(INT_server != null) {
-            INT_server_thread = new Thread(INT_server);
-            INT_server_thread.start();
-        }
-    }
-    
-    private void stop_INT_server() {
-        if(INT_server != null) {
-            try {
-                INT_server.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            
-            // Send a goodbye to each connected client
-            SI goodbye_message = SI.newBuilder()
-                    .setHandshake(SI.Handshake.newBuilder()
-                            .setType(SI.Handshake.Type.GOODBYE)
-                            .build())
-                    .build();
-            INT_server.send_to_all(goodbye_message.toByteArray());
-            
-            // Close the server
-            try {
-                INT_server_thread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            
-            INT_server = null;
-            INT_server_thread = null;
-        }
-    }
-    
     private void process_ENV() {
-        if(ENV_client != null) {
-            byte[][] messages = ENV_client.get_messages();
-            for(int i = 0; i < messages.length; i++) {
-                process_ENV_message(messages[i]);
-            }
-        }
-    }
-    
-    private void process_ENV_message(byte[] message) {
-        ES parsed_message = null;
-        try {
-            parsed_message = ES.parseFrom(message);
-            System.out.print(parsed_message.toString());
-        } catch (InvalidProtocolBufferException e) {
-            e.printStackTrace();
-        }
-        
-        if(parsed_message != null) {
-            if(parsed_message.hasHandshake()) {
-                SI return_message = null;
-                switch(parsed_message.getHandshake().getType()) {
-                    case HELLO:
-                        return_message = SI.newBuilder()
-                                .setStatus(SI.SHIP_ENV_status.newBuilder()
-                                        .setState(SI.SHIP_ENV_status.State.CONNECTED)
-                                        .setShipID(parsed_message.getHandshake().getShipID())
-                                        .build())
-                                .build();
-                        break;
-                    case GOODBYE:
-                        return_message = SI.newBuilder()
-                                .setStatus(SI.SHIP_ENV_status.newBuilder()
-                                        .setState(SI.SHIP_ENV_status.State.DISCONNECTED)
-                                        .build())
-                                .build();
-                        stop_ENV_client(false);
-                        break;
-                }
-                INT_server.send_to_all(return_message.toByteArray());
-            }
-            
-            if(parsed_message.hasPositions()) {
-                Iterator<ES.Ship_positions.Ship_position> parsed_positions_iterator = parsed_message.getPositions().getPositionsList().iterator();
-                SI.Ship_positions.Builder positions_builder = SI.Ship_positions.newBuilder();
-                while(parsed_positions_iterator.hasNext()) {
-                    ES.Ship_positions.Ship_position pos = parsed_positions_iterator.next();
-                    positions_builder.addPositions(SI.Ship_positions.Ship_position.newBuilder()
-                            .setShipID(pos.getShipID())
-                            .addAllCoordinates(pos.getCoordinatesList())
-                            .build());
-                }
-                INT_server.send_to_all(SI.newBuilder().setPositions(positions_builder.build()).build().toByteArray());
-            }
-        }
-    }
-    
-    private void start_ENV_client(String host, int port) {
-        try {
-            ENV_client = new SocketListener(host, port);
-        } catch (IOException e) {
-            ENV_client = null;
-        }
-        
-        if(ENV_client != null) {
-            ENV_client_thread = new Thread(ENV_client);
-            ENV_client_thread.start();
-        }
-    }
-    
-    private void stop_ENV_client(boolean send_goodbye) {
-        if(ENV_client != null) {
+        if(network.isConnectedtoENV()) {
+            ES[] messages = null;
             try {
-                ENV_client_thread.interrupt();
-                ENV_client_thread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            
-            if(send_goodbye) {
-                SE handshake = SE.newBuilder().setHandshake(SE.Handshake.GOODBYE).build();
-                ENV_client.send(handshake.toByteArray());
-            }
-            
-            try {
-                ENV_client.close();
+                messages = network.receiveFromENV();
             } catch (IOException e) {
+                System.out.println("Failed to receive messages.");
                 e.printStackTrace();
             }
-            
-            ENV_client = null;
-            ENV_client_thread = null;
+            if(messages != null) {
+                for(int i = 0; i < messages.length; i++) {
+                    process_ENV_message(messages[i]);
+                }
+            }
+        }
+    }
+    
+    private void process_ENV_message(ES message) {
+        if(message.hasHandshake()) {
+            SI return_message = null;
+            switch(message.getHandshake().getType()) {
+                case HELLO:
+                    return_message = SI.newBuilder()
+                            .setStatus(SI.SHIP_ENV_status.newBuilder()
+                                    .setState(SI.SHIP_ENV_status.State.CONNECTED)
+                                    .setShipID(message.getHandshake().getShipID())
+                                    .build())
+                            .build();
+                    break;
+                case GOODBYE:
+                    return_message = SI.newBuilder()
+                            .setStatus(SI.SHIP_ENV_status.newBuilder()
+                                    .setState(SI.SHIP_ENV_status.State.DISCONNECTED)
+                                    .build())
+                            .build();
+                    network.disconnectFromENV();
+                    break;
+            }
+            network.sendToAllINTs(return_message);
+        }
+        
+        if(message.hasPositions()) {
+            Iterator<ES.Ship_positions.Ship_position> parsed_positions_iterator = message.getPositions().getPositionsList().iterator();
+            SI.Ship_positions.Builder positions_builder = SI.Ship_positions.newBuilder();
+            while(parsed_positions_iterator.hasNext()) {
+                ES.Ship_positions.Ship_position pos = parsed_positions_iterator.next();
+                positions_builder.addPositions(SI.Ship_positions.Ship_position.newBuilder()
+                        .setShipID(pos.getShipID())
+                        .addAllCoordinates(pos.getCoordinatesList())
+                        .build());
+            }
+            network.sendToAllINTs(SI.newBuilder().setPositions(positions_builder.build()).build());
         }
     }
     
