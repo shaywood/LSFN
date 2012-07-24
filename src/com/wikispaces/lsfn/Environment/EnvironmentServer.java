@@ -2,43 +2,44 @@ package com.wikispaces.lsfn.Environment;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.wikispaces.lsfn.Shared.*;
+import com.wikispaces.lsfn.Shared.LSFN.SE;
 import com.wikispaces.lsfn.Shared.LSFN.*;
 import java.io.*;
 import java.util.*;
 
 public class EnvironmentServer implements Runnable {
-    private ClientHandler SHIP_server;
-    private Thread SHIP_server_thread;
+    private EnvironmentNetworking network;
     private boolean running;
     private BufferedReader stdin;
     
     private Space space;
     
     EnvironmentServer() {
-        SHIP_server = null;
-        SHIP_server_thread = null;
+        network = new EnvironmentNetworking();
         stdin = new BufferedReader(new InputStreamReader(System.in));
-        
         space = new Space(1000, 1000);
     }
     
     public void run() {
-        start_SHIP_server();
+        try {
+            network.openSHIPServer();
+        } catch (IOException e1) {
+            System.out.println("Failed to open SHIP server.");
+            e1.printStackTrace();
+        }
         
         running = true;
         while(running) {
-        	process_user_input();
+        	processUserInput();
             
-            if(SHIP_server != null) {
-            	handshake_new_SHIP_connections();
-            	process_messages_from_existing_SHIP_connections();
-            }
+        	handshakeNewSHIPConnections();
+        	processMessagesFromExistingSHIPConnections();
             
             // Run the tick() functions of everything in space
             space.tick();
             
             // Send back state output
-            send_position_output();
+            sendPositionOutput();
             
             try {
                 Thread.sleep(20);
@@ -48,13 +49,13 @@ public class EnvironmentServer implements Runnable {
             }
         }
         
-        stop_SHIP_server();
+        network.closeSHIPServer();
     }
     
-    private void process_user_input() {
+    private void processUserInput() {
         try {
             while(stdin.ready()) {
-                process_stdin_message(stdin.readLine());
+                processStdinMessage(stdin.readLine());
             }
         } catch (IOException e) {
             System.err.println("Failed to read from stdin.");
@@ -63,12 +64,12 @@ public class EnvironmentServer implements Runnable {
         }
     }
     
-    private void process_stdin_message(String message) {
+    private void processStdinMessage(String message) {
         if(message.equals("stop")) running = false;
     }
     
-    private void handshake_new_SHIP_connections() {
-        Integer[] SHIP_IDs = SHIP_server.get_new_connections();
+    private void handshakeNewSHIPConnections() {
+        Integer[] SHIP_IDs = network.getNewSHIPConnections();
         for(int i = 0; i < SHIP_IDs.length; i++) {
             LSFN.ES handshake = LSFN.ES.newBuilder()
                     .setHandshake(LSFN.ES.Handshake.newBuilder()
@@ -76,93 +77,46 @@ public class EnvironmentServer implements Runnable {
                             .setShipID(SHIP_IDs[i])
                             .build())
                     .build();
-            SHIP_server.send(SHIP_IDs[i], handshake.toByteArray());
+            network.sendToSHIP(SHIP_IDs[i], handshake);
         }
     }
     
-    private void process_messages_from_existing_SHIP_connections() {    	
-        HashMap<Integer, byte[][]> messages = SHIP_server.read_all();
+    private void processMessagesFromExistingSHIPConnections() {    	
+        HashMap<Integer, SE[]> messages = network.readAllFromSHIPs();
         Iterator<Integer> message_iterator = messages.keySet().iterator();
         while(message_iterator.hasNext()) {
             Integer message_ID = message_iterator.next();
-            byte[][] message_array = messages.get(message_ID);
+            SE[] message_array = messages.get(message_ID);
             for(int i = 0; i < message_array.length; i++) {
-                process_SHIP_message(message_ID, message_array[i]);
+                processSHIPMessage(message_ID, message_array[i]);
             }
         }
     }
     
-    private void process_SHIP_message(Integer SHIP_ID, byte[] message) {
-        SE parsed_message = null;
-        try {
-            parsed_message = SE.parseFrom(message);
-            System.out.print(parsed_message.toString());
-        } catch (InvalidProtocolBufferException e) {
-            e.printStackTrace();
-        }
-        
-        if(parsed_message != null) {
-            if(parsed_message.hasHandshake()) {
-                switch(parsed_message.getHandshake()) {
+    private void processSHIPMessage(Integer SHIPID, SE message) {
+        if(message != null) {
+            if(message.hasHandshake()) {
+                switch(message.getHandshake()) {
                     case HELLO:
                         // Obsolete
                         break;
                     case GOODBYE:
-                        SHIP_server.remove_socket(SHIP_ID);
+                        network.disconnectSHIP(SHIPID);
                         break;
                 }
             }
             
-            if(parsed_message.hasMovement()) {
-                Ship.data_from_SHIPs(SHIP_ID, parsed_message.getMovement());
+            if(message.hasMovement()) {
+                Ship.data_from_SHIPs(SHIPID, message.getMovement());
             }
         }
     }
     
-    private void start_SHIP_server() {
-        try {
-            SHIP_server = new ClientHandler(14613);
-        } catch(IOException e) {
-            SHIP_server = null;
-        }
-        
-        // Check if we have successfully created a ClientHandler to serve as a host for SHIPs
-        if(SHIP_server != null) {
-            SHIP_server_thread = new Thread(SHIP_server);
-            SHIP_server_thread.start();
-        }
-    }
-    
-    private void stop_SHIP_server() {
-        if(SHIP_server != null) {
-            // Send a goodbye to each connected client
-            ES goodbye_message = ES.newBuilder()
-                    .setHandshake(ES.Handshake.newBuilder()
-                            .setType(ES.Handshake.Type.GOODBYE)
-                            .build())
-                    .build();
-            SHIP_server.send_to_all(goodbye_message.toByteArray());
-            
-            // Close the server
-            try {
-                SHIP_server.close();
-                SHIP_server_thread.join();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            
-            SHIP_server = null;
-            SHIP_server_thread = null;
-        }
-    }
-    
-    private void send_position_output() {
+    private void sendPositionOutput() {
         ES state_output = ES.newBuilder()
                 .setPositions(Ship.get_proto_positions())
                 .build();
-        SHIP_server.send_to_all(state_output.toByteArray());
+        network.sendToAllSHIPs(state_output);
     }
     
     /**

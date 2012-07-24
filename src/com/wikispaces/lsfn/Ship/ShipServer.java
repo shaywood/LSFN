@@ -35,7 +35,7 @@ public class ShipServer implements Runnable {
         	processUserInput();
 
             handshakeNewInterfaceConnections();
-            process_messages_from_existing_INT_connections();
+            processMessagesFromExistingINTConnections();
             
             // Get messages from the ENV (if it's connected)
             process_ENV();
@@ -54,7 +54,7 @@ public class ShipServer implements Runnable {
     private void processUserInput() {
         try {
             while(stdin.ready()) {
-                process_stdin_message(stdin.readLine());
+                processStdinMessage(stdin.readLine());
             }
         } catch (IOException e) {
             System.err.println("Failed to read from stdin.");
@@ -63,11 +63,11 @@ public class ShipServer implements Runnable {
         }
     }
     
-    private void process_stdin_message(String message) {
+    private void processStdinMessage(String message) {
         if(message.equals("stop")) running = false;
     }
     
-	private void process_messages_from_existing_INT_connections() {
+	private void processMessagesFromExistingINTConnections() {
 		// Handle existing connections
 		HashMap<Integer, IS[]> all_messages = network.readAllFromINTs();
 		Iterator<Integer> INTIDIterator = all_messages.keySet().iterator();
@@ -160,13 +160,13 @@ public class ShipServer implements Runnable {
             }
             if(messages != null) {
                 for(int i = 0; i < messages.length; i++) {
-                    process_ENV_message(messages[i]);
+                    processENVMessage(messages[i]);
                 }
             }
         }
     }
     
-    private void process_ENV_message(ES message) {
+    private void processENVMessage(ES message) {
         if(message.hasHandshake()) {
             SI return_message = null;
             switch(message.getHandshake().getType()) {
