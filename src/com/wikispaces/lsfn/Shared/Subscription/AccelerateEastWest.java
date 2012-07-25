@@ -7,7 +7,7 @@ public class AccelerateEastWest extends Subscribeable {
 	UnitDirection where_to;
 
 	public AccelerateEastWest(UnitDirection where_to) {
-		super(3, "East-West acceleration input.", Value_type.STRING);
+		super(3, "East-West acceleration input.", Value_type.INT32);
 		this.where_to = where_to;
 	}
 	
