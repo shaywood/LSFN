@@ -14,11 +14,14 @@ import java.util.concurrent.LinkedBlockingQueue;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.wikispaces.lsfn.Shared.ClientHandler;
 import com.wikispaces.lsfn.Shared.LSFN;
+import com.wikispaces.lsfn.Shared.UnitDirection;
 import com.wikispaces.lsfn.Shared.LSFN.ES;
 import com.wikispaces.lsfn.Shared.LSFN.IS;
 import com.wikispaces.lsfn.Shared.LSFN.SE;
 import com.wikispaces.lsfn.Shared.LSFN.SI;
+import com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement;
 import com.wikispaces.lsfn.Shared.Listener;
+import com.wikispaces.lsfn.Shared.Subscription.Accelerate;
 import com.wikispaces.lsfn.Shared.Subscription.AvailableSubscriptionsList;
 import com.wikispaces.lsfn.Shared.Subscription.NoSubscriptionBuilderDefinedException;
 import com.wikispaces.lsfn.Shared.Subscription.NoSubscriptionParserDefinedException;
@@ -45,8 +48,7 @@ public class ShipServer implements Runnable {
     private SubscriptionRequest subscriber = new SubscriptionRequest(subscribeable_factory, subscribeable_factory.get_outputs());
     private SubscriptionPublisher publisher = new SubscriptionPublisher(interface_client_subscriptions, new SubscriptionMessageBuilderFactory(new TestBuilder()));
     private SubscriptionMessageParserFactory receiver = new SubscriptionMessageParserFactory(subscribeable_factory,	
-    		new AccelerateNorthSouthParser(),
-    		new AccelerateEastWestParser());
+    		new AccelerateParser());
     
     private BlockingQueue<Subscribeable> updates_for_INT = new LinkedBlockingQueue<Subscribeable>();
     private BlockingQueue<Subscribeable> updates_for_ENV = new LinkedBlockingQueue<Subscribeable>();
@@ -80,6 +82,7 @@ public class ShipServer implements Runnable {
             
             // Do we want to move this inside process_ENV?
             publish_updates_to_INT();
+            publish_updates_to_ENV();
             
             try {
                 Thread.sleep(20);
@@ -92,7 +95,7 @@ public class ShipServer implements Runnable {
         stop_INT_server();
     }
     
-    private void publish_updates_to_INT() {
+	private void publish_updates_to_INT() {
     	Set<Integer> INT_ids =  interface_client_subscriptions.get_subscribers();
     	List<Subscribeable> updates = new ArrayList<Subscribeable>();
     	updates_for_INT.drainTo(updates);
@@ -108,6 +111,28 @@ public class ShipServer implements Runnable {
 				e.printStackTrace();
 			}
     		INT_server.send(id, builder.build().toByteArray());
+    	}
+	}
+	
+	int accelerate_id = new Accelerate(UnitDirection.NOWHERE).get_id();
+    private void publish_updates_to_ENV() {
+    	List<Subscribeable> updates = new ArrayList<Subscribeable>();
+    	updates_for_ENV.drainTo(updates);
+    	// updates = subscribeable_simplifier.merge(updates); // ToDo: not necessary at this point, since all our ENV updates are coming via the INT which will already have  merged them. We should think it through more.
+    	
+    	if(updates.size() > 0) {
+    		SE.Builder accelerate_message = SE.newBuilder();
+    		
+	    	for(Subscribeable s : updates) {
+	    		if(s.get_id() == accelerate_id) { // this is a nasty solution. Look into doing better in the next version.
+					Accelerate a = (Accelerate)s;
+					accelerate_message.setMovement(Ship_movement.newBuilder()
+						.addAxisAccel(a.get_direction().get_north_south())
+						.addAxisAccel(a.get_direction().get_east_west()));
+	    		}
+	    	}
+	    	
+	    	ENV_client.send(accelerate_message.build().toByteArray());
     	}
 	}
 

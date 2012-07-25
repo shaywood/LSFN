@@ -4,11 +4,11 @@ option java_outer_classname = "LSFN";
 message Subscription_updates {
 	message Subscription_update {
 		required int32 ID = 1;
-		optional float float_value = 2;
-		optional double double_value = 3;
-		optional int32 int32_value = 4;
-		optional int64 int64_value = 5;
-		optional string string_value = 15;
+		repeated float float_value = 2;
+		repeated double double_value = 3;
+		repeated int32 int32_value = 4;
+		repeated int64 int64_value = 5;
+		repeated string string_value = 15;
 	}
 	repeated Subscription_update updates = 1;
 }

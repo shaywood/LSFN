@@ -7,15 +7,14 @@ import javax.swing.KeyStroke;
 
 
 import com.wikispaces.lsfn.Shared.UnitDirection;
-import com.wikispaces.lsfn.Shared.Subscription.AccelerateEastWest;
-import com.wikispaces.lsfn.Shared.Subscription.AccelerateNorthSouth;
+import com.wikispaces.lsfn.Shared.Subscription.Accelerate;
 import com.wikispaces.lsfn.Shared.Subscription.Subscribeable;
 
 public enum KeyControl {
-	ACCELERATE_FORWARD(new AccelerateNorthSouth(UnitDirection.NORTH), "W", "UP"),
-	ACCELERATE_BACKWARD(new AccelerateNorthSouth(UnitDirection.SOUTH), "S", "DOWN"),
-	ACCELERATE_PORT(new AccelerateEastWest(UnitDirection.EAST), "A", "LEFT"),
-	ACCELERATE_STARBOARD(new AccelerateEastWest(UnitDirection.WEST), "D", "RIGHT");
+	ACCELERATE_FORWARD(new Accelerate(UnitDirection.NORTH), "W", "UP"),
+	ACCELERATE_BACKWARD(new Accelerate(UnitDirection.SOUTH), "S", "DOWN"),
+	ACCELERATE_PORT(new Accelerate(UnitDirection.EAST), "A", "LEFT"),
+	ACCELERATE_STARBOARD(new Accelerate(UnitDirection.WEST), "D", "RIGHT");
 	
 	private Subscribeable command;
 	private Set<KeyStroke> bindings = new HashSet<KeyStroke>();

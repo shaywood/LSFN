@@ -56,25 +56,30 @@ public final class LSFN {
       boolean hasID();
       int getID();
       
-      // optional float float_value = 2;
-      boolean hasFloatValue();
-      float getFloatValue();
+      // repeated float float_value = 2;
+      java.util.List<java.lang.Float> getFloatValueList();
+      int getFloatValueCount();
+      float getFloatValue(int index);
       
-      // optional double double_value = 3;
-      boolean hasDoubleValue();
-      double getDoubleValue();
+      // repeated double double_value = 3;
+      java.util.List<java.lang.Double> getDoubleValueList();
+      int getDoubleValueCount();
+      double getDoubleValue(int index);
       
-      // optional int32 int32_value = 4;
-      boolean hasInt32Value();
-      int getInt32Value();
+      // repeated int32 int32_value = 4;
+      java.util.List<java.lang.Integer> getInt32ValueList();
+      int getInt32ValueCount();
+      int getInt32Value(int index);
       
-      // optional int64 int64_value = 5;
-      boolean hasInt64Value();
-      long getInt64Value();
+      // repeated int64 int64_value = 5;
+      java.util.List<java.lang.Long> getInt64ValueList();
+      int getInt64ValueCount();
+      long getInt64Value(int index);
       
-      // optional string string_value = 15;
-      boolean hasStringValue();
-      String getStringValue();
+      // repeated string string_value = 15;
+      java.util.List<String> getStringValueList();
+      int getStringValueCount();
+      String getStringValue(int index);
     }
     public static final class Subscription_update extends
         com.google.protobuf.GeneratedMessage
@@ -115,85 +120,83 @@ public final class LSFN {
         return iD_;
       }
       
-      // optional float float_value = 2;
+      // repeated float float_value = 2;
       public static final int FLOAT_VALUE_FIELD_NUMBER = 2;
-      private float floatValue_;
-      public boolean hasFloatValue() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      public float getFloatValue() {
+      private java.util.List<java.lang.Float> floatValue_;
+      public java.util.List<java.lang.Float>
+          getFloatValueList() {
         return floatValue_;
       }
-      
-      // optional double double_value = 3;
-      public static final int DOUBLE_VALUE_FIELD_NUMBER = 3;
-      private double doubleValue_;
-      public boolean hasDoubleValue() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+      public int getFloatValueCount() {
+        return floatValue_.size();
       }
-      public double getDoubleValue() {
+      public float getFloatValue(int index) {
+        return floatValue_.get(index);
+      }
+      
+      // repeated double double_value = 3;
+      public static final int DOUBLE_VALUE_FIELD_NUMBER = 3;
+      private java.util.List<java.lang.Double> doubleValue_;
+      public java.util.List<java.lang.Double>
+          getDoubleValueList() {
         return doubleValue_;
       }
-      
-      // optional int32 int32_value = 4;
-      public static final int INT32_VALUE_FIELD_NUMBER = 4;
-      private int int32Value_;
-      public boolean hasInt32Value() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+      public int getDoubleValueCount() {
+        return doubleValue_.size();
       }
-      public int getInt32Value() {
+      public double getDoubleValue(int index) {
+        return doubleValue_.get(index);
+      }
+      
+      // repeated int32 int32_value = 4;
+      public static final int INT32_VALUE_FIELD_NUMBER = 4;
+      private java.util.List<java.lang.Integer> int32Value_;
+      public java.util.List<java.lang.Integer>
+          getInt32ValueList() {
         return int32Value_;
       }
-      
-      // optional int64 int64_value = 5;
-      public static final int INT64_VALUE_FIELD_NUMBER = 5;
-      private long int64Value_;
-      public boolean hasInt64Value() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
+      public int getInt32ValueCount() {
+        return int32Value_.size();
       }
-      public long getInt64Value() {
+      public int getInt32Value(int index) {
+        return int32Value_.get(index);
+      }
+      
+      // repeated int64 int64_value = 5;
+      public static final int INT64_VALUE_FIELD_NUMBER = 5;
+      private java.util.List<java.lang.Long> int64Value_;
+      public java.util.List<java.lang.Long>
+          getInt64ValueList() {
         return int64Value_;
       }
+      public int getInt64ValueCount() {
+        return int64Value_.size();
+      }
+      public long getInt64Value(int index) {
+        return int64Value_.get(index);
+      }
       
-      // optional string string_value = 15;
+      // repeated string string_value = 15;
       public static final int STRING_VALUE_FIELD_NUMBER = 15;
-      private java.lang.Object stringValue_;
-      public boolean hasStringValue() {
-        return ((bitField0_ & 0x00000020) == 0x00000020);
+      private com.google.protobuf.LazyStringList stringValue_;
+      public java.util.List<String>
+          getStringValueList() {
+        return stringValue_;
       }
-      public String getStringValue() {
-        java.lang.Object ref = stringValue_;
-        if (ref instanceof String) {
-          return (String) ref;
-        } else {
-          com.google.protobuf.ByteString bs = 
-              (com.google.protobuf.ByteString) ref;
-          String s = bs.toStringUtf8();
-          if (com.google.protobuf.Internal.isValidUtf8(bs)) {
-            stringValue_ = s;
-          }
-          return s;
-        }
+      public int getStringValueCount() {
+        return stringValue_.size();
       }
-      private com.google.protobuf.ByteString getStringValueBytes() {
-        java.lang.Object ref = stringValue_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8((String) ref);
-          stringValue_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
+      public String getStringValue(int index) {
+        return stringValue_.get(index);
       }
       
       private void initFields() {
         iD_ = 0;
-        floatValue_ = 0F;
-        doubleValue_ = 0D;
-        int32Value_ = 0;
-        int64Value_ = 0L;
-        stringValue_ = "";
+        floatValue_ = java.util.Collections.emptyList();;
+        doubleValue_ = java.util.Collections.emptyList();;
+        int32Value_ = java.util.Collections.emptyList();;
+        int64Value_ = java.util.Collections.emptyList();;
+        stringValue_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       }
       private byte memoizedIsInitialized = -1;
       public final boolean isInitialized() {
@@ -214,20 +217,20 @@ public final class LSFN {
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
           output.writeInt32(1, iD_);
         }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          output.writeFloat(2, floatValue_);
+        for (int i = 0; i < floatValue_.size(); i++) {
+          output.writeFloat(2, floatValue_.get(i));
         }
-        if (((bitField0_ & 0x00000004) == 0x00000004)) {
-          output.writeDouble(3, doubleValue_);
+        for (int i = 0; i < doubleValue_.size(); i++) {
+          output.writeDouble(3, doubleValue_.get(i));
         }
-        if (((bitField0_ & 0x00000008) == 0x00000008)) {
-          output.writeInt32(4, int32Value_);
+        for (int i = 0; i < int32Value_.size(); i++) {
+          output.writeInt32(4, int32Value_.get(i));
         }
-        if (((bitField0_ & 0x00000010) == 0x00000010)) {
-          output.writeInt64(5, int64Value_);
+        for (int i = 0; i < int64Value_.size(); i++) {
+          output.writeInt64(5, int64Value_.get(i));
         }
-        if (((bitField0_ & 0x00000020) == 0x00000020)) {
-          output.writeBytes(15, getStringValueBytes());
+        for (int i = 0; i < stringValue_.size(); i++) {
+          output.writeBytes(15, stringValue_.getByteString(i));
         }
         getUnknownFields().writeTo(output);
       }
@@ -242,25 +245,44 @@ public final class LSFN {
           size += com.google.protobuf.CodedOutputStream
             .computeInt32Size(1, iD_);
         }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeFloatSize(2, floatValue_);
+        {
+          int dataSize = 0;
+          dataSize = 4 * getFloatValueList().size();
+          size += dataSize;
+          size += 1 * getFloatValueList().size();
         }
-        if (((bitField0_ & 0x00000004) == 0x00000004)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeDoubleSize(3, doubleValue_);
+        {
+          int dataSize = 0;
+          dataSize = 8 * getDoubleValueList().size();
+          size += dataSize;
+          size += 1 * getDoubleValueList().size();
         }
-        if (((bitField0_ & 0x00000008) == 0x00000008)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(4, int32Value_);
+        {
+          int dataSize = 0;
+          for (int i = 0; i < int32Value_.size(); i++) {
+            dataSize += com.google.protobuf.CodedOutputStream
+              .computeInt32SizeNoTag(int32Value_.get(i));
+          }
+          size += dataSize;
+          size += 1 * getInt32ValueList().size();
         }
-        if (((bitField0_ & 0x00000010) == 0x00000010)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeInt64Size(5, int64Value_);
+        {
+          int dataSize = 0;
+          for (int i = 0; i < int64Value_.size(); i++) {
+            dataSize += com.google.protobuf.CodedOutputStream
+              .computeInt64SizeNoTag(int64Value_.get(i));
+          }
+          size += dataSize;
+          size += 1 * getInt64ValueList().size();
         }
-        if (((bitField0_ & 0x00000020) == 0x00000020)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeBytesSize(15, getStringValueBytes());
+        {
+          int dataSize = 0;
+          for (int i = 0; i < stringValue_.size(); i++) {
+            dataSize += com.google.protobuf.CodedOutputStream
+              .computeBytesSizeNoTag(stringValue_.getByteString(i));
+          }
+          size += dataSize;
+          size += 1 * getStringValueList().size();
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSerializedSize = size;
@@ -388,15 +410,15 @@ public final class LSFN {
           super.clear();
           iD_ = 0;
           bitField0_ = (bitField0_ & ~0x00000001);
-          floatValue_ = 0F;
+          floatValue_ = java.util.Collections.emptyList();;
           bitField0_ = (bitField0_ & ~0x00000002);
-          doubleValue_ = 0D;
+          doubleValue_ = java.util.Collections.emptyList();;
           bitField0_ = (bitField0_ & ~0x00000004);
-          int32Value_ = 0;
+          int32Value_ = java.util.Collections.emptyList();;
           bitField0_ = (bitField0_ & ~0x00000008);
-          int64Value_ = 0L;
+          int64Value_ = java.util.Collections.emptyList();;
           bitField0_ = (bitField0_ & ~0x00000010);
-          stringValue_ = "";
+          stringValue_ = com.google.protobuf.LazyStringArrayList.EMPTY;
           bitField0_ = (bitField0_ & ~0x00000020);
           return this;
         }
@@ -440,24 +462,30 @@ public final class LSFN {
             to_bitField0_ |= 0x00000001;
           }
           result.iD_ = iD_;
-          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-            to_bitField0_ |= 0x00000002;
+          if (((bitField0_ & 0x00000002) == 0x00000002)) {
+            floatValue_ = java.util.Collections.unmodifiableList(floatValue_);
+            bitField0_ = (bitField0_ & ~0x00000002);
           }
           result.floatValue_ = floatValue_;
-          if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-            to_bitField0_ |= 0x00000004;
+          if (((bitField0_ & 0x00000004) == 0x00000004)) {
+            doubleValue_ = java.util.Collections.unmodifiableList(doubleValue_);
+            bitField0_ = (bitField0_ & ~0x00000004);
           }
           result.doubleValue_ = doubleValue_;
-          if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
-            to_bitField0_ |= 0x00000008;
+          if (((bitField0_ & 0x00000008) == 0x00000008)) {
+            int32Value_ = java.util.Collections.unmodifiableList(int32Value_);
+            bitField0_ = (bitField0_ & ~0x00000008);
           }
           result.int32Value_ = int32Value_;
-          if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
-            to_bitField0_ |= 0x00000010;
+          if (((bitField0_ & 0x00000010) == 0x00000010)) {
+            int64Value_ = java.util.Collections.unmodifiableList(int64Value_);
+            bitField0_ = (bitField0_ & ~0x00000010);
           }
           result.int64Value_ = int64Value_;
-          if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
-            to_bitField0_ |= 0x00000020;
+          if (((bitField0_ & 0x00000020) == 0x00000020)) {
+            stringValue_ = new com.google.protobuf.UnmodifiableLazyStringList(
+                stringValue_);
+            bitField0_ = (bitField0_ & ~0x00000020);
           }
           result.stringValue_ = stringValue_;
           result.bitField0_ = to_bitField0_;
@@ -479,20 +507,55 @@ public final class LSFN {
           if (other.hasID()) {
             setID(other.getID());
           }
-          if (other.hasFloatValue()) {
-            setFloatValue(other.getFloatValue());
+          if (!other.floatValue_.isEmpty()) {
+            if (floatValue_.isEmpty()) {
+              floatValue_ = other.floatValue_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureFloatValueIsMutable();
+              floatValue_.addAll(other.floatValue_);
+            }
+            onChanged();
           }
-          if (other.hasDoubleValue()) {
-            setDoubleValue(other.getDoubleValue());
+          if (!other.doubleValue_.isEmpty()) {
+            if (doubleValue_.isEmpty()) {
+              doubleValue_ = other.doubleValue_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+            } else {
+              ensureDoubleValueIsMutable();
+              doubleValue_.addAll(other.doubleValue_);
+            }
+            onChanged();
           }
-          if (other.hasInt32Value()) {
-            setInt32Value(other.getInt32Value());
+          if (!other.int32Value_.isEmpty()) {
+            if (int32Value_.isEmpty()) {
+              int32Value_ = other.int32Value_;
+              bitField0_ = (bitField0_ & ~0x00000008);
+            } else {
+              ensureInt32ValueIsMutable();
+              int32Value_.addAll(other.int32Value_);
+            }
+            onChanged();
           }
-          if (other.hasInt64Value()) {
-            setInt64Value(other.getInt64Value());
+          if (!other.int64Value_.isEmpty()) {
+            if (int64Value_.isEmpty()) {
+              int64Value_ = other.int64Value_;
+              bitField0_ = (bitField0_ & ~0x00000010);
+            } else {
+              ensureInt64ValueIsMutable();
+              int64Value_.addAll(other.int64Value_);
+            }
+            onChanged();
           }
-          if (other.hasStringValue()) {
-            setStringValue(other.getStringValue());
+          if (!other.stringValue_.isEmpty()) {
+            if (stringValue_.isEmpty()) {
+              stringValue_ = other.stringValue_;
+              bitField0_ = (bitField0_ & ~0x00000020);
+            } else {
+              ensureStringValueIsMutable();
+              stringValue_.addAll(other.stringValue_);
+            }
+            onChanged();
           }
           this.mergeUnknownFields(other.getUnknownFields());
           return this;
@@ -535,28 +598,64 @@ public final class LSFN {
                 break;
               }
               case 21: {
-                bitField0_ |= 0x00000002;
-                floatValue_ = input.readFloat();
+                ensureFloatValueIsMutable();
+                floatValue_.add(input.readFloat());
+                break;
+              }
+              case 18: {
+                int length = input.readRawVarint32();
+                int limit = input.pushLimit(length);
+                while (input.getBytesUntilLimit() > 0) {
+                  addFloatValue(input.readFloat());
+                }
+                input.popLimit(limit);
                 break;
               }
               case 25: {
-                bitField0_ |= 0x00000004;
-                doubleValue_ = input.readDouble();
+                ensureDoubleValueIsMutable();
+                doubleValue_.add(input.readDouble());
+                break;
+              }
+              case 26: {
+                int length = input.readRawVarint32();
+                int limit = input.pushLimit(length);
+                while (input.getBytesUntilLimit() > 0) {
+                  addDoubleValue(input.readDouble());
+                }
+                input.popLimit(limit);
                 break;
               }
               case 32: {
-                bitField0_ |= 0x00000008;
-                int32Value_ = input.readInt32();
+                ensureInt32ValueIsMutable();
+                int32Value_.add(input.readInt32());
+                break;
+              }
+              case 34: {
+                int length = input.readRawVarint32();
+                int limit = input.pushLimit(length);
+                while (input.getBytesUntilLimit() > 0) {
+                  addInt32Value(input.readInt32());
+                }
+                input.popLimit(limit);
                 break;
               }
               case 40: {
-                bitField0_ |= 0x00000010;
-                int64Value_ = input.readInt64();
+                ensureInt64ValueIsMutable();
+                int64Value_.add(input.readInt64());
+                break;
+              }
+              case 42: {
+                int length = input.readRawVarint32();
+                int limit = input.pushLimit(length);
+                while (input.getBytesUntilLimit() > 0) {
+                  addInt64Value(input.readInt64());
+                }
+                input.popLimit(limit);
                 break;
               }
               case 122: {
-                bitField0_ |= 0x00000020;
-                stringValue_ = input.readBytes();
+                ensureStringValueIsMutable();
+                stringValue_.add(input.readBytes());
                 break;
               }
             }
@@ -586,123 +685,239 @@ public final class LSFN {
           return this;
         }
         
-        // optional float float_value = 2;
-        private float floatValue_ ;
-        public boolean hasFloatValue() {
-          return ((bitField0_ & 0x00000002) == 0x00000002);
+        // repeated float float_value = 2;
+        private java.util.List<java.lang.Float> floatValue_ = java.util.Collections.emptyList();;
+        private void ensureFloatValueIsMutable() {
+          if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+            floatValue_ = new java.util.ArrayList<java.lang.Float>(floatValue_);
+            bitField0_ |= 0x00000002;
+           }
         }
-        public float getFloatValue() {
-          return floatValue_;
+        public java.util.List<java.lang.Float>
+            getFloatValueList() {
+          return java.util.Collections.unmodifiableList(floatValue_);
         }
-        public Builder setFloatValue(float value) {
-          bitField0_ |= 0x00000002;
-          floatValue_ = value;
+        public int getFloatValueCount() {
+          return floatValue_.size();
+        }
+        public float getFloatValue(int index) {
+          return floatValue_.get(index);
+        }
+        public Builder setFloatValue(
+            int index, float value) {
+          ensureFloatValueIsMutable();
+          floatValue_.set(index, value);
+          onChanged();
+          return this;
+        }
+        public Builder addFloatValue(float value) {
+          ensureFloatValueIsMutable();
+          floatValue_.add(value);
+          onChanged();
+          return this;
+        }
+        public Builder addAllFloatValue(
+            java.lang.Iterable<? extends java.lang.Float> values) {
+          ensureFloatValueIsMutable();
+          super.addAll(values, floatValue_);
           onChanged();
           return this;
         }
         public Builder clearFloatValue() {
+          floatValue_ = java.util.Collections.emptyList();;
           bitField0_ = (bitField0_ & ~0x00000002);
-          floatValue_ = 0F;
           onChanged();
           return this;
         }
         
-        // optional double double_value = 3;
-        private double doubleValue_ ;
-        public boolean hasDoubleValue() {
-          return ((bitField0_ & 0x00000004) == 0x00000004);
+        // repeated double double_value = 3;
+        private java.util.List<java.lang.Double> doubleValue_ = java.util.Collections.emptyList();;
+        private void ensureDoubleValueIsMutable() {
+          if (!((bitField0_ & 0x00000004) == 0x00000004)) {
+            doubleValue_ = new java.util.ArrayList<java.lang.Double>(doubleValue_);
+            bitField0_ |= 0x00000004;
+           }
         }
-        public double getDoubleValue() {
-          return doubleValue_;
+        public java.util.List<java.lang.Double>
+            getDoubleValueList() {
+          return java.util.Collections.unmodifiableList(doubleValue_);
         }
-        public Builder setDoubleValue(double value) {
-          bitField0_ |= 0x00000004;
-          doubleValue_ = value;
+        public int getDoubleValueCount() {
+          return doubleValue_.size();
+        }
+        public double getDoubleValue(int index) {
+          return doubleValue_.get(index);
+        }
+        public Builder setDoubleValue(
+            int index, double value) {
+          ensureDoubleValueIsMutable();
+          doubleValue_.set(index, value);
+          onChanged();
+          return this;
+        }
+        public Builder addDoubleValue(double value) {
+          ensureDoubleValueIsMutable();
+          doubleValue_.add(value);
+          onChanged();
+          return this;
+        }
+        public Builder addAllDoubleValue(
+            java.lang.Iterable<? extends java.lang.Double> values) {
+          ensureDoubleValueIsMutable();
+          super.addAll(values, doubleValue_);
           onChanged();
           return this;
         }
         public Builder clearDoubleValue() {
+          doubleValue_ = java.util.Collections.emptyList();;
           bitField0_ = (bitField0_ & ~0x00000004);
-          doubleValue_ = 0D;
           onChanged();
           return this;
         }
         
-        // optional int32 int32_value = 4;
-        private int int32Value_ ;
-        public boolean hasInt32Value() {
-          return ((bitField0_ & 0x00000008) == 0x00000008);
+        // repeated int32 int32_value = 4;
+        private java.util.List<java.lang.Integer> int32Value_ = java.util.Collections.emptyList();;
+        private void ensureInt32ValueIsMutable() {
+          if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+            int32Value_ = new java.util.ArrayList<java.lang.Integer>(int32Value_);
+            bitField0_ |= 0x00000008;
+           }
         }
-        public int getInt32Value() {
-          return int32Value_;
+        public java.util.List<java.lang.Integer>
+            getInt32ValueList() {
+          return java.util.Collections.unmodifiableList(int32Value_);
         }
-        public Builder setInt32Value(int value) {
-          bitField0_ |= 0x00000008;
-          int32Value_ = value;
+        public int getInt32ValueCount() {
+          return int32Value_.size();
+        }
+        public int getInt32Value(int index) {
+          return int32Value_.get(index);
+        }
+        public Builder setInt32Value(
+            int index, int value) {
+          ensureInt32ValueIsMutable();
+          int32Value_.set(index, value);
+          onChanged();
+          return this;
+        }
+        public Builder addInt32Value(int value) {
+          ensureInt32ValueIsMutable();
+          int32Value_.add(value);
+          onChanged();
+          return this;
+        }
+        public Builder addAllInt32Value(
+            java.lang.Iterable<? extends java.lang.Integer> values) {
+          ensureInt32ValueIsMutable();
+          super.addAll(values, int32Value_);
           onChanged();
           return this;
         }
         public Builder clearInt32Value() {
+          int32Value_ = java.util.Collections.emptyList();;
           bitField0_ = (bitField0_ & ~0x00000008);
-          int32Value_ = 0;
           onChanged();
           return this;
         }
         
-        // optional int64 int64_value = 5;
-        private long int64Value_ ;
-        public boolean hasInt64Value() {
-          return ((bitField0_ & 0x00000010) == 0x00000010);
+        // repeated int64 int64_value = 5;
+        private java.util.List<java.lang.Long> int64Value_ = java.util.Collections.emptyList();;
+        private void ensureInt64ValueIsMutable() {
+          if (!((bitField0_ & 0x00000010) == 0x00000010)) {
+            int64Value_ = new java.util.ArrayList<java.lang.Long>(int64Value_);
+            bitField0_ |= 0x00000010;
+           }
         }
-        public long getInt64Value() {
-          return int64Value_;
+        public java.util.List<java.lang.Long>
+            getInt64ValueList() {
+          return java.util.Collections.unmodifiableList(int64Value_);
         }
-        public Builder setInt64Value(long value) {
-          bitField0_ |= 0x00000010;
-          int64Value_ = value;
+        public int getInt64ValueCount() {
+          return int64Value_.size();
+        }
+        public long getInt64Value(int index) {
+          return int64Value_.get(index);
+        }
+        public Builder setInt64Value(
+            int index, long value) {
+          ensureInt64ValueIsMutable();
+          int64Value_.set(index, value);
+          onChanged();
+          return this;
+        }
+        public Builder addInt64Value(long value) {
+          ensureInt64ValueIsMutable();
+          int64Value_.add(value);
+          onChanged();
+          return this;
+        }
+        public Builder addAllInt64Value(
+            java.lang.Iterable<? extends java.lang.Long> values) {
+          ensureInt64ValueIsMutable();
+          super.addAll(values, int64Value_);
           onChanged();
           return this;
         }
         public Builder clearInt64Value() {
+          int64Value_ = java.util.Collections.emptyList();;
           bitField0_ = (bitField0_ & ~0x00000010);
-          int64Value_ = 0L;
           onChanged();
           return this;
         }
         
-        // optional string string_value = 15;
-        private java.lang.Object stringValue_ = "";
-        public boolean hasStringValue() {
-          return ((bitField0_ & 0x00000020) == 0x00000020);
+        // repeated string string_value = 15;
+        private com.google.protobuf.LazyStringList stringValue_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        private void ensureStringValueIsMutable() {
+          if (!((bitField0_ & 0x00000020) == 0x00000020)) {
+            stringValue_ = new com.google.protobuf.LazyStringArrayList(stringValue_);
+            bitField0_ |= 0x00000020;
+           }
         }
-        public String getStringValue() {
-          java.lang.Object ref = stringValue_;
-          if (!(ref instanceof String)) {
-            String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
-            stringValue_ = s;
-            return s;
-          } else {
-            return (String) ref;
-          }
+        public java.util.List<String>
+            getStringValueList() {
+          return java.util.Collections.unmodifiableList(stringValue_);
         }
-        public Builder setStringValue(String value) {
+        public int getStringValueCount() {
+          return stringValue_.size();
+        }
+        public String getStringValue(int index) {
+          return stringValue_.get(index);
+        }
+        public Builder setStringValue(
+            int index, String value) {
           if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000020;
-          stringValue_ = value;
+  ensureStringValueIsMutable();
+          stringValue_.set(index, value);
+          onChanged();
+          return this;
+        }
+        public Builder addStringValue(String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureStringValueIsMutable();
+          stringValue_.add(value);
+          onChanged();
+          return this;
+        }
+        public Builder addAllStringValue(
+            java.lang.Iterable<String> values) {
+          ensureStringValueIsMutable();
+          super.addAll(values, stringValue_);
           onChanged();
           return this;
         }
         public Builder clearStringValue() {
+          stringValue_ = com.google.protobuf.LazyStringArrayList.EMPTY;
           bitField0_ = (bitField0_ & ~0x00000020);
-          stringValue_ = getDefaultInstance().getStringValue();
           onChanged();
           return this;
         }
-        void setStringValue(com.google.protobuf.ByteString value) {
-          bitField0_ |= 0x00000020;
-          stringValue_ = value;
+        void addStringValue(com.google.protobuf.ByteString value) {
+          ensureStringValueIsMutable();
+          stringValue_.add(value);
           onChanged();
         }
         
@@ -10848,9 +11063,9 @@ public final class LSFN {
       "oto\"\341\001\n\024Subscription_updates\022:\n\007updates\030" +
       "\001 \003(\0132).Subscription_updates.Subscriptio" +
       "n_update\032\214\001\n\023Subscription_update\022\n\n\002ID\030\001" +
-      " \002(\005\022\023\n\013float_value\030\002 \001(\002\022\024\n\014double_valu" +
-      "e\030\003 \001(\001\022\023\n\013int32_value\030\004 \001(\005\022\023\n\013int64_va" +
-      "lue\030\005 \001(\003\022\024\n\014string_value\030\017 \001(\t\"\252\003\n\002IS\022 " +
+      " \002(\005\022\023\n\013float_value\030\002 \003(\002\022\024\n\014double_valu" +
+      "e\030\003 \003(\001\022\023\n\013int32_value\030\004 \003(\005\022\023\n\013int64_va" +
+      "lue\030\005 \003(\003\022\024\n\014string_value\030\017 \003(\t\"\252\003\n\002IS\022 " +
       "\n\thandshake\030\020 \001(\0162\r.IS.Handshake\022%\n\007comm" +
       "and\030\021 \001(\0132\024.IS.SHIP_ENV_command\022 \n\tsubsc" +
       "ribe\030\022 \001(\0132\r.IS.Subscribe\022,\n\rinput_updat",

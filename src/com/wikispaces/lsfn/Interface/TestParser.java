@@ -16,8 +16,8 @@ public class TestParser extends SubscriptionMessageParser {
 	public Subscribeable parse_subscription_update(Subscription_update s) throws SubscriptionMessageParser.PublishFailedException {
 		Test test = new Test();
 		
-		if(!s.getStringValue().equals(test.get_test_message())) {
-			throw new PublishFailedException(accepted_subscribeable, s.getStringValue());
+		if(!s.getStringValue(0).equals(test.get_test_message())) {
+			throw new PublishFailedException(accepted_subscribeable, s.getStringValue(0));
 		}
 		
 		return test;

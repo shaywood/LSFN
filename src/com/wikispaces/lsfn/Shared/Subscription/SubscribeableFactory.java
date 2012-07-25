@@ -11,8 +11,7 @@ public class SubscribeableFactory {
 		(Subscribeable)new Test()
 	));
 	private Set<Subscribeable> inputs = new HashSet<Subscribeable>(Arrays.asList(
-		(Subscribeable)new AccelerateNorthSouth(UnitDirection.NOWHERE),
-		(Subscribeable)new AccelerateEastWest(UnitDirection.NOWHERE)
+		(Subscribeable)new Accelerate(UnitDirection.NOWHERE)
 	));
 	
 	public Subscribeable lookup_by_id(int id) throws SubscribeableNotFoundException {

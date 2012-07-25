@@ -35,8 +35,7 @@ public class InterfaceClient {
     private SubscribeableFactory subscribeable_factory = new SubscribeableFactory();
     private SubscriptionMessageParserFactory receiver = new SubscriptionMessageParserFactory(subscribeable_factory, new TestParser());
     private SubscriptionMessageBuilderFactory transmitter = new SubscriptionMessageBuilderFactory(
-    		new AccelerateNorthSouthBuilder(),
-    		new AccelerateEastWestBuilder());
+    		new AccelerateBuilder());
     private BlockingQueue<Subscribeable> player_input_queue = new LinkedBlockingQueue<Subscribeable>();
 	
 	KnownSpace world = new KnownSpace();

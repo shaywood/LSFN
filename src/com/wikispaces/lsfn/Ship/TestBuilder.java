@@ -15,7 +15,7 @@ public class TestBuilder extends SubscriptionMessageBuilder {
 		com.wikispaces.lsfn.Shared.Subscription.Test t = (com.wikispaces.lsfn.Shared.Subscription.Test)s;
 		return Subscription_update.newBuilder()
 				.setID(t.get_id())
-				.setStringValue(t.get_test_message())
+				.setStringValue(0, t.get_test_message())
 				.build();
 	}
 }

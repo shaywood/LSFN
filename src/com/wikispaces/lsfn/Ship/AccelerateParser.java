@@ -2,18 +2,18 @@ package com.wikispaces.lsfn.Ship;
 
 import com.wikispaces.lsfn.Shared.UnitDirection;
 import com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update;
-import com.wikispaces.lsfn.Shared.Subscription.AccelerateEastWest;
+import com.wikispaces.lsfn.Shared.Subscription.Accelerate;
 import com.wikispaces.lsfn.Shared.Subscription.Subscribeable;
 import com.wikispaces.lsfn.Shared.Subscription.SubscriptionMessageParser;
 
-public class AccelerateEastWestParser extends SubscriptionMessageParser {
+public class AccelerateParser extends SubscriptionMessageParser {
 
-	protected AccelerateEastWestParser() {
-		super(new AccelerateEastWest(UnitDirection.NOWHERE));
+	protected AccelerateParser() {
+		super(new Accelerate(UnitDirection.NOWHERE));
 	}
 
 	@Override
 	public Subscribeable parse_subscription_update(Subscription_update s) throws PublishFailedException {
-		return new AccelerateEastWest(UnitDirection.lookup(0, s.getInt32Value()));
+		return new Accelerate(UnitDirection.lookup(s.getInt32Value(0), s.getInt32Value(1)));
 	}
 }
