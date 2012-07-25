@@ -13,6 +13,10 @@ public class Ship {
 		this.velocity = velocity;
 	}
 	
+	public Ship(int id) {
+		this(id, new Point2D.Double(0, 0), new Point2D.Double(0, 0));
+	}
+
 	public int get_id() {
 		return id;
 	}

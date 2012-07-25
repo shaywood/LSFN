@@ -39,16 +39,15 @@ public class InterfaceClient {
     		new AccelerateEastWestBuilder());
     private BlockingQueue<Subscribeable> player_input_queue = new LinkedBlockingQueue<Subscribeable>();
 	
-	KnownSpace world;
-	MapDisplay display;
+	KnownSpace world = new KnownSpace();
+	MapDisplay display = new MapDisplay(this, player_input_queue, world);
+	
+	ShipPositionParser positionParser = new ShipPositionParser(world);
     
     InterfaceClient() {
         SHIP_client = null;
         SHIP_client_thread = null;
         stdin = new BufferedReader(new InputStreamReader(System.in));
-		
-		world = new DummyUniverse();
-		display = new MapDisplay(this, player_input_queue, world);
     }
     
     int cycle_time_ms = 20;
@@ -175,6 +174,12 @@ public class InterfaceClient {
             if(parsed_message.hasSubscriptionsAvailable()) {
             	subscriber = new SubscriptionRequest(subscribeable_factory, new AvailableSubscriptionsList(subscribeable_factory).parse_message(parsed_message));
             	request_default_subscriptions();
+            }
+            if(parsed_message.hasStatus() && parsed_message.getStatus().hasShipID()) {
+            	world.set_our_ship(new Ship(parsed_message.getStatus().getShipID()));
+            }
+            if(parsed_message.hasPositions()) {
+            	positionParser.update_model_with_data(parsed_message.getPositions());
             }
             if(parsed_message.hasOutputUpdates()) {
             	receiver.parse_subscription_data(parsed_message.getOutputUpdates());
