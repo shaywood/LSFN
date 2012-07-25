@@ -7,16 +7,16 @@ import java.util.concurrent.BlockingQueue;
 import javax.swing.JFrame;
 
 
+import com.wikispaces.Shared.Messaging.Message;
 import com.wikispaces.lsfn.Interface.InterfaceClient;
 import com.wikispaces.lsfn.Interface.Model.KnownSpace;
-import com.wikispaces.lsfn.Shared.Subscription.Subscribeable;
 
 @SuppressWarnings("serial") // not intending to serialize UI elements
 public class MapDisplay extends JFrame {
 	int width = 1024;
 	int height = 1024;
 	
-	public MapDisplay(InterfaceClient client, BlockingQueue<Subscribeable> player_input_queue, KnownSpace world) {
+	public MapDisplay(InterfaceClient client, BlockingQueue<Message> player_input_queue, KnownSpace world) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(width, height);
 		getRootPane().setDoubleBuffered(true);

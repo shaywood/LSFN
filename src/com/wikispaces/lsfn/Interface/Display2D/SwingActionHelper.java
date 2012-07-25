@@ -6,15 +6,15 @@ import java.util.concurrent.BlockingQueue;
 
 import javax.swing.Action;
 
-import com.wikispaces.lsfn.Shared.Subscription.Subscribeable;
+import com.wikispaces.Shared.Messaging.Message;
 
 
 public class SwingActionHelper implements Action {
 
-	private Subscribeable command;
-	private BlockingQueue<Subscribeable> player_input_queue;
+	private Message command;
+	private BlockingQueue<Message> player_input_queue;
 
-	public SwingActionHelper(BlockingQueue<Subscribeable> player_input_queue, Subscribeable command) {
+	public SwingActionHelper(BlockingQueue<Message> player_input_queue, Message command) {
 		this.player_input_queue = player_input_queue;
 		this.command = command;
 	}

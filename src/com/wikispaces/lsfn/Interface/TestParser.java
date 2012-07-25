@@ -1,19 +1,19 @@
 package com.wikispaces.lsfn.Interface;
 
 
+import com.wikispaces.Shared.Messaging.Message;
+import com.wikispaces.Shared.Messaging.MessageParser;
+import com.wikispaces.Shared.Messaging.Test;
 import com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update;
-import com.wikispaces.lsfn.Shared.Subscription.Subscribeable;
-import com.wikispaces.lsfn.Shared.Subscription.SubscriptionMessageParser;
-import com.wikispaces.lsfn.Shared.Subscription.Test;
 
-public class TestParser extends SubscriptionMessageParser {
+public class TestParser extends MessageParser {
 
 	protected TestParser() {
 		super(new Test());
 	}
 
 	@Override
-	public Subscribeable parse_subscription_update(Subscription_update s) throws SubscriptionMessageParser.PublishFailedException {
+	public Message parse_subscription_update(Subscription_update s) throws MessageParser.PublishFailedException {
 		Test test = new Test();
 		
 		if(!s.getStringValue(0).equals(test.get_test_message())) {

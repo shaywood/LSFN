@@ -1,9 +1,9 @@
-package com.wikispaces.lsfn.Shared.Subscription;
+package com.wikispaces.Shared.Messaging;
 
 import com.wikispaces.lsfn.Shared.UnitDirection;
 import com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Value_type;
 
-public class Accelerate extends Subscribeable {
+public class Accelerate extends Message {
 	UnitDirection where_to;
 
 	public Accelerate(UnitDirection where_to) {
@@ -11,11 +11,11 @@ public class Accelerate extends Subscribeable {
 		this.where_to = where_to;
 	}
 	
-	public boolean can_combine(Subscribeable c) {
+	public boolean can_combine(Message c) {
 		return c instanceof Accelerate;
 	}
 
-	public Subscribeable combine_with(Subscribeable c){
+	public Message combine_with(Message c){
 		if(can_combine(c)) {
 			Accelerate a = (Accelerate)c;
 			return new Accelerate(this.where_to.combine(a.where_to));

@@ -7,15 +7,15 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 
-import com.wikispaces.lsfn.Shared.Subscription.Subscribeable;
+import com.wikispaces.Shared.Messaging.Message;
 
 
 public class ShipMovement {
 	private InputMap input_map;
 	private ActionMap action_map;
-	private BlockingQueue<Subscribeable> player_input_queue;
+	private BlockingQueue<Message> player_input_queue;
 
-	public ShipMovement(BlockingQueue<Subscribeable> player_input_queue, JComponent view_around_ship, Iterable<? extends KeyControl> bindings) {
+	public ShipMovement(BlockingQueue<Message> player_input_queue, JComponent view_around_ship, Iterable<? extends KeyControl> bindings) {
 		this.player_input_queue = player_input_queue;
 		input_map = view_around_ship.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 		action_map = view_around_ship.getActionMap();

@@ -6,9 +6,9 @@ import java.util.Set;
 import javax.swing.KeyStroke;
 
 
+import com.wikispaces.Shared.Messaging.Accelerate;
+import com.wikispaces.Shared.Messaging.Message;
 import com.wikispaces.lsfn.Shared.UnitDirection;
-import com.wikispaces.lsfn.Shared.Subscription.Accelerate;
-import com.wikispaces.lsfn.Shared.Subscription.Subscribeable;
 
 public enum KeyControl {
 	ACCELERATE_FORWARD(new Accelerate(UnitDirection.NORTH), "W", "UP"),
@@ -16,10 +16,10 @@ public enum KeyControl {
 	ACCELERATE_PORT(new Accelerate(UnitDirection.EAST), "A", "LEFT"),
 	ACCELERATE_STARBOARD(new Accelerate(UnitDirection.WEST), "D", "RIGHT");
 	
-	private Subscribeable command;
+	private Message command;
 	private Set<KeyStroke> bindings = new HashSet<KeyStroke>();
 
-	KeyControl(Subscribeable command, String... default_bindings) {
+	KeyControl(Message command, String... default_bindings) {
 		this.command = command;
 		for(String key_name : default_bindings) {
 			try {
@@ -35,7 +35,7 @@ public enum KeyControl {
 		return this.name();
 	}
 	
-	public Subscribeable get_control() {
+	public Message get_control() {
 		return command;
 	}
 

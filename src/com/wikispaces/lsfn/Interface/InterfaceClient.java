@@ -1,22 +1,22 @@
 package com.wikispaces.lsfn.Interface;
 
+import com.wikispaces.Shared.Messaging.AvailableSubscriptionsList;
+import com.wikispaces.Shared.Messaging.NoMessageBuilderDefinedException;
+import com.wikispaces.Shared.Messaging.NoMessageParserDefinedException;
+import com.wikispaces.Shared.Messaging.Message;
+import com.wikispaces.Shared.Messaging.MessageFactory;
+import com.wikispaces.Shared.Messaging.MessageSimplifier;
+import com.wikispaces.Shared.Messaging.MessageBuilderFactory;
+import com.wikispaces.Shared.Messaging.MessageParserFactory;
+import com.wikispaces.Shared.Messaging.SubscriptionRequest;
+import com.wikispaces.Shared.Messaging.Test;
+import com.wikispaces.Shared.Messaging.UnavailableSubscriptionException;
+import com.wikispaces.Shared.Messaging.MessageParser.PublishFailedException;
 import com.wikispaces.lsfn.Interface.Display2D.MapDisplay;
 import com.wikispaces.lsfn.Interface.Model.*;
 import com.wikispaces.lsfn.Shared.*;
 import com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update;
 import com.wikispaces.lsfn.Shared.LSFN.*;
-import com.wikispaces.lsfn.Shared.Subscription.AvailableSubscriptionsList;
-import com.wikispaces.lsfn.Shared.Subscription.NoSubscriptionBuilderDefinedException;
-import com.wikispaces.lsfn.Shared.Subscription.NoSubscriptionParserDefinedException;
-import com.wikispaces.lsfn.Shared.Subscription.Subscribeable;
-import com.wikispaces.lsfn.Shared.Subscription.SubscribeableFactory;
-import com.wikispaces.lsfn.Shared.Subscription.SubscribeableSimplifier;
-import com.wikispaces.lsfn.Shared.Subscription.SubscriptionMessageBuilderFactory;
-import com.wikispaces.lsfn.Shared.Subscription.SubscriptionMessageParserFactory;
-import com.wikispaces.lsfn.Shared.Subscription.SubscriptionRequest;
-import com.wikispaces.lsfn.Shared.Subscription.Test;
-import com.wikispaces.lsfn.Shared.Subscription.UnavailableSubscriptionException;
-import com.wikispaces.lsfn.Shared.Subscription.SubscriptionMessageParser.PublishFailedException;
 
 import com.google.protobuf.*;
 import java.io.*;
@@ -32,11 +32,11 @@ public class InterfaceClient {
     private boolean running;
     private BufferedReader stdin;
     private SubscriptionRequest subscriber;
-    private SubscribeableFactory subscribeable_factory = new SubscribeableFactory();
-    private SubscriptionMessageParserFactory receiver = new SubscriptionMessageParserFactory(subscribeable_factory, new TestParser());
-    private SubscriptionMessageBuilderFactory transmitter = new SubscriptionMessageBuilderFactory(
+    private MessageFactory subscribeable_factory = new MessageFactory();
+    private MessageParserFactory receiver = new MessageParserFactory(subscribeable_factory, new TestParser());
+    private MessageBuilderFactory transmitter = new MessageBuilderFactory(
     		new AccelerateBuilder());
-    private BlockingQueue<Subscribeable> player_input_queue = new LinkedBlockingQueue<Subscribeable>();
+    private BlockingQueue<Message> player_input_queue = new LinkedBlockingQueue<Message>();
 	
 	KnownSpace world = new KnownSpace();
 	MapDisplay display = new MapDisplay(this, player_input_queue, world);
@@ -80,17 +80,17 @@ public class InterfaceClient {
     }
     
     private void process_player_input() {
-    	List<Subscribeable> commands = new ArrayList<Subscribeable>();
+    	List<Message> commands = new ArrayList<Message>();
 		player_input_queue.drainTo(commands);
 		
-		commands = new SubscribeableSimplifier().merge(commands);
+		commands = new MessageSimplifier().merge(commands);
 		
 		List<Subscription_update> updates = new ArrayList<Subscription_update>();
-		for(Subscribeable c : commands) {
+		for(Message c : commands) {
 			// We should also do any local model updates needed here.
 			try {
 				updates.add((transmitter.get_builder(c).build_subscription_update(c)));
-			} catch (NoSubscriptionBuilderDefinedException e) {
+			} catch (NoMessageBuilderDefinedException e) {
 				e.printStackTrace();
 			}
 		}
@@ -185,18 +185,18 @@ public class InterfaceClient {
             }
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
-        } catch (SubscribeableFactory.SubscribeableNotFoundException e) {
+        } catch (MessageFactory.SubscribeableNotFoundException e) {
         	e.printStackTrace();
         } catch (UnavailableSubscriptionException e) {
 	    	e.printStackTrace();
 	    } catch (PublishFailedException e) {
 			e.printStackTrace();
-		} catch (NoSubscriptionParserDefinedException e) {
+		} catch (NoMessageParserDefinedException e) {
 			e.printStackTrace();
 		}
     }
     
-    List<Subscribeable> default_subscriptions = Arrays.asList((Subscribeable)new Test()); // this probably belongs somewhere else
+    List<Message> default_subscriptions = Arrays.asList((Message)new Test()); // this probably belongs somewhere else
 	private void request_default_subscriptions() throws UnavailableSubscriptionException {
 		SHIP_client.send(subscriber.build_message(default_subscriptions).toByteArray());
 	}

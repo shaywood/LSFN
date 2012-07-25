@@ -1,4 +1,4 @@
-package com.wikispaces.lsfn.Shared.Subscription;
+package com.wikispaces.Shared.Messaging;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -6,15 +6,15 @@ import java.util.List;
 import java.util.Set;
 
 
+import com.wikispaces.Shared.Messaging.MessageFactory.SubscribeableNotFoundException;
 import com.wikispaces.lsfn.Shared.LSFN.SI;
 import com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available;
 import com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details;
-import com.wikispaces.lsfn.Shared.Subscription.SubscribeableFactory.SubscribeableNotFoundException;
 
 public class AvailableSubscriptionsList {
-	private SubscribeableFactory subscribeable_factory;
+	private MessageFactory subscribeable_factory;
 
-	public AvailableSubscriptionsList(SubscribeableFactory subscribeable_factory) {
+	public AvailableSubscriptionsList(MessageFactory subscribeable_factory) {
 		this.subscribeable_factory = subscribeable_factory;
 	}
 	
@@ -22,7 +22,7 @@ public class AvailableSubscriptionsList {
     public SI build_message(Integer INT_ID) {
     	List<Value_details> available_subscriptions = new ArrayList<Value_details>();
     	
-    	for(Subscribeable s : subscribeable_factory.get_outputs()) {
+    	for(Message s : subscribeable_factory.get_outputs()) {
     		available_subscriptions.add(build_value_details(s));
     	}
     	
@@ -32,7 +32,7 @@ public class AvailableSubscriptionsList {
 			.build();
 	}
     
-    private Value_details build_value_details(Subscribeable subscribeable) {
+    private Value_details build_value_details(Message subscribeable) {
     	return Value_details.newBuilder()
     			.setID(subscribeable.get_id())
     			.setName(subscribeable.get_description())
@@ -40,9 +40,9 @@ public class AvailableSubscriptionsList {
     			.build();
     }
     
-    public Set<Subscribeable> parse_message(SI message) throws SubscribeableNotFoundException {
+    public Set<Message> parse_message(SI message) throws SubscribeableNotFoundException {
     	List<Value_details> value_details = message.getSubscriptionsAvailable().getOutputsList();
-    	Set<Subscribeable> available_subscriptions = new HashSet<Subscribeable>();
+    	Set<Message> available_subscriptions = new HashSet<Message>();
     	for (Value_details v : value_details) {
     		available_subscriptions.add(subscribeable_factory.lookup_by_id(v.getID()));
     	}

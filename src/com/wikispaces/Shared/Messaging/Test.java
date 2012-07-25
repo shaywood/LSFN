@@ -1,8 +1,8 @@
-package com.wikispaces.lsfn.Shared.Subscription;
+package com.wikispaces.Shared.Messaging;
 
 import com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Value_type;
 
-public class Test extends Subscribeable {
+public class Test extends Message {
 	public String get_test_message() {
 		return "This is a test message to ensure that subscription is working.";
 	}
@@ -12,12 +12,12 @@ public class Test extends Subscribeable {
 	}
 	
 	@Override
-	public boolean can_combine(Subscribeable c) {
+	public boolean can_combine(Message c) {
 		return false;
 	}
 
 	@Override
-	public Subscribeable combine_with(Subscribeable c) {
+	public Message combine_with(Message c) {
 		return this; 
 	}
 }
