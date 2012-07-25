@@ -1,5 +1,5 @@
 <project name="LSFN" default="Release">
-	<target name="init">
+	<target name="init" depends="clean">
 		<tstamp/> <!-- Lets us use ${DSTAMP} elsewhere. -->
 	</target>
 	
