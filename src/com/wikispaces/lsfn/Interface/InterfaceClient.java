@@ -1,22 +1,22 @@
 package com.wikispaces.lsfn.Interface;
 
-import com.wikispaces.Shared.Messaging.AvailableSubscriptionsList;
-import com.wikispaces.Shared.Messaging.NoMessageBuilderDefinedException;
-import com.wikispaces.Shared.Messaging.NoMessageParserDefinedException;
-import com.wikispaces.Shared.Messaging.Message;
-import com.wikispaces.Shared.Messaging.MessageFactory;
-import com.wikispaces.Shared.Messaging.MessageSimplifier;
-import com.wikispaces.Shared.Messaging.MessageBuilderFactory;
-import com.wikispaces.Shared.Messaging.MessageParserFactory;
-import com.wikispaces.Shared.Messaging.SubscriptionRequest;
-import com.wikispaces.Shared.Messaging.Test;
-import com.wikispaces.Shared.Messaging.UnavailableSubscriptionException;
-import com.wikispaces.Shared.Messaging.MessageParser.PublishFailedException;
 import com.wikispaces.lsfn.Interface.Display2D.MapDisplay;
 import com.wikispaces.lsfn.Interface.Model.*;
 import com.wikispaces.lsfn.Shared.*;
 import com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update;
 import com.wikispaces.lsfn.Shared.LSFN.*;
+import com.wikispaces.lsfn.Shared.Messaging.AvailableSubscriptionsList;
+import com.wikispaces.lsfn.Shared.Messaging.Message;
+import com.wikispaces.lsfn.Shared.Messaging.MessageBuilderFactory;
+import com.wikispaces.lsfn.Shared.Messaging.MessageFactory;
+import com.wikispaces.lsfn.Shared.Messaging.MessageParserFactory;
+import com.wikispaces.lsfn.Shared.Messaging.MessageSimplifier;
+import com.wikispaces.lsfn.Shared.Messaging.NoMessageBuilderDefinedException;
+import com.wikispaces.lsfn.Shared.Messaging.NoMessageParserDefinedException;
+import com.wikispaces.lsfn.Shared.Messaging.SubscriptionRequest;
+import com.wikispaces.lsfn.Shared.Messaging.Test;
+import com.wikispaces.lsfn.Shared.Messaging.UnavailableSubscriptionException;
+import com.wikispaces.lsfn.Shared.Messaging.MessageParser.PublishFailedException;
 
 import com.google.protobuf.*;
 import java.io.*;

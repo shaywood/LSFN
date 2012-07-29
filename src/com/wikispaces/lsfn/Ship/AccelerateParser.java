@@ -1,10 +1,10 @@
 package com.wikispaces.lsfn.Ship;
 
-import com.wikispaces.Shared.Messaging.Accelerate;
-import com.wikispaces.Shared.Messaging.Message;
-import com.wikispaces.Shared.Messaging.MessageParser;
 import com.wikispaces.lsfn.Shared.UnitDirection;
 import com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update;
+import com.wikispaces.lsfn.Shared.Messaging.Accelerate;
+import com.wikispaces.lsfn.Shared.Messaging.Message;
+import com.wikispaces.lsfn.Shared.Messaging.MessageParser;
 
 public class AccelerateParser extends MessageParser {
 

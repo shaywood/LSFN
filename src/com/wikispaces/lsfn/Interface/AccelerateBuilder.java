@@ -1,10 +1,10 @@
 package com.wikispaces.lsfn.Interface;
 
-import com.wikispaces.Shared.Messaging.Accelerate;
-import com.wikispaces.Shared.Messaging.Message;
-import com.wikispaces.Shared.Messaging.MessageBuilder;
 import com.wikispaces.lsfn.Shared.UnitDirection;
 import com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update;
+import com.wikispaces.lsfn.Shared.Messaging.Accelerate;
+import com.wikispaces.lsfn.Shared.Messaging.Message;
+import com.wikispaces.lsfn.Shared.Messaging.MessageBuilder;
 
 public class AccelerateBuilder extends MessageBuilder {
 	protected AccelerateBuilder() {

@@ -7,7 +7,7 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 
-import com.wikispaces.Shared.Messaging.Message;
+import com.wikispaces.lsfn.Shared.Messaging.Message;
 
 
 public class ShipMovement {

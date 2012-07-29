@@ -7,9 +7,9 @@ import java.util.concurrent.BlockingQueue;
 import javax.swing.JFrame;
 
 
-import com.wikispaces.Shared.Messaging.Message;
 import com.wikispaces.lsfn.Interface.InterfaceClient;
 import com.wikispaces.lsfn.Interface.Model.KnownSpace;
+import com.wikispaces.lsfn.Shared.Messaging.Message;
 
 @SuppressWarnings("serial") // not intending to serialize UI elements
 public class MapDisplay extends JFrame {

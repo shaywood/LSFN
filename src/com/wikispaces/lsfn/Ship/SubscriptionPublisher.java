@@ -4,12 +4,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-import com.wikispaces.Shared.Messaging.NoMessageBuilderDefinedException;
-import com.wikispaces.Shared.Messaging.Message;
-import com.wikispaces.Shared.Messaging.MessageBuilder;
-import com.wikispaces.Shared.Messaging.MessageBuilderFactory;
 import com.wikispaces.lsfn.Shared.LSFN.Subscription_updates;
 import com.wikispaces.lsfn.Shared.LSFN.SI;
+import com.wikispaces.lsfn.Shared.Messaging.Message;
+import com.wikispaces.lsfn.Shared.Messaging.MessageBuilder;
+import com.wikispaces.lsfn.Shared.Messaging.MessageBuilderFactory;
+import com.wikispaces.lsfn.Shared.Messaging.NoMessageBuilderDefinedException;
 
 // Builds up a subscription outputs section to for subscribed INT_clients.
 public class SubscriptionPublisher {

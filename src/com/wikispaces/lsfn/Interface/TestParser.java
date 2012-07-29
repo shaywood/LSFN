@@ -1,10 +1,10 @@
 package com.wikispaces.lsfn.Interface;
 
 
-import com.wikispaces.Shared.Messaging.Message;
-import com.wikispaces.Shared.Messaging.MessageParser;
-import com.wikispaces.Shared.Messaging.Test;
 import com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update;
+import com.wikispaces.lsfn.Shared.Messaging.Message;
+import com.wikispaces.lsfn.Shared.Messaging.MessageParser;
+import com.wikispaces.lsfn.Shared.Messaging.Test;
 
 public class TestParser extends MessageParser {
 

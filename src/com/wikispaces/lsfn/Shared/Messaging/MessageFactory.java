@@ -1,4 +1,4 @@
-package com.wikispaces.Shared.Messaging;
+package com.wikispaces.lsfn.Shared.Messaging;
 
 import java.util.Arrays;
 import java.util.HashSet;

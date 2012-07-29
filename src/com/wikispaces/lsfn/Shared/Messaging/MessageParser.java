@@ -1,4 +1,4 @@
-package com.wikispaces.Shared.Messaging;
+package com.wikispaces.lsfn.Shared.Messaging;
 
 import com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update;
 

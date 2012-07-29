@@ -6,9 +6,9 @@ import java.util.Set;
 import javax.swing.KeyStroke;
 
 
-import com.wikispaces.Shared.Messaging.Accelerate;
-import com.wikispaces.Shared.Messaging.Message;
 import com.wikispaces.lsfn.Shared.UnitDirection;
+import com.wikispaces.lsfn.Shared.Messaging.Accelerate;
+import com.wikispaces.lsfn.Shared.Messaging.Message;
 
 public enum KeyControl {
 	ACCELERATE_FORWARD(new Accelerate(UnitDirection.NORTH), "W", "UP"),

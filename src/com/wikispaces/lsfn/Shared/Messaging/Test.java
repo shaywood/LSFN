@@ -1,4 +1,4 @@
-package com.wikispaces.Shared.Messaging;
+package com.wikispaces.lsfn.Shared.Messaging;
 
 import com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Value_type;
 

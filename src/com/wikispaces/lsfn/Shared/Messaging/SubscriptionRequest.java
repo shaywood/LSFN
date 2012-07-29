@@ -1,12 +1,12 @@
-package com.wikispaces.Shared.Messaging;
+package com.wikispaces.lsfn.Shared.Messaging;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 
-import com.wikispaces.Shared.Messaging.MessageFactory.SubscribeableNotFoundException;
 import com.wikispaces.lsfn.Shared.LSFN.IS;
+import com.wikispaces.lsfn.Shared.Messaging.MessageFactory.SubscribeableNotFoundException;
 
 // If anyone can think of a better name for it, please change this.
 public class SubscriptionRequest {

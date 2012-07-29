@@ -6,7 +6,7 @@ import java.util.concurrent.BlockingQueue;
 
 import javax.swing.Action;
 
-import com.wikispaces.Shared.Messaging.Message;
+import com.wikispaces.lsfn.Shared.Messaging.Message;
 
 
 public class SwingActionHelper implements Action {

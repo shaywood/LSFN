@@ -2,7 +2,7 @@ package com.wikispaces.lsfn.Ship;
 
 import java.util.*;
 
-import com.wikispaces.Shared.Messaging.Message;
+import com.wikispaces.lsfn.Shared.Messaging.Message;
 
 public class Subscriptions {
 	Map<Integer, Set<Message>> current = new HashMap<Integer, Set<Message>>();

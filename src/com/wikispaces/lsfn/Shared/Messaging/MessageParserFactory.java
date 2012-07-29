@@ -1,14 +1,14 @@
-package com.wikispaces.Shared.Messaging;
+package com.wikispaces.lsfn.Shared.Messaging;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 
-import com.wikispaces.Shared.Messaging.MessageFactory.SubscribeableNotFoundException;
-import com.wikispaces.Shared.Messaging.MessageParser.PublishFailedException;
 import com.wikispaces.lsfn.Shared.LSFN.Subscription_updates;
 import com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update;
+import com.wikispaces.lsfn.Shared.Messaging.MessageFactory.SubscribeableNotFoundException;
+import com.wikispaces.lsfn.Shared.Messaging.MessageParser.PublishFailedException;
 
 public class MessageParserFactory {
 	private Set<MessageParser> parsers;

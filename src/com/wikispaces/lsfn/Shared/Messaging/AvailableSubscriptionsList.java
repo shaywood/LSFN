@@ -1,4 +1,4 @@
-package com.wikispaces.Shared.Messaging;
+package com.wikispaces.lsfn.Shared.Messaging;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Set;
 
 
-import com.wikispaces.Shared.Messaging.MessageFactory.SubscribeableNotFoundException;
 import com.wikispaces.lsfn.Shared.LSFN.SI;
 import com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available;
 import com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details;
+import com.wikispaces.lsfn.Shared.Messaging.MessageFactory.SubscribeableNotFoundException;
 
 public class AvailableSubscriptionsList {
 	private MessageFactory subscribeable_factory;
