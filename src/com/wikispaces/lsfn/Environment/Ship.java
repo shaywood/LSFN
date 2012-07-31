@@ -10,7 +10,6 @@ public class Ship {
     private double a_x, a_y;
     
     private static Map<Integer, Ship> ships = new HashMap<Integer, Ship>();
-    private static int next_ship_ID = 0;
     
     Ship(int SHIP_ID, double x, double y) {
         this.ID = SHIP_ID;
