@@ -3,29 +3,30 @@ package com.wikispaces.lsfn.Interface;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
+//import java.util.concurrent.BlockingQueue;
+//import java.util.concurrent.LinkedBlockingQueue;
 
-import com.wikispaces.lsfn.Interface.Display2D.MapDisplay;
-import com.wikispaces.lsfn.Interface.Model.KnownSpace;
-import com.wikispaces.lsfn.Interface.Model.Ship;
+//import com.wikispaces.lsfn.Interface.Display2D.MapDisplay;
+//import com.wikispaces.lsfn.Interface.Model.KnownSpace;
+//import com.wikispaces.lsfn.Interface.Model.Ship;
 import com.wikispaces.lsfn.Shared.LSFN.IS;
 import com.wikispaces.lsfn.Shared.LSFN.SI;
-import com.wikispaces.lsfn.Shared.LSFN.Subscription_updates;
-import com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update;
+//import com.wikispaces.lsfn.Shared.LSFN.Subscription_updates;
+//import com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update;
 import com.wikispaces.lsfn.Shared.Messaging.AvailableSubscriptionsList;
 import com.wikispaces.lsfn.Shared.Messaging.Message;
-import com.wikispaces.lsfn.Shared.Messaging.MessageBuilderFactory;
+//import com.wikispaces.lsfn.Shared.Messaging.MessageBuilderFactory;
 import com.wikispaces.lsfn.Shared.Messaging.MessageFactory;
 import com.wikispaces.lsfn.Shared.Messaging.MessageParser.PublishFailedException;
 import com.wikispaces.lsfn.Shared.Messaging.MessageParserFactory;
-import com.wikispaces.lsfn.Shared.Messaging.MessageSimplifier;
-import com.wikispaces.lsfn.Shared.Messaging.NoMessageBuilderDefinedException;
+//import com.wikispaces.lsfn.Shared.Messaging.MessageSimplifier;
+//import com.wikispaces.lsfn.Shared.Messaging.NoMessageBuilderDefinedException;
 import com.wikispaces.lsfn.Shared.Messaging.NoMessageParserDefinedException;
 import com.wikispaces.lsfn.Shared.Messaging.SubscriptionRequest;
+import com.wikispaces.lsfn.Shared.Messaging.Test;
 import com.wikispaces.lsfn.Shared.Messaging.UnavailableSubscriptionException;
 
 public class InterfaceClient {
@@ -35,14 +36,14 @@ public class InterfaceClient {
     private SubscriptionRequest subscriber;
     private MessageFactory subscribeable_factory = new MessageFactory();
     private MessageParserFactory receiver = new MessageParserFactory(subscribeable_factory, new TestParser());
-    private MessageBuilderFactory transmitter = new MessageBuilderFactory(
+    /*private MessageBuilderFactory transmitter = new MessageBuilderFactory(
     		new AccelerateBuilder());
     private BlockingQueue<Message> player_input_queue = new LinkedBlockingQueue<Message>();
 	
 	KnownSpace world = new KnownSpace();
 	MapDisplay display = new MapDisplay(this, player_input_queue, world);
 	
-	ShipPositionParser positionParser = new ShipPositionParser(world);
+	ShipPositionParser positionParser = new ShipPositionParser(world);*/
     
     InterfaceClient() {
         network = new InterfaceNetworking();
@@ -59,10 +60,10 @@ public class InterfaceClient {
             process_console_input();
             process_network();
             
-        	process_player_input();
+        	//process_player_input();
 			
-			world.update(cycle_time);
-			display.repaint();
+			//world.update(cycle_time);
+			//display.repaint();
             
             try {
                 Thread.sleep(cycle_time_ms);
@@ -77,7 +78,7 @@ public class InterfaceClient {
         System.exit(0);
     }
     
-    private void process_player_input() {
+    /*private void process_player_input() {
     	List<Message> commands = new ArrayList<Message>();
 		player_input_queue.drainTo(commands);
 		
@@ -98,9 +99,14 @@ public class InterfaceClient {
 			Subscription_updates.Builder subscription_builder = Subscription_updates.newBuilder();
 			subscription_builder.addAllUpdates(updates);
 			message_builder.setInputUpdates(subscription_builder.build());
-			network.sendToSHIP(message_builder.build());
+			try {
+                network.sendToSHIP(message_builder.build());
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
 		}
-	}
+	}*/
 
 	private void process_console_input() {
         try {
@@ -198,12 +204,12 @@ public class InterfaceClient {
             	subscriber = new SubscriptionRequest(subscribeable_factory, new AvailableSubscriptionsList(subscribeable_factory).parse_message(message));
             	request_default_subscriptions();
             }
-            if(message.hasStatus() && message.getStatus().hasShipID()) {
+            /*if(message.hasStatus() && message.getStatus().hasShipID()) {
             	world.set_our_ship(new Ship(message.getStatus().getShipID()));
             }
             if(message.hasPositions()) {
             	positionParser.update_model_with_data(message.getPositions());
-            }
+            }*/
             if(message.hasOutputUpdates()) {
             	receiver.parse_subscription_data(message.getOutputUpdates());
             }
@@ -218,7 +224,7 @@ public class InterfaceClient {
 		}
     }
 
-    List<Message> default_subscriptions = Arrays.asList(Message.TEST); // this probably belongs somewhere else
+    List<Message> default_subscriptions = Arrays.asList((Message)new Test()); // this probably belongs somewhere else
 	private void request_default_subscriptions() throws UnavailableSubscriptionException {
 		try {
             network.sendToSHIP(subscriber.build_message(default_subscriptions));

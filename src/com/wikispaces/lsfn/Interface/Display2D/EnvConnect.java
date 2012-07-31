@@ -15,7 +15,7 @@ public class EnvConnect extends ConnectButtonWrapperPanel {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		client.connect_SHIP_to_ENV(host.getText(), Integer.parseInt(port.getText()));
+		//client.connect_SHIP_to_ENV(host.getText(), Integer.parseInt(port.getText()));
 		connect.setEnabled(false);
 	}
 }

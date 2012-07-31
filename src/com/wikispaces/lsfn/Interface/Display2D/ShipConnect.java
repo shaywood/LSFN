@@ -15,7 +15,7 @@ public class ShipConnect extends ConnectButtonWrapperPanel {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		client.start_SHIP_client(host.getText(), Integer.parseInt(port.getText()));
+		//client.start_SHIP_client(host.getText(), Integer.parseInt(port.getText()));
 		connect.setEnabled(false);
 	}
 }

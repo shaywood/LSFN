@@ -103,7 +103,7 @@ public class ShipServer implements Runnable {
 			} catch (NoMessageBuilderDefinedException e) {
 				e.printStackTrace();
 			}
-    		INT_server.send(id, builder.build().toByteArray());
+    		network.sendToINT(id, builder.build());
     	}
 	}
 	
@@ -125,7 +125,12 @@ public class ShipServer implements Runnable {
 	    		}
 	    	}
 	    	
-	    	ENV_client.send(accelerate_message.build().toByteArray());
+	    	try {
+                network.sendToENV(accelerate_message.build());
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
     	}
 	}
 
@@ -224,9 +229,9 @@ public class ShipServer implements Runnable {
 					e.printStackTrace();
 				}
             }
-            if(parsed_message.hasInputUpdates()) {
+            if(message.hasInputUpdates()) {
         		try {
-					Set<Message> updates = receiver.parse_subscription_data(parsed_message.getInputUpdates());
+					Set<Message> updates = receiver.parse_subscription_data(message.getInputUpdates());
 					updates_for_ENV.addAll(updates); // Dumping updates from INT straight to ENV for now. We may want to do more here later.
 				} catch (PublishFailedException e) {
 					e.printStackTrace();
