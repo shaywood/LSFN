@@ -17,6 +17,9 @@ public class ShipNetworking {
     private ClientHandler server;
     private Thread serverThread;
     
+    /**
+     * Creates new server and client objects
+     */
     ShipNetworking() {
         client = new SocketListener();
         server = new ClientHandler();
@@ -24,10 +27,21 @@ public class ShipNetworking {
     
     // ENV
     
+    /**
+     * Connects to the ENV on the give host and port if not already connected.
+     * @param host The host to connect to.
+     * @param port The port to connect on.
+     * @throws IOException
+     */
     public void connectToENV(String host, int port) throws IOException {
         if(!client.isConnected()) client.connect(host, port);
     }
     
+    /**
+     * 
+     * @return
+     * @throws IOException
+     */
     public ES[] receiveFromENV() throws IOException {
         if(client.isConnected()) {
             byte[][] messages = client.receive();
@@ -40,15 +54,18 @@ public class ShipNetworking {
                     
                 }
             }
-            if(messageList.size() == 0) return null;
             return messageList.toArray(new ES[0]);
         } else {
-            return null;
+            throw new IOException("Not connected to ENV");
         }
     }
     
     public void sendToENV(SE message) throws IOException {
-        if(client.isConnected()) client.send(message.toByteArray());
+        if(client.isConnected()) {
+            client.send(message.toByteArray());
+        } else {
+            throw new IOException("Not connected to ENV");
+        }
     }
     
     public boolean isConnectedtoENV() {
@@ -62,13 +79,12 @@ public class ShipNetworking {
     // INT
     
     public void openINTServer() throws IOException {
-        server.open();
+        server.open(14612);
         serverThread = new Thread(server);
     }
     
     public HashMap<Integer, IS[]> readAllFromINTs() {
         HashMap<Integer, byte[][]> messages = server.readAll();
-        if(messages == null) return null;
         HashMap<Integer, IS[]> parsedMessages = new HashMap<Integer, IS[]>();
         
         for(Integer socketID : messages.keySet()) {
@@ -82,11 +98,9 @@ public class ShipNetworking {
                     
                 }
             }
-            if(messageList.size() == 0) return null;
-            parsedMessages.put(socketID, messageList.toArray(new IS[0]));
+            if(messageList.size() != 0) parsedMessages.put(socketID, messageList.toArray(new IS[0]));
         }
         
-        if(parsedMessages.size() == 0) return null;
         return parsedMessages;
     }
     

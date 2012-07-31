@@ -31,10 +31,9 @@ public class InterfaceNetworking {
                     
                 }
             }
-            if(messageList.size() == 0) return null;
             return messageList.toArray(new SI[0]);
         } else {
-            return null;
+            throw new IOException("Not connected to ENV");
         }
     }
     

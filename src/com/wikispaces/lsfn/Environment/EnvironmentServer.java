@@ -1,6 +1,5 @@
 package com.wikispaces.lsfn.Environment;
 
-import com.google.protobuf.InvalidProtocolBufferException;
 import com.wikispaces.lsfn.Shared.*;
 import com.wikispaces.lsfn.Shared.LSFN.SE;
 import com.wikispaces.lsfn.Shared.LSFN.*;

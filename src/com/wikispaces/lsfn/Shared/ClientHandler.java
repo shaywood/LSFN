@@ -12,8 +12,6 @@ public class ClientHandler implements Runnable {
     private List<Integer> controlledDisconnections;
     private List<Integer> uncontrolledDisconnections;
     
-    private static final int defaultPort = 14612;
-    
     /**
      * This class accepts all incoming connections from InterfaceClients on the default port.
      * @throws IOException
@@ -25,12 +23,6 @@ public class ClientHandler implements Runnable {
         newConnections = new ArrayList<Integer>();
         controlledDisconnections = new ArrayList<Integer>();
         uncontrolledDisconnections = new ArrayList<Integer>();
-    }
-    
-    public void open() throws IOException {
-        if(!isOpen()) {
-            server = new ServerSocket(defaultPort);
-        }
     }
     
     public void open(int port) throws IOException {
@@ -67,29 +59,25 @@ public class ClientHandler implements Runnable {
      * @return The map key is the socket ID, the value is an array of messages. If a socket ID has no map entry, then no messages have been received from this client since the last read_all()
      */
     public HashMap<Integer, byte[][]> readAll() {
-        if(isOpen()) {
-            Integer[] socketIDs = connections.keySet().toArray(new Integer[0]);
-            HashMap<Integer, byte[][]> messages = new HashMap<Integer, byte[][]>();
-            
-            for(int i = 0; i < socketIDs.length; i++) {
-                Integer currentSocketID = socketIDs[i];
-                SocketListener socketListener = connections.get(currentSocketID);
-                if(socketListener.isConnected()) {
-                    try {
-                        byte[][] messageSet = socketListener.receive();
-                        messages.put(currentSocketID, messageSet);
-                    } catch (IOException e) {
-                        removeSocket(currentSocketID);
-                    }
-                } else {
+        Integer[] socketIDs = connections.keySet().toArray(new Integer[0]);
+        HashMap<Integer, byte[][]> messages = new HashMap<Integer, byte[][]>();
+        
+        for(int i = 0; i < socketIDs.length; i++) {
+            Integer currentSocketID = socketIDs[i];
+            SocketListener socketListener = connections.get(currentSocketID);
+            if(socketListener.isConnected()) {
+                try {
+                    byte[][] messageSet = socketListener.receive();
+                    messages.put(currentSocketID, messageSet);
+                } catch (IOException e) {
                     removeSocket(currentSocketID);
                 }
+            } else {
+                removeSocket(currentSocketID);
             }
-            
-            return messages;
-        } else {
-            return null;
         }
+        
+        return messages;
     }
     
     /**
