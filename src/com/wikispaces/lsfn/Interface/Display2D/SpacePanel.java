@@ -26,16 +26,17 @@ public class SpacePanel extends JPanel {
 		Graphics2D draw_on = (Graphics2D) draw_here;
 		super.paintComponent(draw_on);
 		
-		centre_view_on_point(draw_on, world.get_our_ship().get_position());
-
-		draw_ships.draw(draw_on, world.get_our_ship().get_position(), Color.GREEN);
-		for (Ship s : world.get_other_known_ships()) {
-			draw_ships.draw(draw_on, s.get_position(), Color.RED);
+		if(world.is_initialized()) {
+			centre_view_on_point(draw_on, world.get_our_ship().get_position());
+	
+			draw_ships.draw(draw_on, world.get_our_ship().get_position(), Color.GREEN);
+			for (Ship s : world.get_other_known_ships()) {
+				draw_ships.draw(draw_on, s.get_position(), Color.RED);
+			}
 		}
 	}
 	
 	private void centre_view_on_point(Graphics2D draw_on, Point2D centre_on) {
-		
 		draw_on.translate(centre_point.getX() - centre_on.getX(), centre_point.getY() - centre_on.getY());
 	}
 }

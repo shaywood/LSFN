@@ -70,10 +70,14 @@ public class EnvironmentServer implements Runnable {
     private void handshakeNewSHIPConnections() {
         Integer[] SHIP_IDs = network.getNewSHIPConnections();
         for(int i = 0; i < SHIP_IDs.length; i++) {
+            // This creates a new ship and adds it to the collection that is staic to Ship.
+            Ship ship = new Ship(SHIP_IDs[i], 0, 0);
+            
+            // Send a handshake to the SHIP
             LSFN.ES handshake = LSFN.ES.newBuilder()
                     .setHandshake(LSFN.ES.Handshake.newBuilder()
                             .setType(LSFN.ES.Handshake.Type.HELLO)
-                            .setShipID(SHIP_IDs[i])
+                            .setShipID(ship.get_ID())
                             .build())
                     .build();
             network.sendToSHIP(SHIP_IDs[i], handshake);

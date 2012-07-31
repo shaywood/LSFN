@@ -12,8 +12,8 @@ public class Ship {
     private static Map<Integer, Ship> ships = new HashMap<Integer, Ship>();
     private static int next_ship_ID = 0;
     
-    Ship(double x, double y) {
-        this.ID = next_ship_ID++;
+    Ship(int SHIP_ID, double x, double y) {
+        this.ID = SHIP_ID;
         this.x = x;
         this.y = y;
         v_x = 0;
@@ -22,6 +22,10 @@ public class Ship {
         a_y = 0;
         
         ships.put(ID, this);
+    }
+    
+    public static void remove(int SHIP_ID) {
+        ships.remove(ships.get(SHIP_ID));
     }
     
     /**

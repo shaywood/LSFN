@@ -1,18 +1,28 @@
-package com.wikispaces.lsfn.Shared;
+package com.wikispaces.lsfn.Shared.Messaging;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 
 import com.wikispaces.lsfn.Shared.LSFN.SI;
 import com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available;
 import com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details;
+import com.wikispaces.lsfn.Shared.Messaging.MessageFactory.SubscribeableNotFoundException;
 
-public class ListAvailableSubscriptions {
+public class AvailableSubscriptionsList {
+	private MessageFactory subscribeable_factory;
 
+	public AvailableSubscriptionsList(MessageFactory subscribeable_factory) {
+		this.subscribeable_factory = subscribeable_factory;
+	}
+	
+	
     public SI build_message(Integer INT_ID) {
     	List<Value_details> available_subscriptions = new ArrayList<Value_details>();
     	
-    	for(Subscribeable s : Subscribeable.get_all_available_subscribeables()) {
+    	for(Message s : subscribeable_factory.get_outputs()) {
     		available_subscriptions.add(build_value_details(s));
     	}
     	
@@ -22,7 +32,7 @@ public class ListAvailableSubscriptions {
 			.build();
 	}
     
-    private Value_details build_value_details(Subscribeable subscribeable) {
+    private Value_details build_value_details(Message subscribeable) {
     	return Value_details.newBuilder()
     			.setID(subscribeable.get_id())
     			.setName(subscribeable.get_description())
@@ -30,11 +40,11 @@ public class ListAvailableSubscriptions {
     			.build();
     }
     
-    public List<Subscribeable> parse_message(SI message) throws SubscribeableNotFoundException {
+    public Set<Message> parse_message(SI message) throws SubscribeableNotFoundException {
     	List<Value_details> value_details = message.getSubscriptionsAvailable().getOutputsList();
-    	List<Subscribeable> available_subscriptions = new ArrayList<Subscribeable>();
+    	Set<Message> available_subscriptions = new HashSet<Message>();
     	for (Value_details v : value_details) {
-    		available_subscriptions.add(Subscribeable.lookup_by_id(v.getID()));
+    		available_subscriptions.add(subscribeable_factory.lookup_by_id(v.getID()));
     	}
     	return available_subscriptions;
     }

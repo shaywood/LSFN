@@ -1,6 +1,18 @@
 option java_package = "com.wikispaces.lsfn.Shared";
 option java_outer_classname = "LSFN";
 
+message Subscription_updates {
+	message Subscription_update {
+		required int32 ID = 1;
+		repeated float float_value = 2;
+		repeated double double_value = 3;
+		repeated int32 int32_value = 4;
+		repeated int64 int64_value = 5;
+		repeated string string_value = 15;
+	}
+	repeated Subscription_update updates = 1;
+}
+
 message IS {
     // From Interface to Ship
     
@@ -25,22 +37,10 @@ message IS {
         repeated int32 input_IDs = 2;
     }
     
-    message Subscription_input_updates {
-        message Subscription_update {
-            required int32 input_ID = 1;
-            optional float float_value = 2;
-            optional double double_value = 3;
-            optional int32 int32_value = 4;
-            optional int64 int64_value = 5;
-            optional string string_value = 15;
-        }
-        repeated Subscription_update updates = 1;
-    }
-    
     optional Handshake handshake = 16;
     optional SHIP_ENV_command command = 17;
     optional Subscribe subscribe = 18;
-    optional Subscription_input_updates input_updates = 19;
+    optional Subscription_updates input_updates = 19;
 	optional bool available_subscriptions_list = 20;
 }
 
@@ -91,24 +91,12 @@ message SI {
         repeated Value_details outputs = 1;
         repeated Value_details inputs = 2;
     }
-    
-    message Subscription_output_updates {
-        message Subscription_update {
-            required int32 output_ID = 1;
-            optional float float_value = 2;
-            optional double double_value = 3;
-            optional int32 int32_value = 4;
-            optional int64 int64_value = 5;
-            optional string string_value = 15;
-        }
-        repeated Subscription_update updates = 1;
-    }
-    
+
     optional Handshake handshake = 16;
     optional SHIP_ENV_status status = 17;
     optional Ship_positions positions = 18;
     optional Subscriptions_available subscriptions_available = 19;
-    optional Subscription_output_updates output_updates = 20;
+    optional Subscription_updates output_updates = 20;
 }
 
 message SE {
