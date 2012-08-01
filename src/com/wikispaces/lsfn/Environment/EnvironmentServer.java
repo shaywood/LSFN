@@ -2,7 +2,6 @@ package com.wikispaces.lsfn.Environment;
 
 import com.wikispaces.lsfn.Shared.*;
 import com.wikispaces.lsfn.Shared.LSFN.SE;
-import com.wikispaces.lsfn.Shared.LSFN.*;
 import java.io.*;
 import java.util.*;
 
@@ -11,12 +10,9 @@ public class EnvironmentServer implements Runnable {
     private boolean running;
     private BufferedReader stdin;
     
-    private Space space;
-    
     EnvironmentServer() {
         network = new EnvironmentNetworking();
         stdin = new BufferedReader(new InputStreamReader(System.in));
-        space = new Space(1000, 1000);
     }
     
     public void run() {
@@ -34,12 +30,7 @@ public class EnvironmentServer implements Runnable {
         	handshakeNewSHIPConnections();
         	processMessagesFromExistingSHIPConnections();
             
-            // Run the tick() functions of everything in space
-            space.tick();
-            
-            // Send back state output
-            sendPositionOutput();
-            
+
             try {
                 Thread.sleep(20);
             } catch (InterruptedException e) {
@@ -108,18 +99,7 @@ public class EnvironmentServer implements Runnable {
                         break;
                 }
             }
-            
-            if(message.hasMovement()) {
-                Ship.data_from_SHIPs(SHIPID, message.getMovement());
-            }
         }
-    }
-    
-    private void sendPositionOutput() {
-        ES state_output = ES.newBuilder()
-                .setPositions(Ship.get_proto_positions())
-                .build();
-        network.sendToAllSHIPs(state_output);
     }
     
     /**

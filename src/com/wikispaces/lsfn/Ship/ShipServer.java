@@ -3,49 +3,18 @@ package com.wikispaces.lsfn.Ship;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 import com.wikispaces.lsfn.Shared.LSFN.ES;
 import com.wikispaces.lsfn.Shared.LSFN.IS;
-import com.wikispaces.lsfn.Shared.LSFN.SE;
-import com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement;
 import com.wikispaces.lsfn.Shared.LSFN.SI;
-import com.wikispaces.lsfn.Shared.UnitDirection;
-import com.wikispaces.lsfn.Shared.Messaging.Accelerate;
-import com.wikispaces.lsfn.Shared.Messaging.AvailableSubscriptionsList;
-import com.wikispaces.lsfn.Shared.Messaging.Message;
-import com.wikispaces.lsfn.Shared.Messaging.MessageBuilderFactory;
-import com.wikispaces.lsfn.Shared.Messaging.MessageFactory;
-import com.wikispaces.lsfn.Shared.Messaging.MessageFactory.SubscribeableNotFoundException;
-import com.wikispaces.lsfn.Shared.Messaging.MessageParser.PublishFailedException;
-import com.wikispaces.lsfn.Shared.Messaging.MessageParserFactory;
-import com.wikispaces.lsfn.Shared.Messaging.MessageSimplifier;
-import com.wikispaces.lsfn.Shared.Messaging.NoMessageBuilderDefinedException;
-import com.wikispaces.lsfn.Shared.Messaging.NoMessageParserDefinedException;
-import com.wikispaces.lsfn.Shared.Messaging.SubscriptionRequest;
-import com.wikispaces.lsfn.Shared.Messaging.UnavailableSubscriptionException;
 
 public class ShipServer implements Runnable {
 
     private ShipNetworking network;
     private boolean running;
     private BufferedReader stdin;
-    private Subscriptions interface_client_subscriptions = new Subscriptions();
-    private MessageFactory subscribeable_factory = new MessageFactory();
-    private SubscriptionRequest subscriber = new SubscriptionRequest(subscribeable_factory, subscribeable_factory.get_outputs());
-    private SubscriptionPublisher publisher = new SubscriptionPublisher(interface_client_subscriptions, new MessageBuilderFactory(new TestBuilder()));
-    private MessageParserFactory receiver = new MessageParserFactory(subscribeable_factory,	
-    		new AccelerateParser());
-    
-    private BlockingQueue<Message> updates_for_INT = new LinkedBlockingQueue<Message>();
-    private BlockingQueue<Message> updates_for_ENV = new LinkedBlockingQueue<Message>();
-	private MessageSimplifier subscribeable_simplifier = new MessageSimplifier();
     
     ShipServer() {
         network = new ShipNetworking();
@@ -73,10 +42,6 @@ public class ShipServer implements Runnable {
             // Get messages from the ENV (if it's connected)
             process_ENV();
             
-            // Do we want to move this inside process_ENV?
-            publish_updates_to_INT();
-            publish_updates_to_ENV();
-            
             try {
                 Thread.sleep(20);
             } catch (InterruptedException e) {
@@ -88,51 +53,6 @@ public class ShipServer implements Runnable {
         network.disconnectFromENV();
     }
     
-	private void publish_updates_to_INT() {
-    	Set<Integer> INT_ids =  interface_client_subscriptions.get_subscribers();
-    	List<Message> updates = new ArrayList<Message>();
-    	updates_for_INT.drainTo(updates);
-    	updates = subscribeable_simplifier.merge(updates);
-    	
-    	for(Integer id : INT_ids) { 
-    		SI.Builder builder = SI.newBuilder();
-    		try {
-				publisher.add_subscription_outputs_data(builder, id, updates);
-			} catch (UnknownInterfaceClientException e) {
-				e.printStackTrace();
-			} catch (NoMessageBuilderDefinedException e) {
-				e.printStackTrace();
-			}
-    		network.sendToINT(id, builder.build());
-    	}
-	}
-	
-	int accelerate_id = new Accelerate(UnitDirection.NOWHERE).get_id();
-    private void publish_updates_to_ENV() {
-    	List<Message> updates = new ArrayList<Message>();
-    	updates_for_ENV.drainTo(updates);
-    	// updates = subscribeable_simplifier.merge(updates); // ToDo: not necessary at this point, since all our ENV updates are coming via the INT which will already have  merged them. We should think it through more.
-    	
-    	if(updates.size() > 0) {
-    		SE.Builder accelerate_message = SE.newBuilder();
-    		
-	    	for(Message s : updates) {
-	    		if(s.get_id() == accelerate_id) { // this is a nasty solution. Look into doing better in the next version.
-					Accelerate a = (Accelerate)s;
-					accelerate_message.setMovement(Ship_movement.newBuilder()
-						.addAxisAccel(a.get_direction().get_north_south())
-						.addAxisAccel(a.get_direction().get_east_west()));
-	    		}
-	    	}
-	    	
-	    	try {
-                network.sendToENV(accelerate_message.build());
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-    	}
-	}
 
 	private void processUserInput() {
         try {
@@ -216,31 +136,6 @@ public class ShipServer implements Runnable {
                         break;
                 }
             }
-            
-            if(message.getAvailableSubscriptionsList()) {
-            	network.sendToINT(INTID, new AvailableSubscriptionsList(subscribeable_factory).build_message(INTID));
-            }
-            if(message.hasSubscribe()) {
-            	try {
-					interface_client_subscriptions.subscribe(INTID, subscriber.parse_message(message));
-				} catch (SubscribeableNotFoundException e) {
-					e.printStackTrace();
-				} catch (UnavailableSubscriptionException e) {
-					e.printStackTrace();
-				}
-            }
-            if(message.hasInputUpdates()) {
-        		try {
-					Set<Message> updates = receiver.parse_subscription_data(message.getInputUpdates());
-					updates_for_ENV.addAll(updates); // Dumping updates from INT straight to ENV for now. We may want to do more here later.
-				} catch (PublishFailedException e) {
-					e.printStackTrace();
-				} catch (NoMessageParserDefinedException e) {
-					e.printStackTrace();
-				} catch (SubscribeableNotFoundException e) {
-					e.printStackTrace();
-				}
-            }
         }
     }
 
@@ -283,19 +178,6 @@ public class ShipServer implements Runnable {
                     break;
             }
             network.sendToAllINTs(return_message);
-        }
-        
-        if(message.hasPositions()) {
-            Iterator<ES.Ship_positions.Ship_position> parsed_positions_iterator = message.getPositions().getPositionsList().iterator();
-            SI.Ship_positions.Builder positions_builder = SI.Ship_positions.newBuilder();
-            while(parsed_positions_iterator.hasNext()) {
-                ES.Ship_positions.Ship_position pos = parsed_positions_iterator.next();
-                positions_builder.addPositions(SI.Ship_positions.Ship_position.newBuilder()
-                        .setShipID(pos.getShipID())
-                        .addAllCoordinates(pos.getCoordinatesList())
-                        .build());
-            }
-            network.sendToAllINTs(SI.newBuilder().setPositions(positions_builder.build()).build());
         }
     }
     
