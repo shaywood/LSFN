@@ -11,6 +11,7 @@ import com.wikispaces.lsfn.Shared.LSFN.IS;
 import com.wikispaces.lsfn.Shared.LSFN.SI;
 import com.wikispaces.lsfn.Shared.LSFN.SE;
 import com.wikispaces.lsfn.Shared.LSFN.ES;
+import com.wikispaces.lsfn.Shared.SocketListener.ConnectionStatus;
 
 public class ShipNetworking {
     private SocketListener client;
@@ -27,24 +28,23 @@ public class ShipNetworking {
     
     // ENV
     
-    /**
-     * Connects to the ENV on the give host and port if not already connected.
-     * @param host The host to connect to.
-     * @param port The port to connect on.
-     * @throws IOException
-     */
-    public void connectToENV(String host, int port) throws IOException {
-        if(!client.isConnected()) client.connect(host, port);
+    public ConnectionStatus connectToENV(String host, int port) {
+        try {
+            client.connect(host, port);
+        } catch (IOException e) {
+        }
+        return client.getConnectionStatus();
     }
     
-    /**
-     * 
-     * @return
-     * @throws IOException
-     */
-    public ES[] receiveFromENV() throws IOException {
-        if(client.isConnected()) {
-            byte[][] messages = client.receive();
+    public ES[] receiveFromENV() {
+        if(client.getConnectionStatus() == ConnectionStatus.CONNECTED) {
+            byte[][] messages;
+            try {
+                messages = client.receive();
+            } catch (IOException e1) {
+                return null;
+            }
+            
             ArrayList<ES> messageList = new ArrayList<ES>();
             for(int i = 0; i < messages.length; i++) {
                 try {
@@ -56,31 +56,37 @@ public class ShipNetworking {
             }
             return messageList.toArray(new ES[0]);
         } else {
-            throw new IOException("Not connected to ENV");
+            return null;
         }
     }
     
-    public void sendToENV(SE message) throws IOException {
-        if(client.isConnected()) {
+    public ConnectionStatus sendToENV(SE message) {
+        try {
             client.send(message.toByteArray());
-        } else {
-            throw new IOException("Not connected to ENV");
+        } catch (IOException e) {
         }
+        return client.getConnectionStatus();
     }
     
-    public boolean isConnectedtoENV() {
-        return client.isConnected();
+    public ConnectionStatus isConnectedToENV() {
+        return client.getConnectionStatus();
     }
     
-    public void disconnectFromENV() {
-        if(client.isConnected()) client.close();
+    public ConnectionStatus disconnectFromENV() {
+        client.close();
+        return client.getConnectionStatus();
     }
     
     // INT
     
-    public void openINTServer() throws IOException {
-        server.open(14612);
+    public boolean openINTServer() {
+        try {
+            server.open(14612);
+        } catch (IOException e) {
+            return false;
+        }
         serverThread = new Thread(server);
+        return true;
     }
     
     public HashMap<Integer, IS[]> readAllFromINTs() {

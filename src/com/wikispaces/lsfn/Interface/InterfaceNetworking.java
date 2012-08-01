@@ -7,6 +7,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import com.wikispaces.lsfn.Shared.SocketListener;
 import com.wikispaces.lsfn.Shared.LSFN.SI;
 import com.wikispaces.lsfn.Shared.LSFN.IS;
+import com.wikispaces.lsfn.Shared.SocketListener.ConnectionStatus;
 
 public class InterfaceNetworking {
     private SocketListener client;
@@ -15,13 +16,23 @@ public class InterfaceNetworking {
         client = new SocketListener();
     }
     
-    public void connectToSHIP(String host, int port) throws IOException {
-        if(!client.isConnected()) client.connect(host, port);
+    public ConnectionStatus connectToSHIP(String host, int port) {
+        try {
+            client.connect(host, port);
+        } catch (IOException e) {
+        }
+        return client.getConnectionStatus();
     }
     
-    public SI[] receiveFromSHIP() throws IOException {
-        if(client.isConnected()) {
-            byte[][] messages = client.receive();
+    public SI[] receiveFromSHIP() {
+        if(client.getConnectionStatus() == ConnectionStatus.CONNECTED) {
+            byte[][] messages;
+            try {
+                messages = client.receive();
+            } catch (IOException e1) {
+                return null;
+            }
+            
             ArrayList<SI> messageList = new ArrayList<SI>();
             for(int i = 0; i < messages.length; i++) {
                 try {
@@ -33,19 +44,24 @@ public class InterfaceNetworking {
             }
             return messageList.toArray(new SI[0]);
         } else {
-            throw new IOException("Not connected to ENV");
+            return null;
         }
     }
     
-    public void sendToSHIP(IS message) throws IOException {
-        if(client.isConnected()) client.send(message.toByteArray());
+    public ConnectionStatus sendToSHIP(IS message) {
+        try {
+            client.send(message.toByteArray());
+        } catch (IOException e) {
+        }
+        return client.getConnectionStatus();
     }
     
-    public boolean isConnectedToSHIP() {
-        return client.isConnected();
+    public ConnectionStatus isConnectedToSHIP() {
+        return client.getConnectionStatus();
     }
     
-    public void disconnectFromSHIP() {
-        if(client.isConnected()) client.close();
+    public ConnectionStatus disconnectFromSHIP() {
+        client.close();
+        return client.getConnectionStatus();
     }
 }

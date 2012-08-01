@@ -4,6 +4,8 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+import com.wikispaces.lsfn.Shared.SocketListener.ConnectionStatus;
+
 public class ClientHandler implements Runnable {
     private ServerSocket server;
     private HashMap<Integer, SocketListener> connections;
@@ -40,7 +42,7 @@ public class ClientHandler implements Runnable {
                 // We don't need a sleep() because this is blocking.
                 // This thread basically accepts all incoming connections.
                 Socket incomingConnection = server.accept();
-                if(!server.isClosed()) {
+                if(isOpen()) {
                     addSocket(incomingConnection);
                 }
             } catch (SocketException e) {
@@ -65,7 +67,7 @@ public class ClientHandler implements Runnable {
         for(int i = 0; i < socketIDs.length; i++) {
             Integer currentSocketID = socketIDs[i];
             SocketListener socketListener = connections.get(currentSocketID);
-            if(socketListener.isConnected()) {
+            if(socketListener.getConnectionStatus() == ConnectionStatus.CONNECTED) {
                 try {
                     byte[][] messageSet = socketListener.receive();
                     messages.put(currentSocketID, messageSet);
@@ -88,7 +90,7 @@ public class ClientHandler implements Runnable {
     public void send(Integer socketID, byte[] message) {
         if(isOpen()) {
             SocketListener socketListener = connections.get(socketID);
-            if(socketListener != null && socketListener.isConnected()) {
+            if(socketListener.getConnectionStatus() == ConnectionStatus.CONNECTED) {
                 try {
                     socketListener.send(message);
                 } catch (IOException e) {
@@ -164,13 +166,13 @@ public class ClientHandler implements Runnable {
     private synchronized void removeSocket(Integer socketID) {
         SocketListener socketListener = connections.get(socketID);
         if(socketListener != null) {
-            if(socketListener.isConnected()) socketListener.close();
+            if(socketListener.getConnectionStatus() == ConnectionStatus.CONNECTED) socketListener.close();
             
             connections.remove(socketID);
             
-            if(socketListener.wasCleanDisconnect()) {
+            if(socketListener.getConnectionStatus() == ConnectionStatus.DISCONNECTED_CLEAN) {
                 controlledDisconnections.add(socketID);
-            } else {
+            } else if(socketListener.getConnectionStatus() == ConnectionStatus.DISCONNECTED_UNCLEAN) {
                 uncontrolledDisconnections.add(socketID);
             }
             

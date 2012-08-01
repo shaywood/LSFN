@@ -29,7 +29,6 @@ public class EnvironmentServer implements Runnable {
             
         	handshakeNewSHIPConnections();
         	processMessagesFromExistingSHIPConnections();
-            
 
             try {
                 Thread.sleep(20);

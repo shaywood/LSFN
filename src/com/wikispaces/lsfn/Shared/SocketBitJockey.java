@@ -45,7 +45,7 @@ public class SocketBitJockey {
             }
         }
         
-        byte[][] messages = null;
+        byte[][] messages = {};
         if(completedMessages.size() > 0) {
             messages = completedMessages.toArray(new byte[0][]);
             completedMessages.clear();

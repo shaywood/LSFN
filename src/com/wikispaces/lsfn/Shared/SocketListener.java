@@ -9,11 +9,16 @@ public class SocketListener {
     private SocketBitJockey jockey;
     private TimeoutManager timeoutManager;
     
-    private boolean connected;
-    private boolean cleanDisconnect;
+    public enum ConnectionStatus {
+        NEVER_CONNECTED,
+        CONNECTED,
+        DISCONNECTED_CLEAN,
+        DISCONNECTED_UNCLEAN
+    }
+    private ConnectionStatus connectionStatus;
     
     /**
-     * Creates a Listener that asynchronously collects input from a declareAliveIntervalSocket .
+     * Creates a Listener that asynchronously collects input from a socket.
      * @param host The host that the Socket will connect to.
      * @param port The port that the Socket will connect to.
      * @throws IOException
@@ -23,8 +28,7 @@ public class SocketListener {
         jockey = null;
         timeoutManager = new TimeoutManager(6000, 10000);
         
-        connected = false;
-        cleanDisconnect = false;
+        connectionStatus = ConnectionStatus.NEVER_CONNECTED;
     }
     
     public SocketListener(Socket socket) throws IOException {
@@ -32,53 +36,65 @@ public class SocketListener {
         jockey = new SocketBitJockey(socket.getInputStream(), socket.getOutputStream());
         timeoutManager = new TimeoutManager(6000, 10000);
         
-        connected = true;
-        cleanDisconnect = false;
+        connectionStatus = ConnectionStatus.CONNECTED;
     }
     
     public void connect(String host, int port) throws IOException {
-        if(socket == null) {
+        if(connectionStatus != ConnectionStatus.CONNECTED) {
             socket = new Socket(host, port);
             jockey = new SocketBitJockey(socket.getInputStream(), socket.getOutputStream());
             timeoutManager = new TimeoutManager(6000, 10000);
-            connected = true;
-            cleanDisconnect = false;
+            connectionStatus = ConnectionStatus.CONNECTED;
+        } else {
+            throw new IOException("Socket is already connected.");
         }
     }
     
     public byte[][] receive() throws IOException {
         checkTimeouts();
-        if(connected) {
-            byte[][] messages = jockey.readMessages();
-            ArrayList<byte[]> messageList = new ArrayList<byte[]>();
-            if(messages.length > 0) {
-                timeoutManager.receiveOccured();
-                for(int i = 0; i < messages.length; i++) {
-                    if(!checkMessageForSignal(messages[i])) {
-                        messageList.add(messages[i]);
+        if(connectionStatus == ConnectionStatus.CONNECTED) {
+            try {
+                byte[][] messages = jockey.readMessages();
+                ArrayList<byte[]> messageList = new ArrayList<byte[]>();
+                if(messages.length > 0) {
+                    timeoutManager.receiveOccured();
+                    for(int i = 0; i < messages.length; i++) {
+                        if(!checkMessageForSignal(messages[i])) {
+                            messageList.add(messages[i]);
+                        }
                     }
                 }
+                return messageList.toArray(new byte[0][]);
+            } catch (IOException e) {
+                // If we can't read the messages, we'll close the socket.
+                sendDC();
+                closeSocket();
+                connectionStatus = ConnectionStatus.DISCONNECTED_UNCLEAN;
+                throw new IOException("Socket is not connected.");
             }
-            return messageList.toArray(new byte[0][]);
         } else {
-            return null;
+            throw new IOException("Socket is not connected.");
         }
     }
     
     public void send(byte[] message) throws IOException {
         checkTimeouts();
-        if(connected) {
-            jockey.send(message);
-            timeoutManager.sendOccured();
+        if(connectionStatus == ConnectionStatus.CONNECTED) {
+            try {
+                jockey.send(message);
+                timeoutManager.sendOccured();
+            } catch (IOException e) {
+                // If we can't read the messages, we'll close the socket.
+                sendDC();
+                closeSocket();
+                connectionStatus = ConnectionStatus.DISCONNECTED_UNCLEAN;
+                throw new IOException("Socket is not connected.");
+            }
         }
     }
     
-    public boolean isConnected() {
-        return connected;
-    }
-    
-    public boolean wasCleanDisconnect() {
-        return cleanDisconnect;
+    public ConnectionStatus getConnectionStatus() {
+        return connectionStatus;
     }
     
     private boolean checkMessageForSignal(byte[] signalBytes) {
@@ -90,9 +106,8 @@ public class SocketListener {
             return true;
         case 'D':
             // The disconnect signal has been received
-            connected = false;
-            cleanDisconnect = true;
-            close();
+            closeSocket();
+            connectionStatus = ConnectionStatus.DISCONNECTED_CLEAN;
             return true;
         default:
             return false;    
@@ -100,37 +115,46 @@ public class SocketListener {
     }
 
     private void checkTimeouts() throws IOException {
-        if(socket != null) {
+        if(connectionStatus == ConnectionStatus.CONNECTED) {
             if(timeoutManager.shouldDeclareAlive()) {
                 byte[] ping = {(byte)'P'};
                 jockey.send(ping);
             }
             
             if(timeoutManager.shouldTimeout()) {
-                byte[] dc = {(byte)'D'};
-                jockey.send(dc);
+                sendDC();
+                closeSocket();
+                connectionStatus = ConnectionStatus.DISCONNECTED_UNCLEAN;
                 throw new IOException("Connection timeout.");
             }
         }
     }
     
-    public void close() {
-        if(connected) {
+    private void sendDC() {
+        try {
             byte[] dc = {(byte)'D'};
-            try {
-                jockey.send(dc);
-            } catch (IOException e) {
-                // We just don't care anymore.
-            }
+            jockey.send(dc);
+        } catch (IOException e) {
+            // We just don't care anymore.
         }
+    }
+    
+    private void closeSocket() {
         try {
             socket.close();
         } catch (IOException e) {
             // We just don't care anymore.
         }
-        
         socket = null;
         jockey = null;
+    }
+    
+    public void close() {
+        if(connectionStatus == ConnectionStatus.CONNECTED) {
+            sendDC();
+            closeSocket();
+            connectionStatus = ConnectionStatus.DISCONNECTED_CLEAN;
+        }
     }
     
     public static String bytesToHex(byte[] bytes) {

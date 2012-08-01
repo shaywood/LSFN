@@ -9,6 +9,7 @@ import java.util.Iterator;
 import com.wikispaces.lsfn.Shared.LSFN.ES;
 import com.wikispaces.lsfn.Shared.LSFN.IS;
 import com.wikispaces.lsfn.Shared.LSFN.SI;
+import com.wikispaces.lsfn.Shared.SocketListener.ConnectionStatus;
 
 public class ShipServer implements Runnable {
 
@@ -25,11 +26,8 @@ public class ShipServer implements Runnable {
      * Treat this as the SHIP program's main entry point.
      */
     public void run() {
-        try {
-            network.openINTServer();
-        } catch (IOException e1) {
-            System.err.println("Failed to open the server socket.");
-            e1.printStackTrace();
+        if(!network.openINTServer()) {
+            System.out.println("Failed to open server");
         }
         
         running = true;
@@ -70,6 +68,20 @@ public class ShipServer implements Runnable {
         if(message.equals("stop")) running = false;
     }
     
+    private void handshakeNewInterfaceConnections() {
+        // Handle new connections
+        Integer[] INT_IDs = network.getNewINTConnections();
+        for(int i = 0; i < INT_IDs.length; i++) {
+            SI handshake = SI.newBuilder()
+                    .setHandshake(SI.Handshake.newBuilder()
+                            .setType(SI.Handshake.Type.HELLO)
+                            .setPlayerID(INT_IDs[i])
+                            .build())
+                    .build();
+            network.sendToINT(INT_IDs[i], handshake);
+        }
+    }
+    
 	private void processMessagesFromExistingINTConnections() {
 		// Handle existing connections
 		HashMap<Integer, IS[]> all_messages = network.readAllFromINTs();
@@ -84,20 +96,6 @@ public class ShipServer implements Runnable {
 		}
 	}
 
-	private void handshakeNewInterfaceConnections() {
-		// Handle new connections
-		Integer[] INT_IDs = network.getNewINTConnections();
-		for(int i = 0; i < INT_IDs.length; i++) {
-		    SI handshake = SI.newBuilder()
-		            .setHandshake(SI.Handshake.newBuilder()
-		                    .setType(SI.Handshake.Type.HELLO)
-		                    .setPlayerID(INT_IDs[i])
-		                    .build())
-		            .build();
-		    network.sendToINT(INT_IDs[i], handshake);
-		}
-	}
-    
     private void processINTMessages(Integer INTID, IS message) {        
         if(message != null) {
             if(message.hasHandshake()) {
@@ -115,23 +113,17 @@ public class ShipServer implements Runnable {
                 IS.SHIP_ENV_command command = message.getCommand();
                 switch(command.getType()) {
                     case CONNECT:
-                    try {
-                        network.connectToENV(command.getHost(), command.getPort());
-                    } catch (IOException e) {
-                        System.out.println("Failed to connect to server.");
-                        e.printStackTrace();
-                    }
+                        if(network.connectToENV(command.getHost(), command.getPort()) != ConnectionStatus.CONNECTED) {
+                            System.out.println("Failed to connect to server.");
+                        }
                         break;
                     case DISCONNECT:
                         network.disconnectFromENV();
                         break;
                     case RECONNECT:
                         network.disconnectFromENV();
-                        try {
-                            network.connectToENV(command.getHost(), command.getPort());
-                        } catch (IOException e) {
+                        if(network.connectToENV(command.getHost(), command.getPort()) != ConnectionStatus.CONNECTED) {
                             System.out.println("Failed to reconnect to server.");
-                            e.printStackTrace();
                         }
                         break;
                 }
@@ -140,18 +132,10 @@ public class ShipServer implements Runnable {
     }
 
     private void process_ENV() {
-        if(network.isConnectedtoENV()) {
-            ES[] messages = null;
-            try {
-                messages = network.receiveFromENV();
-            } catch (IOException e) {
-                System.out.println("Failed to receive messages.");
-                e.printStackTrace();
-            }
-            if(messages != null) {
-                for(int i = 0; i < messages.length; i++) {
-                    processENVMessage(messages[i]);
-                }
+        ES[] messages = network.receiveFromENV();
+        if(messages != null) {
+            for(int i = 0; i < messages.length; i++) {
+                processENVMessage(messages[i]);
             }
         }
     }
