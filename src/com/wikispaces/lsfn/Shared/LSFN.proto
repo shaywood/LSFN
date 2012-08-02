@@ -1,16 +1,18 @@
 option java_package = "com.wikispaces.lsfn.Shared";
 option java_outer_classname = "LSFN";
 
-message Subscription_updates {
-	message Subscription_update {
-		required int32 ID = 1;
-		repeated float float_value = 2;
-		repeated double double_value = 3;
-		repeated int32 int32_value = 4;
-		repeated int64 int64_value = 5;
-		repeated string string_value = 15;
-	}
-	repeated Subscription_update updates = 1;
+message Subscribe {
+    repeated int32 inputSubscriptionIDs = 1;
+    repeated int32 outputSubscriptionIDs = 2;
+}
+
+message SubscriptionsAvailable {
+    message ValueDetails {
+        required string name = 1;
+        required int32 ID = 2;
+    }
+    repeated ValueDetails inputSubscriptionIDs = 1;
+    repeated ValueDetails outputSubscriptionIDs = 2;
 }
 
 message IS {
@@ -21,27 +23,12 @@ message IS {
         GOODBYE = 1;
     }
     
-    message SHIP_ENV_command {
-        enum Type {
-            CONNECT = 0;
-            DISCONNECT = 1;
-            RECONNECT = 2; // Disconnect first then reconnect using the given details
-        }
-        required Type type = 1;
-        optional string host = 2;
-        optional int32 port = 3;
-    }
-    
-    message Subscribe {
-        repeated int32 output_IDs = 1;
-        repeated int32 input_IDs = 2;
-    }
+    // Subscribable input message types go here
     
     optional Handshake handshake = 16;
-    optional SHIP_ENV_command command = 17;
-    optional Subscribe subscribe = 18;
-    optional Subscription_updates input_updates = 19;
-	optional bool available_subscriptions_list = 20;
+    optional Subscribe subscribe = 17;
+    
+    // Subscribable input message declarations go here
 }
 
 message SI {
@@ -54,49 +41,15 @@ message SI {
             GOODBYE = 1;
         }
         required Type type = 1;
-        optional int32 player_ID = 2; // If HELLO then we send the player their ID (unique on the SHIP) as well.
-    }
-    
-    message SHIP_ENV_status {
-        // This is a response to the SHIP_ENV_command message in the IS protocol and is given when an INT connects.
-        enum State {
-            DISCONNECTED = 0;
-            CONNECTED = 1;
-        }
-        required State state = 1;
-        optional int32 ship_ID = 2;
-    }
-    
-    message Ship_positions {
-        message Ship_position {
-            required int32 ship_ID = 1;
-            repeated double coordinates = 2; // Notice how this allows N dimensions: format is [X, Y, Z]
-        }
-        repeated Ship_position positions = 1;
-    }
-    
-    message Subscriptions_available {
-        message Value_details {
-            enum Value_type {
-                FLOAT = 0;
-                DOUBLE = 1;
-                INT32 = 2;
-                INT64 = 3;
-                STRING = 13;
-            }
-            required string name = 1;
-            required int32 ID = 2;
-            required Value_type type = 3;
-        }
-        repeated Value_details outputs = 1;
-        repeated Value_details inputs = 2;
+        optional int32 intID = 2; // If HELLO then we send the player their ID (unique on the SHIP) as well.
     }
 
+    // Subscribable message types go here
+
     optional Handshake handshake = 16;
-    optional SHIP_ENV_status status = 17;
-    optional Ship_positions positions = 18;
-    optional Subscriptions_available subscriptions_available = 19;
-    optional Subscription_updates output_updates = 20;
+    optional SubscriptionsAvailable subscriptionsAvailable = 17;
+    
+    // Subscribable message declarations go here 
 }
 
 message SE {
@@ -107,12 +60,12 @@ message SE {
         GOODBYE = 1;
     }
     
-    message Ship_movement {
-        repeated double axis_accel = 1;
-    }
+    // Subscribable input message types go here
     
     optional Handshake handshake = 16;
-    optional Ship_movement movement = 17;
+    optional Subscribe subscribe = 17;
+    
+    // Subscribable input message declarations go here
 }
 
 message ES {
@@ -125,17 +78,13 @@ message ES {
             GOODBYE = 1;
         }
         required Type type = 1;
-        optional int32 ship_ID = 2; // If HELLO then we send the ship their ID (unique on the ENV) as well.
+        optional int32 shipID = 2; // If HELLO then we send the ship their ID (unique on the ENV) as well.
     }
     
-    message Ship_positions {
-        message Ship_position {
-            required int32 ship_ID = 1;
-            repeated double coordinates = 2; // Notice how this allows N dimensions: format is [X, Y, Z]
-        }
-        repeated Ship_position positions = 1;
-    }
+    // Subscribable message types go here
     
     optional Handshake handshake = 16;
-    optional Ship_positions positions = 17;
+    optional SubscriptionsAvailable subscriptionsAvailable = 17;
+    
+    // Subscribable message declarations go here
 }
