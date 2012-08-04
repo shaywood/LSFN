@@ -8,201 +8,646 @@ public final class LSFN {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }
-  public interface Subscription_updatesOrBuilder
+  public interface SubscribeOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // repeated .Subscription_updates.Subscription_update updates = 1;
-    java.util.List<com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update> 
-        getUpdatesList();
-    com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update getUpdates(int index);
-    int getUpdatesCount();
-    java.util.List<? extends com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_updateOrBuilder> 
-        getUpdatesOrBuilderList();
-    com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_updateOrBuilder getUpdatesOrBuilder(
-        int index);
+    // repeated int32 inputSubscriptionIDs = 1;
+    java.util.List<java.lang.Integer> getInputSubscriptionIDsList();
+    int getInputSubscriptionIDsCount();
+    int getInputSubscriptionIDs(int index);
+    
+    // repeated int32 outputSubscriptionIDs = 2;
+    java.util.List<java.lang.Integer> getOutputSubscriptionIDsList();
+    int getOutputSubscriptionIDsCount();
+    int getOutputSubscriptionIDs(int index);
   }
-  public static final class Subscription_updates extends
+  public static final class Subscribe extends
       com.google.protobuf.GeneratedMessage
-      implements Subscription_updatesOrBuilder {
-    // Use Subscription_updates.newBuilder() to construct.
-    private Subscription_updates(Builder builder) {
+      implements SubscribeOrBuilder {
+    // Use Subscribe.newBuilder() to construct.
+    private Subscribe(Builder builder) {
       super(builder);
     }
-    private Subscription_updates(boolean noInit) {}
+    private Subscribe(boolean noInit) {}
     
-    private static final Subscription_updates defaultInstance;
-    public static Subscription_updates getDefaultInstance() {
+    private static final Subscribe defaultInstance;
+    public static Subscribe getDefaultInstance() {
       return defaultInstance;
     }
     
-    public Subscription_updates getDefaultInstanceForType() {
+    public Subscribe getDefaultInstanceForType() {
       return defaultInstance;
     }
     
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.wikispaces.lsfn.Shared.LSFN.internal_static_Subscription_updates_descriptor;
+      return com.wikispaces.lsfn.Shared.LSFN.internal_static_Subscribe_descriptor;
     }
     
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.wikispaces.lsfn.Shared.LSFN.internal_static_Subscription_updates_fieldAccessorTable;
+      return com.wikispaces.lsfn.Shared.LSFN.internal_static_Subscribe_fieldAccessorTable;
     }
     
-    public interface Subscription_updateOrBuilder
+    // repeated int32 inputSubscriptionIDs = 1;
+    public static final int INPUTSUBSCRIPTIONIDS_FIELD_NUMBER = 1;
+    private java.util.List<java.lang.Integer> inputSubscriptionIDs_;
+    public java.util.List<java.lang.Integer>
+        getInputSubscriptionIDsList() {
+      return inputSubscriptionIDs_;
+    }
+    public int getInputSubscriptionIDsCount() {
+      return inputSubscriptionIDs_.size();
+    }
+    public int getInputSubscriptionIDs(int index) {
+      return inputSubscriptionIDs_.get(index);
+    }
+    
+    // repeated int32 outputSubscriptionIDs = 2;
+    public static final int OUTPUTSUBSCRIPTIONIDS_FIELD_NUMBER = 2;
+    private java.util.List<java.lang.Integer> outputSubscriptionIDs_;
+    public java.util.List<java.lang.Integer>
+        getOutputSubscriptionIDsList() {
+      return outputSubscriptionIDs_;
+    }
+    public int getOutputSubscriptionIDsCount() {
+      return outputSubscriptionIDs_.size();
+    }
+    public int getOutputSubscriptionIDs(int index) {
+      return outputSubscriptionIDs_.get(index);
+    }
+    
+    private void initFields() {
+      inputSubscriptionIDs_ = java.util.Collections.emptyList();;
+      outputSubscriptionIDs_ = java.util.Collections.emptyList();;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+      
+      memoizedIsInitialized = 1;
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      for (int i = 0; i < inputSubscriptionIDs_.size(); i++) {
+        output.writeInt32(1, inputSubscriptionIDs_.get(i));
+      }
+      for (int i = 0; i < outputSubscriptionIDs_.size(); i++) {
+        output.writeInt32(2, outputSubscriptionIDs_.get(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < inputSubscriptionIDs_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(inputSubscriptionIDs_.get(i));
+        }
+        size += dataSize;
+        size += 1 * getInputSubscriptionIDsList().size();
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < outputSubscriptionIDs_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(outputSubscriptionIDs_.get(i));
+        }
+        size += dataSize;
+        size += 1 * getOutputSubscriptionIDsList().size();
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+    
+    public static com.wikispaces.lsfn.Shared.LSFN.Subscribe parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.wikispaces.lsfn.Shared.LSFN.Subscribe parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.wikispaces.lsfn.Shared.LSFN.Subscribe parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.wikispaces.lsfn.Shared.LSFN.Subscribe parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.wikispaces.lsfn.Shared.LSFN.Subscribe parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.wikispaces.lsfn.Shared.LSFN.Subscribe parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.wikispaces.lsfn.Shared.LSFN.Subscribe parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.wikispaces.lsfn.Shared.LSFN.Subscribe parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.wikispaces.lsfn.Shared.LSFN.Subscribe parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.wikispaces.lsfn.Shared.LSFN.Subscribe parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.wikispaces.lsfn.Shared.LSFN.Subscribe prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.wikispaces.lsfn.Shared.LSFN.SubscribeOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.wikispaces.lsfn.Shared.LSFN.internal_static_Subscribe_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.wikispaces.lsfn.Shared.LSFN.internal_static_Subscribe_fieldAccessorTable;
+      }
+      
+      // Construct using com.wikispaces.lsfn.Shared.LSFN.Subscribe.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+      
+      private Builder(BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+      
+      public Builder clear() {
+        super.clear();
+        inputSubscriptionIDs_ = java.util.Collections.emptyList();;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        outputSubscriptionIDs_ = java.util.Collections.emptyList();;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.wikispaces.lsfn.Shared.LSFN.Subscribe.getDescriptor();
+      }
+      
+      public com.wikispaces.lsfn.Shared.LSFN.Subscribe getDefaultInstanceForType() {
+        return com.wikispaces.lsfn.Shared.LSFN.Subscribe.getDefaultInstance();
+      }
+      
+      public com.wikispaces.lsfn.Shared.LSFN.Subscribe build() {
+        com.wikispaces.lsfn.Shared.LSFN.Subscribe result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+      
+      private com.wikispaces.lsfn.Shared.LSFN.Subscribe buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        com.wikispaces.lsfn.Shared.LSFN.Subscribe result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return result;
+      }
+      
+      public com.wikispaces.lsfn.Shared.LSFN.Subscribe buildPartial() {
+        com.wikispaces.lsfn.Shared.LSFN.Subscribe result = new com.wikispaces.lsfn.Shared.LSFN.Subscribe(this);
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          inputSubscriptionIDs_ = java.util.Collections.unmodifiableList(inputSubscriptionIDs_);
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.inputSubscriptionIDs_ = inputSubscriptionIDs_;
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          outputSubscriptionIDs_ = java.util.Collections.unmodifiableList(outputSubscriptionIDs_);
+          bitField0_ = (bitField0_ & ~0x00000002);
+        }
+        result.outputSubscriptionIDs_ = outputSubscriptionIDs_;
+        onBuilt();
+        return result;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.wikispaces.lsfn.Shared.LSFN.Subscribe) {
+          return mergeFrom((com.wikispaces.lsfn.Shared.LSFN.Subscribe)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.wikispaces.lsfn.Shared.LSFN.Subscribe other) {
+        if (other == com.wikispaces.lsfn.Shared.LSFN.Subscribe.getDefaultInstance()) return this;
+        if (!other.inputSubscriptionIDs_.isEmpty()) {
+          if (inputSubscriptionIDs_.isEmpty()) {
+            inputSubscriptionIDs_ = other.inputSubscriptionIDs_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureInputSubscriptionIDsIsMutable();
+            inputSubscriptionIDs_.addAll(other.inputSubscriptionIDs_);
+          }
+          onChanged();
+        }
+        if (!other.outputSubscriptionIDs_.isEmpty()) {
+          if (outputSubscriptionIDs_.isEmpty()) {
+            outputSubscriptionIDs_ = other.outputSubscriptionIDs_;
+            bitField0_ = (bitField0_ & ~0x00000002);
+          } else {
+            ensureOutputSubscriptionIDsIsMutable();
+            outputSubscriptionIDs_.addAll(other.outputSubscriptionIDs_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public final boolean isInitialized() {
+        return true;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              ensureInputSubscriptionIDsIsMutable();
+              inputSubscriptionIDs_.add(input.readInt32());
+              break;
+            }
+            case 10: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              while (input.getBytesUntilLimit() > 0) {
+                addInputSubscriptionIDs(input.readInt32());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            case 16: {
+              ensureOutputSubscriptionIDsIsMutable();
+              outputSubscriptionIDs_.add(input.readInt32());
+              break;
+            }
+            case 18: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              while (input.getBytesUntilLimit() > 0) {
+                addOutputSubscriptionIDs(input.readInt32());
+              }
+              input.popLimit(limit);
+              break;
+            }
+          }
+        }
+      }
+      
+      private int bitField0_;
+      
+      // repeated int32 inputSubscriptionIDs = 1;
+      private java.util.List<java.lang.Integer> inputSubscriptionIDs_ = java.util.Collections.emptyList();;
+      private void ensureInputSubscriptionIDsIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          inputSubscriptionIDs_ = new java.util.ArrayList<java.lang.Integer>(inputSubscriptionIDs_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      public java.util.List<java.lang.Integer>
+          getInputSubscriptionIDsList() {
+        return java.util.Collections.unmodifiableList(inputSubscriptionIDs_);
+      }
+      public int getInputSubscriptionIDsCount() {
+        return inputSubscriptionIDs_.size();
+      }
+      public int getInputSubscriptionIDs(int index) {
+        return inputSubscriptionIDs_.get(index);
+      }
+      public Builder setInputSubscriptionIDs(
+          int index, int value) {
+        ensureInputSubscriptionIDsIsMutable();
+        inputSubscriptionIDs_.set(index, value);
+        onChanged();
+        return this;
+      }
+      public Builder addInputSubscriptionIDs(int value) {
+        ensureInputSubscriptionIDsIsMutable();
+        inputSubscriptionIDs_.add(value);
+        onChanged();
+        return this;
+      }
+      public Builder addAllInputSubscriptionIDs(
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensureInputSubscriptionIDsIsMutable();
+        super.addAll(values, inputSubscriptionIDs_);
+        onChanged();
+        return this;
+      }
+      public Builder clearInputSubscriptionIDs() {
+        inputSubscriptionIDs_ = java.util.Collections.emptyList();;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      
+      // repeated int32 outputSubscriptionIDs = 2;
+      private java.util.List<java.lang.Integer> outputSubscriptionIDs_ = java.util.Collections.emptyList();;
+      private void ensureOutputSubscriptionIDsIsMutable() {
+        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+          outputSubscriptionIDs_ = new java.util.ArrayList<java.lang.Integer>(outputSubscriptionIDs_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+      public java.util.List<java.lang.Integer>
+          getOutputSubscriptionIDsList() {
+        return java.util.Collections.unmodifiableList(outputSubscriptionIDs_);
+      }
+      public int getOutputSubscriptionIDsCount() {
+        return outputSubscriptionIDs_.size();
+      }
+      public int getOutputSubscriptionIDs(int index) {
+        return outputSubscriptionIDs_.get(index);
+      }
+      public Builder setOutputSubscriptionIDs(
+          int index, int value) {
+        ensureOutputSubscriptionIDsIsMutable();
+        outputSubscriptionIDs_.set(index, value);
+        onChanged();
+        return this;
+      }
+      public Builder addOutputSubscriptionIDs(int value) {
+        ensureOutputSubscriptionIDsIsMutable();
+        outputSubscriptionIDs_.add(value);
+        onChanged();
+        return this;
+      }
+      public Builder addAllOutputSubscriptionIDs(
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensureOutputSubscriptionIDsIsMutable();
+        super.addAll(values, outputSubscriptionIDs_);
+        onChanged();
+        return this;
+      }
+      public Builder clearOutputSubscriptionIDs() {
+        outputSubscriptionIDs_ = java.util.Collections.emptyList();;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:Subscribe)
+    }
+    
+    static {
+      defaultInstance = new Subscribe(true);
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:Subscribe)
+  }
+  
+  public interface SubscriptionsAvailableOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+    
+    // repeated .SubscriptionsAvailable.ValueDetails inputSubscriptionIDs = 1;
+    java.util.List<com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails> 
+        getInputSubscriptionIDsList();
+    com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails getInputSubscriptionIDs(int index);
+    int getInputSubscriptionIDsCount();
+    java.util.List<? extends com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetailsOrBuilder> 
+        getInputSubscriptionIDsOrBuilderList();
+    com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetailsOrBuilder getInputSubscriptionIDsOrBuilder(
+        int index);
+    
+    // repeated .SubscriptionsAvailable.ValueDetails outputSubscriptionIDs = 2;
+    java.util.List<com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails> 
+        getOutputSubscriptionIDsList();
+    com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails getOutputSubscriptionIDs(int index);
+    int getOutputSubscriptionIDsCount();
+    java.util.List<? extends com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetailsOrBuilder> 
+        getOutputSubscriptionIDsOrBuilderList();
+    com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetailsOrBuilder getOutputSubscriptionIDsOrBuilder(
+        int index);
+  }
+  public static final class SubscriptionsAvailable extends
+      com.google.protobuf.GeneratedMessage
+      implements SubscriptionsAvailableOrBuilder {
+    // Use SubscriptionsAvailable.newBuilder() to construct.
+    private SubscriptionsAvailable(Builder builder) {
+      super(builder);
+    }
+    private SubscriptionsAvailable(boolean noInit) {}
+    
+    private static final SubscriptionsAvailable defaultInstance;
+    public static SubscriptionsAvailable getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public SubscriptionsAvailable getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.wikispaces.lsfn.Shared.LSFN.internal_static_SubscriptionsAvailable_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.wikispaces.lsfn.Shared.LSFN.internal_static_SubscriptionsAvailable_fieldAccessorTable;
+    }
+    
+    public interface ValueDetailsOrBuilder
         extends com.google.protobuf.MessageOrBuilder {
       
-      // required int32 ID = 1;
+      // required string name = 1;
+      boolean hasName();
+      String getName();
+      
+      // required int32 ID = 2;
       boolean hasID();
       int getID();
-      
-      // repeated float float_value = 2;
-      java.util.List<java.lang.Float> getFloatValueList();
-      int getFloatValueCount();
-      float getFloatValue(int index);
-      
-      // repeated double double_value = 3;
-      java.util.List<java.lang.Double> getDoubleValueList();
-      int getDoubleValueCount();
-      double getDoubleValue(int index);
-      
-      // repeated int32 int32_value = 4;
-      java.util.List<java.lang.Integer> getInt32ValueList();
-      int getInt32ValueCount();
-      int getInt32Value(int index);
-      
-      // repeated int64 int64_value = 5;
-      java.util.List<java.lang.Long> getInt64ValueList();
-      int getInt64ValueCount();
-      long getInt64Value(int index);
-      
-      // repeated string string_value = 15;
-      java.util.List<String> getStringValueList();
-      int getStringValueCount();
-      String getStringValue(int index);
     }
-    public static final class Subscription_update extends
+    public static final class ValueDetails extends
         com.google.protobuf.GeneratedMessage
-        implements Subscription_updateOrBuilder {
-      // Use Subscription_update.newBuilder() to construct.
-      private Subscription_update(Builder builder) {
+        implements ValueDetailsOrBuilder {
+      // Use ValueDetails.newBuilder() to construct.
+      private ValueDetails(Builder builder) {
         super(builder);
       }
-      private Subscription_update(boolean noInit) {}
+      private ValueDetails(boolean noInit) {}
       
-      private static final Subscription_update defaultInstance;
-      public static Subscription_update getDefaultInstance() {
+      private static final ValueDetails defaultInstance;
+      public static ValueDetails getDefaultInstance() {
         return defaultInstance;
       }
       
-      public Subscription_update getDefaultInstanceForType() {
+      public ValueDetails getDefaultInstanceForType() {
         return defaultInstance;
       }
       
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.wikispaces.lsfn.Shared.LSFN.internal_static_Subscription_updates_Subscription_update_descriptor;
+        return com.wikispaces.lsfn.Shared.LSFN.internal_static_SubscriptionsAvailable_ValueDetails_descriptor;
       }
       
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.wikispaces.lsfn.Shared.LSFN.internal_static_Subscription_updates_Subscription_update_fieldAccessorTable;
+        return com.wikispaces.lsfn.Shared.LSFN.internal_static_SubscriptionsAvailable_ValueDetails_fieldAccessorTable;
       }
       
       private int bitField0_;
-      // required int32 ID = 1;
-      public static final int ID_FIELD_NUMBER = 1;
+      // required string name = 1;
+      public static final int NAME_FIELD_NUMBER = 1;
+      private java.lang.Object name_;
+      public boolean hasName() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      public String getName() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          return (String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          String s = bs.toStringUtf8();
+          if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+            name_ = s;
+          }
+          return s;
+        }
+      }
+      private com.google.protobuf.ByteString getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      
+      // required int32 ID = 2;
+      public static final int ID_FIELD_NUMBER = 2;
       private int iD_;
       public boolean hasID() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       public int getID() {
         return iD_;
       }
       
-      // repeated float float_value = 2;
-      public static final int FLOAT_VALUE_FIELD_NUMBER = 2;
-      private java.util.List<java.lang.Float> floatValue_;
-      public java.util.List<java.lang.Float>
-          getFloatValueList() {
-        return floatValue_;
-      }
-      public int getFloatValueCount() {
-        return floatValue_.size();
-      }
-      public float getFloatValue(int index) {
-        return floatValue_.get(index);
-      }
-      
-      // repeated double double_value = 3;
-      public static final int DOUBLE_VALUE_FIELD_NUMBER = 3;
-      private java.util.List<java.lang.Double> doubleValue_;
-      public java.util.List<java.lang.Double>
-          getDoubleValueList() {
-        return doubleValue_;
-      }
-      public int getDoubleValueCount() {
-        return doubleValue_.size();
-      }
-      public double getDoubleValue(int index) {
-        return doubleValue_.get(index);
-      }
-      
-      // repeated int32 int32_value = 4;
-      public static final int INT32_VALUE_FIELD_NUMBER = 4;
-      private java.util.List<java.lang.Integer> int32Value_;
-      public java.util.List<java.lang.Integer>
-          getInt32ValueList() {
-        return int32Value_;
-      }
-      public int getInt32ValueCount() {
-        return int32Value_.size();
-      }
-      public int getInt32Value(int index) {
-        return int32Value_.get(index);
-      }
-      
-      // repeated int64 int64_value = 5;
-      public static final int INT64_VALUE_FIELD_NUMBER = 5;
-      private java.util.List<java.lang.Long> int64Value_;
-      public java.util.List<java.lang.Long>
-          getInt64ValueList() {
-        return int64Value_;
-      }
-      public int getInt64ValueCount() {
-        return int64Value_.size();
-      }
-      public long getInt64Value(int index) {
-        return int64Value_.get(index);
-      }
-      
-      // repeated string string_value = 15;
-      public static final int STRING_VALUE_FIELD_NUMBER = 15;
-      private com.google.protobuf.LazyStringList stringValue_;
-      public java.util.List<String>
-          getStringValueList() {
-        return stringValue_;
-      }
-      public int getStringValueCount() {
-        return stringValue_.size();
-      }
-      public String getStringValue(int index) {
-        return stringValue_.get(index);
-      }
-      
       private void initFields() {
+        name_ = "";
         iD_ = 0;
-        floatValue_ = java.util.Collections.emptyList();;
-        doubleValue_ = java.util.Collections.emptyList();;
-        int32Value_ = java.util.Collections.emptyList();;
-        int64Value_ = java.util.Collections.emptyList();;
-        stringValue_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       }
       private byte memoizedIsInitialized = -1;
       public final boolean isInitialized() {
         byte isInitialized = memoizedIsInitialized;
         if (isInitialized != -1) return isInitialized == 1;
         
+        if (!hasName()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
         if (!hasID()) {
           memoizedIsInitialized = 0;
           return false;
@@ -215,22 +660,10 @@ public final class LSFN {
                           throws java.io.IOException {
         getSerializedSize();
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          output.writeInt32(1, iD_);
+          output.writeBytes(1, getNameBytes());
         }
-        for (int i = 0; i < floatValue_.size(); i++) {
-          output.writeFloat(2, floatValue_.get(i));
-        }
-        for (int i = 0; i < doubleValue_.size(); i++) {
-          output.writeDouble(3, doubleValue_.get(i));
-        }
-        for (int i = 0; i < int32Value_.size(); i++) {
-          output.writeInt32(4, int32Value_.get(i));
-        }
-        for (int i = 0; i < int64Value_.size(); i++) {
-          output.writeInt64(5, int64Value_.get(i));
-        }
-        for (int i = 0; i < stringValue_.size(); i++) {
-          output.writeBytes(15, stringValue_.getByteString(i));
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          output.writeInt32(2, iD_);
         }
         getUnknownFields().writeTo(output);
       }
@@ -243,46 +676,11 @@ public final class LSFN {
         size = 0;
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(1, iD_);
+            .computeBytesSize(1, getNameBytes());
         }
-        {
-          int dataSize = 0;
-          dataSize = 4 * getFloatValueList().size();
-          size += dataSize;
-          size += 1 * getFloatValueList().size();
-        }
-        {
-          int dataSize = 0;
-          dataSize = 8 * getDoubleValueList().size();
-          size += dataSize;
-          size += 1 * getDoubleValueList().size();
-        }
-        {
-          int dataSize = 0;
-          for (int i = 0; i < int32Value_.size(); i++) {
-            dataSize += com.google.protobuf.CodedOutputStream
-              .computeInt32SizeNoTag(int32Value_.get(i));
-          }
-          size += dataSize;
-          size += 1 * getInt32ValueList().size();
-        }
-        {
-          int dataSize = 0;
-          for (int i = 0; i < int64Value_.size(); i++) {
-            dataSize += com.google.protobuf.CodedOutputStream
-              .computeInt64SizeNoTag(int64Value_.get(i));
-          }
-          size += dataSize;
-          size += 1 * getInt64ValueList().size();
-        }
-        {
-          int dataSize = 0;
-          for (int i = 0; i < stringValue_.size(); i++) {
-            dataSize += com.google.protobuf.CodedOutputStream
-              .computeBytesSizeNoTag(stringValue_.getByteString(i));
-          }
-          size += dataSize;
-          size += 1 * getStringValueList().size();
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(2, iD_);
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSerializedSize = size;
@@ -296,41 +694,41 @@ public final class LSFN {
         return super.writeReplace();
       }
       
-      public static com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update parseFrom(
+      public static com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails parseFrom(
           com.google.protobuf.ByteString data)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return newBuilder().mergeFrom(data).buildParsed();
       }
-      public static com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update parseFrom(
+      public static com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails parseFrom(
           com.google.protobuf.ByteString data,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return newBuilder().mergeFrom(data, extensionRegistry)
                  .buildParsed();
       }
-      public static com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update parseFrom(byte[] data)
+      public static com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails parseFrom(byte[] data)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return newBuilder().mergeFrom(data).buildParsed();
       }
-      public static com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update parseFrom(
+      public static com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails parseFrom(
           byte[] data,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return newBuilder().mergeFrom(data, extensionRegistry)
                  .buildParsed();
       }
-      public static com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update parseFrom(java.io.InputStream input)
+      public static com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails parseFrom(java.io.InputStream input)
           throws java.io.IOException {
         return newBuilder().mergeFrom(input).buildParsed();
       }
-      public static com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update parseFrom(
+      public static com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails parseFrom(
           java.io.InputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
         return newBuilder().mergeFrom(input, extensionRegistry)
                  .buildParsed();
       }
-      public static com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update parseDelimitedFrom(java.io.InputStream input)
+      public static com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails parseDelimitedFrom(java.io.InputStream input)
           throws java.io.IOException {
         Builder builder = newBuilder();
         if (builder.mergeDelimitedFrom(input)) {
@@ -339,7 +737,7 @@ public final class LSFN {
           return null;
         }
       }
-      public static com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update parseDelimitedFrom(
+      public static com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails parseDelimitedFrom(
           java.io.InputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
@@ -350,12 +748,12 @@ public final class LSFN {
           return null;
         }
       }
-      public static com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update parseFrom(
+      public static com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails parseFrom(
           com.google.protobuf.CodedInputStream input)
           throws java.io.IOException {
         return newBuilder().mergeFrom(input).buildParsed();
       }
-      public static com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update parseFrom(
+      public static com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails parseFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
@@ -365,7 +763,7 @@ public final class LSFN {
       
       public static Builder newBuilder() { return Builder.create(); }
       public Builder newBuilderForType() { return newBuilder(); }
-      public static Builder newBuilder(com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update prototype) {
+      public static Builder newBuilder(com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails prototype) {
         return newBuilder().mergeFrom(prototype);
       }
       public Builder toBuilder() { return newBuilder(this); }
@@ -378,18 +776,18 @@ public final class LSFN {
       }
       public static final class Builder extends
           com.google.protobuf.GeneratedMessage.Builder<Builder>
-         implements com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_updateOrBuilder {
+         implements com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetailsOrBuilder {
         public static final com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
-          return com.wikispaces.lsfn.Shared.LSFN.internal_static_Subscription_updates_Subscription_update_descriptor;
+          return com.wikispaces.lsfn.Shared.LSFN.internal_static_SubscriptionsAvailable_ValueDetails_descriptor;
         }
         
         protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
             internalGetFieldAccessorTable() {
-          return com.wikispaces.lsfn.Shared.LSFN.internal_static_Subscription_updates_Subscription_update_fieldAccessorTable;
+          return com.wikispaces.lsfn.Shared.LSFN.internal_static_SubscriptionsAvailable_ValueDetails_fieldAccessorTable;
         }
         
-        // Construct using com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update.newBuilder()
+        // Construct using com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.newBuilder()
         private Builder() {
           maybeForceBuilderInitialization();
         }
@@ -408,18 +806,10 @@ public final class LSFN {
         
         public Builder clear() {
           super.clear();
-          iD_ = 0;
+          name_ = "";
           bitField0_ = (bitField0_ & ~0x00000001);
-          floatValue_ = java.util.Collections.emptyList();;
+          iD_ = 0;
           bitField0_ = (bitField0_ & ~0x00000002);
-          doubleValue_ = java.util.Collections.emptyList();;
-          bitField0_ = (bitField0_ & ~0x00000004);
-          int32Value_ = java.util.Collections.emptyList();;
-          bitField0_ = (bitField0_ & ~0x00000008);
-          int64Value_ = java.util.Collections.emptyList();;
-          bitField0_ = (bitField0_ & ~0x00000010);
-          stringValue_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-          bitField0_ = (bitField0_ & ~0x00000020);
           return this;
         }
         
@@ -429,24 +819,24 @@ public final class LSFN {
         
         public com.google.protobuf.Descriptors.Descriptor
             getDescriptorForType() {
-          return com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update.getDescriptor();
+          return com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.getDescriptor();
         }
         
-        public com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update getDefaultInstanceForType() {
-          return com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update.getDefaultInstance();
+        public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails getDefaultInstanceForType() {
+          return com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.getDefaultInstance();
         }
         
-        public com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update build() {
-          com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update result = buildPartial();
+        public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails build() {
+          com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails result = buildPartial();
           if (!result.isInitialized()) {
             throw newUninitializedMessageException(result);
           }
           return result;
         }
         
-        private com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update buildParsed()
+        private com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails buildParsed()
             throws com.google.protobuf.InvalidProtocolBufferException {
-          com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update result = buildPartial();
+          com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails result = buildPartial();
           if (!result.isInitialized()) {
             throw newUninitializedMessageException(
               result).asInvalidProtocolBufferException();
@@ -454,114 +844,49 @@ public final class LSFN {
           return result;
         }
         
-        public com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update buildPartial() {
-          com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update result = new com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update(this);
+        public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails buildPartial() {
+          com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails result = new com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails(this);
           int from_bitField0_ = bitField0_;
           int to_bitField0_ = 0;
           if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
             to_bitField0_ |= 0x00000001;
           }
+          result.name_ = name_;
+          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+            to_bitField0_ |= 0x00000002;
+          }
           result.iD_ = iD_;
-          if (((bitField0_ & 0x00000002) == 0x00000002)) {
-            floatValue_ = java.util.Collections.unmodifiableList(floatValue_);
-            bitField0_ = (bitField0_ & ~0x00000002);
-          }
-          result.floatValue_ = floatValue_;
-          if (((bitField0_ & 0x00000004) == 0x00000004)) {
-            doubleValue_ = java.util.Collections.unmodifiableList(doubleValue_);
-            bitField0_ = (bitField0_ & ~0x00000004);
-          }
-          result.doubleValue_ = doubleValue_;
-          if (((bitField0_ & 0x00000008) == 0x00000008)) {
-            int32Value_ = java.util.Collections.unmodifiableList(int32Value_);
-            bitField0_ = (bitField0_ & ~0x00000008);
-          }
-          result.int32Value_ = int32Value_;
-          if (((bitField0_ & 0x00000010) == 0x00000010)) {
-            int64Value_ = java.util.Collections.unmodifiableList(int64Value_);
-            bitField0_ = (bitField0_ & ~0x00000010);
-          }
-          result.int64Value_ = int64Value_;
-          if (((bitField0_ & 0x00000020) == 0x00000020)) {
-            stringValue_ = new com.google.protobuf.UnmodifiableLazyStringList(
-                stringValue_);
-            bitField0_ = (bitField0_ & ~0x00000020);
-          }
-          result.stringValue_ = stringValue_;
           result.bitField0_ = to_bitField0_;
           onBuilt();
           return result;
         }
         
         public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update) {
-            return mergeFrom((com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update)other);
+          if (other instanceof com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails) {
+            return mergeFrom((com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails)other);
           } else {
             super.mergeFrom(other);
             return this;
           }
         }
         
-        public Builder mergeFrom(com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update other) {
-          if (other == com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update.getDefaultInstance()) return this;
+        public Builder mergeFrom(com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails other) {
+          if (other == com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.getDefaultInstance()) return this;
+          if (other.hasName()) {
+            setName(other.getName());
+          }
           if (other.hasID()) {
             setID(other.getID());
-          }
-          if (!other.floatValue_.isEmpty()) {
-            if (floatValue_.isEmpty()) {
-              floatValue_ = other.floatValue_;
-              bitField0_ = (bitField0_ & ~0x00000002);
-            } else {
-              ensureFloatValueIsMutable();
-              floatValue_.addAll(other.floatValue_);
-            }
-            onChanged();
-          }
-          if (!other.doubleValue_.isEmpty()) {
-            if (doubleValue_.isEmpty()) {
-              doubleValue_ = other.doubleValue_;
-              bitField0_ = (bitField0_ & ~0x00000004);
-            } else {
-              ensureDoubleValueIsMutable();
-              doubleValue_.addAll(other.doubleValue_);
-            }
-            onChanged();
-          }
-          if (!other.int32Value_.isEmpty()) {
-            if (int32Value_.isEmpty()) {
-              int32Value_ = other.int32Value_;
-              bitField0_ = (bitField0_ & ~0x00000008);
-            } else {
-              ensureInt32ValueIsMutable();
-              int32Value_.addAll(other.int32Value_);
-            }
-            onChanged();
-          }
-          if (!other.int64Value_.isEmpty()) {
-            if (int64Value_.isEmpty()) {
-              int64Value_ = other.int64Value_;
-              bitField0_ = (bitField0_ & ~0x00000010);
-            } else {
-              ensureInt64ValueIsMutable();
-              int64Value_.addAll(other.int64Value_);
-            }
-            onChanged();
-          }
-          if (!other.stringValue_.isEmpty()) {
-            if (stringValue_.isEmpty()) {
-              stringValue_ = other.stringValue_;
-              bitField0_ = (bitField0_ & ~0x00000020);
-            } else {
-              ensureStringValueIsMutable();
-              stringValue_.addAll(other.stringValue_);
-            }
-            onChanged();
           }
           this.mergeUnknownFields(other.getUnknownFields());
           return this;
         }
         
         public final boolean isInitialized() {
+          if (!hasName()) {
+            
+            return false;
+          }
           if (!hasID()) {
             
             return false;
@@ -592,70 +917,14 @@ public final class LSFN {
                 }
                 break;
               }
-              case 8: {
+              case 10: {
                 bitField0_ |= 0x00000001;
+                name_ = input.readBytes();
+                break;
+              }
+              case 16: {
+                bitField0_ |= 0x00000002;
                 iD_ = input.readInt32();
-                break;
-              }
-              case 21: {
-                ensureFloatValueIsMutable();
-                floatValue_.add(input.readFloat());
-                break;
-              }
-              case 18: {
-                int length = input.readRawVarint32();
-                int limit = input.pushLimit(length);
-                while (input.getBytesUntilLimit() > 0) {
-                  addFloatValue(input.readFloat());
-                }
-                input.popLimit(limit);
-                break;
-              }
-              case 25: {
-                ensureDoubleValueIsMutable();
-                doubleValue_.add(input.readDouble());
-                break;
-              }
-              case 26: {
-                int length = input.readRawVarint32();
-                int limit = input.pushLimit(length);
-                while (input.getBytesUntilLimit() > 0) {
-                  addDoubleValue(input.readDouble());
-                }
-                input.popLimit(limit);
-                break;
-              }
-              case 32: {
-                ensureInt32ValueIsMutable();
-                int32Value_.add(input.readInt32());
-                break;
-              }
-              case 34: {
-                int length = input.readRawVarint32();
-                int limit = input.pushLimit(length);
-                while (input.getBytesUntilLimit() > 0) {
-                  addInt32Value(input.readInt32());
-                }
-                input.popLimit(limit);
-                break;
-              }
-              case 40: {
-                ensureInt64ValueIsMutable();
-                int64Value_.add(input.readInt64());
-                break;
-              }
-              case 42: {
-                int length = input.readRawVarint32();
-                int limit = input.pushLimit(length);
-                while (input.getBytesUntilLimit() > 0) {
-                  addInt64Value(input.readInt64());
-                }
-                input.popLimit(limit);
-                break;
-              }
-              case 122: {
-                ensureStringValueIsMutable();
-                stringValue_.add(input.readBytes());
                 break;
               }
             }
@@ -664,305 +933,133 @@ public final class LSFN {
         
         private int bitField0_;
         
-        // required int32 ID = 1;
+        // required string name = 1;
+        private java.lang.Object name_ = "";
+        public boolean hasName() {
+          return ((bitField0_ & 0x00000001) == 0x00000001);
+        }
+        public String getName() {
+          java.lang.Object ref = name_;
+          if (!(ref instanceof String)) {
+            String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+            name_ = s;
+            return s;
+          } else {
+            return (String) ref;
+          }
+        }
+        public Builder setName(String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+          name_ = value;
+          onChanged();
+          return this;
+        }
+        public Builder clearName() {
+          bitField0_ = (bitField0_ & ~0x00000001);
+          name_ = getDefaultInstance().getName();
+          onChanged();
+          return this;
+        }
+        void setName(com.google.protobuf.ByteString value) {
+          bitField0_ |= 0x00000001;
+          name_ = value;
+          onChanged();
+        }
+        
+        // required int32 ID = 2;
         private int iD_ ;
         public boolean hasID() {
-          return ((bitField0_ & 0x00000001) == 0x00000001);
+          return ((bitField0_ & 0x00000002) == 0x00000002);
         }
         public int getID() {
           return iD_;
         }
         public Builder setID(int value) {
-          bitField0_ |= 0x00000001;
+          bitField0_ |= 0x00000002;
           iD_ = value;
           onChanged();
           return this;
         }
         public Builder clearID() {
-          bitField0_ = (bitField0_ & ~0x00000001);
+          bitField0_ = (bitField0_ & ~0x00000002);
           iD_ = 0;
           onChanged();
           return this;
         }
         
-        // repeated float float_value = 2;
-        private java.util.List<java.lang.Float> floatValue_ = java.util.Collections.emptyList();;
-        private void ensureFloatValueIsMutable() {
-          if (!((bitField0_ & 0x00000002) == 0x00000002)) {
-            floatValue_ = new java.util.ArrayList<java.lang.Float>(floatValue_);
-            bitField0_ |= 0x00000002;
-           }
-        }
-        public java.util.List<java.lang.Float>
-            getFloatValueList() {
-          return java.util.Collections.unmodifiableList(floatValue_);
-        }
-        public int getFloatValueCount() {
-          return floatValue_.size();
-        }
-        public float getFloatValue(int index) {
-          return floatValue_.get(index);
-        }
-        public Builder setFloatValue(
-            int index, float value) {
-          ensureFloatValueIsMutable();
-          floatValue_.set(index, value);
-          onChanged();
-          return this;
-        }
-        public Builder addFloatValue(float value) {
-          ensureFloatValueIsMutable();
-          floatValue_.add(value);
-          onChanged();
-          return this;
-        }
-        public Builder addAllFloatValue(
-            java.lang.Iterable<? extends java.lang.Float> values) {
-          ensureFloatValueIsMutable();
-          super.addAll(values, floatValue_);
-          onChanged();
-          return this;
-        }
-        public Builder clearFloatValue() {
-          floatValue_ = java.util.Collections.emptyList();;
-          bitField0_ = (bitField0_ & ~0x00000002);
-          onChanged();
-          return this;
-        }
-        
-        // repeated double double_value = 3;
-        private java.util.List<java.lang.Double> doubleValue_ = java.util.Collections.emptyList();;
-        private void ensureDoubleValueIsMutable() {
-          if (!((bitField0_ & 0x00000004) == 0x00000004)) {
-            doubleValue_ = new java.util.ArrayList<java.lang.Double>(doubleValue_);
-            bitField0_ |= 0x00000004;
-           }
-        }
-        public java.util.List<java.lang.Double>
-            getDoubleValueList() {
-          return java.util.Collections.unmodifiableList(doubleValue_);
-        }
-        public int getDoubleValueCount() {
-          return doubleValue_.size();
-        }
-        public double getDoubleValue(int index) {
-          return doubleValue_.get(index);
-        }
-        public Builder setDoubleValue(
-            int index, double value) {
-          ensureDoubleValueIsMutable();
-          doubleValue_.set(index, value);
-          onChanged();
-          return this;
-        }
-        public Builder addDoubleValue(double value) {
-          ensureDoubleValueIsMutable();
-          doubleValue_.add(value);
-          onChanged();
-          return this;
-        }
-        public Builder addAllDoubleValue(
-            java.lang.Iterable<? extends java.lang.Double> values) {
-          ensureDoubleValueIsMutable();
-          super.addAll(values, doubleValue_);
-          onChanged();
-          return this;
-        }
-        public Builder clearDoubleValue() {
-          doubleValue_ = java.util.Collections.emptyList();;
-          bitField0_ = (bitField0_ & ~0x00000004);
-          onChanged();
-          return this;
-        }
-        
-        // repeated int32 int32_value = 4;
-        private java.util.List<java.lang.Integer> int32Value_ = java.util.Collections.emptyList();;
-        private void ensureInt32ValueIsMutable() {
-          if (!((bitField0_ & 0x00000008) == 0x00000008)) {
-            int32Value_ = new java.util.ArrayList<java.lang.Integer>(int32Value_);
-            bitField0_ |= 0x00000008;
-           }
-        }
-        public java.util.List<java.lang.Integer>
-            getInt32ValueList() {
-          return java.util.Collections.unmodifiableList(int32Value_);
-        }
-        public int getInt32ValueCount() {
-          return int32Value_.size();
-        }
-        public int getInt32Value(int index) {
-          return int32Value_.get(index);
-        }
-        public Builder setInt32Value(
-            int index, int value) {
-          ensureInt32ValueIsMutable();
-          int32Value_.set(index, value);
-          onChanged();
-          return this;
-        }
-        public Builder addInt32Value(int value) {
-          ensureInt32ValueIsMutable();
-          int32Value_.add(value);
-          onChanged();
-          return this;
-        }
-        public Builder addAllInt32Value(
-            java.lang.Iterable<? extends java.lang.Integer> values) {
-          ensureInt32ValueIsMutable();
-          super.addAll(values, int32Value_);
-          onChanged();
-          return this;
-        }
-        public Builder clearInt32Value() {
-          int32Value_ = java.util.Collections.emptyList();;
-          bitField0_ = (bitField0_ & ~0x00000008);
-          onChanged();
-          return this;
-        }
-        
-        // repeated int64 int64_value = 5;
-        private java.util.List<java.lang.Long> int64Value_ = java.util.Collections.emptyList();;
-        private void ensureInt64ValueIsMutable() {
-          if (!((bitField0_ & 0x00000010) == 0x00000010)) {
-            int64Value_ = new java.util.ArrayList<java.lang.Long>(int64Value_);
-            bitField0_ |= 0x00000010;
-           }
-        }
-        public java.util.List<java.lang.Long>
-            getInt64ValueList() {
-          return java.util.Collections.unmodifiableList(int64Value_);
-        }
-        public int getInt64ValueCount() {
-          return int64Value_.size();
-        }
-        public long getInt64Value(int index) {
-          return int64Value_.get(index);
-        }
-        public Builder setInt64Value(
-            int index, long value) {
-          ensureInt64ValueIsMutable();
-          int64Value_.set(index, value);
-          onChanged();
-          return this;
-        }
-        public Builder addInt64Value(long value) {
-          ensureInt64ValueIsMutable();
-          int64Value_.add(value);
-          onChanged();
-          return this;
-        }
-        public Builder addAllInt64Value(
-            java.lang.Iterable<? extends java.lang.Long> values) {
-          ensureInt64ValueIsMutable();
-          super.addAll(values, int64Value_);
-          onChanged();
-          return this;
-        }
-        public Builder clearInt64Value() {
-          int64Value_ = java.util.Collections.emptyList();;
-          bitField0_ = (bitField0_ & ~0x00000010);
-          onChanged();
-          return this;
-        }
-        
-        // repeated string string_value = 15;
-        private com.google.protobuf.LazyStringList stringValue_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        private void ensureStringValueIsMutable() {
-          if (!((bitField0_ & 0x00000020) == 0x00000020)) {
-            stringValue_ = new com.google.protobuf.LazyStringArrayList(stringValue_);
-            bitField0_ |= 0x00000020;
-           }
-        }
-        public java.util.List<String>
-            getStringValueList() {
-          return java.util.Collections.unmodifiableList(stringValue_);
-        }
-        public int getStringValueCount() {
-          return stringValue_.size();
-        }
-        public String getStringValue(int index) {
-          return stringValue_.get(index);
-        }
-        public Builder setStringValue(
-            int index, String value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureStringValueIsMutable();
-          stringValue_.set(index, value);
-          onChanged();
-          return this;
-        }
-        public Builder addStringValue(String value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureStringValueIsMutable();
-          stringValue_.add(value);
-          onChanged();
-          return this;
-        }
-        public Builder addAllStringValue(
-            java.lang.Iterable<String> values) {
-          ensureStringValueIsMutable();
-          super.addAll(values, stringValue_);
-          onChanged();
-          return this;
-        }
-        public Builder clearStringValue() {
-          stringValue_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-          bitField0_ = (bitField0_ & ~0x00000020);
-          onChanged();
-          return this;
-        }
-        void addStringValue(com.google.protobuf.ByteString value) {
-          ensureStringValueIsMutable();
-          stringValue_.add(value);
-          onChanged();
-        }
-        
-        // @@protoc_insertion_point(builder_scope:Subscription_updates.Subscription_update)
+        // @@protoc_insertion_point(builder_scope:SubscriptionsAvailable.ValueDetails)
       }
       
       static {
-        defaultInstance = new Subscription_update(true);
+        defaultInstance = new ValueDetails(true);
         defaultInstance.initFields();
       }
       
-      // @@protoc_insertion_point(class_scope:Subscription_updates.Subscription_update)
+      // @@protoc_insertion_point(class_scope:SubscriptionsAvailable.ValueDetails)
     }
     
-    // repeated .Subscription_updates.Subscription_update updates = 1;
-    public static final int UPDATES_FIELD_NUMBER = 1;
-    private java.util.List<com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update> updates_;
-    public java.util.List<com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update> getUpdatesList() {
-      return updates_;
+    // repeated .SubscriptionsAvailable.ValueDetails inputSubscriptionIDs = 1;
+    public static final int INPUTSUBSCRIPTIONIDS_FIELD_NUMBER = 1;
+    private java.util.List<com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails> inputSubscriptionIDs_;
+    public java.util.List<com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails> getInputSubscriptionIDsList() {
+      return inputSubscriptionIDs_;
     }
-    public java.util.List<? extends com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_updateOrBuilder> 
-        getUpdatesOrBuilderList() {
-      return updates_;
+    public java.util.List<? extends com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetailsOrBuilder> 
+        getInputSubscriptionIDsOrBuilderList() {
+      return inputSubscriptionIDs_;
     }
-    public int getUpdatesCount() {
-      return updates_.size();
+    public int getInputSubscriptionIDsCount() {
+      return inputSubscriptionIDs_.size();
     }
-    public com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update getUpdates(int index) {
-      return updates_.get(index);
+    public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails getInputSubscriptionIDs(int index) {
+      return inputSubscriptionIDs_.get(index);
     }
-    public com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_updateOrBuilder getUpdatesOrBuilder(
+    public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetailsOrBuilder getInputSubscriptionIDsOrBuilder(
         int index) {
-      return updates_.get(index);
+      return inputSubscriptionIDs_.get(index);
+    }
+    
+    // repeated .SubscriptionsAvailable.ValueDetails outputSubscriptionIDs = 2;
+    public static final int OUTPUTSUBSCRIPTIONIDS_FIELD_NUMBER = 2;
+    private java.util.List<com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails> outputSubscriptionIDs_;
+    public java.util.List<com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails> getOutputSubscriptionIDsList() {
+      return outputSubscriptionIDs_;
+    }
+    public java.util.List<? extends com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetailsOrBuilder> 
+        getOutputSubscriptionIDsOrBuilderList() {
+      return outputSubscriptionIDs_;
+    }
+    public int getOutputSubscriptionIDsCount() {
+      return outputSubscriptionIDs_.size();
+    }
+    public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails getOutputSubscriptionIDs(int index) {
+      return outputSubscriptionIDs_.get(index);
+    }
+    public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetailsOrBuilder getOutputSubscriptionIDsOrBuilder(
+        int index) {
+      return outputSubscriptionIDs_.get(index);
     }
     
     private void initFields() {
-      updates_ = java.util.Collections.emptyList();
+      inputSubscriptionIDs_ = java.util.Collections.emptyList();
+      outputSubscriptionIDs_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      for (int i = 0; i < getUpdatesCount(); i++) {
-        if (!getUpdates(i).isInitialized()) {
+      for (int i = 0; i < getInputSubscriptionIDsCount(); i++) {
+        if (!getInputSubscriptionIDs(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      for (int i = 0; i < getOutputSubscriptionIDsCount(); i++) {
+        if (!getOutputSubscriptionIDs(i).isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -974,8 +1071,11 @@ public final class LSFN {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
-      for (int i = 0; i < updates_.size(); i++) {
-        output.writeMessage(1, updates_.get(i));
+      for (int i = 0; i < inputSubscriptionIDs_.size(); i++) {
+        output.writeMessage(1, inputSubscriptionIDs_.get(i));
+      }
+      for (int i = 0; i < outputSubscriptionIDs_.size(); i++) {
+        output.writeMessage(2, outputSubscriptionIDs_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -986,9 +1086,13 @@ public final class LSFN {
       if (size != -1) return size;
     
       size = 0;
-      for (int i = 0; i < updates_.size(); i++) {
+      for (int i = 0; i < inputSubscriptionIDs_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, updates_.get(i));
+          .computeMessageSize(1, inputSubscriptionIDs_.get(i));
+      }
+      for (int i = 0; i < outputSubscriptionIDs_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, outputSubscriptionIDs_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1002,41 +1106,41 @@ public final class LSFN {
       return super.writeReplace();
     }
     
-    public static com.wikispaces.lsfn.Shared.LSFN.Subscription_updates parseFrom(
+    public static com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.wikispaces.lsfn.Shared.LSFN.Subscription_updates parseFrom(
+    public static com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.wikispaces.lsfn.Shared.LSFN.Subscription_updates parseFrom(byte[] data)
+    public static com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.wikispaces.lsfn.Shared.LSFN.Subscription_updates parseFrom(
+    public static com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.wikispaces.lsfn.Shared.LSFN.Subscription_updates parseFrom(java.io.InputStream input)
+    public static com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.wikispaces.lsfn.Shared.LSFN.Subscription_updates parseFrom(
+    public static com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input, extensionRegistry)
                .buildParsed();
     }
-    public static com.wikispaces.lsfn.Shared.LSFN.Subscription_updates parseDelimitedFrom(java.io.InputStream input)
+    public static com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       Builder builder = newBuilder();
       if (builder.mergeDelimitedFrom(input)) {
@@ -1045,7 +1149,7 @@ public final class LSFN {
         return null;
       }
     }
-    public static com.wikispaces.lsfn.Shared.LSFN.Subscription_updates parseDelimitedFrom(
+    public static com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1056,12 +1160,12 @@ public final class LSFN {
         return null;
       }
     }
-    public static com.wikispaces.lsfn.Shared.LSFN.Subscription_updates parseFrom(
+    public static com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.wikispaces.lsfn.Shared.LSFN.Subscription_updates parseFrom(
+    public static com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1071,7 +1175,7 @@ public final class LSFN {
     
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.wikispaces.lsfn.Shared.LSFN.Subscription_updates prototype) {
+    public static Builder newBuilder(com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
@@ -1084,18 +1188,18 @@ public final class LSFN {
     }
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.wikispaces.lsfn.Shared.LSFN.Subscription_updatesOrBuilder {
+       implements com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailableOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.wikispaces.lsfn.Shared.LSFN.internal_static_Subscription_updates_descriptor;
+        return com.wikispaces.lsfn.Shared.LSFN.internal_static_SubscriptionsAvailable_descriptor;
       }
       
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.wikispaces.lsfn.Shared.LSFN.internal_static_Subscription_updates_fieldAccessorTable;
+        return com.wikispaces.lsfn.Shared.LSFN.internal_static_SubscriptionsAvailable_fieldAccessorTable;
       }
       
-      // Construct using com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.newBuilder()
+      // Construct using com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -1106,7 +1210,8 @@ public final class LSFN {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getUpdatesFieldBuilder();
+          getInputSubscriptionIDsFieldBuilder();
+          getOutputSubscriptionIDsFieldBuilder();
         }
       }
       private static Builder create() {
@@ -1115,11 +1220,17 @@ public final class LSFN {
       
       public Builder clear() {
         super.clear();
-        if (updatesBuilder_ == null) {
-          updates_ = java.util.Collections.emptyList();
+        if (inputSubscriptionIDsBuilder_ == null) {
+          inputSubscriptionIDs_ = java.util.Collections.emptyList();
           bitField0_ = (bitField0_ & ~0x00000001);
         } else {
-          updatesBuilder_.clear();
+          inputSubscriptionIDsBuilder_.clear();
+        }
+        if (outputSubscriptionIDsBuilder_ == null) {
+          outputSubscriptionIDs_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          outputSubscriptionIDsBuilder_.clear();
         }
         return this;
       }
@@ -1130,24 +1241,24 @@ public final class LSFN {
       
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.getDescriptor();
+        return com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.getDescriptor();
       }
       
-      public com.wikispaces.lsfn.Shared.LSFN.Subscription_updates getDefaultInstanceForType() {
-        return com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.getDefaultInstance();
+      public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable getDefaultInstanceForType() {
+        return com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.getDefaultInstance();
       }
       
-      public com.wikispaces.lsfn.Shared.LSFN.Subscription_updates build() {
-        com.wikispaces.lsfn.Shared.LSFN.Subscription_updates result = buildPartial();
+      public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable build() {
+        com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
       
-      private com.wikispaces.lsfn.Shared.LSFN.Subscription_updates buildParsed()
+      private com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable buildParsed()
           throws com.google.protobuf.InvalidProtocolBufferException {
-        com.wikispaces.lsfn.Shared.LSFN.Subscription_updates result = buildPartial();
+        com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(
             result).asInvalidProtocolBufferException();
@@ -1155,56 +1266,91 @@ public final class LSFN {
         return result;
       }
       
-      public com.wikispaces.lsfn.Shared.LSFN.Subscription_updates buildPartial() {
-        com.wikispaces.lsfn.Shared.LSFN.Subscription_updates result = new com.wikispaces.lsfn.Shared.LSFN.Subscription_updates(this);
+      public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable buildPartial() {
+        com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable result = new com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable(this);
         int from_bitField0_ = bitField0_;
-        if (updatesBuilder_ == null) {
+        if (inputSubscriptionIDsBuilder_ == null) {
           if (((bitField0_ & 0x00000001) == 0x00000001)) {
-            updates_ = java.util.Collections.unmodifiableList(updates_);
+            inputSubscriptionIDs_ = java.util.Collections.unmodifiableList(inputSubscriptionIDs_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
-          result.updates_ = updates_;
+          result.inputSubscriptionIDs_ = inputSubscriptionIDs_;
         } else {
-          result.updates_ = updatesBuilder_.build();
+          result.inputSubscriptionIDs_ = inputSubscriptionIDsBuilder_.build();
+        }
+        if (outputSubscriptionIDsBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) == 0x00000002)) {
+            outputSubscriptionIDs_ = java.util.Collections.unmodifiableList(outputSubscriptionIDs_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.outputSubscriptionIDs_ = outputSubscriptionIDs_;
+        } else {
+          result.outputSubscriptionIDs_ = outputSubscriptionIDsBuilder_.build();
         }
         onBuilt();
         return result;
       }
       
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.wikispaces.lsfn.Shared.LSFN.Subscription_updates) {
-          return mergeFrom((com.wikispaces.lsfn.Shared.LSFN.Subscription_updates)other);
+        if (other instanceof com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable) {
+          return mergeFrom((com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
       
-      public Builder mergeFrom(com.wikispaces.lsfn.Shared.LSFN.Subscription_updates other) {
-        if (other == com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.getDefaultInstance()) return this;
-        if (updatesBuilder_ == null) {
-          if (!other.updates_.isEmpty()) {
-            if (updates_.isEmpty()) {
-              updates_ = other.updates_;
+      public Builder mergeFrom(com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable other) {
+        if (other == com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.getDefaultInstance()) return this;
+        if (inputSubscriptionIDsBuilder_ == null) {
+          if (!other.inputSubscriptionIDs_.isEmpty()) {
+            if (inputSubscriptionIDs_.isEmpty()) {
+              inputSubscriptionIDs_ = other.inputSubscriptionIDs_;
               bitField0_ = (bitField0_ & ~0x00000001);
             } else {
-              ensureUpdatesIsMutable();
-              updates_.addAll(other.updates_);
+              ensureInputSubscriptionIDsIsMutable();
+              inputSubscriptionIDs_.addAll(other.inputSubscriptionIDs_);
             }
             onChanged();
           }
         } else {
-          if (!other.updates_.isEmpty()) {
-            if (updatesBuilder_.isEmpty()) {
-              updatesBuilder_.dispose();
-              updatesBuilder_ = null;
-              updates_ = other.updates_;
+          if (!other.inputSubscriptionIDs_.isEmpty()) {
+            if (inputSubscriptionIDsBuilder_.isEmpty()) {
+              inputSubscriptionIDsBuilder_.dispose();
+              inputSubscriptionIDsBuilder_ = null;
+              inputSubscriptionIDs_ = other.inputSubscriptionIDs_;
               bitField0_ = (bitField0_ & ~0x00000001);
-              updatesBuilder_ = 
+              inputSubscriptionIDsBuilder_ = 
                 com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
-                   getUpdatesFieldBuilder() : null;
+                   getInputSubscriptionIDsFieldBuilder() : null;
             } else {
-              updatesBuilder_.addAllMessages(other.updates_);
+              inputSubscriptionIDsBuilder_.addAllMessages(other.inputSubscriptionIDs_);
+            }
+          }
+        }
+        if (outputSubscriptionIDsBuilder_ == null) {
+          if (!other.outputSubscriptionIDs_.isEmpty()) {
+            if (outputSubscriptionIDs_.isEmpty()) {
+              outputSubscriptionIDs_ = other.outputSubscriptionIDs_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureOutputSubscriptionIDsIsMutable();
+              outputSubscriptionIDs_.addAll(other.outputSubscriptionIDs_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.outputSubscriptionIDs_.isEmpty()) {
+            if (outputSubscriptionIDsBuilder_.isEmpty()) {
+              outputSubscriptionIDsBuilder_.dispose();
+              outputSubscriptionIDsBuilder_ = null;
+              outputSubscriptionIDs_ = other.outputSubscriptionIDs_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              outputSubscriptionIDsBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getOutputSubscriptionIDsFieldBuilder() : null;
+            } else {
+              outputSubscriptionIDsBuilder_.addAllMessages(other.outputSubscriptionIDs_);
             }
           }
         }
@@ -1213,8 +1359,14 @@ public final class LSFN {
       }
       
       public final boolean isInitialized() {
-        for (int i = 0; i < getUpdatesCount(); i++) {
-          if (!getUpdates(i).isInitialized()) {
+        for (int i = 0; i < getInputSubscriptionIDsCount(); i++) {
+          if (!getInputSubscriptionIDs(i).isInitialized()) {
+            
+            return false;
+          }
+        }
+        for (int i = 0; i < getOutputSubscriptionIDsCount(); i++) {
+          if (!getOutputSubscriptionIDs(i).isInitialized()) {
             
             return false;
           }
@@ -1246,9 +1398,15 @@ public final class LSFN {
               break;
             }
             case 10: {
-              com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update.Builder subBuilder = com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update.newBuilder();
+              com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.Builder subBuilder = com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.newBuilder();
               input.readMessage(subBuilder, extensionRegistry);
-              addUpdates(subBuilder.buildPartial());
+              addInputSubscriptionIDs(subBuilder.buildPartial());
+              break;
+            }
+            case 18: {
+              com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.Builder subBuilder = com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addOutputSubscriptionIDs(subBuilder.buildPartial());
               break;
             }
           }
@@ -1257,201 +1415,387 @@ public final class LSFN {
       
       private int bitField0_;
       
-      // repeated .Subscription_updates.Subscription_update updates = 1;
-      private java.util.List<com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update> updates_ =
+      // repeated .SubscriptionsAvailable.ValueDetails inputSubscriptionIDs = 1;
+      private java.util.List<com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails> inputSubscriptionIDs_ =
         java.util.Collections.emptyList();
-      private void ensureUpdatesIsMutable() {
+      private void ensureInputSubscriptionIDsIsMutable() {
         if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-          updates_ = new java.util.ArrayList<com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update>(updates_);
+          inputSubscriptionIDs_ = new java.util.ArrayList<com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails>(inputSubscriptionIDs_);
           bitField0_ |= 0x00000001;
          }
       }
       
       private com.google.protobuf.RepeatedFieldBuilder<
-          com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update, com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update.Builder, com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_updateOrBuilder> updatesBuilder_;
+          com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.Builder, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetailsOrBuilder> inputSubscriptionIDsBuilder_;
       
-      public java.util.List<com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update> getUpdatesList() {
-        if (updatesBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(updates_);
+      public java.util.List<com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails> getInputSubscriptionIDsList() {
+        if (inputSubscriptionIDsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(inputSubscriptionIDs_);
         } else {
-          return updatesBuilder_.getMessageList();
+          return inputSubscriptionIDsBuilder_.getMessageList();
         }
       }
-      public int getUpdatesCount() {
-        if (updatesBuilder_ == null) {
-          return updates_.size();
+      public int getInputSubscriptionIDsCount() {
+        if (inputSubscriptionIDsBuilder_ == null) {
+          return inputSubscriptionIDs_.size();
         } else {
-          return updatesBuilder_.getCount();
+          return inputSubscriptionIDsBuilder_.getCount();
         }
       }
-      public com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update getUpdates(int index) {
-        if (updatesBuilder_ == null) {
-          return updates_.get(index);
+      public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails getInputSubscriptionIDs(int index) {
+        if (inputSubscriptionIDsBuilder_ == null) {
+          return inputSubscriptionIDs_.get(index);
         } else {
-          return updatesBuilder_.getMessage(index);
+          return inputSubscriptionIDsBuilder_.getMessage(index);
         }
       }
-      public Builder setUpdates(
-          int index, com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update value) {
-        if (updatesBuilder_ == null) {
+      public Builder setInputSubscriptionIDs(
+          int index, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails value) {
+        if (inputSubscriptionIDsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureUpdatesIsMutable();
-          updates_.set(index, value);
+          ensureInputSubscriptionIDsIsMutable();
+          inputSubscriptionIDs_.set(index, value);
           onChanged();
         } else {
-          updatesBuilder_.setMessage(index, value);
+          inputSubscriptionIDsBuilder_.setMessage(index, value);
         }
         return this;
       }
-      public Builder setUpdates(
-          int index, com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update.Builder builderForValue) {
-        if (updatesBuilder_ == null) {
-          ensureUpdatesIsMutable();
-          updates_.set(index, builderForValue.build());
+      public Builder setInputSubscriptionIDs(
+          int index, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.Builder builderForValue) {
+        if (inputSubscriptionIDsBuilder_ == null) {
+          ensureInputSubscriptionIDsIsMutable();
+          inputSubscriptionIDs_.set(index, builderForValue.build());
           onChanged();
         } else {
-          updatesBuilder_.setMessage(index, builderForValue.build());
+          inputSubscriptionIDsBuilder_.setMessage(index, builderForValue.build());
         }
         return this;
       }
-      public Builder addUpdates(com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update value) {
-        if (updatesBuilder_ == null) {
+      public Builder addInputSubscriptionIDs(com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails value) {
+        if (inputSubscriptionIDsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureUpdatesIsMutable();
-          updates_.add(value);
+          ensureInputSubscriptionIDsIsMutable();
+          inputSubscriptionIDs_.add(value);
           onChanged();
         } else {
-          updatesBuilder_.addMessage(value);
+          inputSubscriptionIDsBuilder_.addMessage(value);
         }
         return this;
       }
-      public Builder addUpdates(
-          int index, com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update value) {
-        if (updatesBuilder_ == null) {
+      public Builder addInputSubscriptionIDs(
+          int index, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails value) {
+        if (inputSubscriptionIDsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureUpdatesIsMutable();
-          updates_.add(index, value);
+          ensureInputSubscriptionIDsIsMutable();
+          inputSubscriptionIDs_.add(index, value);
           onChanged();
         } else {
-          updatesBuilder_.addMessage(index, value);
+          inputSubscriptionIDsBuilder_.addMessage(index, value);
         }
         return this;
       }
-      public Builder addUpdates(
-          com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update.Builder builderForValue) {
-        if (updatesBuilder_ == null) {
-          ensureUpdatesIsMutable();
-          updates_.add(builderForValue.build());
+      public Builder addInputSubscriptionIDs(
+          com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.Builder builderForValue) {
+        if (inputSubscriptionIDsBuilder_ == null) {
+          ensureInputSubscriptionIDsIsMutable();
+          inputSubscriptionIDs_.add(builderForValue.build());
           onChanged();
         } else {
-          updatesBuilder_.addMessage(builderForValue.build());
+          inputSubscriptionIDsBuilder_.addMessage(builderForValue.build());
         }
         return this;
       }
-      public Builder addUpdates(
-          int index, com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update.Builder builderForValue) {
-        if (updatesBuilder_ == null) {
-          ensureUpdatesIsMutable();
-          updates_.add(index, builderForValue.build());
+      public Builder addInputSubscriptionIDs(
+          int index, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.Builder builderForValue) {
+        if (inputSubscriptionIDsBuilder_ == null) {
+          ensureInputSubscriptionIDsIsMutable();
+          inputSubscriptionIDs_.add(index, builderForValue.build());
           onChanged();
         } else {
-          updatesBuilder_.addMessage(index, builderForValue.build());
+          inputSubscriptionIDsBuilder_.addMessage(index, builderForValue.build());
         }
         return this;
       }
-      public Builder addAllUpdates(
-          java.lang.Iterable<? extends com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update> values) {
-        if (updatesBuilder_ == null) {
-          ensureUpdatesIsMutable();
-          super.addAll(values, updates_);
+      public Builder addAllInputSubscriptionIDs(
+          java.lang.Iterable<? extends com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails> values) {
+        if (inputSubscriptionIDsBuilder_ == null) {
+          ensureInputSubscriptionIDsIsMutable();
+          super.addAll(values, inputSubscriptionIDs_);
           onChanged();
         } else {
-          updatesBuilder_.addAllMessages(values);
+          inputSubscriptionIDsBuilder_.addAllMessages(values);
         }
         return this;
       }
-      public Builder clearUpdates() {
-        if (updatesBuilder_ == null) {
-          updates_ = java.util.Collections.emptyList();
+      public Builder clearInputSubscriptionIDs() {
+        if (inputSubscriptionIDsBuilder_ == null) {
+          inputSubscriptionIDs_ = java.util.Collections.emptyList();
           bitField0_ = (bitField0_ & ~0x00000001);
           onChanged();
         } else {
-          updatesBuilder_.clear();
+          inputSubscriptionIDsBuilder_.clear();
         }
         return this;
       }
-      public Builder removeUpdates(int index) {
-        if (updatesBuilder_ == null) {
-          ensureUpdatesIsMutable();
-          updates_.remove(index);
+      public Builder removeInputSubscriptionIDs(int index) {
+        if (inputSubscriptionIDsBuilder_ == null) {
+          ensureInputSubscriptionIDsIsMutable();
+          inputSubscriptionIDs_.remove(index);
           onChanged();
         } else {
-          updatesBuilder_.remove(index);
+          inputSubscriptionIDsBuilder_.remove(index);
         }
         return this;
       }
-      public com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update.Builder getUpdatesBuilder(
+      public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.Builder getInputSubscriptionIDsBuilder(
           int index) {
-        return getUpdatesFieldBuilder().getBuilder(index);
+        return getInputSubscriptionIDsFieldBuilder().getBuilder(index);
       }
-      public com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_updateOrBuilder getUpdatesOrBuilder(
+      public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetailsOrBuilder getInputSubscriptionIDsOrBuilder(
           int index) {
-        if (updatesBuilder_ == null) {
-          return updates_.get(index);  } else {
-          return updatesBuilder_.getMessageOrBuilder(index);
+        if (inputSubscriptionIDsBuilder_ == null) {
+          return inputSubscriptionIDs_.get(index);  } else {
+          return inputSubscriptionIDsBuilder_.getMessageOrBuilder(index);
         }
       }
-      public java.util.List<? extends com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_updateOrBuilder> 
-           getUpdatesOrBuilderList() {
-        if (updatesBuilder_ != null) {
-          return updatesBuilder_.getMessageOrBuilderList();
+      public java.util.List<? extends com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetailsOrBuilder> 
+           getInputSubscriptionIDsOrBuilderList() {
+        if (inputSubscriptionIDsBuilder_ != null) {
+          return inputSubscriptionIDsBuilder_.getMessageOrBuilderList();
         } else {
-          return java.util.Collections.unmodifiableList(updates_);
+          return java.util.Collections.unmodifiableList(inputSubscriptionIDs_);
         }
       }
-      public com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update.Builder addUpdatesBuilder() {
-        return getUpdatesFieldBuilder().addBuilder(
-            com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update.getDefaultInstance());
+      public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.Builder addInputSubscriptionIDsBuilder() {
+        return getInputSubscriptionIDsFieldBuilder().addBuilder(
+            com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.getDefaultInstance());
       }
-      public com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update.Builder addUpdatesBuilder(
+      public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.Builder addInputSubscriptionIDsBuilder(
           int index) {
-        return getUpdatesFieldBuilder().addBuilder(
-            index, com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update.getDefaultInstance());
+        return getInputSubscriptionIDsFieldBuilder().addBuilder(
+            index, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.getDefaultInstance());
       }
-      public java.util.List<com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update.Builder> 
-           getUpdatesBuilderList() {
-        return getUpdatesFieldBuilder().getBuilderList();
+      public java.util.List<com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.Builder> 
+           getInputSubscriptionIDsBuilderList() {
+        return getInputSubscriptionIDsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilder<
-          com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update, com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update.Builder, com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_updateOrBuilder> 
-          getUpdatesFieldBuilder() {
-        if (updatesBuilder_ == null) {
-          updatesBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-              com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update, com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update.Builder, com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_updateOrBuilder>(
-                  updates_,
+          com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.Builder, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetailsOrBuilder> 
+          getInputSubscriptionIDsFieldBuilder() {
+        if (inputSubscriptionIDsBuilder_ == null) {
+          inputSubscriptionIDsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.Builder, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetailsOrBuilder>(
+                  inputSubscriptionIDs_,
                   ((bitField0_ & 0x00000001) == 0x00000001),
                   getParentForChildren(),
                   isClean());
-          updates_ = null;
+          inputSubscriptionIDs_ = null;
         }
-        return updatesBuilder_;
+        return inputSubscriptionIDsBuilder_;
       }
       
-      // @@protoc_insertion_point(builder_scope:Subscription_updates)
+      // repeated .SubscriptionsAvailable.ValueDetails outputSubscriptionIDs = 2;
+      private java.util.List<com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails> outputSubscriptionIDs_ =
+        java.util.Collections.emptyList();
+      private void ensureOutputSubscriptionIDsIsMutable() {
+        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+          outputSubscriptionIDs_ = new java.util.ArrayList<com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails>(outputSubscriptionIDs_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+      
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.Builder, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetailsOrBuilder> outputSubscriptionIDsBuilder_;
+      
+      public java.util.List<com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails> getOutputSubscriptionIDsList() {
+        if (outputSubscriptionIDsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(outputSubscriptionIDs_);
+        } else {
+          return outputSubscriptionIDsBuilder_.getMessageList();
+        }
+      }
+      public int getOutputSubscriptionIDsCount() {
+        if (outputSubscriptionIDsBuilder_ == null) {
+          return outputSubscriptionIDs_.size();
+        } else {
+          return outputSubscriptionIDsBuilder_.getCount();
+        }
+      }
+      public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails getOutputSubscriptionIDs(int index) {
+        if (outputSubscriptionIDsBuilder_ == null) {
+          return outputSubscriptionIDs_.get(index);
+        } else {
+          return outputSubscriptionIDsBuilder_.getMessage(index);
+        }
+      }
+      public Builder setOutputSubscriptionIDs(
+          int index, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails value) {
+        if (outputSubscriptionIDsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOutputSubscriptionIDsIsMutable();
+          outputSubscriptionIDs_.set(index, value);
+          onChanged();
+        } else {
+          outputSubscriptionIDsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      public Builder setOutputSubscriptionIDs(
+          int index, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.Builder builderForValue) {
+        if (outputSubscriptionIDsBuilder_ == null) {
+          ensureOutputSubscriptionIDsIsMutable();
+          outputSubscriptionIDs_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          outputSubscriptionIDsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addOutputSubscriptionIDs(com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails value) {
+        if (outputSubscriptionIDsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOutputSubscriptionIDsIsMutable();
+          outputSubscriptionIDs_.add(value);
+          onChanged();
+        } else {
+          outputSubscriptionIDsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      public Builder addOutputSubscriptionIDs(
+          int index, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails value) {
+        if (outputSubscriptionIDsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOutputSubscriptionIDsIsMutable();
+          outputSubscriptionIDs_.add(index, value);
+          onChanged();
+        } else {
+          outputSubscriptionIDsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      public Builder addOutputSubscriptionIDs(
+          com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.Builder builderForValue) {
+        if (outputSubscriptionIDsBuilder_ == null) {
+          ensureOutputSubscriptionIDsIsMutable();
+          outputSubscriptionIDs_.add(builderForValue.build());
+          onChanged();
+        } else {
+          outputSubscriptionIDsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addOutputSubscriptionIDs(
+          int index, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.Builder builderForValue) {
+        if (outputSubscriptionIDsBuilder_ == null) {
+          ensureOutputSubscriptionIDsIsMutable();
+          outputSubscriptionIDs_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          outputSubscriptionIDsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      public Builder addAllOutputSubscriptionIDs(
+          java.lang.Iterable<? extends com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails> values) {
+        if (outputSubscriptionIDsBuilder_ == null) {
+          ensureOutputSubscriptionIDsIsMutable();
+          super.addAll(values, outputSubscriptionIDs_);
+          onChanged();
+        } else {
+          outputSubscriptionIDsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      public Builder clearOutputSubscriptionIDs() {
+        if (outputSubscriptionIDsBuilder_ == null) {
+          outputSubscriptionIDs_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          outputSubscriptionIDsBuilder_.clear();
+        }
+        return this;
+      }
+      public Builder removeOutputSubscriptionIDs(int index) {
+        if (outputSubscriptionIDsBuilder_ == null) {
+          ensureOutputSubscriptionIDsIsMutable();
+          outputSubscriptionIDs_.remove(index);
+          onChanged();
+        } else {
+          outputSubscriptionIDsBuilder_.remove(index);
+        }
+        return this;
+      }
+      public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.Builder getOutputSubscriptionIDsBuilder(
+          int index) {
+        return getOutputSubscriptionIDsFieldBuilder().getBuilder(index);
+      }
+      public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetailsOrBuilder getOutputSubscriptionIDsOrBuilder(
+          int index) {
+        if (outputSubscriptionIDsBuilder_ == null) {
+          return outputSubscriptionIDs_.get(index);  } else {
+          return outputSubscriptionIDsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      public java.util.List<? extends com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetailsOrBuilder> 
+           getOutputSubscriptionIDsOrBuilderList() {
+        if (outputSubscriptionIDsBuilder_ != null) {
+          return outputSubscriptionIDsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(outputSubscriptionIDs_);
+        }
+      }
+      public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.Builder addOutputSubscriptionIDsBuilder() {
+        return getOutputSubscriptionIDsFieldBuilder().addBuilder(
+            com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.getDefaultInstance());
+      }
+      public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.Builder addOutputSubscriptionIDsBuilder(
+          int index) {
+        return getOutputSubscriptionIDsFieldBuilder().addBuilder(
+            index, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.getDefaultInstance());
+      }
+      public java.util.List<com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.Builder> 
+           getOutputSubscriptionIDsBuilderList() {
+        return getOutputSubscriptionIDsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.Builder, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetailsOrBuilder> 
+          getOutputSubscriptionIDsFieldBuilder() {
+        if (outputSubscriptionIDsBuilder_ == null) {
+          outputSubscriptionIDsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.Builder, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetailsOrBuilder>(
+                  outputSubscriptionIDs_,
+                  ((bitField0_ & 0x00000002) == 0x00000002),
+                  getParentForChildren(),
+                  isClean());
+          outputSubscriptionIDs_ = null;
+        }
+        return outputSubscriptionIDsBuilder_;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:SubscriptionsAvailable)
     }
     
     static {
-      defaultInstance = new Subscription_updates(true);
+      defaultInstance = new SubscriptionsAvailable(true);
       defaultInstance.initFields();
     }
     
-    // @@protoc_insertion_point(class_scope:Subscription_updates)
+    // @@protoc_insertion_point(class_scope:SubscriptionsAvailable)
   }
   
   public interface ISOrBuilder
@@ -1461,24 +1805,14 @@ public final class LSFN {
     boolean hasHandshake();
     com.wikispaces.lsfn.Shared.LSFN.IS.Handshake getHandshake();
     
-    // optional .IS.SHIP_ENV_command command = 17;
-    boolean hasCommand();
-    com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command getCommand();
-    com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_commandOrBuilder getCommandOrBuilder();
-    
-    // optional .IS.Subscribe subscribe = 18;
+    // optional .Subscribe subscribe = 17;
     boolean hasSubscribe();
-    com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe getSubscribe();
-    com.wikispaces.lsfn.Shared.LSFN.IS.SubscribeOrBuilder getSubscribeOrBuilder();
+    com.wikispaces.lsfn.Shared.LSFN.Subscribe getSubscribe();
+    com.wikispaces.lsfn.Shared.LSFN.SubscribeOrBuilder getSubscribeOrBuilder();
     
-    // optional .Subscription_updates input_updates = 19;
-    boolean hasInputUpdates();
-    com.wikispaces.lsfn.Shared.LSFN.Subscription_updates getInputUpdates();
-    com.wikispaces.lsfn.Shared.LSFN.Subscription_updatesOrBuilder getInputUpdatesOrBuilder();
-    
-    // optional bool available_subscriptions_list = 20;
-    boolean hasAvailableSubscriptionsList();
-    boolean getAvailableSubscriptionsList();
+    // optional string rcon = 18;
+    boolean hasRcon();
+    String getRcon();
   }
   public static final class IS extends
       com.google.protobuf.GeneratedMessage
@@ -1511,11 +1845,9 @@ public final class LSFN {
     public enum Handshake
         implements com.google.protobuf.ProtocolMessageEnum {
       HELLO(0, 0),
-      GOODBYE(1, 1),
       ;
       
       public static final int HELLO_VALUE = 0;
-      public static final int GOODBYE_VALUE = 1;
       
       
       public final int getNumber() { return value; }
@@ -1523,7 +1855,6 @@ public final class LSFN {
       public static Handshake valueOf(int value) {
         switch (value) {
           case 0: return HELLO;
-          case 1: return GOODBYE;
           default: return null;
         }
       }
@@ -1554,7 +1885,7 @@ public final class LSFN {
       }
       
       private static final Handshake[] VALUES = {
-        HELLO, GOODBYE, 
+        HELLO, 
       };
       
       public static Handshake valueOf(
@@ -1577,1078 +1908,6 @@ public final class LSFN {
       // @@protoc_insertion_point(enum_scope:IS.Handshake)
     }
     
-    public interface SHIP_ENV_commandOrBuilder
-        extends com.google.protobuf.MessageOrBuilder {
-      
-      // required .IS.SHIP_ENV_command.Type type = 1;
-      boolean hasType();
-      com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.Type getType();
-      
-      // optional string host = 2;
-      boolean hasHost();
-      String getHost();
-      
-      // optional int32 port = 3;
-      boolean hasPort();
-      int getPort();
-    }
-    public static final class SHIP_ENV_command extends
-        com.google.protobuf.GeneratedMessage
-        implements SHIP_ENV_commandOrBuilder {
-      // Use SHIP_ENV_command.newBuilder() to construct.
-      private SHIP_ENV_command(Builder builder) {
-        super(builder);
-      }
-      private SHIP_ENV_command(boolean noInit) {}
-      
-      private static final SHIP_ENV_command defaultInstance;
-      public static SHIP_ENV_command getDefaultInstance() {
-        return defaultInstance;
-      }
-      
-      public SHIP_ENV_command getDefaultInstanceForType() {
-        return defaultInstance;
-      }
-      
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.wikispaces.lsfn.Shared.LSFN.internal_static_IS_SHIP_ENV_command_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.wikispaces.lsfn.Shared.LSFN.internal_static_IS_SHIP_ENV_command_fieldAccessorTable;
-      }
-      
-      public enum Type
-          implements com.google.protobuf.ProtocolMessageEnum {
-        CONNECT(0, 0),
-        DISCONNECT(1, 1),
-        RECONNECT(2, 2),
-        ;
-        
-        public static final int CONNECT_VALUE = 0;
-        public static final int DISCONNECT_VALUE = 1;
-        public static final int RECONNECT_VALUE = 2;
-        
-        
-        public final int getNumber() { return value; }
-        
-        public static Type valueOf(int value) {
-          switch (value) {
-            case 0: return CONNECT;
-            case 1: return DISCONNECT;
-            case 2: return RECONNECT;
-            default: return null;
-          }
-        }
-        
-        public static com.google.protobuf.Internal.EnumLiteMap<Type>
-            internalGetValueMap() {
-          return internalValueMap;
-        }
-        private static com.google.protobuf.Internal.EnumLiteMap<Type>
-            internalValueMap =
-              new com.google.protobuf.Internal.EnumLiteMap<Type>() {
-                public Type findValueByNumber(int number) {
-                  return Type.valueOf(number);
-                }
-              };
-        
-        public final com.google.protobuf.Descriptors.EnumValueDescriptor
-            getValueDescriptor() {
-          return getDescriptor().getValues().get(index);
-        }
-        public final com.google.protobuf.Descriptors.EnumDescriptor
-            getDescriptorForType() {
-          return getDescriptor();
-        }
-        public static final com.google.protobuf.Descriptors.EnumDescriptor
-            getDescriptor() {
-          return com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.getDescriptor().getEnumTypes().get(0);
-        }
-        
-        private static final Type[] VALUES = {
-          CONNECT, DISCONNECT, RECONNECT, 
-        };
-        
-        public static Type valueOf(
-            com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-          if (desc.getType() != getDescriptor()) {
-            throw new java.lang.IllegalArgumentException(
-              "EnumValueDescriptor is not for this type.");
-          }
-          return VALUES[desc.getIndex()];
-        }
-        
-        private final int index;
-        private final int value;
-        
-        private Type(int index, int value) {
-          this.index = index;
-          this.value = value;
-        }
-        
-        // @@protoc_insertion_point(enum_scope:IS.SHIP_ENV_command.Type)
-      }
-      
-      private int bitField0_;
-      // required .IS.SHIP_ENV_command.Type type = 1;
-      public static final int TYPE_FIELD_NUMBER = 1;
-      private com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.Type type_;
-      public boolean hasType() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      public com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.Type getType() {
-        return type_;
-      }
-      
-      // optional string host = 2;
-      public static final int HOST_FIELD_NUMBER = 2;
-      private java.lang.Object host_;
-      public boolean hasHost() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      public String getHost() {
-        java.lang.Object ref = host_;
-        if (ref instanceof String) {
-          return (String) ref;
-        } else {
-          com.google.protobuf.ByteString bs = 
-              (com.google.protobuf.ByteString) ref;
-          String s = bs.toStringUtf8();
-          if (com.google.protobuf.Internal.isValidUtf8(bs)) {
-            host_ = s;
-          }
-          return s;
-        }
-      }
-      private com.google.protobuf.ByteString getHostBytes() {
-        java.lang.Object ref = host_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8((String) ref);
-          host_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      
-      // optional int32 port = 3;
-      public static final int PORT_FIELD_NUMBER = 3;
-      private int port_;
-      public boolean hasPort() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
-      }
-      public int getPort() {
-        return port_;
-      }
-      
-      private void initFields() {
-        type_ = com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.Type.CONNECT;
-        host_ = "";
-        port_ = 0;
-      }
-      private byte memoizedIsInitialized = -1;
-      public final boolean isInitialized() {
-        byte isInitialized = memoizedIsInitialized;
-        if (isInitialized != -1) return isInitialized == 1;
-        
-        if (!hasType()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        memoizedIsInitialized = 1;
-        return true;
-      }
-      
-      public void writeTo(com.google.protobuf.CodedOutputStream output)
-                          throws java.io.IOException {
-        getSerializedSize();
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          output.writeEnum(1, type_.getNumber());
-        }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          output.writeBytes(2, getHostBytes());
-        }
-        if (((bitField0_ & 0x00000004) == 0x00000004)) {
-          output.writeInt32(3, port_);
-        }
-        getUnknownFields().writeTo(output);
-      }
-      
-      private int memoizedSerializedSize = -1;
-      public int getSerializedSize() {
-        int size = memoizedSerializedSize;
-        if (size != -1) return size;
-      
-        size = 0;
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeEnumSize(1, type_.getNumber());
-        }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeBytesSize(2, getHostBytes());
-        }
-        if (((bitField0_ & 0x00000004) == 0x00000004)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(3, port_);
-        }
-        size += getUnknownFields().getSerializedSize();
-        memoizedSerializedSize = size;
-        return size;
-      }
-      
-      private static final long serialVersionUID = 0L;
-      @java.lang.Override
-      protected java.lang.Object writeReplace()
-          throws java.io.ObjectStreamException {
-        return super.writeReplace();
-      }
-      
-      public static com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command parseFrom(
-          com.google.protobuf.ByteString data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command parseFrom(
-          com.google.protobuf.ByteString data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command parseFrom(byte[] data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command parseFrom(
-          byte[] data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command parseFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command parseFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command parseDelimitedFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command parseDelimitedFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command parseFrom(
-          com.google.protobuf.CodedInputStream input)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command parseFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
-      }
-      
-      public static Builder newBuilder() { return Builder.create(); }
-      public Builder newBuilderForType() { return newBuilder(); }
-      public static Builder newBuilder(com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command prototype) {
-        return newBuilder().mergeFrom(prototype);
-      }
-      public Builder toBuilder() { return newBuilder(this); }
-      
-      @java.lang.Override
-      protected Builder newBuilderForType(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        Builder builder = new Builder(parent);
-        return builder;
-      }
-      public static final class Builder extends
-          com.google.protobuf.GeneratedMessage.Builder<Builder>
-         implements com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_commandOrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return com.wikispaces.lsfn.Shared.LSFN.internal_static_IS_SHIP_ENV_command_descriptor;
-        }
-        
-        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return com.wikispaces.lsfn.Shared.LSFN.internal_static_IS_SHIP_ENV_command_fieldAccessorTable;
-        }
-        
-        // Construct using com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.newBuilder()
-        private Builder() {
-          maybeForceBuilderInitialization();
-        }
-        
-        private Builder(BuilderParent parent) {
-          super(parent);
-          maybeForceBuilderInitialization();
-        }
-        private void maybeForceBuilderInitialization() {
-          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          }
-        }
-        private static Builder create() {
-          return new Builder();
-        }
-        
-        public Builder clear() {
-          super.clear();
-          type_ = com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.Type.CONNECT;
-          bitField0_ = (bitField0_ & ~0x00000001);
-          host_ = "";
-          bitField0_ = (bitField0_ & ~0x00000002);
-          port_ = 0;
-          bitField0_ = (bitField0_ & ~0x00000004);
-          return this;
-        }
-        
-        public Builder clone() {
-          return create().mergeFrom(buildPartial());
-        }
-        
-        public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-          return com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.getDescriptor();
-        }
-        
-        public com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command getDefaultInstanceForType() {
-          return com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.getDefaultInstance();
-        }
-        
-        public com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command build() {
-          com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(result);
-          }
-          return result;
-        }
-        
-        private com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command buildParsed()
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(
-              result).asInvalidProtocolBufferException();
-          }
-          return result;
-        }
-        
-        public com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command buildPartial() {
-          com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command result = new com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command(this);
-          int from_bitField0_ = bitField0_;
-          int to_bitField0_ = 0;
-          if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-            to_bitField0_ |= 0x00000001;
-          }
-          result.type_ = type_;
-          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-            to_bitField0_ |= 0x00000002;
-          }
-          result.host_ = host_;
-          if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-            to_bitField0_ |= 0x00000004;
-          }
-          result.port_ = port_;
-          result.bitField0_ = to_bitField0_;
-          onBuilt();
-          return result;
-        }
-        
-        public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command) {
-            return mergeFrom((com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command)other);
-          } else {
-            super.mergeFrom(other);
-            return this;
-          }
-        }
-        
-        public Builder mergeFrom(com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command other) {
-          if (other == com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.getDefaultInstance()) return this;
-          if (other.hasType()) {
-            setType(other.getType());
-          }
-          if (other.hasHost()) {
-            setHost(other.getHost());
-          }
-          if (other.hasPort()) {
-            setPort(other.getPort());
-          }
-          this.mergeUnknownFields(other.getUnknownFields());
-          return this;
-        }
-        
-        public final boolean isInitialized() {
-          if (!hasType()) {
-            
-            return false;
-          }
-          return true;
-        }
-        
-        public Builder mergeFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-            com.google.protobuf.UnknownFieldSet.newBuilder(
-              this.getUnknownFields());
-          while (true) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              default: {
-                if (!parseUnknownField(input, unknownFields,
-                                       extensionRegistry, tag)) {
-                  this.setUnknownFields(unknownFields.build());
-                  onChanged();
-                  return this;
-                }
-                break;
-              }
-              case 8: {
-                int rawValue = input.readEnum();
-                com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.Type value = com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.Type.valueOf(rawValue);
-                if (value == null) {
-                  unknownFields.mergeVarintField(1, rawValue);
-                } else {
-                  bitField0_ |= 0x00000001;
-                  type_ = value;
-                }
-                break;
-              }
-              case 18: {
-                bitField0_ |= 0x00000002;
-                host_ = input.readBytes();
-                break;
-              }
-              case 24: {
-                bitField0_ |= 0x00000004;
-                port_ = input.readInt32();
-                break;
-              }
-            }
-          }
-        }
-        
-        private int bitField0_;
-        
-        // required .IS.SHIP_ENV_command.Type type = 1;
-        private com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.Type type_ = com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.Type.CONNECT;
-        public boolean hasType() {
-          return ((bitField0_ & 0x00000001) == 0x00000001);
-        }
-        public com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.Type getType() {
-          return type_;
-        }
-        public Builder setType(com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.Type value) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          bitField0_ |= 0x00000001;
-          type_ = value;
-          onChanged();
-          return this;
-        }
-        public Builder clearType() {
-          bitField0_ = (bitField0_ & ~0x00000001);
-          type_ = com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.Type.CONNECT;
-          onChanged();
-          return this;
-        }
-        
-        // optional string host = 2;
-        private java.lang.Object host_ = "";
-        public boolean hasHost() {
-          return ((bitField0_ & 0x00000002) == 0x00000002);
-        }
-        public String getHost() {
-          java.lang.Object ref = host_;
-          if (!(ref instanceof String)) {
-            String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
-            host_ = s;
-            return s;
-          } else {
-            return (String) ref;
-          }
-        }
-        public Builder setHost(String value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-          host_ = value;
-          onChanged();
-          return this;
-        }
-        public Builder clearHost() {
-          bitField0_ = (bitField0_ & ~0x00000002);
-          host_ = getDefaultInstance().getHost();
-          onChanged();
-          return this;
-        }
-        void setHost(com.google.protobuf.ByteString value) {
-          bitField0_ |= 0x00000002;
-          host_ = value;
-          onChanged();
-        }
-        
-        // optional int32 port = 3;
-        private int port_ ;
-        public boolean hasPort() {
-          return ((bitField0_ & 0x00000004) == 0x00000004);
-        }
-        public int getPort() {
-          return port_;
-        }
-        public Builder setPort(int value) {
-          bitField0_ |= 0x00000004;
-          port_ = value;
-          onChanged();
-          return this;
-        }
-        public Builder clearPort() {
-          bitField0_ = (bitField0_ & ~0x00000004);
-          port_ = 0;
-          onChanged();
-          return this;
-        }
-        
-        // @@protoc_insertion_point(builder_scope:IS.SHIP_ENV_command)
-      }
-      
-      static {
-        defaultInstance = new SHIP_ENV_command(true);
-        defaultInstance.initFields();
-      }
-      
-      // @@protoc_insertion_point(class_scope:IS.SHIP_ENV_command)
-    }
-    
-    public interface SubscribeOrBuilder
-        extends com.google.protobuf.MessageOrBuilder {
-      
-      // repeated int32 output_IDs = 1;
-      java.util.List<java.lang.Integer> getOutputIDsList();
-      int getOutputIDsCount();
-      int getOutputIDs(int index);
-      
-      // repeated int32 input_IDs = 2;
-      java.util.List<java.lang.Integer> getInputIDsList();
-      int getInputIDsCount();
-      int getInputIDs(int index);
-    }
-    public static final class Subscribe extends
-        com.google.protobuf.GeneratedMessage
-        implements SubscribeOrBuilder {
-      // Use Subscribe.newBuilder() to construct.
-      private Subscribe(Builder builder) {
-        super(builder);
-      }
-      private Subscribe(boolean noInit) {}
-      
-      private static final Subscribe defaultInstance;
-      public static Subscribe getDefaultInstance() {
-        return defaultInstance;
-      }
-      
-      public Subscribe getDefaultInstanceForType() {
-        return defaultInstance;
-      }
-      
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.wikispaces.lsfn.Shared.LSFN.internal_static_IS_Subscribe_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.wikispaces.lsfn.Shared.LSFN.internal_static_IS_Subscribe_fieldAccessorTable;
-      }
-      
-      // repeated int32 output_IDs = 1;
-      public static final int OUTPUT_IDS_FIELD_NUMBER = 1;
-      private java.util.List<java.lang.Integer> outputIDs_;
-      public java.util.List<java.lang.Integer>
-          getOutputIDsList() {
-        return outputIDs_;
-      }
-      public int getOutputIDsCount() {
-        return outputIDs_.size();
-      }
-      public int getOutputIDs(int index) {
-        return outputIDs_.get(index);
-      }
-      
-      // repeated int32 input_IDs = 2;
-      public static final int INPUT_IDS_FIELD_NUMBER = 2;
-      private java.util.List<java.lang.Integer> inputIDs_;
-      public java.util.List<java.lang.Integer>
-          getInputIDsList() {
-        return inputIDs_;
-      }
-      public int getInputIDsCount() {
-        return inputIDs_.size();
-      }
-      public int getInputIDs(int index) {
-        return inputIDs_.get(index);
-      }
-      
-      private void initFields() {
-        outputIDs_ = java.util.Collections.emptyList();;
-        inputIDs_ = java.util.Collections.emptyList();;
-      }
-      private byte memoizedIsInitialized = -1;
-      public final boolean isInitialized() {
-        byte isInitialized = memoizedIsInitialized;
-        if (isInitialized != -1) return isInitialized == 1;
-        
-        memoizedIsInitialized = 1;
-        return true;
-      }
-      
-      public void writeTo(com.google.protobuf.CodedOutputStream output)
-                          throws java.io.IOException {
-        getSerializedSize();
-        for (int i = 0; i < outputIDs_.size(); i++) {
-          output.writeInt32(1, outputIDs_.get(i));
-        }
-        for (int i = 0; i < inputIDs_.size(); i++) {
-          output.writeInt32(2, inputIDs_.get(i));
-        }
-        getUnknownFields().writeTo(output);
-      }
-      
-      private int memoizedSerializedSize = -1;
-      public int getSerializedSize() {
-        int size = memoizedSerializedSize;
-        if (size != -1) return size;
-      
-        size = 0;
-        {
-          int dataSize = 0;
-          for (int i = 0; i < outputIDs_.size(); i++) {
-            dataSize += com.google.protobuf.CodedOutputStream
-              .computeInt32SizeNoTag(outputIDs_.get(i));
-          }
-          size += dataSize;
-          size += 1 * getOutputIDsList().size();
-        }
-        {
-          int dataSize = 0;
-          for (int i = 0; i < inputIDs_.size(); i++) {
-            dataSize += com.google.protobuf.CodedOutputStream
-              .computeInt32SizeNoTag(inputIDs_.get(i));
-          }
-          size += dataSize;
-          size += 1 * getInputIDsList().size();
-        }
-        size += getUnknownFields().getSerializedSize();
-        memoizedSerializedSize = size;
-        return size;
-      }
-      
-      private static final long serialVersionUID = 0L;
-      @java.lang.Override
-      protected java.lang.Object writeReplace()
-          throws java.io.ObjectStreamException {
-        return super.writeReplace();
-      }
-      
-      public static com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe parseFrom(
-          com.google.protobuf.ByteString data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe parseFrom(
-          com.google.protobuf.ByteString data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe parseFrom(byte[] data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe parseFrom(
-          byte[] data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe parseFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe parseFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe parseDelimitedFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe parseDelimitedFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe parseFrom(
-          com.google.protobuf.CodedInputStream input)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe parseFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
-      }
-      
-      public static Builder newBuilder() { return Builder.create(); }
-      public Builder newBuilderForType() { return newBuilder(); }
-      public static Builder newBuilder(com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe prototype) {
-        return newBuilder().mergeFrom(prototype);
-      }
-      public Builder toBuilder() { return newBuilder(this); }
-      
-      @java.lang.Override
-      protected Builder newBuilderForType(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        Builder builder = new Builder(parent);
-        return builder;
-      }
-      public static final class Builder extends
-          com.google.protobuf.GeneratedMessage.Builder<Builder>
-         implements com.wikispaces.lsfn.Shared.LSFN.IS.SubscribeOrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return com.wikispaces.lsfn.Shared.LSFN.internal_static_IS_Subscribe_descriptor;
-        }
-        
-        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return com.wikispaces.lsfn.Shared.LSFN.internal_static_IS_Subscribe_fieldAccessorTable;
-        }
-        
-        // Construct using com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe.newBuilder()
-        private Builder() {
-          maybeForceBuilderInitialization();
-        }
-        
-        private Builder(BuilderParent parent) {
-          super(parent);
-          maybeForceBuilderInitialization();
-        }
-        private void maybeForceBuilderInitialization() {
-          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          }
-        }
-        private static Builder create() {
-          return new Builder();
-        }
-        
-        public Builder clear() {
-          super.clear();
-          outputIDs_ = java.util.Collections.emptyList();;
-          bitField0_ = (bitField0_ & ~0x00000001);
-          inputIDs_ = java.util.Collections.emptyList();;
-          bitField0_ = (bitField0_ & ~0x00000002);
-          return this;
-        }
-        
-        public Builder clone() {
-          return create().mergeFrom(buildPartial());
-        }
-        
-        public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-          return com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe.getDescriptor();
-        }
-        
-        public com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe getDefaultInstanceForType() {
-          return com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe.getDefaultInstance();
-        }
-        
-        public com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe build() {
-          com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(result);
-          }
-          return result;
-        }
-        
-        private com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe buildParsed()
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(
-              result).asInvalidProtocolBufferException();
-          }
-          return result;
-        }
-        
-        public com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe buildPartial() {
-          com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe result = new com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe(this);
-          int from_bitField0_ = bitField0_;
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
-            outputIDs_ = java.util.Collections.unmodifiableList(outputIDs_);
-            bitField0_ = (bitField0_ & ~0x00000001);
-          }
-          result.outputIDs_ = outputIDs_;
-          if (((bitField0_ & 0x00000002) == 0x00000002)) {
-            inputIDs_ = java.util.Collections.unmodifiableList(inputIDs_);
-            bitField0_ = (bitField0_ & ~0x00000002);
-          }
-          result.inputIDs_ = inputIDs_;
-          onBuilt();
-          return result;
-        }
-        
-        public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe) {
-            return mergeFrom((com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe)other);
-          } else {
-            super.mergeFrom(other);
-            return this;
-          }
-        }
-        
-        public Builder mergeFrom(com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe other) {
-          if (other == com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe.getDefaultInstance()) return this;
-          if (!other.outputIDs_.isEmpty()) {
-            if (outputIDs_.isEmpty()) {
-              outputIDs_ = other.outputIDs_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-            } else {
-              ensureOutputIDsIsMutable();
-              outputIDs_.addAll(other.outputIDs_);
-            }
-            onChanged();
-          }
-          if (!other.inputIDs_.isEmpty()) {
-            if (inputIDs_.isEmpty()) {
-              inputIDs_ = other.inputIDs_;
-              bitField0_ = (bitField0_ & ~0x00000002);
-            } else {
-              ensureInputIDsIsMutable();
-              inputIDs_.addAll(other.inputIDs_);
-            }
-            onChanged();
-          }
-          this.mergeUnknownFields(other.getUnknownFields());
-          return this;
-        }
-        
-        public final boolean isInitialized() {
-          return true;
-        }
-        
-        public Builder mergeFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-            com.google.protobuf.UnknownFieldSet.newBuilder(
-              this.getUnknownFields());
-          while (true) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              default: {
-                if (!parseUnknownField(input, unknownFields,
-                                       extensionRegistry, tag)) {
-                  this.setUnknownFields(unknownFields.build());
-                  onChanged();
-                  return this;
-                }
-                break;
-              }
-              case 8: {
-                ensureOutputIDsIsMutable();
-                outputIDs_.add(input.readInt32());
-                break;
-              }
-              case 10: {
-                int length = input.readRawVarint32();
-                int limit = input.pushLimit(length);
-                while (input.getBytesUntilLimit() > 0) {
-                  addOutputIDs(input.readInt32());
-                }
-                input.popLimit(limit);
-                break;
-              }
-              case 16: {
-                ensureInputIDsIsMutable();
-                inputIDs_.add(input.readInt32());
-                break;
-              }
-              case 18: {
-                int length = input.readRawVarint32();
-                int limit = input.pushLimit(length);
-                while (input.getBytesUntilLimit() > 0) {
-                  addInputIDs(input.readInt32());
-                }
-                input.popLimit(limit);
-                break;
-              }
-            }
-          }
-        }
-        
-        private int bitField0_;
-        
-        // repeated int32 output_IDs = 1;
-        private java.util.List<java.lang.Integer> outputIDs_ = java.util.Collections.emptyList();;
-        private void ensureOutputIDsIsMutable() {
-          if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-            outputIDs_ = new java.util.ArrayList<java.lang.Integer>(outputIDs_);
-            bitField0_ |= 0x00000001;
-           }
-        }
-        public java.util.List<java.lang.Integer>
-            getOutputIDsList() {
-          return java.util.Collections.unmodifiableList(outputIDs_);
-        }
-        public int getOutputIDsCount() {
-          return outputIDs_.size();
-        }
-        public int getOutputIDs(int index) {
-          return outputIDs_.get(index);
-        }
-        public Builder setOutputIDs(
-            int index, int value) {
-          ensureOutputIDsIsMutable();
-          outputIDs_.set(index, value);
-          onChanged();
-          return this;
-        }
-        public Builder addOutputIDs(int value) {
-          ensureOutputIDsIsMutable();
-          outputIDs_.add(value);
-          onChanged();
-          return this;
-        }
-        public Builder addAllOutputIDs(
-            java.lang.Iterable<? extends java.lang.Integer> values) {
-          ensureOutputIDsIsMutable();
-          super.addAll(values, outputIDs_);
-          onChanged();
-          return this;
-        }
-        public Builder clearOutputIDs() {
-          outputIDs_ = java.util.Collections.emptyList();;
-          bitField0_ = (bitField0_ & ~0x00000001);
-          onChanged();
-          return this;
-        }
-        
-        // repeated int32 input_IDs = 2;
-        private java.util.List<java.lang.Integer> inputIDs_ = java.util.Collections.emptyList();;
-        private void ensureInputIDsIsMutable() {
-          if (!((bitField0_ & 0x00000002) == 0x00000002)) {
-            inputIDs_ = new java.util.ArrayList<java.lang.Integer>(inputIDs_);
-            bitField0_ |= 0x00000002;
-           }
-        }
-        public java.util.List<java.lang.Integer>
-            getInputIDsList() {
-          return java.util.Collections.unmodifiableList(inputIDs_);
-        }
-        public int getInputIDsCount() {
-          return inputIDs_.size();
-        }
-        public int getInputIDs(int index) {
-          return inputIDs_.get(index);
-        }
-        public Builder setInputIDs(
-            int index, int value) {
-          ensureInputIDsIsMutable();
-          inputIDs_.set(index, value);
-          onChanged();
-          return this;
-        }
-        public Builder addInputIDs(int value) {
-          ensureInputIDsIsMutable();
-          inputIDs_.add(value);
-          onChanged();
-          return this;
-        }
-        public Builder addAllInputIDs(
-            java.lang.Iterable<? extends java.lang.Integer> values) {
-          ensureInputIDsIsMutable();
-          super.addAll(values, inputIDs_);
-          onChanged();
-          return this;
-        }
-        public Builder clearInputIDs() {
-          inputIDs_ = java.util.Collections.emptyList();;
-          bitField0_ = (bitField0_ & ~0x00000002);
-          onChanged();
-          return this;
-        }
-        
-        // @@protoc_insertion_point(builder_scope:IS.Subscribe)
-      }
-      
-      static {
-        defaultInstance = new Subscribe(true);
-        defaultInstance.initFields();
-      }
-      
-      // @@protoc_insertion_point(class_scope:IS.Subscribe)
-    }
-    
     private int bitField0_;
     // optional .IS.Handshake handshake = 16;
     public static final int HANDSHAKE_FIELD_NUMBER = 16;
@@ -2660,79 +1919,61 @@ public final class LSFN {
       return handshake_;
     }
     
-    // optional .IS.SHIP_ENV_command command = 17;
-    public static final int COMMAND_FIELD_NUMBER = 17;
-    private com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command command_;
-    public boolean hasCommand() {
+    // optional .Subscribe subscribe = 17;
+    public static final int SUBSCRIBE_FIELD_NUMBER = 17;
+    private com.wikispaces.lsfn.Shared.LSFN.Subscribe subscribe_;
+    public boolean hasSubscribe() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    public com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command getCommand() {
-      return command_;
+    public com.wikispaces.lsfn.Shared.LSFN.Subscribe getSubscribe() {
+      return subscribe_;
     }
-    public com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_commandOrBuilder getCommandOrBuilder() {
-      return command_;
+    public com.wikispaces.lsfn.Shared.LSFN.SubscribeOrBuilder getSubscribeOrBuilder() {
+      return subscribe_;
     }
     
-    // optional .IS.Subscribe subscribe = 18;
-    public static final int SUBSCRIBE_FIELD_NUMBER = 18;
-    private com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe subscribe_;
-    public boolean hasSubscribe() {
+    // optional string rcon = 18;
+    public static final int RCON_FIELD_NUMBER = 18;
+    private java.lang.Object rcon_;
+    public boolean hasRcon() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
-    public com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe getSubscribe() {
-      return subscribe_;
+    public String getRcon() {
+      java.lang.Object ref = rcon_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          rcon_ = s;
+        }
+        return s;
+      }
     }
-    public com.wikispaces.lsfn.Shared.LSFN.IS.SubscribeOrBuilder getSubscribeOrBuilder() {
-      return subscribe_;
-    }
-    
-    // optional .Subscription_updates input_updates = 19;
-    public static final int INPUT_UPDATES_FIELD_NUMBER = 19;
-    private com.wikispaces.lsfn.Shared.LSFN.Subscription_updates inputUpdates_;
-    public boolean hasInputUpdates() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
-    }
-    public com.wikispaces.lsfn.Shared.LSFN.Subscription_updates getInputUpdates() {
-      return inputUpdates_;
-    }
-    public com.wikispaces.lsfn.Shared.LSFN.Subscription_updatesOrBuilder getInputUpdatesOrBuilder() {
-      return inputUpdates_;
-    }
-    
-    // optional bool available_subscriptions_list = 20;
-    public static final int AVAILABLE_SUBSCRIPTIONS_LIST_FIELD_NUMBER = 20;
-    private boolean availableSubscriptionsList_;
-    public boolean hasAvailableSubscriptionsList() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
-    }
-    public boolean getAvailableSubscriptionsList() {
-      return availableSubscriptionsList_;
+    private com.google.protobuf.ByteString getRconBytes() {
+      java.lang.Object ref = rcon_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        rcon_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
     
     private void initFields() {
       handshake_ = com.wikispaces.lsfn.Shared.LSFN.IS.Handshake.HELLO;
-      command_ = com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.getDefaultInstance();
-      subscribe_ = com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe.getDefaultInstance();
-      inputUpdates_ = com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.getDefaultInstance();
-      availableSubscriptionsList_ = false;
+      subscribe_ = com.wikispaces.lsfn.Shared.LSFN.Subscribe.getDefaultInstance();
+      rcon_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (hasCommand()) {
-        if (!getCommand().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      if (hasInputUpdates()) {
-        if (!getInputUpdates().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -2744,16 +1985,10 @@ public final class LSFN {
         output.writeEnum(16, handshake_.getNumber());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeMessage(17, command_);
+        output.writeMessage(17, subscribe_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeMessage(18, subscribe_);
-      }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeMessage(19, inputUpdates_);
-      }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeBool(20, availableSubscriptionsList_);
+        output.writeBytes(18, getRconBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -2770,19 +2005,11 @@ public final class LSFN {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(17, command_);
+          .computeMessageSize(17, subscribe_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(18, subscribe_);
-      }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(19, inputUpdates_);
-      }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(20, availableSubscriptionsList_);
+          .computeBytesSize(18, getRconBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -2900,9 +2127,7 @@ public final class LSFN {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getCommandFieldBuilder();
           getSubscribeFieldBuilder();
-          getInputUpdatesFieldBuilder();
         }
       }
       private static Builder create() {
@@ -2913,26 +2138,14 @@ public final class LSFN {
         super.clear();
         handshake_ = com.wikispaces.lsfn.Shared.LSFN.IS.Handshake.HELLO;
         bitField0_ = (bitField0_ & ~0x00000001);
-        if (commandBuilder_ == null) {
-          command_ = com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.getDefaultInstance();
-        } else {
-          commandBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000002);
         if (subscribeBuilder_ == null) {
-          subscribe_ = com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe.getDefaultInstance();
+          subscribe_ = com.wikispaces.lsfn.Shared.LSFN.Subscribe.getDefaultInstance();
         } else {
           subscribeBuilder_.clear();
         }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        rcon_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
-        if (inputUpdatesBuilder_ == null) {
-          inputUpdates_ = com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.getDefaultInstance();
-        } else {
-          inputUpdatesBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000008);
-        availableSubscriptionsList_ = false;
-        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
       
@@ -2978,31 +2191,15 @@ public final class LSFN {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        if (commandBuilder_ == null) {
-          result.command_ = command_;
-        } else {
-          result.command_ = commandBuilder_.build();
-        }
-        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-          to_bitField0_ |= 0x00000004;
-        }
         if (subscribeBuilder_ == null) {
           result.subscribe_ = subscribe_;
         } else {
           result.subscribe_ = subscribeBuilder_.build();
         }
-        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
-          to_bitField0_ |= 0x00000008;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
         }
-        if (inputUpdatesBuilder_ == null) {
-          result.inputUpdates_ = inputUpdates_;
-        } else {
-          result.inputUpdates_ = inputUpdatesBuilder_.build();
-        }
-        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
-          to_bitField0_ |= 0x00000010;
-        }
-        result.availableSubscriptionsList_ = availableSubscriptionsList_;
+        result.rcon_ = rcon_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -3022,35 +2219,17 @@ public final class LSFN {
         if (other.hasHandshake()) {
           setHandshake(other.getHandshake());
         }
-        if (other.hasCommand()) {
-          mergeCommand(other.getCommand());
-        }
         if (other.hasSubscribe()) {
           mergeSubscribe(other.getSubscribe());
         }
-        if (other.hasInputUpdates()) {
-          mergeInputUpdates(other.getInputUpdates());
-        }
-        if (other.hasAvailableSubscriptionsList()) {
-          setAvailableSubscriptionsList(other.getAvailableSubscriptionsList());
+        if (other.hasRcon()) {
+          setRcon(other.getRcon());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
       
       public final boolean isInitialized() {
-        if (hasCommand()) {
-          if (!getCommand().isInitialized()) {
-            
-            return false;
-          }
-        }
-        if (hasInputUpdates()) {
-          if (!getInputUpdates().isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
       
@@ -3089,16 +2268,7 @@ public final class LSFN {
               break;
             }
             case 138: {
-              com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.Builder subBuilder = com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.newBuilder();
-              if (hasCommand()) {
-                subBuilder.mergeFrom(getCommand());
-              }
-              input.readMessage(subBuilder, extensionRegistry);
-              setCommand(subBuilder.buildPartial());
-              break;
-            }
-            case 146: {
-              com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe.Builder subBuilder = com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe.newBuilder();
+              com.wikispaces.lsfn.Shared.LSFN.Subscribe.Builder subBuilder = com.wikispaces.lsfn.Shared.LSFN.Subscribe.newBuilder();
               if (hasSubscribe()) {
                 subBuilder.mergeFrom(getSubscribe());
               }
@@ -3106,18 +2276,9 @@ public final class LSFN {
               setSubscribe(subBuilder.buildPartial());
               break;
             }
-            case 154: {
-              com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Builder subBuilder = com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.newBuilder();
-              if (hasInputUpdates()) {
-                subBuilder.mergeFrom(getInputUpdates());
-              }
-              input.readMessage(subBuilder, extensionRegistry);
-              setInputUpdates(subBuilder.buildPartial());
-              break;
-            }
-            case 160: {
-              bitField0_ |= 0x00000010;
-              availableSubscriptionsList_ = input.readBool();
+            case 146: {
+              bitField0_ |= 0x00000004;
+              rcon_ = input.readBytes();
               break;
             }
           }
@@ -3150,111 +2311,21 @@ public final class LSFN {
         return this;
       }
       
-      // optional .IS.SHIP_ENV_command command = 17;
-      private com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command command_ = com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.getDefaultInstance();
+      // optional .Subscribe subscribe = 17;
+      private com.wikispaces.lsfn.Shared.LSFN.Subscribe subscribe_ = com.wikispaces.lsfn.Shared.LSFN.Subscribe.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
-          com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command, com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.Builder, com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_commandOrBuilder> commandBuilder_;
-      public boolean hasCommand() {
+          com.wikispaces.lsfn.Shared.LSFN.Subscribe, com.wikispaces.lsfn.Shared.LSFN.Subscribe.Builder, com.wikispaces.lsfn.Shared.LSFN.SubscribeOrBuilder> subscribeBuilder_;
+      public boolean hasSubscribe() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command getCommand() {
-        if (commandBuilder_ == null) {
-          return command_;
-        } else {
-          return commandBuilder_.getMessage();
-        }
-      }
-      public Builder setCommand(com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command value) {
-        if (commandBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          command_ = value;
-          onChanged();
-        } else {
-          commandBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000002;
-        return this;
-      }
-      public Builder setCommand(
-          com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.Builder builderForValue) {
-        if (commandBuilder_ == null) {
-          command_ = builderForValue.build();
-          onChanged();
-        } else {
-          commandBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000002;
-        return this;
-      }
-      public Builder mergeCommand(com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command value) {
-        if (commandBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) == 0x00000002) &&
-              command_ != com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.getDefaultInstance()) {
-            command_ =
-              com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.newBuilder(command_).mergeFrom(value).buildPartial();
-          } else {
-            command_ = value;
-          }
-          onChanged();
-        } else {
-          commandBuilder_.mergeFrom(value);
-        }
-        bitField0_ |= 0x00000002;
-        return this;
-      }
-      public Builder clearCommand() {
-        if (commandBuilder_ == null) {
-          command_ = com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.getDefaultInstance();
-          onChanged();
-        } else {
-          commandBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000002);
-        return this;
-      }
-      public com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.Builder getCommandBuilder() {
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return getCommandFieldBuilder().getBuilder();
-      }
-      public com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_commandOrBuilder getCommandOrBuilder() {
-        if (commandBuilder_ != null) {
-          return commandBuilder_.getMessageOrBuilder();
-        } else {
-          return command_;
-        }
-      }
-      private com.google.protobuf.SingleFieldBuilder<
-          com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command, com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.Builder, com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_commandOrBuilder> 
-          getCommandFieldBuilder() {
-        if (commandBuilder_ == null) {
-          commandBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command, com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.Builder, com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_commandOrBuilder>(
-                  command_,
-                  getParentForChildren(),
-                  isClean());
-          command_ = null;
-        }
-        return commandBuilder_;
-      }
-      
-      // optional .IS.Subscribe subscribe = 18;
-      private com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe subscribe_ = com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
-          com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe, com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe.Builder, com.wikispaces.lsfn.Shared.LSFN.IS.SubscribeOrBuilder> subscribeBuilder_;
-      public boolean hasSubscribe() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
-      }
-      public com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe getSubscribe() {
+      public com.wikispaces.lsfn.Shared.LSFN.Subscribe getSubscribe() {
         if (subscribeBuilder_ == null) {
           return subscribe_;
         } else {
           return subscribeBuilder_.getMessage();
         }
       }
-      public Builder setSubscribe(com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe value) {
+      public Builder setSubscribe(com.wikispaces.lsfn.Shared.LSFN.Subscribe value) {
         if (subscribeBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3264,26 +2335,26 @@ public final class LSFN {
         } else {
           subscribeBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000002;
         return this;
       }
       public Builder setSubscribe(
-          com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe.Builder builderForValue) {
+          com.wikispaces.lsfn.Shared.LSFN.Subscribe.Builder builderForValue) {
         if (subscribeBuilder_ == null) {
           subscribe_ = builderForValue.build();
           onChanged();
         } else {
           subscribeBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000002;
         return this;
       }
-      public Builder mergeSubscribe(com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe value) {
+      public Builder mergeSubscribe(com.wikispaces.lsfn.Shared.LSFN.Subscribe value) {
         if (subscribeBuilder_ == null) {
-          if (((bitField0_ & 0x00000004) == 0x00000004) &&
-              subscribe_ != com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe.getDefaultInstance()) {
+          if (((bitField0_ & 0x00000002) == 0x00000002) &&
+              subscribe_ != com.wikispaces.lsfn.Shared.LSFN.Subscribe.getDefaultInstance()) {
             subscribe_ =
-              com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe.newBuilder(subscribe_).mergeFrom(value).buildPartial();
+              com.wikispaces.lsfn.Shared.LSFN.Subscribe.newBuilder(subscribe_).mergeFrom(value).buildPartial();
           } else {
             subscribe_ = value;
           }
@@ -3291,25 +2362,25 @@ public final class LSFN {
         } else {
           subscribeBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000002;
         return this;
       }
       public Builder clearSubscribe() {
         if (subscribeBuilder_ == null) {
-          subscribe_ = com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe.getDefaultInstance();
+          subscribe_ = com.wikispaces.lsfn.Shared.LSFN.Subscribe.getDefaultInstance();
           onChanged();
         } else {
           subscribeBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
-      public com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe.Builder getSubscribeBuilder() {
-        bitField0_ |= 0x00000004;
+      public com.wikispaces.lsfn.Shared.LSFN.Subscribe.Builder getSubscribeBuilder() {
+        bitField0_ |= 0x00000002;
         onChanged();
         return getSubscribeFieldBuilder().getBuilder();
       }
-      public com.wikispaces.lsfn.Shared.LSFN.IS.SubscribeOrBuilder getSubscribeOrBuilder() {
+      public com.wikispaces.lsfn.Shared.LSFN.SubscribeOrBuilder getSubscribeOrBuilder() {
         if (subscribeBuilder_ != null) {
           return subscribeBuilder_.getMessageOrBuilder();
         } else {
@@ -3317,11 +2388,11 @@ public final class LSFN {
         }
       }
       private com.google.protobuf.SingleFieldBuilder<
-          com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe, com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe.Builder, com.wikispaces.lsfn.Shared.LSFN.IS.SubscribeOrBuilder> 
+          com.wikispaces.lsfn.Shared.LSFN.Subscribe, com.wikispaces.lsfn.Shared.LSFN.Subscribe.Builder, com.wikispaces.lsfn.Shared.LSFN.SubscribeOrBuilder> 
           getSubscribeFieldBuilder() {
         if (subscribeBuilder_ == null) {
           subscribeBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe, com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe.Builder, com.wikispaces.lsfn.Shared.LSFN.IS.SubscribeOrBuilder>(
+              com.wikispaces.lsfn.Shared.LSFN.Subscribe, com.wikispaces.lsfn.Shared.LSFN.Subscribe.Builder, com.wikispaces.lsfn.Shared.LSFN.SubscribeOrBuilder>(
                   subscribe_,
                   getParentForChildren(),
                   isClean());
@@ -3330,115 +2401,40 @@ public final class LSFN {
         return subscribeBuilder_;
       }
       
-      // optional .Subscription_updates input_updates = 19;
-      private com.wikispaces.lsfn.Shared.LSFN.Subscription_updates inputUpdates_ = com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
-          com.wikispaces.lsfn.Shared.LSFN.Subscription_updates, com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Builder, com.wikispaces.lsfn.Shared.LSFN.Subscription_updatesOrBuilder> inputUpdatesBuilder_;
-      public boolean hasInputUpdates() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+      // optional string rcon = 18;
+      private java.lang.Object rcon_ = "";
+      public boolean hasRcon() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
       }
-      public com.wikispaces.lsfn.Shared.LSFN.Subscription_updates getInputUpdates() {
-        if (inputUpdatesBuilder_ == null) {
-          return inputUpdates_;
+      public String getRcon() {
+        java.lang.Object ref = rcon_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          rcon_ = s;
+          return s;
         } else {
-          return inputUpdatesBuilder_.getMessage();
+          return (String) ref;
         }
       }
-      public Builder setInputUpdates(com.wikispaces.lsfn.Shared.LSFN.Subscription_updates value) {
-        if (inputUpdatesBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          inputUpdates_ = value;
-          onChanged();
-        } else {
-          inputUpdatesBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000008;
-        return this;
-      }
-      public Builder setInputUpdates(
-          com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Builder builderForValue) {
-        if (inputUpdatesBuilder_ == null) {
-          inputUpdates_ = builderForValue.build();
-          onChanged();
-        } else {
-          inputUpdatesBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000008;
-        return this;
-      }
-      public Builder mergeInputUpdates(com.wikispaces.lsfn.Shared.LSFN.Subscription_updates value) {
-        if (inputUpdatesBuilder_ == null) {
-          if (((bitField0_ & 0x00000008) == 0x00000008) &&
-              inputUpdates_ != com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.getDefaultInstance()) {
-            inputUpdates_ =
-              com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.newBuilder(inputUpdates_).mergeFrom(value).buildPartial();
-          } else {
-            inputUpdates_ = value;
-          }
-          onChanged();
-        } else {
-          inputUpdatesBuilder_.mergeFrom(value);
-        }
-        bitField0_ |= 0x00000008;
-        return this;
-      }
-      public Builder clearInputUpdates() {
-        if (inputUpdatesBuilder_ == null) {
-          inputUpdates_ = com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.getDefaultInstance();
-          onChanged();
-        } else {
-          inputUpdatesBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000008);
-        return this;
-      }
-      public com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Builder getInputUpdatesBuilder() {
-        bitField0_ |= 0x00000008;
-        onChanged();
-        return getInputUpdatesFieldBuilder().getBuilder();
-      }
-      public com.wikispaces.lsfn.Shared.LSFN.Subscription_updatesOrBuilder getInputUpdatesOrBuilder() {
-        if (inputUpdatesBuilder_ != null) {
-          return inputUpdatesBuilder_.getMessageOrBuilder();
-        } else {
-          return inputUpdates_;
-        }
-      }
-      private com.google.protobuf.SingleFieldBuilder<
-          com.wikispaces.lsfn.Shared.LSFN.Subscription_updates, com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Builder, com.wikispaces.lsfn.Shared.LSFN.Subscription_updatesOrBuilder> 
-          getInputUpdatesFieldBuilder() {
-        if (inputUpdatesBuilder_ == null) {
-          inputUpdatesBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              com.wikispaces.lsfn.Shared.LSFN.Subscription_updates, com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Builder, com.wikispaces.lsfn.Shared.LSFN.Subscription_updatesOrBuilder>(
-                  inputUpdates_,
-                  getParentForChildren(),
-                  isClean());
-          inputUpdates_ = null;
-        }
-        return inputUpdatesBuilder_;
-      }
-      
-      // optional bool available_subscriptions_list = 20;
-      private boolean availableSubscriptionsList_ ;
-      public boolean hasAvailableSubscriptionsList() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
-      }
-      public boolean getAvailableSubscriptionsList() {
-        return availableSubscriptionsList_;
-      }
-      public Builder setAvailableSubscriptionsList(boolean value) {
-        bitField0_ |= 0x00000010;
-        availableSubscriptionsList_ = value;
+      public Builder setRcon(String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        rcon_ = value;
         onChanged();
         return this;
       }
-      public Builder clearAvailableSubscriptionsList() {
-        bitField0_ = (bitField0_ & ~0x00000010);
-        availableSubscriptionsList_ = false;
+      public Builder clearRcon() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        rcon_ = getDefaultInstance().getRcon();
         onChanged();
         return this;
+      }
+      void setRcon(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000004;
+        rcon_ = value;
+        onChanged();
       }
       
       // @@protoc_insertion_point(builder_scope:IS)
@@ -3460,25 +2456,10 @@ public final class LSFN {
     com.wikispaces.lsfn.Shared.LSFN.SI.Handshake getHandshake();
     com.wikispaces.lsfn.Shared.LSFN.SI.HandshakeOrBuilder getHandshakeOrBuilder();
     
-    // optional .SI.SHIP_ENV_status status = 17;
-    boolean hasStatus();
-    com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status getStatus();
-    com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_statusOrBuilder getStatusOrBuilder();
-    
-    // optional .SI.Ship_positions positions = 18;
-    boolean hasPositions();
-    com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions getPositions();
-    com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positionsOrBuilder getPositionsOrBuilder();
-    
-    // optional .SI.Subscriptions_available subscriptions_available = 19;
+    // optional .SubscriptionsAvailable subscriptionsAvailable = 17;
     boolean hasSubscriptionsAvailable();
-    com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available getSubscriptionsAvailable();
-    com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_availableOrBuilder getSubscriptionsAvailableOrBuilder();
-    
-    // optional .Subscription_updates output_updates = 20;
-    boolean hasOutputUpdates();
-    com.wikispaces.lsfn.Shared.LSFN.Subscription_updates getOutputUpdates();
-    com.wikispaces.lsfn.Shared.LSFN.Subscription_updatesOrBuilder getOutputUpdatesOrBuilder();
+    com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable getSubscriptionsAvailable();
+    com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailableOrBuilder getSubscriptionsAvailableOrBuilder();
   }
   public static final class SI extends
       com.google.protobuf.GeneratedMessage
@@ -3515,9 +2496,9 @@ public final class LSFN {
       boolean hasType();
       com.wikispaces.lsfn.Shared.LSFN.SI.Handshake.Type getType();
       
-      // optional int32 player_ID = 2;
-      boolean hasPlayerID();
-      int getPlayerID();
+      // optional int32 intID = 2;
+      boolean hasIntID();
+      int getIntID();
     }
     public static final class Handshake extends
         com.google.protobuf.GeneratedMessage
@@ -3627,19 +2608,19 @@ public final class LSFN {
         return type_;
       }
       
-      // optional int32 player_ID = 2;
-      public static final int PLAYER_ID_FIELD_NUMBER = 2;
-      private int playerID_;
-      public boolean hasPlayerID() {
+      // optional int32 intID = 2;
+      public static final int INTID_FIELD_NUMBER = 2;
+      private int intID_;
+      public boolean hasIntID() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public int getPlayerID() {
-        return playerID_;
+      public int getIntID() {
+        return intID_;
       }
       
       private void initFields() {
         type_ = com.wikispaces.lsfn.Shared.LSFN.SI.Handshake.Type.HELLO;
-        playerID_ = 0;
+        intID_ = 0;
       }
       private byte memoizedIsInitialized = -1;
       public final boolean isInitialized() {
@@ -3661,7 +2642,7 @@ public final class LSFN {
           output.writeEnum(1, type_.getNumber());
         }
         if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          output.writeInt32(2, playerID_);
+          output.writeInt32(2, intID_);
         }
         getUnknownFields().writeTo(output);
       }
@@ -3678,7 +2659,7 @@ public final class LSFN {
         }
         if (((bitField0_ & 0x00000002) == 0x00000002)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(2, playerID_);
+            .computeInt32Size(2, intID_);
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSerializedSize = size;
@@ -3806,7 +2787,7 @@ public final class LSFN {
           super.clear();
           type_ = com.wikispaces.lsfn.Shared.LSFN.SI.Handshake.Type.HELLO;
           bitField0_ = (bitField0_ & ~0x00000001);
-          playerID_ = 0;
+          intID_ = 0;
           bitField0_ = (bitField0_ & ~0x00000002);
           return this;
         }
@@ -3853,7 +2834,7 @@ public final class LSFN {
           if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
             to_bitField0_ |= 0x00000002;
           }
-          result.playerID_ = playerID_;
+          result.intID_ = intID_;
           result.bitField0_ = to_bitField0_;
           onBuilt();
           return result;
@@ -3873,8 +2854,8 @@ public final class LSFN {
           if (other.hasType()) {
             setType(other.getType());
           }
-          if (other.hasPlayerID()) {
-            setPlayerID(other.getPlayerID());
+          if (other.hasIntID()) {
+            setIntID(other.getIntID());
           }
           this.mergeUnknownFields(other.getUnknownFields());
           return this;
@@ -3924,7 +2905,7 @@ public final class LSFN {
               }
               case 16: {
                 bitField0_ |= 0x00000002;
-                playerID_ = input.readInt32();
+                intID_ = input.readInt32();
                 break;
               }
             }
@@ -3957,23 +2938,23 @@ public final class LSFN {
           return this;
         }
         
-        // optional int32 player_ID = 2;
-        private int playerID_ ;
-        public boolean hasPlayerID() {
+        // optional int32 intID = 2;
+        private int intID_ ;
+        public boolean hasIntID() {
           return ((bitField0_ & 0x00000002) == 0x00000002);
         }
-        public int getPlayerID() {
-          return playerID_;
+        public int getIntID() {
+          return intID_;
         }
-        public Builder setPlayerID(int value) {
+        public Builder setIntID(int value) {
           bitField0_ |= 0x00000002;
-          playerID_ = value;
+          intID_ = value;
           onChanged();
           return this;
         }
-        public Builder clearPlayerID() {
+        public Builder clearIntID() {
           bitField0_ = (bitField0_ & ~0x00000002);
-          playerID_ = 0;
+          intID_ = 0;
           onChanged();
           return this;
         }
@@ -3987,2949 +2968,6 @@ public final class LSFN {
       }
       
       // @@protoc_insertion_point(class_scope:SI.Handshake)
-    }
-    
-    public interface SHIP_ENV_statusOrBuilder
-        extends com.google.protobuf.MessageOrBuilder {
-      
-      // required .SI.SHIP_ENV_status.State state = 1;
-      boolean hasState();
-      com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.State getState();
-      
-      // optional int32 ship_ID = 2;
-      boolean hasShipID();
-      int getShipID();
-    }
-    public static final class SHIP_ENV_status extends
-        com.google.protobuf.GeneratedMessage
-        implements SHIP_ENV_statusOrBuilder {
-      // Use SHIP_ENV_status.newBuilder() to construct.
-      private SHIP_ENV_status(Builder builder) {
-        super(builder);
-      }
-      private SHIP_ENV_status(boolean noInit) {}
-      
-      private static final SHIP_ENV_status defaultInstance;
-      public static SHIP_ENV_status getDefaultInstance() {
-        return defaultInstance;
-      }
-      
-      public SHIP_ENV_status getDefaultInstanceForType() {
-        return defaultInstance;
-      }
-      
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.wikispaces.lsfn.Shared.LSFN.internal_static_SI_SHIP_ENV_status_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.wikispaces.lsfn.Shared.LSFN.internal_static_SI_SHIP_ENV_status_fieldAccessorTable;
-      }
-      
-      public enum State
-          implements com.google.protobuf.ProtocolMessageEnum {
-        DISCONNECTED(0, 0),
-        CONNECTED(1, 1),
-        ;
-        
-        public static final int DISCONNECTED_VALUE = 0;
-        public static final int CONNECTED_VALUE = 1;
-        
-        
-        public final int getNumber() { return value; }
-        
-        public static State valueOf(int value) {
-          switch (value) {
-            case 0: return DISCONNECTED;
-            case 1: return CONNECTED;
-            default: return null;
-          }
-        }
-        
-        public static com.google.protobuf.Internal.EnumLiteMap<State>
-            internalGetValueMap() {
-          return internalValueMap;
-        }
-        private static com.google.protobuf.Internal.EnumLiteMap<State>
-            internalValueMap =
-              new com.google.protobuf.Internal.EnumLiteMap<State>() {
-                public State findValueByNumber(int number) {
-                  return State.valueOf(number);
-                }
-              };
-        
-        public final com.google.protobuf.Descriptors.EnumValueDescriptor
-            getValueDescriptor() {
-          return getDescriptor().getValues().get(index);
-        }
-        public final com.google.protobuf.Descriptors.EnumDescriptor
-            getDescriptorForType() {
-          return getDescriptor();
-        }
-        public static final com.google.protobuf.Descriptors.EnumDescriptor
-            getDescriptor() {
-          return com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.getDescriptor().getEnumTypes().get(0);
-        }
-        
-        private static final State[] VALUES = {
-          DISCONNECTED, CONNECTED, 
-        };
-        
-        public static State valueOf(
-            com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-          if (desc.getType() != getDescriptor()) {
-            throw new java.lang.IllegalArgumentException(
-              "EnumValueDescriptor is not for this type.");
-          }
-          return VALUES[desc.getIndex()];
-        }
-        
-        private final int index;
-        private final int value;
-        
-        private State(int index, int value) {
-          this.index = index;
-          this.value = value;
-        }
-        
-        // @@protoc_insertion_point(enum_scope:SI.SHIP_ENV_status.State)
-      }
-      
-      private int bitField0_;
-      // required .SI.SHIP_ENV_status.State state = 1;
-      public static final int STATE_FIELD_NUMBER = 1;
-      private com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.State state_;
-      public boolean hasState() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      public com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.State getState() {
-        return state_;
-      }
-      
-      // optional int32 ship_ID = 2;
-      public static final int SHIP_ID_FIELD_NUMBER = 2;
-      private int shipID_;
-      public boolean hasShipID() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      public int getShipID() {
-        return shipID_;
-      }
-      
-      private void initFields() {
-        state_ = com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.State.DISCONNECTED;
-        shipID_ = 0;
-      }
-      private byte memoizedIsInitialized = -1;
-      public final boolean isInitialized() {
-        byte isInitialized = memoizedIsInitialized;
-        if (isInitialized != -1) return isInitialized == 1;
-        
-        if (!hasState()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        memoizedIsInitialized = 1;
-        return true;
-      }
-      
-      public void writeTo(com.google.protobuf.CodedOutputStream output)
-                          throws java.io.IOException {
-        getSerializedSize();
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          output.writeEnum(1, state_.getNumber());
-        }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          output.writeInt32(2, shipID_);
-        }
-        getUnknownFields().writeTo(output);
-      }
-      
-      private int memoizedSerializedSize = -1;
-      public int getSerializedSize() {
-        int size = memoizedSerializedSize;
-        if (size != -1) return size;
-      
-        size = 0;
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeEnumSize(1, state_.getNumber());
-        }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(2, shipID_);
-        }
-        size += getUnknownFields().getSerializedSize();
-        memoizedSerializedSize = size;
-        return size;
-      }
-      
-      private static final long serialVersionUID = 0L;
-      @java.lang.Override
-      protected java.lang.Object writeReplace()
-          throws java.io.ObjectStreamException {
-        return super.writeReplace();
-      }
-      
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status parseFrom(
-          com.google.protobuf.ByteString data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status parseFrom(
-          com.google.protobuf.ByteString data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status parseFrom(byte[] data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status parseFrom(
-          byte[] data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status parseFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status parseFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status parseDelimitedFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status parseDelimitedFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status parseFrom(
-          com.google.protobuf.CodedInputStream input)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status parseFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
-      }
-      
-      public static Builder newBuilder() { return Builder.create(); }
-      public Builder newBuilderForType() { return newBuilder(); }
-      public static Builder newBuilder(com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status prototype) {
-        return newBuilder().mergeFrom(prototype);
-      }
-      public Builder toBuilder() { return newBuilder(this); }
-      
-      @java.lang.Override
-      protected Builder newBuilderForType(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        Builder builder = new Builder(parent);
-        return builder;
-      }
-      public static final class Builder extends
-          com.google.protobuf.GeneratedMessage.Builder<Builder>
-         implements com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_statusOrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return com.wikispaces.lsfn.Shared.LSFN.internal_static_SI_SHIP_ENV_status_descriptor;
-        }
-        
-        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return com.wikispaces.lsfn.Shared.LSFN.internal_static_SI_SHIP_ENV_status_fieldAccessorTable;
-        }
-        
-        // Construct using com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.newBuilder()
-        private Builder() {
-          maybeForceBuilderInitialization();
-        }
-        
-        private Builder(BuilderParent parent) {
-          super(parent);
-          maybeForceBuilderInitialization();
-        }
-        private void maybeForceBuilderInitialization() {
-          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          }
-        }
-        private static Builder create() {
-          return new Builder();
-        }
-        
-        public Builder clear() {
-          super.clear();
-          state_ = com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.State.DISCONNECTED;
-          bitField0_ = (bitField0_ & ~0x00000001);
-          shipID_ = 0;
-          bitField0_ = (bitField0_ & ~0x00000002);
-          return this;
-        }
-        
-        public Builder clone() {
-          return create().mergeFrom(buildPartial());
-        }
-        
-        public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-          return com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.getDescriptor();
-        }
-        
-        public com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status getDefaultInstanceForType() {
-          return com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.getDefaultInstance();
-        }
-        
-        public com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status build() {
-          com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(result);
-          }
-          return result;
-        }
-        
-        private com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status buildParsed()
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(
-              result).asInvalidProtocolBufferException();
-          }
-          return result;
-        }
-        
-        public com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status buildPartial() {
-          com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status result = new com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status(this);
-          int from_bitField0_ = bitField0_;
-          int to_bitField0_ = 0;
-          if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-            to_bitField0_ |= 0x00000001;
-          }
-          result.state_ = state_;
-          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-            to_bitField0_ |= 0x00000002;
-          }
-          result.shipID_ = shipID_;
-          result.bitField0_ = to_bitField0_;
-          onBuilt();
-          return result;
-        }
-        
-        public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status) {
-            return mergeFrom((com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status)other);
-          } else {
-            super.mergeFrom(other);
-            return this;
-          }
-        }
-        
-        public Builder mergeFrom(com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status other) {
-          if (other == com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.getDefaultInstance()) return this;
-          if (other.hasState()) {
-            setState(other.getState());
-          }
-          if (other.hasShipID()) {
-            setShipID(other.getShipID());
-          }
-          this.mergeUnknownFields(other.getUnknownFields());
-          return this;
-        }
-        
-        public final boolean isInitialized() {
-          if (!hasState()) {
-            
-            return false;
-          }
-          return true;
-        }
-        
-        public Builder mergeFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-            com.google.protobuf.UnknownFieldSet.newBuilder(
-              this.getUnknownFields());
-          while (true) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              default: {
-                if (!parseUnknownField(input, unknownFields,
-                                       extensionRegistry, tag)) {
-                  this.setUnknownFields(unknownFields.build());
-                  onChanged();
-                  return this;
-                }
-                break;
-              }
-              case 8: {
-                int rawValue = input.readEnum();
-                com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.State value = com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.State.valueOf(rawValue);
-                if (value == null) {
-                  unknownFields.mergeVarintField(1, rawValue);
-                } else {
-                  bitField0_ |= 0x00000001;
-                  state_ = value;
-                }
-                break;
-              }
-              case 16: {
-                bitField0_ |= 0x00000002;
-                shipID_ = input.readInt32();
-                break;
-              }
-            }
-          }
-        }
-        
-        private int bitField0_;
-        
-        // required .SI.SHIP_ENV_status.State state = 1;
-        private com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.State state_ = com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.State.DISCONNECTED;
-        public boolean hasState() {
-          return ((bitField0_ & 0x00000001) == 0x00000001);
-        }
-        public com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.State getState() {
-          return state_;
-        }
-        public Builder setState(com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.State value) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          bitField0_ |= 0x00000001;
-          state_ = value;
-          onChanged();
-          return this;
-        }
-        public Builder clearState() {
-          bitField0_ = (bitField0_ & ~0x00000001);
-          state_ = com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.State.DISCONNECTED;
-          onChanged();
-          return this;
-        }
-        
-        // optional int32 ship_ID = 2;
-        private int shipID_ ;
-        public boolean hasShipID() {
-          return ((bitField0_ & 0x00000002) == 0x00000002);
-        }
-        public int getShipID() {
-          return shipID_;
-        }
-        public Builder setShipID(int value) {
-          bitField0_ |= 0x00000002;
-          shipID_ = value;
-          onChanged();
-          return this;
-        }
-        public Builder clearShipID() {
-          bitField0_ = (bitField0_ & ~0x00000002);
-          shipID_ = 0;
-          onChanged();
-          return this;
-        }
-        
-        // @@protoc_insertion_point(builder_scope:SI.SHIP_ENV_status)
-      }
-      
-      static {
-        defaultInstance = new SHIP_ENV_status(true);
-        defaultInstance.initFields();
-      }
-      
-      // @@protoc_insertion_point(class_scope:SI.SHIP_ENV_status)
-    }
-    
-    public interface Ship_positionsOrBuilder
-        extends com.google.protobuf.MessageOrBuilder {
-      
-      // repeated .SI.Ship_positions.Ship_position positions = 1;
-      java.util.List<com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position> 
-          getPositionsList();
-      com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position getPositions(int index);
-      int getPositionsCount();
-      java.util.List<? extends com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_positionOrBuilder> 
-          getPositionsOrBuilderList();
-      com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_positionOrBuilder getPositionsOrBuilder(
-          int index);
-    }
-    public static final class Ship_positions extends
-        com.google.protobuf.GeneratedMessage
-        implements Ship_positionsOrBuilder {
-      // Use Ship_positions.newBuilder() to construct.
-      private Ship_positions(Builder builder) {
-        super(builder);
-      }
-      private Ship_positions(boolean noInit) {}
-      
-      private static final Ship_positions defaultInstance;
-      public static Ship_positions getDefaultInstance() {
-        return defaultInstance;
-      }
-      
-      public Ship_positions getDefaultInstanceForType() {
-        return defaultInstance;
-      }
-      
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.wikispaces.lsfn.Shared.LSFN.internal_static_SI_Ship_positions_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.wikispaces.lsfn.Shared.LSFN.internal_static_SI_Ship_positions_fieldAccessorTable;
-      }
-      
-      public interface Ship_positionOrBuilder
-          extends com.google.protobuf.MessageOrBuilder {
-        
-        // required int32 ship_ID = 1;
-        boolean hasShipID();
-        int getShipID();
-        
-        // repeated double coordinates = 2;
-        java.util.List<java.lang.Double> getCoordinatesList();
-        int getCoordinatesCount();
-        double getCoordinates(int index);
-      }
-      public static final class Ship_position extends
-          com.google.protobuf.GeneratedMessage
-          implements Ship_positionOrBuilder {
-        // Use Ship_position.newBuilder() to construct.
-        private Ship_position(Builder builder) {
-          super(builder);
-        }
-        private Ship_position(boolean noInit) {}
-        
-        private static final Ship_position defaultInstance;
-        public static Ship_position getDefaultInstance() {
-          return defaultInstance;
-        }
-        
-        public Ship_position getDefaultInstanceForType() {
-          return defaultInstance;
-        }
-        
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return com.wikispaces.lsfn.Shared.LSFN.internal_static_SI_Ship_positions_Ship_position_descriptor;
-        }
-        
-        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return com.wikispaces.lsfn.Shared.LSFN.internal_static_SI_Ship_positions_Ship_position_fieldAccessorTable;
-        }
-        
-        private int bitField0_;
-        // required int32 ship_ID = 1;
-        public static final int SHIP_ID_FIELD_NUMBER = 1;
-        private int shipID_;
-        public boolean hasShipID() {
-          return ((bitField0_ & 0x00000001) == 0x00000001);
-        }
-        public int getShipID() {
-          return shipID_;
-        }
-        
-        // repeated double coordinates = 2;
-        public static final int COORDINATES_FIELD_NUMBER = 2;
-        private java.util.List<java.lang.Double> coordinates_;
-        public java.util.List<java.lang.Double>
-            getCoordinatesList() {
-          return coordinates_;
-        }
-        public int getCoordinatesCount() {
-          return coordinates_.size();
-        }
-        public double getCoordinates(int index) {
-          return coordinates_.get(index);
-        }
-        
-        private void initFields() {
-          shipID_ = 0;
-          coordinates_ = java.util.Collections.emptyList();;
-        }
-        private byte memoizedIsInitialized = -1;
-        public final boolean isInitialized() {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized != -1) return isInitialized == 1;
-          
-          if (!hasShipID()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-          memoizedIsInitialized = 1;
-          return true;
-        }
-        
-        public void writeTo(com.google.protobuf.CodedOutputStream output)
-                            throws java.io.IOException {
-          getSerializedSize();
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
-            output.writeInt32(1, shipID_);
-          }
-          for (int i = 0; i < coordinates_.size(); i++) {
-            output.writeDouble(2, coordinates_.get(i));
-          }
-          getUnknownFields().writeTo(output);
-        }
-        
-        private int memoizedSerializedSize = -1;
-        public int getSerializedSize() {
-          int size = memoizedSerializedSize;
-          if (size != -1) return size;
-        
-          size = 0;
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
-            size += com.google.protobuf.CodedOutputStream
-              .computeInt32Size(1, shipID_);
-          }
-          {
-            int dataSize = 0;
-            dataSize = 8 * getCoordinatesList().size();
-            size += dataSize;
-            size += 1 * getCoordinatesList().size();
-          }
-          size += getUnknownFields().getSerializedSize();
-          memoizedSerializedSize = size;
-          return size;
-        }
-        
-        private static final long serialVersionUID = 0L;
-        @java.lang.Override
-        protected java.lang.Object writeReplace()
-            throws java.io.ObjectStreamException {
-          return super.writeReplace();
-        }
-        
-        public static com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position parseFrom(
-            com.google.protobuf.ByteString data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          return newBuilder().mergeFrom(data).buildParsed();
-        }
-        public static com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position parseFrom(
-            com.google.protobuf.ByteString data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          return newBuilder().mergeFrom(data, extensionRegistry)
-                   .buildParsed();
-        }
-        public static com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position parseFrom(byte[] data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          return newBuilder().mergeFrom(data).buildParsed();
-        }
-        public static com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position parseFrom(
-            byte[] data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          return newBuilder().mergeFrom(data, extensionRegistry)
-                   .buildParsed();
-        }
-        public static com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position parseFrom(java.io.InputStream input)
-            throws java.io.IOException {
-          return newBuilder().mergeFrom(input).buildParsed();
-        }
-        public static com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position parseFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          return newBuilder().mergeFrom(input, extensionRegistry)
-                   .buildParsed();
-        }
-        public static com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position parseDelimitedFrom(java.io.InputStream input)
-            throws java.io.IOException {
-          Builder builder = newBuilder();
-          if (builder.mergeDelimitedFrom(input)) {
-            return builder.buildParsed();
-          } else {
-            return null;
-          }
-        }
-        public static com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position parseDelimitedFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          Builder builder = newBuilder();
-          if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-            return builder.buildParsed();
-          } else {
-            return null;
-          }
-        }
-        public static com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position parseFrom(
-            com.google.protobuf.CodedInputStream input)
-            throws java.io.IOException {
-          return newBuilder().mergeFrom(input).buildParsed();
-        }
-        public static com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position parseFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          return newBuilder().mergeFrom(input, extensionRegistry)
-                   .buildParsed();
-        }
-        
-        public static Builder newBuilder() { return Builder.create(); }
-        public Builder newBuilderForType() { return newBuilder(); }
-        public static Builder newBuilder(com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position prototype) {
-          return newBuilder().mergeFrom(prototype);
-        }
-        public Builder toBuilder() { return newBuilder(this); }
-        
-        @java.lang.Override
-        protected Builder newBuilderForType(
-            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-          Builder builder = new Builder(parent);
-          return builder;
-        }
-        public static final class Builder extends
-            com.google.protobuf.GeneratedMessage.Builder<Builder>
-           implements com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_positionOrBuilder {
-          public static final com.google.protobuf.Descriptors.Descriptor
-              getDescriptor() {
-            return com.wikispaces.lsfn.Shared.LSFN.internal_static_SI_Ship_positions_Ship_position_descriptor;
-          }
-          
-          protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-              internalGetFieldAccessorTable() {
-            return com.wikispaces.lsfn.Shared.LSFN.internal_static_SI_Ship_positions_Ship_position_fieldAccessorTable;
-          }
-          
-          // Construct using com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position.newBuilder()
-          private Builder() {
-            maybeForceBuilderInitialization();
-          }
-          
-          private Builder(BuilderParent parent) {
-            super(parent);
-            maybeForceBuilderInitialization();
-          }
-          private void maybeForceBuilderInitialization() {
-            if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-            }
-          }
-          private static Builder create() {
-            return new Builder();
-          }
-          
-          public Builder clear() {
-            super.clear();
-            shipID_ = 0;
-            bitField0_ = (bitField0_ & ~0x00000001);
-            coordinates_ = java.util.Collections.emptyList();;
-            bitField0_ = (bitField0_ & ~0x00000002);
-            return this;
-          }
-          
-          public Builder clone() {
-            return create().mergeFrom(buildPartial());
-          }
-          
-          public com.google.protobuf.Descriptors.Descriptor
-              getDescriptorForType() {
-            return com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position.getDescriptor();
-          }
-          
-          public com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position getDefaultInstanceForType() {
-            return com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position.getDefaultInstance();
-          }
-          
-          public com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position build() {
-            com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position result = buildPartial();
-            if (!result.isInitialized()) {
-              throw newUninitializedMessageException(result);
-            }
-            return result;
-          }
-          
-          private com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position buildParsed()
-              throws com.google.protobuf.InvalidProtocolBufferException {
-            com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position result = buildPartial();
-            if (!result.isInitialized()) {
-              throw newUninitializedMessageException(
-                result).asInvalidProtocolBufferException();
-            }
-            return result;
-          }
-          
-          public com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position buildPartial() {
-            com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position result = new com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position(this);
-            int from_bitField0_ = bitField0_;
-            int to_bitField0_ = 0;
-            if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-              to_bitField0_ |= 0x00000001;
-            }
-            result.shipID_ = shipID_;
-            if (((bitField0_ & 0x00000002) == 0x00000002)) {
-              coordinates_ = java.util.Collections.unmodifiableList(coordinates_);
-              bitField0_ = (bitField0_ & ~0x00000002);
-            }
-            result.coordinates_ = coordinates_;
-            result.bitField0_ = to_bitField0_;
-            onBuilt();
-            return result;
-          }
-          
-          public Builder mergeFrom(com.google.protobuf.Message other) {
-            if (other instanceof com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position) {
-              return mergeFrom((com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position)other);
-            } else {
-              super.mergeFrom(other);
-              return this;
-            }
-          }
-          
-          public Builder mergeFrom(com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position other) {
-            if (other == com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position.getDefaultInstance()) return this;
-            if (other.hasShipID()) {
-              setShipID(other.getShipID());
-            }
-            if (!other.coordinates_.isEmpty()) {
-              if (coordinates_.isEmpty()) {
-                coordinates_ = other.coordinates_;
-                bitField0_ = (bitField0_ & ~0x00000002);
-              } else {
-                ensureCoordinatesIsMutable();
-                coordinates_.addAll(other.coordinates_);
-              }
-              onChanged();
-            }
-            this.mergeUnknownFields(other.getUnknownFields());
-            return this;
-          }
-          
-          public final boolean isInitialized() {
-            if (!hasShipID()) {
-              
-              return false;
-            }
-            return true;
-          }
-          
-          public Builder mergeFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws java.io.IOException {
-            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-              com.google.protobuf.UnknownFieldSet.newBuilder(
-                this.getUnknownFields());
-            while (true) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  this.setUnknownFields(unknownFields.build());
-                  onChanged();
-                  return this;
-                default: {
-                  if (!parseUnknownField(input, unknownFields,
-                                         extensionRegistry, tag)) {
-                    this.setUnknownFields(unknownFields.build());
-                    onChanged();
-                    return this;
-                  }
-                  break;
-                }
-                case 8: {
-                  bitField0_ |= 0x00000001;
-                  shipID_ = input.readInt32();
-                  break;
-                }
-                case 17: {
-                  ensureCoordinatesIsMutable();
-                  coordinates_.add(input.readDouble());
-                  break;
-                }
-                case 18: {
-                  int length = input.readRawVarint32();
-                  int limit = input.pushLimit(length);
-                  while (input.getBytesUntilLimit() > 0) {
-                    addCoordinates(input.readDouble());
-                  }
-                  input.popLimit(limit);
-                  break;
-                }
-              }
-            }
-          }
-          
-          private int bitField0_;
-          
-          // required int32 ship_ID = 1;
-          private int shipID_ ;
-          public boolean hasShipID() {
-            return ((bitField0_ & 0x00000001) == 0x00000001);
-          }
-          public int getShipID() {
-            return shipID_;
-          }
-          public Builder setShipID(int value) {
-            bitField0_ |= 0x00000001;
-            shipID_ = value;
-            onChanged();
-            return this;
-          }
-          public Builder clearShipID() {
-            bitField0_ = (bitField0_ & ~0x00000001);
-            shipID_ = 0;
-            onChanged();
-            return this;
-          }
-          
-          // repeated double coordinates = 2;
-          private java.util.List<java.lang.Double> coordinates_ = java.util.Collections.emptyList();;
-          private void ensureCoordinatesIsMutable() {
-            if (!((bitField0_ & 0x00000002) == 0x00000002)) {
-              coordinates_ = new java.util.ArrayList<java.lang.Double>(coordinates_);
-              bitField0_ |= 0x00000002;
-             }
-          }
-          public java.util.List<java.lang.Double>
-              getCoordinatesList() {
-            return java.util.Collections.unmodifiableList(coordinates_);
-          }
-          public int getCoordinatesCount() {
-            return coordinates_.size();
-          }
-          public double getCoordinates(int index) {
-            return coordinates_.get(index);
-          }
-          public Builder setCoordinates(
-              int index, double value) {
-            ensureCoordinatesIsMutable();
-            coordinates_.set(index, value);
-            onChanged();
-            return this;
-          }
-          public Builder addCoordinates(double value) {
-            ensureCoordinatesIsMutable();
-            coordinates_.add(value);
-            onChanged();
-            return this;
-          }
-          public Builder addAllCoordinates(
-              java.lang.Iterable<? extends java.lang.Double> values) {
-            ensureCoordinatesIsMutable();
-            super.addAll(values, coordinates_);
-            onChanged();
-            return this;
-          }
-          public Builder clearCoordinates() {
-            coordinates_ = java.util.Collections.emptyList();;
-            bitField0_ = (bitField0_ & ~0x00000002);
-            onChanged();
-            return this;
-          }
-          
-          // @@protoc_insertion_point(builder_scope:SI.Ship_positions.Ship_position)
-        }
-        
-        static {
-          defaultInstance = new Ship_position(true);
-          defaultInstance.initFields();
-        }
-        
-        // @@protoc_insertion_point(class_scope:SI.Ship_positions.Ship_position)
-      }
-      
-      // repeated .SI.Ship_positions.Ship_position positions = 1;
-      public static final int POSITIONS_FIELD_NUMBER = 1;
-      private java.util.List<com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position> positions_;
-      public java.util.List<com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position> getPositionsList() {
-        return positions_;
-      }
-      public java.util.List<? extends com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_positionOrBuilder> 
-          getPositionsOrBuilderList() {
-        return positions_;
-      }
-      public int getPositionsCount() {
-        return positions_.size();
-      }
-      public com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position getPositions(int index) {
-        return positions_.get(index);
-      }
-      public com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_positionOrBuilder getPositionsOrBuilder(
-          int index) {
-        return positions_.get(index);
-      }
-      
-      private void initFields() {
-        positions_ = java.util.Collections.emptyList();
-      }
-      private byte memoizedIsInitialized = -1;
-      public final boolean isInitialized() {
-        byte isInitialized = memoizedIsInitialized;
-        if (isInitialized != -1) return isInitialized == 1;
-        
-        for (int i = 0; i < getPositionsCount(); i++) {
-          if (!getPositions(i).isInitialized()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-        }
-        memoizedIsInitialized = 1;
-        return true;
-      }
-      
-      public void writeTo(com.google.protobuf.CodedOutputStream output)
-                          throws java.io.IOException {
-        getSerializedSize();
-        for (int i = 0; i < positions_.size(); i++) {
-          output.writeMessage(1, positions_.get(i));
-        }
-        getUnknownFields().writeTo(output);
-      }
-      
-      private int memoizedSerializedSize = -1;
-      public int getSerializedSize() {
-        int size = memoizedSerializedSize;
-        if (size != -1) return size;
-      
-        size = 0;
-        for (int i = 0; i < positions_.size(); i++) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeMessageSize(1, positions_.get(i));
-        }
-        size += getUnknownFields().getSerializedSize();
-        memoizedSerializedSize = size;
-        return size;
-      }
-      
-      private static final long serialVersionUID = 0L;
-      @java.lang.Override
-      protected java.lang.Object writeReplace()
-          throws java.io.ObjectStreamException {
-        return super.writeReplace();
-      }
-      
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions parseFrom(
-          com.google.protobuf.ByteString data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions parseFrom(
-          com.google.protobuf.ByteString data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions parseFrom(byte[] data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions parseFrom(
-          byte[] data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions parseFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions parseFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions parseDelimitedFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions parseDelimitedFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions parseFrom(
-          com.google.protobuf.CodedInputStream input)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions parseFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
-      }
-      
-      public static Builder newBuilder() { return Builder.create(); }
-      public Builder newBuilderForType() { return newBuilder(); }
-      public static Builder newBuilder(com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions prototype) {
-        return newBuilder().mergeFrom(prototype);
-      }
-      public Builder toBuilder() { return newBuilder(this); }
-      
-      @java.lang.Override
-      protected Builder newBuilderForType(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        Builder builder = new Builder(parent);
-        return builder;
-      }
-      public static final class Builder extends
-          com.google.protobuf.GeneratedMessage.Builder<Builder>
-         implements com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positionsOrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return com.wikispaces.lsfn.Shared.LSFN.internal_static_SI_Ship_positions_descriptor;
-        }
-        
-        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return com.wikispaces.lsfn.Shared.LSFN.internal_static_SI_Ship_positions_fieldAccessorTable;
-        }
-        
-        // Construct using com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.newBuilder()
-        private Builder() {
-          maybeForceBuilderInitialization();
-        }
-        
-        private Builder(BuilderParent parent) {
-          super(parent);
-          maybeForceBuilderInitialization();
-        }
-        private void maybeForceBuilderInitialization() {
-          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-            getPositionsFieldBuilder();
-          }
-        }
-        private static Builder create() {
-          return new Builder();
-        }
-        
-        public Builder clear() {
-          super.clear();
-          if (positionsBuilder_ == null) {
-            positions_ = java.util.Collections.emptyList();
-            bitField0_ = (bitField0_ & ~0x00000001);
-          } else {
-            positionsBuilder_.clear();
-          }
-          return this;
-        }
-        
-        public Builder clone() {
-          return create().mergeFrom(buildPartial());
-        }
-        
-        public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-          return com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.getDescriptor();
-        }
-        
-        public com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions getDefaultInstanceForType() {
-          return com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.getDefaultInstance();
-        }
-        
-        public com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions build() {
-          com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(result);
-          }
-          return result;
-        }
-        
-        private com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions buildParsed()
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(
-              result).asInvalidProtocolBufferException();
-          }
-          return result;
-        }
-        
-        public com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions buildPartial() {
-          com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions result = new com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions(this);
-          int from_bitField0_ = bitField0_;
-          if (positionsBuilder_ == null) {
-            if (((bitField0_ & 0x00000001) == 0x00000001)) {
-              positions_ = java.util.Collections.unmodifiableList(positions_);
-              bitField0_ = (bitField0_ & ~0x00000001);
-            }
-            result.positions_ = positions_;
-          } else {
-            result.positions_ = positionsBuilder_.build();
-          }
-          onBuilt();
-          return result;
-        }
-        
-        public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions) {
-            return mergeFrom((com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions)other);
-          } else {
-            super.mergeFrom(other);
-            return this;
-          }
-        }
-        
-        public Builder mergeFrom(com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions other) {
-          if (other == com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.getDefaultInstance()) return this;
-          if (positionsBuilder_ == null) {
-            if (!other.positions_.isEmpty()) {
-              if (positions_.isEmpty()) {
-                positions_ = other.positions_;
-                bitField0_ = (bitField0_ & ~0x00000001);
-              } else {
-                ensurePositionsIsMutable();
-                positions_.addAll(other.positions_);
-              }
-              onChanged();
-            }
-          } else {
-            if (!other.positions_.isEmpty()) {
-              if (positionsBuilder_.isEmpty()) {
-                positionsBuilder_.dispose();
-                positionsBuilder_ = null;
-                positions_ = other.positions_;
-                bitField0_ = (bitField0_ & ~0x00000001);
-                positionsBuilder_ = 
-                  com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
-                     getPositionsFieldBuilder() : null;
-              } else {
-                positionsBuilder_.addAllMessages(other.positions_);
-              }
-            }
-          }
-          this.mergeUnknownFields(other.getUnknownFields());
-          return this;
-        }
-        
-        public final boolean isInitialized() {
-          for (int i = 0; i < getPositionsCount(); i++) {
-            if (!getPositions(i).isInitialized()) {
-              
-              return false;
-            }
-          }
-          return true;
-        }
-        
-        public Builder mergeFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-            com.google.protobuf.UnknownFieldSet.newBuilder(
-              this.getUnknownFields());
-          while (true) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              default: {
-                if (!parseUnknownField(input, unknownFields,
-                                       extensionRegistry, tag)) {
-                  this.setUnknownFields(unknownFields.build());
-                  onChanged();
-                  return this;
-                }
-                break;
-              }
-              case 10: {
-                com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position.Builder subBuilder = com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position.newBuilder();
-                input.readMessage(subBuilder, extensionRegistry);
-                addPositions(subBuilder.buildPartial());
-                break;
-              }
-            }
-          }
-        }
-        
-        private int bitField0_;
-        
-        // repeated .SI.Ship_positions.Ship_position positions = 1;
-        private java.util.List<com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position> positions_ =
-          java.util.Collections.emptyList();
-        private void ensurePositionsIsMutable() {
-          if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-            positions_ = new java.util.ArrayList<com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position>(positions_);
-            bitField0_ |= 0x00000001;
-           }
-        }
-        
-        private com.google.protobuf.RepeatedFieldBuilder<
-            com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position, com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position.Builder, com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_positionOrBuilder> positionsBuilder_;
-        
-        public java.util.List<com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position> getPositionsList() {
-          if (positionsBuilder_ == null) {
-            return java.util.Collections.unmodifiableList(positions_);
-          } else {
-            return positionsBuilder_.getMessageList();
-          }
-        }
-        public int getPositionsCount() {
-          if (positionsBuilder_ == null) {
-            return positions_.size();
-          } else {
-            return positionsBuilder_.getCount();
-          }
-        }
-        public com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position getPositions(int index) {
-          if (positionsBuilder_ == null) {
-            return positions_.get(index);
-          } else {
-            return positionsBuilder_.getMessage(index);
-          }
-        }
-        public Builder setPositions(
-            int index, com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position value) {
-          if (positionsBuilder_ == null) {
-            if (value == null) {
-              throw new NullPointerException();
-            }
-            ensurePositionsIsMutable();
-            positions_.set(index, value);
-            onChanged();
-          } else {
-            positionsBuilder_.setMessage(index, value);
-          }
-          return this;
-        }
-        public Builder setPositions(
-            int index, com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position.Builder builderForValue) {
-          if (positionsBuilder_ == null) {
-            ensurePositionsIsMutable();
-            positions_.set(index, builderForValue.build());
-            onChanged();
-          } else {
-            positionsBuilder_.setMessage(index, builderForValue.build());
-          }
-          return this;
-        }
-        public Builder addPositions(com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position value) {
-          if (positionsBuilder_ == null) {
-            if (value == null) {
-              throw new NullPointerException();
-            }
-            ensurePositionsIsMutable();
-            positions_.add(value);
-            onChanged();
-          } else {
-            positionsBuilder_.addMessage(value);
-          }
-          return this;
-        }
-        public Builder addPositions(
-            int index, com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position value) {
-          if (positionsBuilder_ == null) {
-            if (value == null) {
-              throw new NullPointerException();
-            }
-            ensurePositionsIsMutable();
-            positions_.add(index, value);
-            onChanged();
-          } else {
-            positionsBuilder_.addMessage(index, value);
-          }
-          return this;
-        }
-        public Builder addPositions(
-            com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position.Builder builderForValue) {
-          if (positionsBuilder_ == null) {
-            ensurePositionsIsMutable();
-            positions_.add(builderForValue.build());
-            onChanged();
-          } else {
-            positionsBuilder_.addMessage(builderForValue.build());
-          }
-          return this;
-        }
-        public Builder addPositions(
-            int index, com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position.Builder builderForValue) {
-          if (positionsBuilder_ == null) {
-            ensurePositionsIsMutable();
-            positions_.add(index, builderForValue.build());
-            onChanged();
-          } else {
-            positionsBuilder_.addMessage(index, builderForValue.build());
-          }
-          return this;
-        }
-        public Builder addAllPositions(
-            java.lang.Iterable<? extends com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position> values) {
-          if (positionsBuilder_ == null) {
-            ensurePositionsIsMutable();
-            super.addAll(values, positions_);
-            onChanged();
-          } else {
-            positionsBuilder_.addAllMessages(values);
-          }
-          return this;
-        }
-        public Builder clearPositions() {
-          if (positionsBuilder_ == null) {
-            positions_ = java.util.Collections.emptyList();
-            bitField0_ = (bitField0_ & ~0x00000001);
-            onChanged();
-          } else {
-            positionsBuilder_.clear();
-          }
-          return this;
-        }
-        public Builder removePositions(int index) {
-          if (positionsBuilder_ == null) {
-            ensurePositionsIsMutable();
-            positions_.remove(index);
-            onChanged();
-          } else {
-            positionsBuilder_.remove(index);
-          }
-          return this;
-        }
-        public com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position.Builder getPositionsBuilder(
-            int index) {
-          return getPositionsFieldBuilder().getBuilder(index);
-        }
-        public com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_positionOrBuilder getPositionsOrBuilder(
-            int index) {
-          if (positionsBuilder_ == null) {
-            return positions_.get(index);  } else {
-            return positionsBuilder_.getMessageOrBuilder(index);
-          }
-        }
-        public java.util.List<? extends com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_positionOrBuilder> 
-             getPositionsOrBuilderList() {
-          if (positionsBuilder_ != null) {
-            return positionsBuilder_.getMessageOrBuilderList();
-          } else {
-            return java.util.Collections.unmodifiableList(positions_);
-          }
-        }
-        public com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position.Builder addPositionsBuilder() {
-          return getPositionsFieldBuilder().addBuilder(
-              com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position.getDefaultInstance());
-        }
-        public com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position.Builder addPositionsBuilder(
-            int index) {
-          return getPositionsFieldBuilder().addBuilder(
-              index, com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position.getDefaultInstance());
-        }
-        public java.util.List<com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position.Builder> 
-             getPositionsBuilderList() {
-          return getPositionsFieldBuilder().getBuilderList();
-        }
-        private com.google.protobuf.RepeatedFieldBuilder<
-            com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position, com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position.Builder, com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_positionOrBuilder> 
-            getPositionsFieldBuilder() {
-          if (positionsBuilder_ == null) {
-            positionsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-                com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position, com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position.Builder, com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_positionOrBuilder>(
-                    positions_,
-                    ((bitField0_ & 0x00000001) == 0x00000001),
-                    getParentForChildren(),
-                    isClean());
-            positions_ = null;
-          }
-          return positionsBuilder_;
-        }
-        
-        // @@protoc_insertion_point(builder_scope:SI.Ship_positions)
-      }
-      
-      static {
-        defaultInstance = new Ship_positions(true);
-        defaultInstance.initFields();
-      }
-      
-      // @@protoc_insertion_point(class_scope:SI.Ship_positions)
-    }
-    
-    public interface Subscriptions_availableOrBuilder
-        extends com.google.protobuf.MessageOrBuilder {
-      
-      // repeated .SI.Subscriptions_available.Value_details outputs = 1;
-      java.util.List<com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details> 
-          getOutputsList();
-      com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details getOutputs(int index);
-      int getOutputsCount();
-      java.util.List<? extends com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_detailsOrBuilder> 
-          getOutputsOrBuilderList();
-      com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_detailsOrBuilder getOutputsOrBuilder(
-          int index);
-      
-      // repeated .SI.Subscriptions_available.Value_details inputs = 2;
-      java.util.List<com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details> 
-          getInputsList();
-      com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details getInputs(int index);
-      int getInputsCount();
-      java.util.List<? extends com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_detailsOrBuilder> 
-          getInputsOrBuilderList();
-      com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_detailsOrBuilder getInputsOrBuilder(
-          int index);
-    }
-    public static final class Subscriptions_available extends
-        com.google.protobuf.GeneratedMessage
-        implements Subscriptions_availableOrBuilder {
-      // Use Subscriptions_available.newBuilder() to construct.
-      private Subscriptions_available(Builder builder) {
-        super(builder);
-      }
-      private Subscriptions_available(boolean noInit) {}
-      
-      private static final Subscriptions_available defaultInstance;
-      public static Subscriptions_available getDefaultInstance() {
-        return defaultInstance;
-      }
-      
-      public Subscriptions_available getDefaultInstanceForType() {
-        return defaultInstance;
-      }
-      
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.wikispaces.lsfn.Shared.LSFN.internal_static_SI_Subscriptions_available_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.wikispaces.lsfn.Shared.LSFN.internal_static_SI_Subscriptions_available_fieldAccessorTable;
-      }
-      
-      public interface Value_detailsOrBuilder
-          extends com.google.protobuf.MessageOrBuilder {
-        
-        // required string name = 1;
-        boolean hasName();
-        String getName();
-        
-        // required int32 ID = 2;
-        boolean hasID();
-        int getID();
-        
-        // required .SI.Subscriptions_available.Value_details.Value_type type = 3;
-        boolean hasType();
-        com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Value_type getType();
-      }
-      public static final class Value_details extends
-          com.google.protobuf.GeneratedMessage
-          implements Value_detailsOrBuilder {
-        // Use Value_details.newBuilder() to construct.
-        private Value_details(Builder builder) {
-          super(builder);
-        }
-        private Value_details(boolean noInit) {}
-        
-        private static final Value_details defaultInstance;
-        public static Value_details getDefaultInstance() {
-          return defaultInstance;
-        }
-        
-        public Value_details getDefaultInstanceForType() {
-          return defaultInstance;
-        }
-        
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return com.wikispaces.lsfn.Shared.LSFN.internal_static_SI_Subscriptions_available_Value_details_descriptor;
-        }
-        
-        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return com.wikispaces.lsfn.Shared.LSFN.internal_static_SI_Subscriptions_available_Value_details_fieldAccessorTable;
-        }
-        
-        public enum Value_type
-            implements com.google.protobuf.ProtocolMessageEnum {
-          FLOAT(0, 0),
-          DOUBLE(1, 1),
-          INT32(2, 2),
-          INT64(3, 3),
-          STRING(4, 13),
-          ;
-          
-          public static final int FLOAT_VALUE = 0;
-          public static final int DOUBLE_VALUE = 1;
-          public static final int INT32_VALUE = 2;
-          public static final int INT64_VALUE = 3;
-          public static final int STRING_VALUE = 13;
-          
-          
-          public final int getNumber() { return value; }
-          
-          public static Value_type valueOf(int value) {
-            switch (value) {
-              case 0: return FLOAT;
-              case 1: return DOUBLE;
-              case 2: return INT32;
-              case 3: return INT64;
-              case 13: return STRING;
-              default: return null;
-            }
-          }
-          
-          public static com.google.protobuf.Internal.EnumLiteMap<Value_type>
-              internalGetValueMap() {
-            return internalValueMap;
-          }
-          private static com.google.protobuf.Internal.EnumLiteMap<Value_type>
-              internalValueMap =
-                new com.google.protobuf.Internal.EnumLiteMap<Value_type>() {
-                  public Value_type findValueByNumber(int number) {
-                    return Value_type.valueOf(number);
-                  }
-                };
-          
-          public final com.google.protobuf.Descriptors.EnumValueDescriptor
-              getValueDescriptor() {
-            return getDescriptor().getValues().get(index);
-          }
-          public final com.google.protobuf.Descriptors.EnumDescriptor
-              getDescriptorForType() {
-            return getDescriptor();
-          }
-          public static final com.google.protobuf.Descriptors.EnumDescriptor
-              getDescriptor() {
-            return com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.getDescriptor().getEnumTypes().get(0);
-          }
-          
-          private static final Value_type[] VALUES = {
-            FLOAT, DOUBLE, INT32, INT64, STRING, 
-          };
-          
-          public static Value_type valueOf(
-              com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-            if (desc.getType() != getDescriptor()) {
-              throw new java.lang.IllegalArgumentException(
-                "EnumValueDescriptor is not for this type.");
-            }
-            return VALUES[desc.getIndex()];
-          }
-          
-          private final int index;
-          private final int value;
-          
-          private Value_type(int index, int value) {
-            this.index = index;
-            this.value = value;
-          }
-          
-          // @@protoc_insertion_point(enum_scope:SI.Subscriptions_available.Value_details.Value_type)
-        }
-        
-        private int bitField0_;
-        // required string name = 1;
-        public static final int NAME_FIELD_NUMBER = 1;
-        private java.lang.Object name_;
-        public boolean hasName() {
-          return ((bitField0_ & 0x00000001) == 0x00000001);
-        }
-        public String getName() {
-          java.lang.Object ref = name_;
-          if (ref instanceof String) {
-            return (String) ref;
-          } else {
-            com.google.protobuf.ByteString bs = 
-                (com.google.protobuf.ByteString) ref;
-            String s = bs.toStringUtf8();
-            if (com.google.protobuf.Internal.isValidUtf8(bs)) {
-              name_ = s;
-            }
-            return s;
-          }
-        }
-        private com.google.protobuf.ByteString getNameBytes() {
-          java.lang.Object ref = name_;
-          if (ref instanceof String) {
-            com.google.protobuf.ByteString b = 
-                com.google.protobuf.ByteString.copyFromUtf8((String) ref);
-            name_ = b;
-            return b;
-          } else {
-            return (com.google.protobuf.ByteString) ref;
-          }
-        }
-        
-        // required int32 ID = 2;
-        public static final int ID_FIELD_NUMBER = 2;
-        private int iD_;
-        public boolean hasID() {
-          return ((bitField0_ & 0x00000002) == 0x00000002);
-        }
-        public int getID() {
-          return iD_;
-        }
-        
-        // required .SI.Subscriptions_available.Value_details.Value_type type = 3;
-        public static final int TYPE_FIELD_NUMBER = 3;
-        private com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Value_type type_;
-        public boolean hasType() {
-          return ((bitField0_ & 0x00000004) == 0x00000004);
-        }
-        public com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Value_type getType() {
-          return type_;
-        }
-        
-        private void initFields() {
-          name_ = "";
-          iD_ = 0;
-          type_ = com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Value_type.FLOAT;
-        }
-        private byte memoizedIsInitialized = -1;
-        public final boolean isInitialized() {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized != -1) return isInitialized == 1;
-          
-          if (!hasName()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-          if (!hasID()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-          if (!hasType()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-          memoizedIsInitialized = 1;
-          return true;
-        }
-        
-        public void writeTo(com.google.protobuf.CodedOutputStream output)
-                            throws java.io.IOException {
-          getSerializedSize();
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
-            output.writeBytes(1, getNameBytes());
-          }
-          if (((bitField0_ & 0x00000002) == 0x00000002)) {
-            output.writeInt32(2, iD_);
-          }
-          if (((bitField0_ & 0x00000004) == 0x00000004)) {
-            output.writeEnum(3, type_.getNumber());
-          }
-          getUnknownFields().writeTo(output);
-        }
-        
-        private int memoizedSerializedSize = -1;
-        public int getSerializedSize() {
-          int size = memoizedSerializedSize;
-          if (size != -1) return size;
-        
-          size = 0;
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
-            size += com.google.protobuf.CodedOutputStream
-              .computeBytesSize(1, getNameBytes());
-          }
-          if (((bitField0_ & 0x00000002) == 0x00000002)) {
-            size += com.google.protobuf.CodedOutputStream
-              .computeInt32Size(2, iD_);
-          }
-          if (((bitField0_ & 0x00000004) == 0x00000004)) {
-            size += com.google.protobuf.CodedOutputStream
-              .computeEnumSize(3, type_.getNumber());
-          }
-          size += getUnknownFields().getSerializedSize();
-          memoizedSerializedSize = size;
-          return size;
-        }
-        
-        private static final long serialVersionUID = 0L;
-        @java.lang.Override
-        protected java.lang.Object writeReplace()
-            throws java.io.ObjectStreamException {
-          return super.writeReplace();
-        }
-        
-        public static com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details parseFrom(
-            com.google.protobuf.ByteString data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          return newBuilder().mergeFrom(data).buildParsed();
-        }
-        public static com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details parseFrom(
-            com.google.protobuf.ByteString data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          return newBuilder().mergeFrom(data, extensionRegistry)
-                   .buildParsed();
-        }
-        public static com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details parseFrom(byte[] data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          return newBuilder().mergeFrom(data).buildParsed();
-        }
-        public static com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details parseFrom(
-            byte[] data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          return newBuilder().mergeFrom(data, extensionRegistry)
-                   .buildParsed();
-        }
-        public static com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details parseFrom(java.io.InputStream input)
-            throws java.io.IOException {
-          return newBuilder().mergeFrom(input).buildParsed();
-        }
-        public static com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details parseFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          return newBuilder().mergeFrom(input, extensionRegistry)
-                   .buildParsed();
-        }
-        public static com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details parseDelimitedFrom(java.io.InputStream input)
-            throws java.io.IOException {
-          Builder builder = newBuilder();
-          if (builder.mergeDelimitedFrom(input)) {
-            return builder.buildParsed();
-          } else {
-            return null;
-          }
-        }
-        public static com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details parseDelimitedFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          Builder builder = newBuilder();
-          if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-            return builder.buildParsed();
-          } else {
-            return null;
-          }
-        }
-        public static com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details parseFrom(
-            com.google.protobuf.CodedInputStream input)
-            throws java.io.IOException {
-          return newBuilder().mergeFrom(input).buildParsed();
-        }
-        public static com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details parseFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          return newBuilder().mergeFrom(input, extensionRegistry)
-                   .buildParsed();
-        }
-        
-        public static Builder newBuilder() { return Builder.create(); }
-        public Builder newBuilderForType() { return newBuilder(); }
-        public static Builder newBuilder(com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details prototype) {
-          return newBuilder().mergeFrom(prototype);
-        }
-        public Builder toBuilder() { return newBuilder(this); }
-        
-        @java.lang.Override
-        protected Builder newBuilderForType(
-            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-          Builder builder = new Builder(parent);
-          return builder;
-        }
-        public static final class Builder extends
-            com.google.protobuf.GeneratedMessage.Builder<Builder>
-           implements com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_detailsOrBuilder {
-          public static final com.google.protobuf.Descriptors.Descriptor
-              getDescriptor() {
-            return com.wikispaces.lsfn.Shared.LSFN.internal_static_SI_Subscriptions_available_Value_details_descriptor;
-          }
-          
-          protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-              internalGetFieldAccessorTable() {
-            return com.wikispaces.lsfn.Shared.LSFN.internal_static_SI_Subscriptions_available_Value_details_fieldAccessorTable;
-          }
-          
-          // Construct using com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.newBuilder()
-          private Builder() {
-            maybeForceBuilderInitialization();
-          }
-          
-          private Builder(BuilderParent parent) {
-            super(parent);
-            maybeForceBuilderInitialization();
-          }
-          private void maybeForceBuilderInitialization() {
-            if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-            }
-          }
-          private static Builder create() {
-            return new Builder();
-          }
-          
-          public Builder clear() {
-            super.clear();
-            name_ = "";
-            bitField0_ = (bitField0_ & ~0x00000001);
-            iD_ = 0;
-            bitField0_ = (bitField0_ & ~0x00000002);
-            type_ = com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Value_type.FLOAT;
-            bitField0_ = (bitField0_ & ~0x00000004);
-            return this;
-          }
-          
-          public Builder clone() {
-            return create().mergeFrom(buildPartial());
-          }
-          
-          public com.google.protobuf.Descriptors.Descriptor
-              getDescriptorForType() {
-            return com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.getDescriptor();
-          }
-          
-          public com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details getDefaultInstanceForType() {
-            return com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.getDefaultInstance();
-          }
-          
-          public com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details build() {
-            com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details result = buildPartial();
-            if (!result.isInitialized()) {
-              throw newUninitializedMessageException(result);
-            }
-            return result;
-          }
-          
-          private com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details buildParsed()
-              throws com.google.protobuf.InvalidProtocolBufferException {
-            com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details result = buildPartial();
-            if (!result.isInitialized()) {
-              throw newUninitializedMessageException(
-                result).asInvalidProtocolBufferException();
-            }
-            return result;
-          }
-          
-          public com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details buildPartial() {
-            com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details result = new com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details(this);
-            int from_bitField0_ = bitField0_;
-            int to_bitField0_ = 0;
-            if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-              to_bitField0_ |= 0x00000001;
-            }
-            result.name_ = name_;
-            if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-              to_bitField0_ |= 0x00000002;
-            }
-            result.iD_ = iD_;
-            if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-              to_bitField0_ |= 0x00000004;
-            }
-            result.type_ = type_;
-            result.bitField0_ = to_bitField0_;
-            onBuilt();
-            return result;
-          }
-          
-          public Builder mergeFrom(com.google.protobuf.Message other) {
-            if (other instanceof com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details) {
-              return mergeFrom((com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details)other);
-            } else {
-              super.mergeFrom(other);
-              return this;
-            }
-          }
-          
-          public Builder mergeFrom(com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details other) {
-            if (other == com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.getDefaultInstance()) return this;
-            if (other.hasName()) {
-              setName(other.getName());
-            }
-            if (other.hasID()) {
-              setID(other.getID());
-            }
-            if (other.hasType()) {
-              setType(other.getType());
-            }
-            this.mergeUnknownFields(other.getUnknownFields());
-            return this;
-          }
-          
-          public final boolean isInitialized() {
-            if (!hasName()) {
-              
-              return false;
-            }
-            if (!hasID()) {
-              
-              return false;
-            }
-            if (!hasType()) {
-              
-              return false;
-            }
-            return true;
-          }
-          
-          public Builder mergeFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws java.io.IOException {
-            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-              com.google.protobuf.UnknownFieldSet.newBuilder(
-                this.getUnknownFields());
-            while (true) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  this.setUnknownFields(unknownFields.build());
-                  onChanged();
-                  return this;
-                default: {
-                  if (!parseUnknownField(input, unknownFields,
-                                         extensionRegistry, tag)) {
-                    this.setUnknownFields(unknownFields.build());
-                    onChanged();
-                    return this;
-                  }
-                  break;
-                }
-                case 10: {
-                  bitField0_ |= 0x00000001;
-                  name_ = input.readBytes();
-                  break;
-                }
-                case 16: {
-                  bitField0_ |= 0x00000002;
-                  iD_ = input.readInt32();
-                  break;
-                }
-                case 24: {
-                  int rawValue = input.readEnum();
-                  com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Value_type value = com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Value_type.valueOf(rawValue);
-                  if (value == null) {
-                    unknownFields.mergeVarintField(3, rawValue);
-                  } else {
-                    bitField0_ |= 0x00000004;
-                    type_ = value;
-                  }
-                  break;
-                }
-              }
-            }
-          }
-          
-          private int bitField0_;
-          
-          // required string name = 1;
-          private java.lang.Object name_ = "";
-          public boolean hasName() {
-            return ((bitField0_ & 0x00000001) == 0x00000001);
-          }
-          public String getName() {
-            java.lang.Object ref = name_;
-            if (!(ref instanceof String)) {
-              String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
-              name_ = s;
-              return s;
-            } else {
-              return (String) ref;
-            }
-          }
-          public Builder setName(String value) {
-            if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-            name_ = value;
-            onChanged();
-            return this;
-          }
-          public Builder clearName() {
-            bitField0_ = (bitField0_ & ~0x00000001);
-            name_ = getDefaultInstance().getName();
-            onChanged();
-            return this;
-          }
-          void setName(com.google.protobuf.ByteString value) {
-            bitField0_ |= 0x00000001;
-            name_ = value;
-            onChanged();
-          }
-          
-          // required int32 ID = 2;
-          private int iD_ ;
-          public boolean hasID() {
-            return ((bitField0_ & 0x00000002) == 0x00000002);
-          }
-          public int getID() {
-            return iD_;
-          }
-          public Builder setID(int value) {
-            bitField0_ |= 0x00000002;
-            iD_ = value;
-            onChanged();
-            return this;
-          }
-          public Builder clearID() {
-            bitField0_ = (bitField0_ & ~0x00000002);
-            iD_ = 0;
-            onChanged();
-            return this;
-          }
-          
-          // required .SI.Subscriptions_available.Value_details.Value_type type = 3;
-          private com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Value_type type_ = com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Value_type.FLOAT;
-          public boolean hasType() {
-            return ((bitField0_ & 0x00000004) == 0x00000004);
-          }
-          public com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Value_type getType() {
-            return type_;
-          }
-          public Builder setType(com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Value_type value) {
-            if (value == null) {
-              throw new NullPointerException();
-            }
-            bitField0_ |= 0x00000004;
-            type_ = value;
-            onChanged();
-            return this;
-          }
-          public Builder clearType() {
-            bitField0_ = (bitField0_ & ~0x00000004);
-            type_ = com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Value_type.FLOAT;
-            onChanged();
-            return this;
-          }
-          
-          // @@protoc_insertion_point(builder_scope:SI.Subscriptions_available.Value_details)
-        }
-        
-        static {
-          defaultInstance = new Value_details(true);
-          defaultInstance.initFields();
-        }
-        
-        // @@protoc_insertion_point(class_scope:SI.Subscriptions_available.Value_details)
-      }
-      
-      // repeated .SI.Subscriptions_available.Value_details outputs = 1;
-      public static final int OUTPUTS_FIELD_NUMBER = 1;
-      private java.util.List<com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details> outputs_;
-      public java.util.List<com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details> getOutputsList() {
-        return outputs_;
-      }
-      public java.util.List<? extends com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_detailsOrBuilder> 
-          getOutputsOrBuilderList() {
-        return outputs_;
-      }
-      public int getOutputsCount() {
-        return outputs_.size();
-      }
-      public com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details getOutputs(int index) {
-        return outputs_.get(index);
-      }
-      public com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_detailsOrBuilder getOutputsOrBuilder(
-          int index) {
-        return outputs_.get(index);
-      }
-      
-      // repeated .SI.Subscriptions_available.Value_details inputs = 2;
-      public static final int INPUTS_FIELD_NUMBER = 2;
-      private java.util.List<com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details> inputs_;
-      public java.util.List<com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details> getInputsList() {
-        return inputs_;
-      }
-      public java.util.List<? extends com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_detailsOrBuilder> 
-          getInputsOrBuilderList() {
-        return inputs_;
-      }
-      public int getInputsCount() {
-        return inputs_.size();
-      }
-      public com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details getInputs(int index) {
-        return inputs_.get(index);
-      }
-      public com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_detailsOrBuilder getInputsOrBuilder(
-          int index) {
-        return inputs_.get(index);
-      }
-      
-      private void initFields() {
-        outputs_ = java.util.Collections.emptyList();
-        inputs_ = java.util.Collections.emptyList();
-      }
-      private byte memoizedIsInitialized = -1;
-      public final boolean isInitialized() {
-        byte isInitialized = memoizedIsInitialized;
-        if (isInitialized != -1) return isInitialized == 1;
-        
-        for (int i = 0; i < getOutputsCount(); i++) {
-          if (!getOutputs(i).isInitialized()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-        }
-        for (int i = 0; i < getInputsCount(); i++) {
-          if (!getInputs(i).isInitialized()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-        }
-        memoizedIsInitialized = 1;
-        return true;
-      }
-      
-      public void writeTo(com.google.protobuf.CodedOutputStream output)
-                          throws java.io.IOException {
-        getSerializedSize();
-        for (int i = 0; i < outputs_.size(); i++) {
-          output.writeMessage(1, outputs_.get(i));
-        }
-        for (int i = 0; i < inputs_.size(); i++) {
-          output.writeMessage(2, inputs_.get(i));
-        }
-        getUnknownFields().writeTo(output);
-      }
-      
-      private int memoizedSerializedSize = -1;
-      public int getSerializedSize() {
-        int size = memoizedSerializedSize;
-        if (size != -1) return size;
-      
-        size = 0;
-        for (int i = 0; i < outputs_.size(); i++) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeMessageSize(1, outputs_.get(i));
-        }
-        for (int i = 0; i < inputs_.size(); i++) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeMessageSize(2, inputs_.get(i));
-        }
-        size += getUnknownFields().getSerializedSize();
-        memoizedSerializedSize = size;
-        return size;
-      }
-      
-      private static final long serialVersionUID = 0L;
-      @java.lang.Override
-      protected java.lang.Object writeReplace()
-          throws java.io.ObjectStreamException {
-        return super.writeReplace();
-      }
-      
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available parseFrom(
-          com.google.protobuf.ByteString data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available parseFrom(
-          com.google.protobuf.ByteString data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available parseFrom(byte[] data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available parseFrom(
-          byte[] data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available parseFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available parseFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available parseDelimitedFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available parseDelimitedFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available parseFrom(
-          com.google.protobuf.CodedInputStream input)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available parseFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
-      }
-      
-      public static Builder newBuilder() { return Builder.create(); }
-      public Builder newBuilderForType() { return newBuilder(); }
-      public static Builder newBuilder(com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available prototype) {
-        return newBuilder().mergeFrom(prototype);
-      }
-      public Builder toBuilder() { return newBuilder(this); }
-      
-      @java.lang.Override
-      protected Builder newBuilderForType(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        Builder builder = new Builder(parent);
-        return builder;
-      }
-      public static final class Builder extends
-          com.google.protobuf.GeneratedMessage.Builder<Builder>
-         implements com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_availableOrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return com.wikispaces.lsfn.Shared.LSFN.internal_static_SI_Subscriptions_available_descriptor;
-        }
-        
-        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return com.wikispaces.lsfn.Shared.LSFN.internal_static_SI_Subscriptions_available_fieldAccessorTable;
-        }
-        
-        // Construct using com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.newBuilder()
-        private Builder() {
-          maybeForceBuilderInitialization();
-        }
-        
-        private Builder(BuilderParent parent) {
-          super(parent);
-          maybeForceBuilderInitialization();
-        }
-        private void maybeForceBuilderInitialization() {
-          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-            getOutputsFieldBuilder();
-            getInputsFieldBuilder();
-          }
-        }
-        private static Builder create() {
-          return new Builder();
-        }
-        
-        public Builder clear() {
-          super.clear();
-          if (outputsBuilder_ == null) {
-            outputs_ = java.util.Collections.emptyList();
-            bitField0_ = (bitField0_ & ~0x00000001);
-          } else {
-            outputsBuilder_.clear();
-          }
-          if (inputsBuilder_ == null) {
-            inputs_ = java.util.Collections.emptyList();
-            bitField0_ = (bitField0_ & ~0x00000002);
-          } else {
-            inputsBuilder_.clear();
-          }
-          return this;
-        }
-        
-        public Builder clone() {
-          return create().mergeFrom(buildPartial());
-        }
-        
-        public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-          return com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.getDescriptor();
-        }
-        
-        public com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available getDefaultInstanceForType() {
-          return com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.getDefaultInstance();
-        }
-        
-        public com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available build() {
-          com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(result);
-          }
-          return result;
-        }
-        
-        private com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available buildParsed()
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(
-              result).asInvalidProtocolBufferException();
-          }
-          return result;
-        }
-        
-        public com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available buildPartial() {
-          com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available result = new com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available(this);
-          int from_bitField0_ = bitField0_;
-          if (outputsBuilder_ == null) {
-            if (((bitField0_ & 0x00000001) == 0x00000001)) {
-              outputs_ = java.util.Collections.unmodifiableList(outputs_);
-              bitField0_ = (bitField0_ & ~0x00000001);
-            }
-            result.outputs_ = outputs_;
-          } else {
-            result.outputs_ = outputsBuilder_.build();
-          }
-          if (inputsBuilder_ == null) {
-            if (((bitField0_ & 0x00000002) == 0x00000002)) {
-              inputs_ = java.util.Collections.unmodifiableList(inputs_);
-              bitField0_ = (bitField0_ & ~0x00000002);
-            }
-            result.inputs_ = inputs_;
-          } else {
-            result.inputs_ = inputsBuilder_.build();
-          }
-          onBuilt();
-          return result;
-        }
-        
-        public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available) {
-            return mergeFrom((com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available)other);
-          } else {
-            super.mergeFrom(other);
-            return this;
-          }
-        }
-        
-        public Builder mergeFrom(com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available other) {
-          if (other == com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.getDefaultInstance()) return this;
-          if (outputsBuilder_ == null) {
-            if (!other.outputs_.isEmpty()) {
-              if (outputs_.isEmpty()) {
-                outputs_ = other.outputs_;
-                bitField0_ = (bitField0_ & ~0x00000001);
-              } else {
-                ensureOutputsIsMutable();
-                outputs_.addAll(other.outputs_);
-              }
-              onChanged();
-            }
-          } else {
-            if (!other.outputs_.isEmpty()) {
-              if (outputsBuilder_.isEmpty()) {
-                outputsBuilder_.dispose();
-                outputsBuilder_ = null;
-                outputs_ = other.outputs_;
-                bitField0_ = (bitField0_ & ~0x00000001);
-                outputsBuilder_ = 
-                  com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
-                     getOutputsFieldBuilder() : null;
-              } else {
-                outputsBuilder_.addAllMessages(other.outputs_);
-              }
-            }
-          }
-          if (inputsBuilder_ == null) {
-            if (!other.inputs_.isEmpty()) {
-              if (inputs_.isEmpty()) {
-                inputs_ = other.inputs_;
-                bitField0_ = (bitField0_ & ~0x00000002);
-              } else {
-                ensureInputsIsMutable();
-                inputs_.addAll(other.inputs_);
-              }
-              onChanged();
-            }
-          } else {
-            if (!other.inputs_.isEmpty()) {
-              if (inputsBuilder_.isEmpty()) {
-                inputsBuilder_.dispose();
-                inputsBuilder_ = null;
-                inputs_ = other.inputs_;
-                bitField0_ = (bitField0_ & ~0x00000002);
-                inputsBuilder_ = 
-                  com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
-                     getInputsFieldBuilder() : null;
-              } else {
-                inputsBuilder_.addAllMessages(other.inputs_);
-              }
-            }
-          }
-          this.mergeUnknownFields(other.getUnknownFields());
-          return this;
-        }
-        
-        public final boolean isInitialized() {
-          for (int i = 0; i < getOutputsCount(); i++) {
-            if (!getOutputs(i).isInitialized()) {
-              
-              return false;
-            }
-          }
-          for (int i = 0; i < getInputsCount(); i++) {
-            if (!getInputs(i).isInitialized()) {
-              
-              return false;
-            }
-          }
-          return true;
-        }
-        
-        public Builder mergeFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-            com.google.protobuf.UnknownFieldSet.newBuilder(
-              this.getUnknownFields());
-          while (true) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              default: {
-                if (!parseUnknownField(input, unknownFields,
-                                       extensionRegistry, tag)) {
-                  this.setUnknownFields(unknownFields.build());
-                  onChanged();
-                  return this;
-                }
-                break;
-              }
-              case 10: {
-                com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Builder subBuilder = com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.newBuilder();
-                input.readMessage(subBuilder, extensionRegistry);
-                addOutputs(subBuilder.buildPartial());
-                break;
-              }
-              case 18: {
-                com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Builder subBuilder = com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.newBuilder();
-                input.readMessage(subBuilder, extensionRegistry);
-                addInputs(subBuilder.buildPartial());
-                break;
-              }
-            }
-          }
-        }
-        
-        private int bitField0_;
-        
-        // repeated .SI.Subscriptions_available.Value_details outputs = 1;
-        private java.util.List<com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details> outputs_ =
-          java.util.Collections.emptyList();
-        private void ensureOutputsIsMutable() {
-          if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-            outputs_ = new java.util.ArrayList<com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details>(outputs_);
-            bitField0_ |= 0x00000001;
-           }
-        }
-        
-        private com.google.protobuf.RepeatedFieldBuilder<
-            com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Builder, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_detailsOrBuilder> outputsBuilder_;
-        
-        public java.util.List<com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details> getOutputsList() {
-          if (outputsBuilder_ == null) {
-            return java.util.Collections.unmodifiableList(outputs_);
-          } else {
-            return outputsBuilder_.getMessageList();
-          }
-        }
-        public int getOutputsCount() {
-          if (outputsBuilder_ == null) {
-            return outputs_.size();
-          } else {
-            return outputsBuilder_.getCount();
-          }
-        }
-        public com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details getOutputs(int index) {
-          if (outputsBuilder_ == null) {
-            return outputs_.get(index);
-          } else {
-            return outputsBuilder_.getMessage(index);
-          }
-        }
-        public Builder setOutputs(
-            int index, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details value) {
-          if (outputsBuilder_ == null) {
-            if (value == null) {
-              throw new NullPointerException();
-            }
-            ensureOutputsIsMutable();
-            outputs_.set(index, value);
-            onChanged();
-          } else {
-            outputsBuilder_.setMessage(index, value);
-          }
-          return this;
-        }
-        public Builder setOutputs(
-            int index, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Builder builderForValue) {
-          if (outputsBuilder_ == null) {
-            ensureOutputsIsMutable();
-            outputs_.set(index, builderForValue.build());
-            onChanged();
-          } else {
-            outputsBuilder_.setMessage(index, builderForValue.build());
-          }
-          return this;
-        }
-        public Builder addOutputs(com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details value) {
-          if (outputsBuilder_ == null) {
-            if (value == null) {
-              throw new NullPointerException();
-            }
-            ensureOutputsIsMutable();
-            outputs_.add(value);
-            onChanged();
-          } else {
-            outputsBuilder_.addMessage(value);
-          }
-          return this;
-        }
-        public Builder addOutputs(
-            int index, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details value) {
-          if (outputsBuilder_ == null) {
-            if (value == null) {
-              throw new NullPointerException();
-            }
-            ensureOutputsIsMutable();
-            outputs_.add(index, value);
-            onChanged();
-          } else {
-            outputsBuilder_.addMessage(index, value);
-          }
-          return this;
-        }
-        public Builder addOutputs(
-            com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Builder builderForValue) {
-          if (outputsBuilder_ == null) {
-            ensureOutputsIsMutable();
-            outputs_.add(builderForValue.build());
-            onChanged();
-          } else {
-            outputsBuilder_.addMessage(builderForValue.build());
-          }
-          return this;
-        }
-        public Builder addOutputs(
-            int index, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Builder builderForValue) {
-          if (outputsBuilder_ == null) {
-            ensureOutputsIsMutable();
-            outputs_.add(index, builderForValue.build());
-            onChanged();
-          } else {
-            outputsBuilder_.addMessage(index, builderForValue.build());
-          }
-          return this;
-        }
-        public Builder addAllOutputs(
-            java.lang.Iterable<? extends com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details> values) {
-          if (outputsBuilder_ == null) {
-            ensureOutputsIsMutable();
-            super.addAll(values, outputs_);
-            onChanged();
-          } else {
-            outputsBuilder_.addAllMessages(values);
-          }
-          return this;
-        }
-        public Builder clearOutputs() {
-          if (outputsBuilder_ == null) {
-            outputs_ = java.util.Collections.emptyList();
-            bitField0_ = (bitField0_ & ~0x00000001);
-            onChanged();
-          } else {
-            outputsBuilder_.clear();
-          }
-          return this;
-        }
-        public Builder removeOutputs(int index) {
-          if (outputsBuilder_ == null) {
-            ensureOutputsIsMutable();
-            outputs_.remove(index);
-            onChanged();
-          } else {
-            outputsBuilder_.remove(index);
-          }
-          return this;
-        }
-        public com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Builder getOutputsBuilder(
-            int index) {
-          return getOutputsFieldBuilder().getBuilder(index);
-        }
-        public com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_detailsOrBuilder getOutputsOrBuilder(
-            int index) {
-          if (outputsBuilder_ == null) {
-            return outputs_.get(index);  } else {
-            return outputsBuilder_.getMessageOrBuilder(index);
-          }
-        }
-        public java.util.List<? extends com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_detailsOrBuilder> 
-             getOutputsOrBuilderList() {
-          if (outputsBuilder_ != null) {
-            return outputsBuilder_.getMessageOrBuilderList();
-          } else {
-            return java.util.Collections.unmodifiableList(outputs_);
-          }
-        }
-        public com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Builder addOutputsBuilder() {
-          return getOutputsFieldBuilder().addBuilder(
-              com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.getDefaultInstance());
-        }
-        public com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Builder addOutputsBuilder(
-            int index) {
-          return getOutputsFieldBuilder().addBuilder(
-              index, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.getDefaultInstance());
-        }
-        public java.util.List<com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Builder> 
-             getOutputsBuilderList() {
-          return getOutputsFieldBuilder().getBuilderList();
-        }
-        private com.google.protobuf.RepeatedFieldBuilder<
-            com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Builder, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_detailsOrBuilder> 
-            getOutputsFieldBuilder() {
-          if (outputsBuilder_ == null) {
-            outputsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-                com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Builder, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_detailsOrBuilder>(
-                    outputs_,
-                    ((bitField0_ & 0x00000001) == 0x00000001),
-                    getParentForChildren(),
-                    isClean());
-            outputs_ = null;
-          }
-          return outputsBuilder_;
-        }
-        
-        // repeated .SI.Subscriptions_available.Value_details inputs = 2;
-        private java.util.List<com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details> inputs_ =
-          java.util.Collections.emptyList();
-        private void ensureInputsIsMutable() {
-          if (!((bitField0_ & 0x00000002) == 0x00000002)) {
-            inputs_ = new java.util.ArrayList<com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details>(inputs_);
-            bitField0_ |= 0x00000002;
-           }
-        }
-        
-        private com.google.protobuf.RepeatedFieldBuilder<
-            com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Builder, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_detailsOrBuilder> inputsBuilder_;
-        
-        public java.util.List<com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details> getInputsList() {
-          if (inputsBuilder_ == null) {
-            return java.util.Collections.unmodifiableList(inputs_);
-          } else {
-            return inputsBuilder_.getMessageList();
-          }
-        }
-        public int getInputsCount() {
-          if (inputsBuilder_ == null) {
-            return inputs_.size();
-          } else {
-            return inputsBuilder_.getCount();
-          }
-        }
-        public com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details getInputs(int index) {
-          if (inputsBuilder_ == null) {
-            return inputs_.get(index);
-          } else {
-            return inputsBuilder_.getMessage(index);
-          }
-        }
-        public Builder setInputs(
-            int index, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details value) {
-          if (inputsBuilder_ == null) {
-            if (value == null) {
-              throw new NullPointerException();
-            }
-            ensureInputsIsMutable();
-            inputs_.set(index, value);
-            onChanged();
-          } else {
-            inputsBuilder_.setMessage(index, value);
-          }
-          return this;
-        }
-        public Builder setInputs(
-            int index, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Builder builderForValue) {
-          if (inputsBuilder_ == null) {
-            ensureInputsIsMutable();
-            inputs_.set(index, builderForValue.build());
-            onChanged();
-          } else {
-            inputsBuilder_.setMessage(index, builderForValue.build());
-          }
-          return this;
-        }
-        public Builder addInputs(com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details value) {
-          if (inputsBuilder_ == null) {
-            if (value == null) {
-              throw new NullPointerException();
-            }
-            ensureInputsIsMutable();
-            inputs_.add(value);
-            onChanged();
-          } else {
-            inputsBuilder_.addMessage(value);
-          }
-          return this;
-        }
-        public Builder addInputs(
-            int index, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details value) {
-          if (inputsBuilder_ == null) {
-            if (value == null) {
-              throw new NullPointerException();
-            }
-            ensureInputsIsMutable();
-            inputs_.add(index, value);
-            onChanged();
-          } else {
-            inputsBuilder_.addMessage(index, value);
-          }
-          return this;
-        }
-        public Builder addInputs(
-            com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Builder builderForValue) {
-          if (inputsBuilder_ == null) {
-            ensureInputsIsMutable();
-            inputs_.add(builderForValue.build());
-            onChanged();
-          } else {
-            inputsBuilder_.addMessage(builderForValue.build());
-          }
-          return this;
-        }
-        public Builder addInputs(
-            int index, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Builder builderForValue) {
-          if (inputsBuilder_ == null) {
-            ensureInputsIsMutable();
-            inputs_.add(index, builderForValue.build());
-            onChanged();
-          } else {
-            inputsBuilder_.addMessage(index, builderForValue.build());
-          }
-          return this;
-        }
-        public Builder addAllInputs(
-            java.lang.Iterable<? extends com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details> values) {
-          if (inputsBuilder_ == null) {
-            ensureInputsIsMutable();
-            super.addAll(values, inputs_);
-            onChanged();
-          } else {
-            inputsBuilder_.addAllMessages(values);
-          }
-          return this;
-        }
-        public Builder clearInputs() {
-          if (inputsBuilder_ == null) {
-            inputs_ = java.util.Collections.emptyList();
-            bitField0_ = (bitField0_ & ~0x00000002);
-            onChanged();
-          } else {
-            inputsBuilder_.clear();
-          }
-          return this;
-        }
-        public Builder removeInputs(int index) {
-          if (inputsBuilder_ == null) {
-            ensureInputsIsMutable();
-            inputs_.remove(index);
-            onChanged();
-          } else {
-            inputsBuilder_.remove(index);
-          }
-          return this;
-        }
-        public com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Builder getInputsBuilder(
-            int index) {
-          return getInputsFieldBuilder().getBuilder(index);
-        }
-        public com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_detailsOrBuilder getInputsOrBuilder(
-            int index) {
-          if (inputsBuilder_ == null) {
-            return inputs_.get(index);  } else {
-            return inputsBuilder_.getMessageOrBuilder(index);
-          }
-        }
-        public java.util.List<? extends com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_detailsOrBuilder> 
-             getInputsOrBuilderList() {
-          if (inputsBuilder_ != null) {
-            return inputsBuilder_.getMessageOrBuilderList();
-          } else {
-            return java.util.Collections.unmodifiableList(inputs_);
-          }
-        }
-        public com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Builder addInputsBuilder() {
-          return getInputsFieldBuilder().addBuilder(
-              com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.getDefaultInstance());
-        }
-        public com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Builder addInputsBuilder(
-            int index) {
-          return getInputsFieldBuilder().addBuilder(
-              index, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.getDefaultInstance());
-        }
-        public java.util.List<com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Builder> 
-             getInputsBuilderList() {
-          return getInputsFieldBuilder().getBuilderList();
-        }
-        private com.google.protobuf.RepeatedFieldBuilder<
-            com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Builder, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_detailsOrBuilder> 
-            getInputsFieldBuilder() {
-          if (inputsBuilder_ == null) {
-            inputsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-                com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Builder, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_detailsOrBuilder>(
-                    inputs_,
-                    ((bitField0_ & 0x00000002) == 0x00000002),
-                    getParentForChildren(),
-                    isClean());
-            inputs_ = null;
-          }
-          return inputsBuilder_;
-        }
-        
-        // @@protoc_insertion_point(builder_scope:SI.Subscriptions_available)
-      }
-      
-      static {
-        defaultInstance = new Subscriptions_available(true);
-        defaultInstance.initFields();
-      }
-      
-      // @@protoc_insertion_point(class_scope:SI.Subscriptions_available)
     }
     
     private int bitField0_;
@@ -6946,64 +2984,22 @@ public final class LSFN {
       return handshake_;
     }
     
-    // optional .SI.SHIP_ENV_status status = 17;
-    public static final int STATUS_FIELD_NUMBER = 17;
-    private com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status status_;
-    public boolean hasStatus() {
+    // optional .SubscriptionsAvailable subscriptionsAvailable = 17;
+    public static final int SUBSCRIPTIONSAVAILABLE_FIELD_NUMBER = 17;
+    private com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable subscriptionsAvailable_;
+    public boolean hasSubscriptionsAvailable() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    public com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status getStatus() {
-      return status_;
-    }
-    public com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_statusOrBuilder getStatusOrBuilder() {
-      return status_;
-    }
-    
-    // optional .SI.Ship_positions positions = 18;
-    public static final int POSITIONS_FIELD_NUMBER = 18;
-    private com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions positions_;
-    public boolean hasPositions() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
-    }
-    public com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions getPositions() {
-      return positions_;
-    }
-    public com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positionsOrBuilder getPositionsOrBuilder() {
-      return positions_;
-    }
-    
-    // optional .SI.Subscriptions_available subscriptions_available = 19;
-    public static final int SUBSCRIPTIONS_AVAILABLE_FIELD_NUMBER = 19;
-    private com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available subscriptionsAvailable_;
-    public boolean hasSubscriptionsAvailable() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
-    }
-    public com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available getSubscriptionsAvailable() {
+    public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable getSubscriptionsAvailable() {
       return subscriptionsAvailable_;
     }
-    public com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_availableOrBuilder getSubscriptionsAvailableOrBuilder() {
+    public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailableOrBuilder getSubscriptionsAvailableOrBuilder() {
       return subscriptionsAvailable_;
-    }
-    
-    // optional .Subscription_updates output_updates = 20;
-    public static final int OUTPUT_UPDATES_FIELD_NUMBER = 20;
-    private com.wikispaces.lsfn.Shared.LSFN.Subscription_updates outputUpdates_;
-    public boolean hasOutputUpdates() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
-    }
-    public com.wikispaces.lsfn.Shared.LSFN.Subscription_updates getOutputUpdates() {
-      return outputUpdates_;
-    }
-    public com.wikispaces.lsfn.Shared.LSFN.Subscription_updatesOrBuilder getOutputUpdatesOrBuilder() {
-      return outputUpdates_;
     }
     
     private void initFields() {
       handshake_ = com.wikispaces.lsfn.Shared.LSFN.SI.Handshake.getDefaultInstance();
-      status_ = com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.getDefaultInstance();
-      positions_ = com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.getDefaultInstance();
-      subscriptionsAvailable_ = com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.getDefaultInstance();
-      outputUpdates_ = com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.getDefaultInstance();
+      subscriptionsAvailable_ = com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.getDefaultInstance();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -7016,26 +3012,8 @@ public final class LSFN {
           return false;
         }
       }
-      if (hasStatus()) {
-        if (!getStatus().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      if (hasPositions()) {
-        if (!getPositions().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       if (hasSubscriptionsAvailable()) {
         if (!getSubscriptionsAvailable().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      if (hasOutputUpdates()) {
-        if (!getOutputUpdates().isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -7051,16 +3029,7 @@ public final class LSFN {
         output.writeMessage(16, handshake_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeMessage(17, status_);
-      }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeMessage(18, positions_);
-      }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeMessage(19, subscriptionsAvailable_);
-      }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeMessage(20, outputUpdates_);
+        output.writeMessage(17, subscriptionsAvailable_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -7077,19 +3046,7 @@ public final class LSFN {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(17, status_);
-      }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(18, positions_);
-      }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(19, subscriptionsAvailable_);
-      }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(20, outputUpdates_);
+          .computeMessageSize(17, subscriptionsAvailable_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -7208,10 +3165,7 @@ public final class LSFN {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
           getHandshakeFieldBuilder();
-          getStatusFieldBuilder();
-          getPositionsFieldBuilder();
           getSubscriptionsAvailableFieldBuilder();
-          getOutputUpdatesFieldBuilder();
         }
       }
       private static Builder create() {
@@ -7226,30 +3180,12 @@ public final class LSFN {
           handshakeBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
-        if (statusBuilder_ == null) {
-          status_ = com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.getDefaultInstance();
-        } else {
-          statusBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000002);
-        if (positionsBuilder_ == null) {
-          positions_ = com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.getDefaultInstance();
-        } else {
-          positionsBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000004);
         if (subscriptionsAvailableBuilder_ == null) {
-          subscriptionsAvailable_ = com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.getDefaultInstance();
+          subscriptionsAvailable_ = com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.getDefaultInstance();
         } else {
           subscriptionsAvailableBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000008);
-        if (outputUpdatesBuilder_ == null) {
-          outputUpdates_ = com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.getDefaultInstance();
-        } else {
-          outputUpdatesBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
       
@@ -7299,34 +3235,10 @@ public final class LSFN {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        if (statusBuilder_ == null) {
-          result.status_ = status_;
-        } else {
-          result.status_ = statusBuilder_.build();
-        }
-        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-          to_bitField0_ |= 0x00000004;
-        }
-        if (positionsBuilder_ == null) {
-          result.positions_ = positions_;
-        } else {
-          result.positions_ = positionsBuilder_.build();
-        }
-        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
-          to_bitField0_ |= 0x00000008;
-        }
         if (subscriptionsAvailableBuilder_ == null) {
           result.subscriptionsAvailable_ = subscriptionsAvailable_;
         } else {
           result.subscriptionsAvailable_ = subscriptionsAvailableBuilder_.build();
-        }
-        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
-          to_bitField0_ |= 0x00000010;
-        }
-        if (outputUpdatesBuilder_ == null) {
-          result.outputUpdates_ = outputUpdates_;
-        } else {
-          result.outputUpdates_ = outputUpdatesBuilder_.build();
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -7347,17 +3259,8 @@ public final class LSFN {
         if (other.hasHandshake()) {
           mergeHandshake(other.getHandshake());
         }
-        if (other.hasStatus()) {
-          mergeStatus(other.getStatus());
-        }
-        if (other.hasPositions()) {
-          mergePositions(other.getPositions());
-        }
         if (other.hasSubscriptionsAvailable()) {
           mergeSubscriptionsAvailable(other.getSubscriptionsAvailable());
-        }
-        if (other.hasOutputUpdates()) {
-          mergeOutputUpdates(other.getOutputUpdates());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -7370,26 +3273,8 @@ public final class LSFN {
             return false;
           }
         }
-        if (hasStatus()) {
-          if (!getStatus().isInitialized()) {
-            
-            return false;
-          }
-        }
-        if (hasPositions()) {
-          if (!getPositions().isInitialized()) {
-            
-            return false;
-          }
-        }
         if (hasSubscriptionsAvailable()) {
           if (!getSubscriptionsAvailable().isInitialized()) {
-            
-            return false;
-          }
-        }
-        if (hasOutputUpdates()) {
-          if (!getOutputUpdates().isInitialized()) {
             
             return false;
           }
@@ -7430,39 +3315,12 @@ public final class LSFN {
               break;
             }
             case 138: {
-              com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.Builder subBuilder = com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.newBuilder();
-              if (hasStatus()) {
-                subBuilder.mergeFrom(getStatus());
-              }
-              input.readMessage(subBuilder, extensionRegistry);
-              setStatus(subBuilder.buildPartial());
-              break;
-            }
-            case 146: {
-              com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Builder subBuilder = com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.newBuilder();
-              if (hasPositions()) {
-                subBuilder.mergeFrom(getPositions());
-              }
-              input.readMessage(subBuilder, extensionRegistry);
-              setPositions(subBuilder.buildPartial());
-              break;
-            }
-            case 154: {
-              com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Builder subBuilder = com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.newBuilder();
+              com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.Builder subBuilder = com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.newBuilder();
               if (hasSubscriptionsAvailable()) {
                 subBuilder.mergeFrom(getSubscriptionsAvailable());
               }
               input.readMessage(subBuilder, extensionRegistry);
               setSubscriptionsAvailable(subBuilder.buildPartial());
-              break;
-            }
-            case 162: {
-              com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Builder subBuilder = com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.newBuilder();
-              if (hasOutputUpdates()) {
-                subBuilder.mergeFrom(getOutputUpdates());
-              }
-              input.readMessage(subBuilder, extensionRegistry);
-              setOutputUpdates(subBuilder.buildPartial());
               break;
             }
           }
@@ -7561,201 +3419,21 @@ public final class LSFN {
         return handshakeBuilder_;
       }
       
-      // optional .SI.SHIP_ENV_status status = 17;
-      private com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status status_ = com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.getDefaultInstance();
+      // optional .SubscriptionsAvailable subscriptionsAvailable = 17;
+      private com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable subscriptionsAvailable_ = com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
-          com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status, com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.Builder, com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_statusOrBuilder> statusBuilder_;
-      public boolean hasStatus() {
+          com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.Builder, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailableOrBuilder> subscriptionsAvailableBuilder_;
+      public boolean hasSubscriptionsAvailable() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status getStatus() {
-        if (statusBuilder_ == null) {
-          return status_;
-        } else {
-          return statusBuilder_.getMessage();
-        }
-      }
-      public Builder setStatus(com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status value) {
-        if (statusBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          status_ = value;
-          onChanged();
-        } else {
-          statusBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000002;
-        return this;
-      }
-      public Builder setStatus(
-          com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.Builder builderForValue) {
-        if (statusBuilder_ == null) {
-          status_ = builderForValue.build();
-          onChanged();
-        } else {
-          statusBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000002;
-        return this;
-      }
-      public Builder mergeStatus(com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status value) {
-        if (statusBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) == 0x00000002) &&
-              status_ != com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.getDefaultInstance()) {
-            status_ =
-              com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.newBuilder(status_).mergeFrom(value).buildPartial();
-          } else {
-            status_ = value;
-          }
-          onChanged();
-        } else {
-          statusBuilder_.mergeFrom(value);
-        }
-        bitField0_ |= 0x00000002;
-        return this;
-      }
-      public Builder clearStatus() {
-        if (statusBuilder_ == null) {
-          status_ = com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.getDefaultInstance();
-          onChanged();
-        } else {
-          statusBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000002);
-        return this;
-      }
-      public com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.Builder getStatusBuilder() {
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return getStatusFieldBuilder().getBuilder();
-      }
-      public com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_statusOrBuilder getStatusOrBuilder() {
-        if (statusBuilder_ != null) {
-          return statusBuilder_.getMessageOrBuilder();
-        } else {
-          return status_;
-        }
-      }
-      private com.google.protobuf.SingleFieldBuilder<
-          com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status, com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.Builder, com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_statusOrBuilder> 
-          getStatusFieldBuilder() {
-        if (statusBuilder_ == null) {
-          statusBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status, com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.Builder, com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_statusOrBuilder>(
-                  status_,
-                  getParentForChildren(),
-                  isClean());
-          status_ = null;
-        }
-        return statusBuilder_;
-      }
-      
-      // optional .SI.Ship_positions positions = 18;
-      private com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions positions_ = com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
-          com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions, com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Builder, com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positionsOrBuilder> positionsBuilder_;
-      public boolean hasPositions() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
-      }
-      public com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions getPositions() {
-        if (positionsBuilder_ == null) {
-          return positions_;
-        } else {
-          return positionsBuilder_.getMessage();
-        }
-      }
-      public Builder setPositions(com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions value) {
-        if (positionsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          positions_ = value;
-          onChanged();
-        } else {
-          positionsBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000004;
-        return this;
-      }
-      public Builder setPositions(
-          com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Builder builderForValue) {
-        if (positionsBuilder_ == null) {
-          positions_ = builderForValue.build();
-          onChanged();
-        } else {
-          positionsBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000004;
-        return this;
-      }
-      public Builder mergePositions(com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions value) {
-        if (positionsBuilder_ == null) {
-          if (((bitField0_ & 0x00000004) == 0x00000004) &&
-              positions_ != com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.getDefaultInstance()) {
-            positions_ =
-              com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.newBuilder(positions_).mergeFrom(value).buildPartial();
-          } else {
-            positions_ = value;
-          }
-          onChanged();
-        } else {
-          positionsBuilder_.mergeFrom(value);
-        }
-        bitField0_ |= 0x00000004;
-        return this;
-      }
-      public Builder clearPositions() {
-        if (positionsBuilder_ == null) {
-          positions_ = com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.getDefaultInstance();
-          onChanged();
-        } else {
-          positionsBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000004);
-        return this;
-      }
-      public com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Builder getPositionsBuilder() {
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return getPositionsFieldBuilder().getBuilder();
-      }
-      public com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positionsOrBuilder getPositionsOrBuilder() {
-        if (positionsBuilder_ != null) {
-          return positionsBuilder_.getMessageOrBuilder();
-        } else {
-          return positions_;
-        }
-      }
-      private com.google.protobuf.SingleFieldBuilder<
-          com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions, com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Builder, com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positionsOrBuilder> 
-          getPositionsFieldBuilder() {
-        if (positionsBuilder_ == null) {
-          positionsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions, com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Builder, com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positionsOrBuilder>(
-                  positions_,
-                  getParentForChildren(),
-                  isClean());
-          positions_ = null;
-        }
-        return positionsBuilder_;
-      }
-      
-      // optional .SI.Subscriptions_available subscriptions_available = 19;
-      private com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available subscriptionsAvailable_ = com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
-          com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Builder, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_availableOrBuilder> subscriptionsAvailableBuilder_;
-      public boolean hasSubscriptionsAvailable() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
-      }
-      public com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available getSubscriptionsAvailable() {
+      public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable getSubscriptionsAvailable() {
         if (subscriptionsAvailableBuilder_ == null) {
           return subscriptionsAvailable_;
         } else {
           return subscriptionsAvailableBuilder_.getMessage();
         }
       }
-      public Builder setSubscriptionsAvailable(com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available value) {
+      public Builder setSubscriptionsAvailable(com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable value) {
         if (subscriptionsAvailableBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -7765,26 +3443,26 @@ public final class LSFN {
         } else {
           subscriptionsAvailableBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000002;
         return this;
       }
       public Builder setSubscriptionsAvailable(
-          com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Builder builderForValue) {
+          com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.Builder builderForValue) {
         if (subscriptionsAvailableBuilder_ == null) {
           subscriptionsAvailable_ = builderForValue.build();
           onChanged();
         } else {
           subscriptionsAvailableBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000002;
         return this;
       }
-      public Builder mergeSubscriptionsAvailable(com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available value) {
+      public Builder mergeSubscriptionsAvailable(com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable value) {
         if (subscriptionsAvailableBuilder_ == null) {
-          if (((bitField0_ & 0x00000008) == 0x00000008) &&
-              subscriptionsAvailable_ != com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.getDefaultInstance()) {
+          if (((bitField0_ & 0x00000002) == 0x00000002) &&
+              subscriptionsAvailable_ != com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.getDefaultInstance()) {
             subscriptionsAvailable_ =
-              com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.newBuilder(subscriptionsAvailable_).mergeFrom(value).buildPartial();
+              com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.newBuilder(subscriptionsAvailable_).mergeFrom(value).buildPartial();
           } else {
             subscriptionsAvailable_ = value;
           }
@@ -7792,25 +3470,25 @@ public final class LSFN {
         } else {
           subscriptionsAvailableBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000002;
         return this;
       }
       public Builder clearSubscriptionsAvailable() {
         if (subscriptionsAvailableBuilder_ == null) {
-          subscriptionsAvailable_ = com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.getDefaultInstance();
+          subscriptionsAvailable_ = com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.getDefaultInstance();
           onChanged();
         } else {
           subscriptionsAvailableBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
-      public com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Builder getSubscriptionsAvailableBuilder() {
-        bitField0_ |= 0x00000008;
+      public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.Builder getSubscriptionsAvailableBuilder() {
+        bitField0_ |= 0x00000002;
         onChanged();
         return getSubscriptionsAvailableFieldBuilder().getBuilder();
       }
-      public com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_availableOrBuilder getSubscriptionsAvailableOrBuilder() {
+      public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailableOrBuilder getSubscriptionsAvailableOrBuilder() {
         if (subscriptionsAvailableBuilder_ != null) {
           return subscriptionsAvailableBuilder_.getMessageOrBuilder();
         } else {
@@ -7818,107 +3496,17 @@ public final class LSFN {
         }
       }
       private com.google.protobuf.SingleFieldBuilder<
-          com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Builder, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_availableOrBuilder> 
+          com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.Builder, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailableOrBuilder> 
           getSubscriptionsAvailableFieldBuilder() {
         if (subscriptionsAvailableBuilder_ == null) {
           subscriptionsAvailableBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Builder, com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_availableOrBuilder>(
+              com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.Builder, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailableOrBuilder>(
                   subscriptionsAvailable_,
                   getParentForChildren(),
                   isClean());
           subscriptionsAvailable_ = null;
         }
         return subscriptionsAvailableBuilder_;
-      }
-      
-      // optional .Subscription_updates output_updates = 20;
-      private com.wikispaces.lsfn.Shared.LSFN.Subscription_updates outputUpdates_ = com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
-          com.wikispaces.lsfn.Shared.LSFN.Subscription_updates, com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Builder, com.wikispaces.lsfn.Shared.LSFN.Subscription_updatesOrBuilder> outputUpdatesBuilder_;
-      public boolean hasOutputUpdates() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
-      }
-      public com.wikispaces.lsfn.Shared.LSFN.Subscription_updates getOutputUpdates() {
-        if (outputUpdatesBuilder_ == null) {
-          return outputUpdates_;
-        } else {
-          return outputUpdatesBuilder_.getMessage();
-        }
-      }
-      public Builder setOutputUpdates(com.wikispaces.lsfn.Shared.LSFN.Subscription_updates value) {
-        if (outputUpdatesBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          outputUpdates_ = value;
-          onChanged();
-        } else {
-          outputUpdatesBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000010;
-        return this;
-      }
-      public Builder setOutputUpdates(
-          com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Builder builderForValue) {
-        if (outputUpdatesBuilder_ == null) {
-          outputUpdates_ = builderForValue.build();
-          onChanged();
-        } else {
-          outputUpdatesBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000010;
-        return this;
-      }
-      public Builder mergeOutputUpdates(com.wikispaces.lsfn.Shared.LSFN.Subscription_updates value) {
-        if (outputUpdatesBuilder_ == null) {
-          if (((bitField0_ & 0x00000010) == 0x00000010) &&
-              outputUpdates_ != com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.getDefaultInstance()) {
-            outputUpdates_ =
-              com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.newBuilder(outputUpdates_).mergeFrom(value).buildPartial();
-          } else {
-            outputUpdates_ = value;
-          }
-          onChanged();
-        } else {
-          outputUpdatesBuilder_.mergeFrom(value);
-        }
-        bitField0_ |= 0x00000010;
-        return this;
-      }
-      public Builder clearOutputUpdates() {
-        if (outputUpdatesBuilder_ == null) {
-          outputUpdates_ = com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.getDefaultInstance();
-          onChanged();
-        } else {
-          outputUpdatesBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000010);
-        return this;
-      }
-      public com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Builder getOutputUpdatesBuilder() {
-        bitField0_ |= 0x00000010;
-        onChanged();
-        return getOutputUpdatesFieldBuilder().getBuilder();
-      }
-      public com.wikispaces.lsfn.Shared.LSFN.Subscription_updatesOrBuilder getOutputUpdatesOrBuilder() {
-        if (outputUpdatesBuilder_ != null) {
-          return outputUpdatesBuilder_.getMessageOrBuilder();
-        } else {
-          return outputUpdates_;
-        }
-      }
-      private com.google.protobuf.SingleFieldBuilder<
-          com.wikispaces.lsfn.Shared.LSFN.Subscription_updates, com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Builder, com.wikispaces.lsfn.Shared.LSFN.Subscription_updatesOrBuilder> 
-          getOutputUpdatesFieldBuilder() {
-        if (outputUpdatesBuilder_ == null) {
-          outputUpdatesBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              com.wikispaces.lsfn.Shared.LSFN.Subscription_updates, com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Builder, com.wikispaces.lsfn.Shared.LSFN.Subscription_updatesOrBuilder>(
-                  outputUpdates_,
-                  getParentForChildren(),
-                  isClean());
-          outputUpdates_ = null;
-        }
-        return outputUpdatesBuilder_;
       }
       
       // @@protoc_insertion_point(builder_scope:SI)
@@ -7939,10 +3527,14 @@ public final class LSFN {
     boolean hasHandshake();
     com.wikispaces.lsfn.Shared.LSFN.SE.Handshake getHandshake();
     
-    // optional .SE.Ship_movement movement = 17;
-    boolean hasMovement();
-    com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement getMovement();
-    com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movementOrBuilder getMovementOrBuilder();
+    // optional .Subscribe subscribe = 17;
+    boolean hasSubscribe();
+    com.wikispaces.lsfn.Shared.LSFN.Subscribe getSubscribe();
+    com.wikispaces.lsfn.Shared.LSFN.SubscribeOrBuilder getSubscribeOrBuilder();
+    
+    // optional string rcon = 18;
+    boolean hasRcon();
+    String getRcon();
   }
   public static final class SE extends
       com.google.protobuf.GeneratedMessage
@@ -7975,11 +3567,9 @@ public final class LSFN {
     public enum Handshake
         implements com.google.protobuf.ProtocolMessageEnum {
       HELLO(0, 0),
-      GOODBYE(1, 1),
       ;
       
       public static final int HELLO_VALUE = 0;
-      public static final int GOODBYE_VALUE = 1;
       
       
       public final int getNumber() { return value; }
@@ -7987,7 +3577,6 @@ public final class LSFN {
       public static Handshake valueOf(int value) {
         switch (value) {
           case 0: return HELLO;
-          case 1: return GOODBYE;
           default: return null;
         }
       }
@@ -8018,7 +3607,7 @@ public final class LSFN {
       }
       
       private static final Handshake[] VALUES = {
-        HELLO, GOODBYE, 
+        HELLO, 
       };
       
       public static Handshake valueOf(
@@ -8041,389 +3630,6 @@ public final class LSFN {
       // @@protoc_insertion_point(enum_scope:SE.Handshake)
     }
     
-    public interface Ship_movementOrBuilder
-        extends com.google.protobuf.MessageOrBuilder {
-      
-      // repeated double axis_accel = 1;
-      java.util.List<java.lang.Double> getAxisAccelList();
-      int getAxisAccelCount();
-      double getAxisAccel(int index);
-    }
-    public static final class Ship_movement extends
-        com.google.protobuf.GeneratedMessage
-        implements Ship_movementOrBuilder {
-      // Use Ship_movement.newBuilder() to construct.
-      private Ship_movement(Builder builder) {
-        super(builder);
-      }
-      private Ship_movement(boolean noInit) {}
-      
-      private static final Ship_movement defaultInstance;
-      public static Ship_movement getDefaultInstance() {
-        return defaultInstance;
-      }
-      
-      public Ship_movement getDefaultInstanceForType() {
-        return defaultInstance;
-      }
-      
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.wikispaces.lsfn.Shared.LSFN.internal_static_SE_Ship_movement_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.wikispaces.lsfn.Shared.LSFN.internal_static_SE_Ship_movement_fieldAccessorTable;
-      }
-      
-      // repeated double axis_accel = 1;
-      public static final int AXIS_ACCEL_FIELD_NUMBER = 1;
-      private java.util.List<java.lang.Double> axisAccel_;
-      public java.util.List<java.lang.Double>
-          getAxisAccelList() {
-        return axisAccel_;
-      }
-      public int getAxisAccelCount() {
-        return axisAccel_.size();
-      }
-      public double getAxisAccel(int index) {
-        return axisAccel_.get(index);
-      }
-      
-      private void initFields() {
-        axisAccel_ = java.util.Collections.emptyList();;
-      }
-      private byte memoizedIsInitialized = -1;
-      public final boolean isInitialized() {
-        byte isInitialized = memoizedIsInitialized;
-        if (isInitialized != -1) return isInitialized == 1;
-        
-        memoizedIsInitialized = 1;
-        return true;
-      }
-      
-      public void writeTo(com.google.protobuf.CodedOutputStream output)
-                          throws java.io.IOException {
-        getSerializedSize();
-        for (int i = 0; i < axisAccel_.size(); i++) {
-          output.writeDouble(1, axisAccel_.get(i));
-        }
-        getUnknownFields().writeTo(output);
-      }
-      
-      private int memoizedSerializedSize = -1;
-      public int getSerializedSize() {
-        int size = memoizedSerializedSize;
-        if (size != -1) return size;
-      
-        size = 0;
-        {
-          int dataSize = 0;
-          dataSize = 8 * getAxisAccelList().size();
-          size += dataSize;
-          size += 1 * getAxisAccelList().size();
-        }
-        size += getUnknownFields().getSerializedSize();
-        memoizedSerializedSize = size;
-        return size;
-      }
-      
-      private static final long serialVersionUID = 0L;
-      @java.lang.Override
-      protected java.lang.Object writeReplace()
-          throws java.io.ObjectStreamException {
-        return super.writeReplace();
-      }
-      
-      public static com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement parseFrom(
-          com.google.protobuf.ByteString data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement parseFrom(
-          com.google.protobuf.ByteString data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement parseFrom(byte[] data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement parseFrom(
-          byte[] data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement parseFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement parseFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement parseDelimitedFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement parseDelimitedFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement parseFrom(
-          com.google.protobuf.CodedInputStream input)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement parseFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
-      }
-      
-      public static Builder newBuilder() { return Builder.create(); }
-      public Builder newBuilderForType() { return newBuilder(); }
-      public static Builder newBuilder(com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement prototype) {
-        return newBuilder().mergeFrom(prototype);
-      }
-      public Builder toBuilder() { return newBuilder(this); }
-      
-      @java.lang.Override
-      protected Builder newBuilderForType(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        Builder builder = new Builder(parent);
-        return builder;
-      }
-      public static final class Builder extends
-          com.google.protobuf.GeneratedMessage.Builder<Builder>
-         implements com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movementOrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return com.wikispaces.lsfn.Shared.LSFN.internal_static_SE_Ship_movement_descriptor;
-        }
-        
-        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return com.wikispaces.lsfn.Shared.LSFN.internal_static_SE_Ship_movement_fieldAccessorTable;
-        }
-        
-        // Construct using com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement.newBuilder()
-        private Builder() {
-          maybeForceBuilderInitialization();
-        }
-        
-        private Builder(BuilderParent parent) {
-          super(parent);
-          maybeForceBuilderInitialization();
-        }
-        private void maybeForceBuilderInitialization() {
-          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          }
-        }
-        private static Builder create() {
-          return new Builder();
-        }
-        
-        public Builder clear() {
-          super.clear();
-          axisAccel_ = java.util.Collections.emptyList();;
-          bitField0_ = (bitField0_ & ~0x00000001);
-          return this;
-        }
-        
-        public Builder clone() {
-          return create().mergeFrom(buildPartial());
-        }
-        
-        public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-          return com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement.getDescriptor();
-        }
-        
-        public com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement getDefaultInstanceForType() {
-          return com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement.getDefaultInstance();
-        }
-        
-        public com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement build() {
-          com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(result);
-          }
-          return result;
-        }
-        
-        private com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement buildParsed()
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(
-              result).asInvalidProtocolBufferException();
-          }
-          return result;
-        }
-        
-        public com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement buildPartial() {
-          com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement result = new com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement(this);
-          int from_bitField0_ = bitField0_;
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
-            axisAccel_ = java.util.Collections.unmodifiableList(axisAccel_);
-            bitField0_ = (bitField0_ & ~0x00000001);
-          }
-          result.axisAccel_ = axisAccel_;
-          onBuilt();
-          return result;
-        }
-        
-        public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement) {
-            return mergeFrom((com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement)other);
-          } else {
-            super.mergeFrom(other);
-            return this;
-          }
-        }
-        
-        public Builder mergeFrom(com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement other) {
-          if (other == com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement.getDefaultInstance()) return this;
-          if (!other.axisAccel_.isEmpty()) {
-            if (axisAccel_.isEmpty()) {
-              axisAccel_ = other.axisAccel_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-            } else {
-              ensureAxisAccelIsMutable();
-              axisAccel_.addAll(other.axisAccel_);
-            }
-            onChanged();
-          }
-          this.mergeUnknownFields(other.getUnknownFields());
-          return this;
-        }
-        
-        public final boolean isInitialized() {
-          return true;
-        }
-        
-        public Builder mergeFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-            com.google.protobuf.UnknownFieldSet.newBuilder(
-              this.getUnknownFields());
-          while (true) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              default: {
-                if (!parseUnknownField(input, unknownFields,
-                                       extensionRegistry, tag)) {
-                  this.setUnknownFields(unknownFields.build());
-                  onChanged();
-                  return this;
-                }
-                break;
-              }
-              case 9: {
-                ensureAxisAccelIsMutable();
-                axisAccel_.add(input.readDouble());
-                break;
-              }
-              case 10: {
-                int length = input.readRawVarint32();
-                int limit = input.pushLimit(length);
-                while (input.getBytesUntilLimit() > 0) {
-                  addAxisAccel(input.readDouble());
-                }
-                input.popLimit(limit);
-                break;
-              }
-            }
-          }
-        }
-        
-        private int bitField0_;
-        
-        // repeated double axis_accel = 1;
-        private java.util.List<java.lang.Double> axisAccel_ = java.util.Collections.emptyList();;
-        private void ensureAxisAccelIsMutable() {
-          if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-            axisAccel_ = new java.util.ArrayList<java.lang.Double>(axisAccel_);
-            bitField0_ |= 0x00000001;
-           }
-        }
-        public java.util.List<java.lang.Double>
-            getAxisAccelList() {
-          return java.util.Collections.unmodifiableList(axisAccel_);
-        }
-        public int getAxisAccelCount() {
-          return axisAccel_.size();
-        }
-        public double getAxisAccel(int index) {
-          return axisAccel_.get(index);
-        }
-        public Builder setAxisAccel(
-            int index, double value) {
-          ensureAxisAccelIsMutable();
-          axisAccel_.set(index, value);
-          onChanged();
-          return this;
-        }
-        public Builder addAxisAccel(double value) {
-          ensureAxisAccelIsMutable();
-          axisAccel_.add(value);
-          onChanged();
-          return this;
-        }
-        public Builder addAllAxisAccel(
-            java.lang.Iterable<? extends java.lang.Double> values) {
-          ensureAxisAccelIsMutable();
-          super.addAll(values, axisAccel_);
-          onChanged();
-          return this;
-        }
-        public Builder clearAxisAccel() {
-          axisAccel_ = java.util.Collections.emptyList();;
-          bitField0_ = (bitField0_ & ~0x00000001);
-          onChanged();
-          return this;
-        }
-        
-        // @@protoc_insertion_point(builder_scope:SE.Ship_movement)
-      }
-      
-      static {
-        defaultInstance = new Ship_movement(true);
-        defaultInstance.initFields();
-      }
-      
-      // @@protoc_insertion_point(class_scope:SE.Ship_movement)
-    }
-    
     private int bitField0_;
     // optional .SE.Handshake handshake = 16;
     public static final int HANDSHAKE_FIELD_NUMBER = 16;
@@ -8435,22 +3641,55 @@ public final class LSFN {
       return handshake_;
     }
     
-    // optional .SE.Ship_movement movement = 17;
-    public static final int MOVEMENT_FIELD_NUMBER = 17;
-    private com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement movement_;
-    public boolean hasMovement() {
+    // optional .Subscribe subscribe = 17;
+    public static final int SUBSCRIBE_FIELD_NUMBER = 17;
+    private com.wikispaces.lsfn.Shared.LSFN.Subscribe subscribe_;
+    public boolean hasSubscribe() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    public com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement getMovement() {
-      return movement_;
+    public com.wikispaces.lsfn.Shared.LSFN.Subscribe getSubscribe() {
+      return subscribe_;
     }
-    public com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movementOrBuilder getMovementOrBuilder() {
-      return movement_;
+    public com.wikispaces.lsfn.Shared.LSFN.SubscribeOrBuilder getSubscribeOrBuilder() {
+      return subscribe_;
+    }
+    
+    // optional string rcon = 18;
+    public static final int RCON_FIELD_NUMBER = 18;
+    private java.lang.Object rcon_;
+    public boolean hasRcon() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    public String getRcon() {
+      java.lang.Object ref = rcon_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          rcon_ = s;
+        }
+        return s;
+      }
+    }
+    private com.google.protobuf.ByteString getRconBytes() {
+      java.lang.Object ref = rcon_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        rcon_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
     
     private void initFields() {
       handshake_ = com.wikispaces.lsfn.Shared.LSFN.SE.Handshake.HELLO;
-      movement_ = com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement.getDefaultInstance();
+      subscribe_ = com.wikispaces.lsfn.Shared.LSFN.Subscribe.getDefaultInstance();
+      rcon_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -8468,7 +3707,10 @@ public final class LSFN {
         output.writeEnum(16, handshake_.getNumber());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeMessage(17, movement_);
+        output.writeMessage(17, subscribe_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeBytes(18, getRconBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -8485,7 +3727,11 @@ public final class LSFN {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(17, movement_);
+          .computeMessageSize(17, subscribe_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(18, getRconBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -8603,7 +3849,7 @@ public final class LSFN {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getMovementFieldBuilder();
+          getSubscribeFieldBuilder();
         }
       }
       private static Builder create() {
@@ -8614,12 +3860,14 @@ public final class LSFN {
         super.clear();
         handshake_ = com.wikispaces.lsfn.Shared.LSFN.SE.Handshake.HELLO;
         bitField0_ = (bitField0_ & ~0x00000001);
-        if (movementBuilder_ == null) {
-          movement_ = com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement.getDefaultInstance();
+        if (subscribeBuilder_ == null) {
+          subscribe_ = com.wikispaces.lsfn.Shared.LSFN.Subscribe.getDefaultInstance();
         } else {
-          movementBuilder_.clear();
+          subscribeBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000002);
+        rcon_ = "";
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
       
@@ -8665,11 +3913,15 @@ public final class LSFN {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        if (movementBuilder_ == null) {
-          result.movement_ = movement_;
+        if (subscribeBuilder_ == null) {
+          result.subscribe_ = subscribe_;
         } else {
-          result.movement_ = movementBuilder_.build();
+          result.subscribe_ = subscribeBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.rcon_ = rcon_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -8689,8 +3941,11 @@ public final class LSFN {
         if (other.hasHandshake()) {
           setHandshake(other.getHandshake());
         }
-        if (other.hasMovement()) {
-          mergeMovement(other.getMovement());
+        if (other.hasSubscribe()) {
+          mergeSubscribe(other.getSubscribe());
+        }
+        if (other.hasRcon()) {
+          setRcon(other.getRcon());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -8735,12 +3990,17 @@ public final class LSFN {
               break;
             }
             case 138: {
-              com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement.Builder subBuilder = com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement.newBuilder();
-              if (hasMovement()) {
-                subBuilder.mergeFrom(getMovement());
+              com.wikispaces.lsfn.Shared.LSFN.Subscribe.Builder subBuilder = com.wikispaces.lsfn.Shared.LSFN.Subscribe.newBuilder();
+              if (hasSubscribe()) {
+                subBuilder.mergeFrom(getSubscribe());
               }
               input.readMessage(subBuilder, extensionRegistry);
-              setMovement(subBuilder.buildPartial());
+              setSubscribe(subBuilder.buildPartial());
+              break;
+            }
+            case 146: {
+              bitField0_ |= 0x00000004;
+              rcon_ = input.readBytes();
               break;
             }
           }
@@ -8773,94 +4033,130 @@ public final class LSFN {
         return this;
       }
       
-      // optional .SE.Ship_movement movement = 17;
-      private com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement movement_ = com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement.getDefaultInstance();
+      // optional .Subscribe subscribe = 17;
+      private com.wikispaces.lsfn.Shared.LSFN.Subscribe subscribe_ = com.wikispaces.lsfn.Shared.LSFN.Subscribe.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
-          com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement, com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement.Builder, com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movementOrBuilder> movementBuilder_;
-      public boolean hasMovement() {
+          com.wikispaces.lsfn.Shared.LSFN.Subscribe, com.wikispaces.lsfn.Shared.LSFN.Subscribe.Builder, com.wikispaces.lsfn.Shared.LSFN.SubscribeOrBuilder> subscribeBuilder_;
+      public boolean hasSubscribe() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement getMovement() {
-        if (movementBuilder_ == null) {
-          return movement_;
+      public com.wikispaces.lsfn.Shared.LSFN.Subscribe getSubscribe() {
+        if (subscribeBuilder_ == null) {
+          return subscribe_;
         } else {
-          return movementBuilder_.getMessage();
+          return subscribeBuilder_.getMessage();
         }
       }
-      public Builder setMovement(com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement value) {
-        if (movementBuilder_ == null) {
+      public Builder setSubscribe(com.wikispaces.lsfn.Shared.LSFN.Subscribe value) {
+        if (subscribeBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          movement_ = value;
+          subscribe_ = value;
           onChanged();
         } else {
-          movementBuilder_.setMessage(value);
+          subscribeBuilder_.setMessage(value);
         }
         bitField0_ |= 0x00000002;
         return this;
       }
-      public Builder setMovement(
-          com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement.Builder builderForValue) {
-        if (movementBuilder_ == null) {
-          movement_ = builderForValue.build();
+      public Builder setSubscribe(
+          com.wikispaces.lsfn.Shared.LSFN.Subscribe.Builder builderForValue) {
+        if (subscribeBuilder_ == null) {
+          subscribe_ = builderForValue.build();
           onChanged();
         } else {
-          movementBuilder_.setMessage(builderForValue.build());
+          subscribeBuilder_.setMessage(builderForValue.build());
         }
         bitField0_ |= 0x00000002;
         return this;
       }
-      public Builder mergeMovement(com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement value) {
-        if (movementBuilder_ == null) {
+      public Builder mergeSubscribe(com.wikispaces.lsfn.Shared.LSFN.Subscribe value) {
+        if (subscribeBuilder_ == null) {
           if (((bitField0_ & 0x00000002) == 0x00000002) &&
-              movement_ != com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement.getDefaultInstance()) {
-            movement_ =
-              com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement.newBuilder(movement_).mergeFrom(value).buildPartial();
+              subscribe_ != com.wikispaces.lsfn.Shared.LSFN.Subscribe.getDefaultInstance()) {
+            subscribe_ =
+              com.wikispaces.lsfn.Shared.LSFN.Subscribe.newBuilder(subscribe_).mergeFrom(value).buildPartial();
           } else {
-            movement_ = value;
+            subscribe_ = value;
           }
           onChanged();
         } else {
-          movementBuilder_.mergeFrom(value);
+          subscribeBuilder_.mergeFrom(value);
         }
         bitField0_ |= 0x00000002;
         return this;
       }
-      public Builder clearMovement() {
-        if (movementBuilder_ == null) {
-          movement_ = com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement.getDefaultInstance();
+      public Builder clearSubscribe() {
+        if (subscribeBuilder_ == null) {
+          subscribe_ = com.wikispaces.lsfn.Shared.LSFN.Subscribe.getDefaultInstance();
           onChanged();
         } else {
-          movementBuilder_.clear();
+          subscribeBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
-      public com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement.Builder getMovementBuilder() {
+      public com.wikispaces.lsfn.Shared.LSFN.Subscribe.Builder getSubscribeBuilder() {
         bitField0_ |= 0x00000002;
         onChanged();
-        return getMovementFieldBuilder().getBuilder();
+        return getSubscribeFieldBuilder().getBuilder();
       }
-      public com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movementOrBuilder getMovementOrBuilder() {
-        if (movementBuilder_ != null) {
-          return movementBuilder_.getMessageOrBuilder();
+      public com.wikispaces.lsfn.Shared.LSFN.SubscribeOrBuilder getSubscribeOrBuilder() {
+        if (subscribeBuilder_ != null) {
+          return subscribeBuilder_.getMessageOrBuilder();
         } else {
-          return movement_;
+          return subscribe_;
         }
       }
       private com.google.protobuf.SingleFieldBuilder<
-          com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement, com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement.Builder, com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movementOrBuilder> 
-          getMovementFieldBuilder() {
-        if (movementBuilder_ == null) {
-          movementBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement, com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement.Builder, com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movementOrBuilder>(
-                  movement_,
+          com.wikispaces.lsfn.Shared.LSFN.Subscribe, com.wikispaces.lsfn.Shared.LSFN.Subscribe.Builder, com.wikispaces.lsfn.Shared.LSFN.SubscribeOrBuilder> 
+          getSubscribeFieldBuilder() {
+        if (subscribeBuilder_ == null) {
+          subscribeBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.wikispaces.lsfn.Shared.LSFN.Subscribe, com.wikispaces.lsfn.Shared.LSFN.Subscribe.Builder, com.wikispaces.lsfn.Shared.LSFN.SubscribeOrBuilder>(
+                  subscribe_,
                   getParentForChildren(),
                   isClean());
-          movement_ = null;
+          subscribe_ = null;
         }
-        return movementBuilder_;
+        return subscribeBuilder_;
+      }
+      
+      // optional string rcon = 18;
+      private java.lang.Object rcon_ = "";
+      public boolean hasRcon() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      public String getRcon() {
+        java.lang.Object ref = rcon_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          rcon_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      public Builder setRcon(String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        rcon_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearRcon() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        rcon_ = getDefaultInstance().getRcon();
+        onChanged();
+        return this;
+      }
+      void setRcon(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000004;
+        rcon_ = value;
+        onChanged();
       }
       
       // @@protoc_insertion_point(builder_scope:SE)
@@ -8882,10 +4178,10 @@ public final class LSFN {
     com.wikispaces.lsfn.Shared.LSFN.ES.Handshake getHandshake();
     com.wikispaces.lsfn.Shared.LSFN.ES.HandshakeOrBuilder getHandshakeOrBuilder();
     
-    // optional .ES.Ship_positions positions = 17;
-    boolean hasPositions();
-    com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions getPositions();
-    com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positionsOrBuilder getPositionsOrBuilder();
+    // optional .SubscriptionsAvailable subscriptionsAvailable = 17;
+    boolean hasSubscriptionsAvailable();
+    com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable getSubscriptionsAvailable();
+    com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailableOrBuilder getSubscriptionsAvailableOrBuilder();
   }
   public static final class ES extends
       com.google.protobuf.GeneratedMessage
@@ -8922,7 +4218,7 @@ public final class LSFN {
       boolean hasType();
       com.wikispaces.lsfn.Shared.LSFN.ES.Handshake.Type getType();
       
-      // optional int32 ship_ID = 2;
+      // optional int32 shipID = 2;
       boolean hasShipID();
       int getShipID();
     }
@@ -9034,8 +4330,8 @@ public final class LSFN {
         return type_;
       }
       
-      // optional int32 ship_ID = 2;
-      public static final int SHIP_ID_FIELD_NUMBER = 2;
+      // optional int32 shipID = 2;
+      public static final int SHIPID_FIELD_NUMBER = 2;
       private int shipID_;
       public boolean hasShipID() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -9364,7 +4660,7 @@ public final class LSFN {
           return this;
         }
         
-        // optional int32 ship_ID = 2;
+        // optional int32 shipID = 2;
         private int shipID_ ;
         public boolean hasShipID() {
           return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -9396,1020 +4692,6 @@ public final class LSFN {
       // @@protoc_insertion_point(class_scope:ES.Handshake)
     }
     
-    public interface Ship_positionsOrBuilder
-        extends com.google.protobuf.MessageOrBuilder {
-      
-      // repeated .ES.Ship_positions.Ship_position positions = 1;
-      java.util.List<com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position> 
-          getPositionsList();
-      com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position getPositions(int index);
-      int getPositionsCount();
-      java.util.List<? extends com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_positionOrBuilder> 
-          getPositionsOrBuilderList();
-      com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_positionOrBuilder getPositionsOrBuilder(
-          int index);
-    }
-    public static final class Ship_positions extends
-        com.google.protobuf.GeneratedMessage
-        implements Ship_positionsOrBuilder {
-      // Use Ship_positions.newBuilder() to construct.
-      private Ship_positions(Builder builder) {
-        super(builder);
-      }
-      private Ship_positions(boolean noInit) {}
-      
-      private static final Ship_positions defaultInstance;
-      public static Ship_positions getDefaultInstance() {
-        return defaultInstance;
-      }
-      
-      public Ship_positions getDefaultInstanceForType() {
-        return defaultInstance;
-      }
-      
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.wikispaces.lsfn.Shared.LSFN.internal_static_ES_Ship_positions_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.wikispaces.lsfn.Shared.LSFN.internal_static_ES_Ship_positions_fieldAccessorTable;
-      }
-      
-      public interface Ship_positionOrBuilder
-          extends com.google.protobuf.MessageOrBuilder {
-        
-        // required int32 ship_ID = 1;
-        boolean hasShipID();
-        int getShipID();
-        
-        // repeated double coordinates = 2;
-        java.util.List<java.lang.Double> getCoordinatesList();
-        int getCoordinatesCount();
-        double getCoordinates(int index);
-      }
-      public static final class Ship_position extends
-          com.google.protobuf.GeneratedMessage
-          implements Ship_positionOrBuilder {
-        // Use Ship_position.newBuilder() to construct.
-        private Ship_position(Builder builder) {
-          super(builder);
-        }
-        private Ship_position(boolean noInit) {}
-        
-        private static final Ship_position defaultInstance;
-        public static Ship_position getDefaultInstance() {
-          return defaultInstance;
-        }
-        
-        public Ship_position getDefaultInstanceForType() {
-          return defaultInstance;
-        }
-        
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return com.wikispaces.lsfn.Shared.LSFN.internal_static_ES_Ship_positions_Ship_position_descriptor;
-        }
-        
-        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return com.wikispaces.lsfn.Shared.LSFN.internal_static_ES_Ship_positions_Ship_position_fieldAccessorTable;
-        }
-        
-        private int bitField0_;
-        // required int32 ship_ID = 1;
-        public static final int SHIP_ID_FIELD_NUMBER = 1;
-        private int shipID_;
-        public boolean hasShipID() {
-          return ((bitField0_ & 0x00000001) == 0x00000001);
-        }
-        public int getShipID() {
-          return shipID_;
-        }
-        
-        // repeated double coordinates = 2;
-        public static final int COORDINATES_FIELD_NUMBER = 2;
-        private java.util.List<java.lang.Double> coordinates_;
-        public java.util.List<java.lang.Double>
-            getCoordinatesList() {
-          return coordinates_;
-        }
-        public int getCoordinatesCount() {
-          return coordinates_.size();
-        }
-        public double getCoordinates(int index) {
-          return coordinates_.get(index);
-        }
-        
-        private void initFields() {
-          shipID_ = 0;
-          coordinates_ = java.util.Collections.emptyList();;
-        }
-        private byte memoizedIsInitialized = -1;
-        public final boolean isInitialized() {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized != -1) return isInitialized == 1;
-          
-          if (!hasShipID()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-          memoizedIsInitialized = 1;
-          return true;
-        }
-        
-        public void writeTo(com.google.protobuf.CodedOutputStream output)
-                            throws java.io.IOException {
-          getSerializedSize();
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
-            output.writeInt32(1, shipID_);
-          }
-          for (int i = 0; i < coordinates_.size(); i++) {
-            output.writeDouble(2, coordinates_.get(i));
-          }
-          getUnknownFields().writeTo(output);
-        }
-        
-        private int memoizedSerializedSize = -1;
-        public int getSerializedSize() {
-          int size = memoizedSerializedSize;
-          if (size != -1) return size;
-        
-          size = 0;
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
-            size += com.google.protobuf.CodedOutputStream
-              .computeInt32Size(1, shipID_);
-          }
-          {
-            int dataSize = 0;
-            dataSize = 8 * getCoordinatesList().size();
-            size += dataSize;
-            size += 1 * getCoordinatesList().size();
-          }
-          size += getUnknownFields().getSerializedSize();
-          memoizedSerializedSize = size;
-          return size;
-        }
-        
-        private static final long serialVersionUID = 0L;
-        @java.lang.Override
-        protected java.lang.Object writeReplace()
-            throws java.io.ObjectStreamException {
-          return super.writeReplace();
-        }
-        
-        public static com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position parseFrom(
-            com.google.protobuf.ByteString data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          return newBuilder().mergeFrom(data).buildParsed();
-        }
-        public static com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position parseFrom(
-            com.google.protobuf.ByteString data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          return newBuilder().mergeFrom(data, extensionRegistry)
-                   .buildParsed();
-        }
-        public static com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position parseFrom(byte[] data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          return newBuilder().mergeFrom(data).buildParsed();
-        }
-        public static com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position parseFrom(
-            byte[] data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          return newBuilder().mergeFrom(data, extensionRegistry)
-                   .buildParsed();
-        }
-        public static com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position parseFrom(java.io.InputStream input)
-            throws java.io.IOException {
-          return newBuilder().mergeFrom(input).buildParsed();
-        }
-        public static com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position parseFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          return newBuilder().mergeFrom(input, extensionRegistry)
-                   .buildParsed();
-        }
-        public static com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position parseDelimitedFrom(java.io.InputStream input)
-            throws java.io.IOException {
-          Builder builder = newBuilder();
-          if (builder.mergeDelimitedFrom(input)) {
-            return builder.buildParsed();
-          } else {
-            return null;
-          }
-        }
-        public static com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position parseDelimitedFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          Builder builder = newBuilder();
-          if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-            return builder.buildParsed();
-          } else {
-            return null;
-          }
-        }
-        public static com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position parseFrom(
-            com.google.protobuf.CodedInputStream input)
-            throws java.io.IOException {
-          return newBuilder().mergeFrom(input).buildParsed();
-        }
-        public static com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position parseFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          return newBuilder().mergeFrom(input, extensionRegistry)
-                   .buildParsed();
-        }
-        
-        public static Builder newBuilder() { return Builder.create(); }
-        public Builder newBuilderForType() { return newBuilder(); }
-        public static Builder newBuilder(com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position prototype) {
-          return newBuilder().mergeFrom(prototype);
-        }
-        public Builder toBuilder() { return newBuilder(this); }
-        
-        @java.lang.Override
-        protected Builder newBuilderForType(
-            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-          Builder builder = new Builder(parent);
-          return builder;
-        }
-        public static final class Builder extends
-            com.google.protobuf.GeneratedMessage.Builder<Builder>
-           implements com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_positionOrBuilder {
-          public static final com.google.protobuf.Descriptors.Descriptor
-              getDescriptor() {
-            return com.wikispaces.lsfn.Shared.LSFN.internal_static_ES_Ship_positions_Ship_position_descriptor;
-          }
-          
-          protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-              internalGetFieldAccessorTable() {
-            return com.wikispaces.lsfn.Shared.LSFN.internal_static_ES_Ship_positions_Ship_position_fieldAccessorTable;
-          }
-          
-          // Construct using com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position.newBuilder()
-          private Builder() {
-            maybeForceBuilderInitialization();
-          }
-          
-          private Builder(BuilderParent parent) {
-            super(parent);
-            maybeForceBuilderInitialization();
-          }
-          private void maybeForceBuilderInitialization() {
-            if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-            }
-          }
-          private static Builder create() {
-            return new Builder();
-          }
-          
-          public Builder clear() {
-            super.clear();
-            shipID_ = 0;
-            bitField0_ = (bitField0_ & ~0x00000001);
-            coordinates_ = java.util.Collections.emptyList();;
-            bitField0_ = (bitField0_ & ~0x00000002);
-            return this;
-          }
-          
-          public Builder clone() {
-            return create().mergeFrom(buildPartial());
-          }
-          
-          public com.google.protobuf.Descriptors.Descriptor
-              getDescriptorForType() {
-            return com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position.getDescriptor();
-          }
-          
-          public com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position getDefaultInstanceForType() {
-            return com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position.getDefaultInstance();
-          }
-          
-          public com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position build() {
-            com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position result = buildPartial();
-            if (!result.isInitialized()) {
-              throw newUninitializedMessageException(result);
-            }
-            return result;
-          }
-          
-          private com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position buildParsed()
-              throws com.google.protobuf.InvalidProtocolBufferException {
-            com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position result = buildPartial();
-            if (!result.isInitialized()) {
-              throw newUninitializedMessageException(
-                result).asInvalidProtocolBufferException();
-            }
-            return result;
-          }
-          
-          public com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position buildPartial() {
-            com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position result = new com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position(this);
-            int from_bitField0_ = bitField0_;
-            int to_bitField0_ = 0;
-            if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-              to_bitField0_ |= 0x00000001;
-            }
-            result.shipID_ = shipID_;
-            if (((bitField0_ & 0x00000002) == 0x00000002)) {
-              coordinates_ = java.util.Collections.unmodifiableList(coordinates_);
-              bitField0_ = (bitField0_ & ~0x00000002);
-            }
-            result.coordinates_ = coordinates_;
-            result.bitField0_ = to_bitField0_;
-            onBuilt();
-            return result;
-          }
-          
-          public Builder mergeFrom(com.google.protobuf.Message other) {
-            if (other instanceof com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position) {
-              return mergeFrom((com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position)other);
-            } else {
-              super.mergeFrom(other);
-              return this;
-            }
-          }
-          
-          public Builder mergeFrom(com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position other) {
-            if (other == com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position.getDefaultInstance()) return this;
-            if (other.hasShipID()) {
-              setShipID(other.getShipID());
-            }
-            if (!other.coordinates_.isEmpty()) {
-              if (coordinates_.isEmpty()) {
-                coordinates_ = other.coordinates_;
-                bitField0_ = (bitField0_ & ~0x00000002);
-              } else {
-                ensureCoordinatesIsMutable();
-                coordinates_.addAll(other.coordinates_);
-              }
-              onChanged();
-            }
-            this.mergeUnknownFields(other.getUnknownFields());
-            return this;
-          }
-          
-          public final boolean isInitialized() {
-            if (!hasShipID()) {
-              
-              return false;
-            }
-            return true;
-          }
-          
-          public Builder mergeFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws java.io.IOException {
-            com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-              com.google.protobuf.UnknownFieldSet.newBuilder(
-                this.getUnknownFields());
-            while (true) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  this.setUnknownFields(unknownFields.build());
-                  onChanged();
-                  return this;
-                default: {
-                  if (!parseUnknownField(input, unknownFields,
-                                         extensionRegistry, tag)) {
-                    this.setUnknownFields(unknownFields.build());
-                    onChanged();
-                    return this;
-                  }
-                  break;
-                }
-                case 8: {
-                  bitField0_ |= 0x00000001;
-                  shipID_ = input.readInt32();
-                  break;
-                }
-                case 17: {
-                  ensureCoordinatesIsMutable();
-                  coordinates_.add(input.readDouble());
-                  break;
-                }
-                case 18: {
-                  int length = input.readRawVarint32();
-                  int limit = input.pushLimit(length);
-                  while (input.getBytesUntilLimit() > 0) {
-                    addCoordinates(input.readDouble());
-                  }
-                  input.popLimit(limit);
-                  break;
-                }
-              }
-            }
-          }
-          
-          private int bitField0_;
-          
-          // required int32 ship_ID = 1;
-          private int shipID_ ;
-          public boolean hasShipID() {
-            return ((bitField0_ & 0x00000001) == 0x00000001);
-          }
-          public int getShipID() {
-            return shipID_;
-          }
-          public Builder setShipID(int value) {
-            bitField0_ |= 0x00000001;
-            shipID_ = value;
-            onChanged();
-            return this;
-          }
-          public Builder clearShipID() {
-            bitField0_ = (bitField0_ & ~0x00000001);
-            shipID_ = 0;
-            onChanged();
-            return this;
-          }
-          
-          // repeated double coordinates = 2;
-          private java.util.List<java.lang.Double> coordinates_ = java.util.Collections.emptyList();;
-          private void ensureCoordinatesIsMutable() {
-            if (!((bitField0_ & 0x00000002) == 0x00000002)) {
-              coordinates_ = new java.util.ArrayList<java.lang.Double>(coordinates_);
-              bitField0_ |= 0x00000002;
-             }
-          }
-          public java.util.List<java.lang.Double>
-              getCoordinatesList() {
-            return java.util.Collections.unmodifiableList(coordinates_);
-          }
-          public int getCoordinatesCount() {
-            return coordinates_.size();
-          }
-          public double getCoordinates(int index) {
-            return coordinates_.get(index);
-          }
-          public Builder setCoordinates(
-              int index, double value) {
-            ensureCoordinatesIsMutable();
-            coordinates_.set(index, value);
-            onChanged();
-            return this;
-          }
-          public Builder addCoordinates(double value) {
-            ensureCoordinatesIsMutable();
-            coordinates_.add(value);
-            onChanged();
-            return this;
-          }
-          public Builder addAllCoordinates(
-              java.lang.Iterable<? extends java.lang.Double> values) {
-            ensureCoordinatesIsMutable();
-            super.addAll(values, coordinates_);
-            onChanged();
-            return this;
-          }
-          public Builder clearCoordinates() {
-            coordinates_ = java.util.Collections.emptyList();;
-            bitField0_ = (bitField0_ & ~0x00000002);
-            onChanged();
-            return this;
-          }
-          
-          // @@protoc_insertion_point(builder_scope:ES.Ship_positions.Ship_position)
-        }
-        
-        static {
-          defaultInstance = new Ship_position(true);
-          defaultInstance.initFields();
-        }
-        
-        // @@protoc_insertion_point(class_scope:ES.Ship_positions.Ship_position)
-      }
-      
-      // repeated .ES.Ship_positions.Ship_position positions = 1;
-      public static final int POSITIONS_FIELD_NUMBER = 1;
-      private java.util.List<com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position> positions_;
-      public java.util.List<com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position> getPositionsList() {
-        return positions_;
-      }
-      public java.util.List<? extends com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_positionOrBuilder> 
-          getPositionsOrBuilderList() {
-        return positions_;
-      }
-      public int getPositionsCount() {
-        return positions_.size();
-      }
-      public com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position getPositions(int index) {
-        return positions_.get(index);
-      }
-      public com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_positionOrBuilder getPositionsOrBuilder(
-          int index) {
-        return positions_.get(index);
-      }
-      
-      private void initFields() {
-        positions_ = java.util.Collections.emptyList();
-      }
-      private byte memoizedIsInitialized = -1;
-      public final boolean isInitialized() {
-        byte isInitialized = memoizedIsInitialized;
-        if (isInitialized != -1) return isInitialized == 1;
-        
-        for (int i = 0; i < getPositionsCount(); i++) {
-          if (!getPositions(i).isInitialized()) {
-            memoizedIsInitialized = 0;
-            return false;
-          }
-        }
-        memoizedIsInitialized = 1;
-        return true;
-      }
-      
-      public void writeTo(com.google.protobuf.CodedOutputStream output)
-                          throws java.io.IOException {
-        getSerializedSize();
-        for (int i = 0; i < positions_.size(); i++) {
-          output.writeMessage(1, positions_.get(i));
-        }
-        getUnknownFields().writeTo(output);
-      }
-      
-      private int memoizedSerializedSize = -1;
-      public int getSerializedSize() {
-        int size = memoizedSerializedSize;
-        if (size != -1) return size;
-      
-        size = 0;
-        for (int i = 0; i < positions_.size(); i++) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeMessageSize(1, positions_.get(i));
-        }
-        size += getUnknownFields().getSerializedSize();
-        memoizedSerializedSize = size;
-        return size;
-      }
-      
-      private static final long serialVersionUID = 0L;
-      @java.lang.Override
-      protected java.lang.Object writeReplace()
-          throws java.io.ObjectStreamException {
-        return super.writeReplace();
-      }
-      
-      public static com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions parseFrom(
-          com.google.protobuf.ByteString data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions parseFrom(
-          com.google.protobuf.ByteString data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions parseFrom(byte[] data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions parseFrom(
-          byte[] data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions parseFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions parseFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions parseDelimitedFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions parseDelimitedFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions parseFrom(
-          com.google.protobuf.CodedInputStream input)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
-      }
-      public static com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions parseFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
-      }
-      
-      public static Builder newBuilder() { return Builder.create(); }
-      public Builder newBuilderForType() { return newBuilder(); }
-      public static Builder newBuilder(com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions prototype) {
-        return newBuilder().mergeFrom(prototype);
-      }
-      public Builder toBuilder() { return newBuilder(this); }
-      
-      @java.lang.Override
-      protected Builder newBuilderForType(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        Builder builder = new Builder(parent);
-        return builder;
-      }
-      public static final class Builder extends
-          com.google.protobuf.GeneratedMessage.Builder<Builder>
-         implements com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positionsOrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return com.wikispaces.lsfn.Shared.LSFN.internal_static_ES_Ship_positions_descriptor;
-        }
-        
-        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return com.wikispaces.lsfn.Shared.LSFN.internal_static_ES_Ship_positions_fieldAccessorTable;
-        }
-        
-        // Construct using com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.newBuilder()
-        private Builder() {
-          maybeForceBuilderInitialization();
-        }
-        
-        private Builder(BuilderParent parent) {
-          super(parent);
-          maybeForceBuilderInitialization();
-        }
-        private void maybeForceBuilderInitialization() {
-          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-            getPositionsFieldBuilder();
-          }
-        }
-        private static Builder create() {
-          return new Builder();
-        }
-        
-        public Builder clear() {
-          super.clear();
-          if (positionsBuilder_ == null) {
-            positions_ = java.util.Collections.emptyList();
-            bitField0_ = (bitField0_ & ~0x00000001);
-          } else {
-            positionsBuilder_.clear();
-          }
-          return this;
-        }
-        
-        public Builder clone() {
-          return create().mergeFrom(buildPartial());
-        }
-        
-        public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-          return com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.getDescriptor();
-        }
-        
-        public com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions getDefaultInstanceForType() {
-          return com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.getDefaultInstance();
-        }
-        
-        public com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions build() {
-          com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(result);
-          }
-          return result;
-        }
-        
-        private com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions buildParsed()
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(
-              result).asInvalidProtocolBufferException();
-          }
-          return result;
-        }
-        
-        public com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions buildPartial() {
-          com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions result = new com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions(this);
-          int from_bitField0_ = bitField0_;
-          if (positionsBuilder_ == null) {
-            if (((bitField0_ & 0x00000001) == 0x00000001)) {
-              positions_ = java.util.Collections.unmodifiableList(positions_);
-              bitField0_ = (bitField0_ & ~0x00000001);
-            }
-            result.positions_ = positions_;
-          } else {
-            result.positions_ = positionsBuilder_.build();
-          }
-          onBuilt();
-          return result;
-        }
-        
-        public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions) {
-            return mergeFrom((com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions)other);
-          } else {
-            super.mergeFrom(other);
-            return this;
-          }
-        }
-        
-        public Builder mergeFrom(com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions other) {
-          if (other == com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.getDefaultInstance()) return this;
-          if (positionsBuilder_ == null) {
-            if (!other.positions_.isEmpty()) {
-              if (positions_.isEmpty()) {
-                positions_ = other.positions_;
-                bitField0_ = (bitField0_ & ~0x00000001);
-              } else {
-                ensurePositionsIsMutable();
-                positions_.addAll(other.positions_);
-              }
-              onChanged();
-            }
-          } else {
-            if (!other.positions_.isEmpty()) {
-              if (positionsBuilder_.isEmpty()) {
-                positionsBuilder_.dispose();
-                positionsBuilder_ = null;
-                positions_ = other.positions_;
-                bitField0_ = (bitField0_ & ~0x00000001);
-                positionsBuilder_ = 
-                  com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
-                     getPositionsFieldBuilder() : null;
-              } else {
-                positionsBuilder_.addAllMessages(other.positions_);
-              }
-            }
-          }
-          this.mergeUnknownFields(other.getUnknownFields());
-          return this;
-        }
-        
-        public final boolean isInitialized() {
-          for (int i = 0; i < getPositionsCount(); i++) {
-            if (!getPositions(i).isInitialized()) {
-              
-              return false;
-            }
-          }
-          return true;
-        }
-        
-        public Builder mergeFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-            com.google.protobuf.UnknownFieldSet.newBuilder(
-              this.getUnknownFields());
-          while (true) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              default: {
-                if (!parseUnknownField(input, unknownFields,
-                                       extensionRegistry, tag)) {
-                  this.setUnknownFields(unknownFields.build());
-                  onChanged();
-                  return this;
-                }
-                break;
-              }
-              case 10: {
-                com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position.Builder subBuilder = com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position.newBuilder();
-                input.readMessage(subBuilder, extensionRegistry);
-                addPositions(subBuilder.buildPartial());
-                break;
-              }
-            }
-          }
-        }
-        
-        private int bitField0_;
-        
-        // repeated .ES.Ship_positions.Ship_position positions = 1;
-        private java.util.List<com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position> positions_ =
-          java.util.Collections.emptyList();
-        private void ensurePositionsIsMutable() {
-          if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-            positions_ = new java.util.ArrayList<com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position>(positions_);
-            bitField0_ |= 0x00000001;
-           }
-        }
-        
-        private com.google.protobuf.RepeatedFieldBuilder<
-            com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position, com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position.Builder, com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_positionOrBuilder> positionsBuilder_;
-        
-        public java.util.List<com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position> getPositionsList() {
-          if (positionsBuilder_ == null) {
-            return java.util.Collections.unmodifiableList(positions_);
-          } else {
-            return positionsBuilder_.getMessageList();
-          }
-        }
-        public int getPositionsCount() {
-          if (positionsBuilder_ == null) {
-            return positions_.size();
-          } else {
-            return positionsBuilder_.getCount();
-          }
-        }
-        public com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position getPositions(int index) {
-          if (positionsBuilder_ == null) {
-            return positions_.get(index);
-          } else {
-            return positionsBuilder_.getMessage(index);
-          }
-        }
-        public Builder setPositions(
-            int index, com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position value) {
-          if (positionsBuilder_ == null) {
-            if (value == null) {
-              throw new NullPointerException();
-            }
-            ensurePositionsIsMutable();
-            positions_.set(index, value);
-            onChanged();
-          } else {
-            positionsBuilder_.setMessage(index, value);
-          }
-          return this;
-        }
-        public Builder setPositions(
-            int index, com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position.Builder builderForValue) {
-          if (positionsBuilder_ == null) {
-            ensurePositionsIsMutable();
-            positions_.set(index, builderForValue.build());
-            onChanged();
-          } else {
-            positionsBuilder_.setMessage(index, builderForValue.build());
-          }
-          return this;
-        }
-        public Builder addPositions(com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position value) {
-          if (positionsBuilder_ == null) {
-            if (value == null) {
-              throw new NullPointerException();
-            }
-            ensurePositionsIsMutable();
-            positions_.add(value);
-            onChanged();
-          } else {
-            positionsBuilder_.addMessage(value);
-          }
-          return this;
-        }
-        public Builder addPositions(
-            int index, com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position value) {
-          if (positionsBuilder_ == null) {
-            if (value == null) {
-              throw new NullPointerException();
-            }
-            ensurePositionsIsMutable();
-            positions_.add(index, value);
-            onChanged();
-          } else {
-            positionsBuilder_.addMessage(index, value);
-          }
-          return this;
-        }
-        public Builder addPositions(
-            com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position.Builder builderForValue) {
-          if (positionsBuilder_ == null) {
-            ensurePositionsIsMutable();
-            positions_.add(builderForValue.build());
-            onChanged();
-          } else {
-            positionsBuilder_.addMessage(builderForValue.build());
-          }
-          return this;
-        }
-        public Builder addPositions(
-            int index, com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position.Builder builderForValue) {
-          if (positionsBuilder_ == null) {
-            ensurePositionsIsMutable();
-            positions_.add(index, builderForValue.build());
-            onChanged();
-          } else {
-            positionsBuilder_.addMessage(index, builderForValue.build());
-          }
-          return this;
-        }
-        public Builder addAllPositions(
-            java.lang.Iterable<? extends com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position> values) {
-          if (positionsBuilder_ == null) {
-            ensurePositionsIsMutable();
-            super.addAll(values, positions_);
-            onChanged();
-          } else {
-            positionsBuilder_.addAllMessages(values);
-          }
-          return this;
-        }
-        public Builder clearPositions() {
-          if (positionsBuilder_ == null) {
-            positions_ = java.util.Collections.emptyList();
-            bitField0_ = (bitField0_ & ~0x00000001);
-            onChanged();
-          } else {
-            positionsBuilder_.clear();
-          }
-          return this;
-        }
-        public Builder removePositions(int index) {
-          if (positionsBuilder_ == null) {
-            ensurePositionsIsMutable();
-            positions_.remove(index);
-            onChanged();
-          } else {
-            positionsBuilder_.remove(index);
-          }
-          return this;
-        }
-        public com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position.Builder getPositionsBuilder(
-            int index) {
-          return getPositionsFieldBuilder().getBuilder(index);
-        }
-        public com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_positionOrBuilder getPositionsOrBuilder(
-            int index) {
-          if (positionsBuilder_ == null) {
-            return positions_.get(index);  } else {
-            return positionsBuilder_.getMessageOrBuilder(index);
-          }
-        }
-        public java.util.List<? extends com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_positionOrBuilder> 
-             getPositionsOrBuilderList() {
-          if (positionsBuilder_ != null) {
-            return positionsBuilder_.getMessageOrBuilderList();
-          } else {
-            return java.util.Collections.unmodifiableList(positions_);
-          }
-        }
-        public com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position.Builder addPositionsBuilder() {
-          return getPositionsFieldBuilder().addBuilder(
-              com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position.getDefaultInstance());
-        }
-        public com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position.Builder addPositionsBuilder(
-            int index) {
-          return getPositionsFieldBuilder().addBuilder(
-              index, com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position.getDefaultInstance());
-        }
-        public java.util.List<com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position.Builder> 
-             getPositionsBuilderList() {
-          return getPositionsFieldBuilder().getBuilderList();
-        }
-        private com.google.protobuf.RepeatedFieldBuilder<
-            com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position, com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position.Builder, com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_positionOrBuilder> 
-            getPositionsFieldBuilder() {
-          if (positionsBuilder_ == null) {
-            positionsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-                com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position, com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position.Builder, com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_positionOrBuilder>(
-                    positions_,
-                    ((bitField0_ & 0x00000001) == 0x00000001),
-                    getParentForChildren(),
-                    isClean());
-            positions_ = null;
-          }
-          return positionsBuilder_;
-        }
-        
-        // @@protoc_insertion_point(builder_scope:ES.Ship_positions)
-      }
-      
-      static {
-        defaultInstance = new Ship_positions(true);
-        defaultInstance.initFields();
-      }
-      
-      // @@protoc_insertion_point(class_scope:ES.Ship_positions)
-    }
-    
     private int bitField0_;
     // optional .ES.Handshake handshake = 16;
     public static final int HANDSHAKE_FIELD_NUMBER = 16;
@@ -10424,22 +4706,22 @@ public final class LSFN {
       return handshake_;
     }
     
-    // optional .ES.Ship_positions positions = 17;
-    public static final int POSITIONS_FIELD_NUMBER = 17;
-    private com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions positions_;
-    public boolean hasPositions() {
+    // optional .SubscriptionsAvailable subscriptionsAvailable = 17;
+    public static final int SUBSCRIPTIONSAVAILABLE_FIELD_NUMBER = 17;
+    private com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable subscriptionsAvailable_;
+    public boolean hasSubscriptionsAvailable() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    public com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions getPositions() {
-      return positions_;
+    public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable getSubscriptionsAvailable() {
+      return subscriptionsAvailable_;
     }
-    public com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positionsOrBuilder getPositionsOrBuilder() {
-      return positions_;
+    public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailableOrBuilder getSubscriptionsAvailableOrBuilder() {
+      return subscriptionsAvailable_;
     }
     
     private void initFields() {
       handshake_ = com.wikispaces.lsfn.Shared.LSFN.ES.Handshake.getDefaultInstance();
-      positions_ = com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.getDefaultInstance();
+      subscriptionsAvailable_ = com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.getDefaultInstance();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -10452,8 +4734,8 @@ public final class LSFN {
           return false;
         }
       }
-      if (hasPositions()) {
-        if (!getPositions().isInitialized()) {
+      if (hasSubscriptionsAvailable()) {
+        if (!getSubscriptionsAvailable().isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -10469,7 +4751,7 @@ public final class LSFN {
         output.writeMessage(16, handshake_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeMessage(17, positions_);
+        output.writeMessage(17, subscriptionsAvailable_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -10486,7 +4768,7 @@ public final class LSFN {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(17, positions_);
+          .computeMessageSize(17, subscriptionsAvailable_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -10605,7 +4887,7 @@ public final class LSFN {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
           getHandshakeFieldBuilder();
-          getPositionsFieldBuilder();
+          getSubscriptionsAvailableFieldBuilder();
         }
       }
       private static Builder create() {
@@ -10620,10 +4902,10 @@ public final class LSFN {
           handshakeBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
-        if (positionsBuilder_ == null) {
-          positions_ = com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.getDefaultInstance();
+        if (subscriptionsAvailableBuilder_ == null) {
+          subscriptionsAvailable_ = com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.getDefaultInstance();
         } else {
-          positionsBuilder_.clear();
+          subscriptionsAvailableBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
@@ -10675,10 +4957,10 @@ public final class LSFN {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        if (positionsBuilder_ == null) {
-          result.positions_ = positions_;
+        if (subscriptionsAvailableBuilder_ == null) {
+          result.subscriptionsAvailable_ = subscriptionsAvailable_;
         } else {
-          result.positions_ = positionsBuilder_.build();
+          result.subscriptionsAvailable_ = subscriptionsAvailableBuilder_.build();
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -10699,8 +4981,8 @@ public final class LSFN {
         if (other.hasHandshake()) {
           mergeHandshake(other.getHandshake());
         }
-        if (other.hasPositions()) {
-          mergePositions(other.getPositions());
+        if (other.hasSubscriptionsAvailable()) {
+          mergeSubscriptionsAvailable(other.getSubscriptionsAvailable());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -10713,8 +4995,8 @@ public final class LSFN {
             return false;
           }
         }
-        if (hasPositions()) {
-          if (!getPositions().isInitialized()) {
+        if (hasSubscriptionsAvailable()) {
+          if (!getSubscriptionsAvailable().isInitialized()) {
             
             return false;
           }
@@ -10755,12 +5037,12 @@ public final class LSFN {
               break;
             }
             case 138: {
-              com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Builder subBuilder = com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.newBuilder();
-              if (hasPositions()) {
-                subBuilder.mergeFrom(getPositions());
+              com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.Builder subBuilder = com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.newBuilder();
+              if (hasSubscriptionsAvailable()) {
+                subBuilder.mergeFrom(getSubscriptionsAvailable());
               }
               input.readMessage(subBuilder, extensionRegistry);
-              setPositions(subBuilder.buildPartial());
+              setSubscriptionsAvailable(subBuilder.buildPartial());
               break;
             }
           }
@@ -10859,94 +5141,94 @@ public final class LSFN {
         return handshakeBuilder_;
       }
       
-      // optional .ES.Ship_positions positions = 17;
-      private com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions positions_ = com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.getDefaultInstance();
+      // optional .SubscriptionsAvailable subscriptionsAvailable = 17;
+      private com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable subscriptionsAvailable_ = com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
-          com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions, com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Builder, com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positionsOrBuilder> positionsBuilder_;
-      public boolean hasPositions() {
+          com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.Builder, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailableOrBuilder> subscriptionsAvailableBuilder_;
+      public boolean hasSubscriptionsAvailable() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions getPositions() {
-        if (positionsBuilder_ == null) {
-          return positions_;
+      public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable getSubscriptionsAvailable() {
+        if (subscriptionsAvailableBuilder_ == null) {
+          return subscriptionsAvailable_;
         } else {
-          return positionsBuilder_.getMessage();
+          return subscriptionsAvailableBuilder_.getMessage();
         }
       }
-      public Builder setPositions(com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions value) {
-        if (positionsBuilder_ == null) {
+      public Builder setSubscriptionsAvailable(com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable value) {
+        if (subscriptionsAvailableBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          positions_ = value;
+          subscriptionsAvailable_ = value;
           onChanged();
         } else {
-          positionsBuilder_.setMessage(value);
+          subscriptionsAvailableBuilder_.setMessage(value);
         }
         bitField0_ |= 0x00000002;
         return this;
       }
-      public Builder setPositions(
-          com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Builder builderForValue) {
-        if (positionsBuilder_ == null) {
-          positions_ = builderForValue.build();
+      public Builder setSubscriptionsAvailable(
+          com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.Builder builderForValue) {
+        if (subscriptionsAvailableBuilder_ == null) {
+          subscriptionsAvailable_ = builderForValue.build();
           onChanged();
         } else {
-          positionsBuilder_.setMessage(builderForValue.build());
+          subscriptionsAvailableBuilder_.setMessage(builderForValue.build());
         }
         bitField0_ |= 0x00000002;
         return this;
       }
-      public Builder mergePositions(com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions value) {
-        if (positionsBuilder_ == null) {
+      public Builder mergeSubscriptionsAvailable(com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable value) {
+        if (subscriptionsAvailableBuilder_ == null) {
           if (((bitField0_ & 0x00000002) == 0x00000002) &&
-              positions_ != com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.getDefaultInstance()) {
-            positions_ =
-              com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.newBuilder(positions_).mergeFrom(value).buildPartial();
+              subscriptionsAvailable_ != com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.getDefaultInstance()) {
+            subscriptionsAvailable_ =
+              com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.newBuilder(subscriptionsAvailable_).mergeFrom(value).buildPartial();
           } else {
-            positions_ = value;
+            subscriptionsAvailable_ = value;
           }
           onChanged();
         } else {
-          positionsBuilder_.mergeFrom(value);
+          subscriptionsAvailableBuilder_.mergeFrom(value);
         }
         bitField0_ |= 0x00000002;
         return this;
       }
-      public Builder clearPositions() {
-        if (positionsBuilder_ == null) {
-          positions_ = com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.getDefaultInstance();
+      public Builder clearSubscriptionsAvailable() {
+        if (subscriptionsAvailableBuilder_ == null) {
+          subscriptionsAvailable_ = com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.getDefaultInstance();
           onChanged();
         } else {
-          positionsBuilder_.clear();
+          subscriptionsAvailableBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
-      public com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Builder getPositionsBuilder() {
+      public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.Builder getSubscriptionsAvailableBuilder() {
         bitField0_ |= 0x00000002;
         onChanged();
-        return getPositionsFieldBuilder().getBuilder();
+        return getSubscriptionsAvailableFieldBuilder().getBuilder();
       }
-      public com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positionsOrBuilder getPositionsOrBuilder() {
-        if (positionsBuilder_ != null) {
-          return positionsBuilder_.getMessageOrBuilder();
+      public com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailableOrBuilder getSubscriptionsAvailableOrBuilder() {
+        if (subscriptionsAvailableBuilder_ != null) {
+          return subscriptionsAvailableBuilder_.getMessageOrBuilder();
         } else {
-          return positions_;
+          return subscriptionsAvailable_;
         }
       }
       private com.google.protobuf.SingleFieldBuilder<
-          com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions, com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Builder, com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positionsOrBuilder> 
-          getPositionsFieldBuilder() {
-        if (positionsBuilder_ == null) {
-          positionsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions, com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Builder, com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positionsOrBuilder>(
-                  positions_,
+          com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.Builder, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailableOrBuilder> 
+          getSubscriptionsAvailableFieldBuilder() {
+        if (subscriptionsAvailableBuilder_ == null) {
+          subscriptionsAvailableBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.Builder, com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailableOrBuilder>(
+                  subscriptionsAvailable_,
                   getParentForChildren(),
                   isClean());
-          positions_ = null;
+          subscriptionsAvailable_ = null;
         }
-        return positionsBuilder_;
+        return subscriptionsAvailableBuilder_;
       }
       
       // @@protoc_insertion_point(builder_scope:ES)
@@ -10961,30 +5243,25 @@ public final class LSFN {
   }
   
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_Subscription_updates_descriptor;
+    internal_static_Subscribe_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_Subscription_updates_fieldAccessorTable;
+      internal_static_Subscribe_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_Subscription_updates_Subscription_update_descriptor;
+    internal_static_SubscriptionsAvailable_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_Subscription_updates_Subscription_update_fieldAccessorTable;
+      internal_static_SubscriptionsAvailable_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_SubscriptionsAvailable_ValueDetails_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_SubscriptionsAvailable_ValueDetails_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_IS_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_IS_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_IS_SHIP_ENV_command_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_IS_SHIP_ENV_command_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_IS_Subscribe_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_IS_Subscribe_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_SI_descriptor;
   private static
@@ -10996,40 +5273,10 @@ public final class LSFN {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_SI_Handshake_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_SI_SHIP_ENV_status_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_SI_SHIP_ENV_status_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_SI_Ship_positions_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_SI_Ship_positions_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_SI_Ship_positions_Ship_position_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_SI_Ship_positions_Ship_position_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_SI_Subscriptions_available_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_SI_Subscriptions_available_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_SI_Subscriptions_available_Value_details_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_SI_Subscriptions_available_Value_details_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_SE_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_SE_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_SE_Ship_movement_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_SE_Ship_movement_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_ES_descriptor;
   private static
@@ -11040,16 +5287,6 @@ public final class LSFN {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_ES_Handshake_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_ES_Ship_positions_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_ES_Ship_positions_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_ES_Ship_positions_Ship_position_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_ES_Ship_positions_Ship_position_fieldAccessorTable;
   
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -11060,110 +5297,74 @@ public final class LSFN {
   static {
     java.lang.String[] descriptorData = {
       "\n)src/com/wikispaces/lsfn/Shared/LSFN.pr" +
-      "oto\"\341\001\n\024Subscription_updates\022:\n\007updates\030" +
-      "\001 \003(\0132).Subscription_updates.Subscriptio" +
-      "n_update\032\214\001\n\023Subscription_update\022\n\n\002ID\030\001" +
-      " \002(\005\022\023\n\013float_value\030\002 \003(\002\022\024\n\014double_valu" +
-      "e\030\003 \003(\001\022\023\n\013int32_value\030\004 \003(\005\022\023\n\013int64_va" +
-      "lue\030\005 \003(\003\022\024\n\014string_value\030\017 \003(\t\"\252\003\n\002IS\022 " +
-      "\n\thandshake\030\020 \001(\0162\r.IS.Handshake\022%\n\007comm" +
-      "and\030\021 \001(\0132\024.IS.SHIP_ENV_command\022 \n\tsubsc" +
-      "ribe\030\022 \001(\0132\r.IS.Subscribe\022,\n\rinput_updat",
-      "es\030\023 \001(\0132\025.Subscription_updates\022$\n\034avail" +
-      "able_subscriptions_list\030\024 \001(\010\032\213\001\n\020SHIP_E" +
-      "NV_command\022\'\n\004type\030\001 \002(\0162\031.IS.SHIP_ENV_c" +
-      "ommand.Type\022\014\n\004host\030\002 \001(\t\022\014\n\004port\030\003 \001(\005\"" +
-      "2\n\004Type\022\013\n\007CONNECT\020\000\022\016\n\nDISCONNECT\020\001\022\r\n\t" +
-      "RECONNECT\020\002\0322\n\tSubscribe\022\022\n\noutput_IDs\030\001" +
-      " \003(\005\022\021\n\tinput_IDs\030\002 \003(\005\"#\n\tHandshake\022\t\n\005" +
-      "HELLO\020\000\022\013\n\007GOODBYE\020\001\"\201\007\n\002SI\022 \n\thandshake" +
-      "\030\020 \001(\0132\r.SI.Handshake\022#\n\006status\030\021 \001(\0132\023." +
-      "SI.SHIP_ENV_status\022%\n\tpositions\030\022 \001(\0132\022.",
-      "SI.Ship_positions\022<\n\027subscriptions_avail" +
-      "able\030\023 \001(\0132\033.SI.Subscriptions_available\022" +
-      "-\n\016output_updates\030\024 \001(\0132\025.Subscription_u" +
-      "pdates\032`\n\tHandshake\022 \n\004type\030\001 \002(\0162\022.SI.H" +
-      "andshake.Type\022\021\n\tplayer_ID\030\002 \001(\005\"\036\n\004Type" +
-      "\022\t\n\005HELLO\020\000\022\013\n\007GOODBYE\020\001\032v\n\017SHIP_ENV_sta" +
-      "tus\022(\n\005state\030\001 \002(\0162\031.SI.SHIP_ENV_status." +
-      "State\022\017\n\007ship_ID\030\002 \001(\005\"(\n\005State\022\020\n\014DISCO" +
-      "NNECTED\020\000\022\r\n\tCONNECTED\020\001\032|\n\016Ship_positio" +
-      "ns\0223\n\tpositions\030\001 \003(\0132 .SI.Ship_position",
-      "s.Ship_position\0325\n\rShip_position\022\017\n\007ship" +
-      "_ID\030\001 \002(\005\022\023\n\013coordinates\030\002 \003(\001\032\307\002\n\027Subsc" +
-      "riptions_available\022:\n\007outputs\030\001 \003(\0132).SI" +
-      ".Subscriptions_available.Value_details\0229" +
-      "\n\006inputs\030\002 \003(\0132).SI.Subscriptions_availa" +
-      "ble.Value_details\032\264\001\n\rValue_details\022\014\n\004n" +
-      "ame\030\001 \002(\t\022\n\n\002ID\030\002 \002(\005\022B\n\004type\030\003 \002(\01624.SI" +
-      ".Subscriptions_available.Value_details.V" +
-      "alue_type\"E\n\nValue_type\022\t\n\005FLOAT\020\000\022\n\n\006DO" +
-      "UBLE\020\001\022\t\n\005INT32\020\002\022\t\n\005INT64\020\003\022\n\n\006STRING\020\r",
-      "\"\225\001\n\002SE\022 \n\thandshake\030\020 \001(\0162\r.SE.Handshak" +
-      "e\022#\n\010movement\030\021 \001(\0132\021.SE.Ship_movement\032#" +
-      "\n\rShip_movement\022\022\n\naxis_accel\030\001 \003(\001\"#\n\tH" +
-      "andshake\022\t\n\005HELLO\020\000\022\013\n\007GOODBYE\020\001\"\253\002\n\002ES\022" +
-      " \n\thandshake\030\020 \001(\0132\r.ES.Handshake\022%\n\tpos" +
-      "itions\030\021 \001(\0132\022.ES.Ship_positions\032^\n\tHand" +
-      "shake\022 \n\004type\030\001 \002(\0162\022.ES.Handshake.Type\022" +
-      "\017\n\007ship_ID\030\002 \001(\005\"\036\n\004Type\022\t\n\005HELLO\020\000\022\013\n\007G" +
-      "OODBYE\020\001\032|\n\016Ship_positions\0223\n\tpositions\030" +
-      "\001 \003(\0132 .ES.Ship_positions.Ship_position\032",
-      "5\n\rShip_position\022\017\n\007ship_ID\030\001 \002(\005\022\023\n\013coo" +
-      "rdinates\030\002 \003(\001B\"\n\032com.wikispaces.lsfn.Sh" +
-      "aredB\004LSFN"
+      "oto\"H\n\tSubscribe\022\034\n\024inputSubscriptionIDs" +
+      "\030\001 \003(\005\022\035\n\025outputSubscriptionIDs\030\002 \003(\005\"\313\001" +
+      "\n\026SubscriptionsAvailable\022B\n\024inputSubscri" +
+      "ptionIDs\030\001 \003(\0132$.SubscriptionsAvailable." +
+      "ValueDetails\022C\n\025outputSubscriptionIDs\030\002 " +
+      "\003(\0132$.SubscriptionsAvailable.ValueDetail" +
+      "s\032(\n\014ValueDetails\022\014\n\004name\030\001 \002(\t\022\n\n\002ID\030\002 " +
+      "\002(\005\"k\n\002IS\022 \n\thandshake\030\020 \001(\0162\r.IS.Handsh" +
+      "ake\022\035\n\tsubscribe\030\021 \001(\0132\n.Subscribe\022\014\n\004rc",
+      "on\030\022 \001(\t\"\026\n\tHandshake\022\t\n\005HELLO\020\000\"\275\001\n\002SI\022" +
+      " \n\thandshake\030\020 \001(\0132\r.SI.Handshake\0227\n\026sub" +
+      "scriptionsAvailable\030\021 \001(\0132\027.Subscription" +
+      "sAvailable\032\\\n\tHandshake\022 \n\004type\030\001 \002(\0162\022." +
+      "SI.Handshake.Type\022\r\n\005intID\030\002 \001(\005\"\036\n\004Type" +
+      "\022\t\n\005HELLO\020\000\022\013\n\007GOODBYE\020\001\"k\n\002SE\022 \n\thandsh" +
+      "ake\030\020 \001(\0162\r.SE.Handshake\022\035\n\tsubscribe\030\021 " +
+      "\001(\0132\n.Subscribe\022\014\n\004rcon\030\022 \001(\t\"\026\n\tHandsha" +
+      "ke\022\t\n\005HELLO\020\000\"\276\001\n\002ES\022 \n\thandshake\030\020 \001(\0132" +
+      "\r.ES.Handshake\0227\n\026subscriptionsAvailable",
+      "\030\021 \001(\0132\027.SubscriptionsAvailable\032]\n\tHands" +
+      "hake\022 \n\004type\030\001 \002(\0162\022.ES.Handshake.Type\022\016" +
+      "\n\006shipID\030\002 \001(\005\"\036\n\004Type\022\t\n\005HELLO\020\000\022\013\n\007GOO" +
+      "DBYE\020\001B\"\n\032com.wikispaces.lsfn.SharedB\004LS" +
+      "FN"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
         public com.google.protobuf.ExtensionRegistry assignDescriptors(
             com.google.protobuf.Descriptors.FileDescriptor root) {
           descriptor = root;
-          internal_static_Subscription_updates_descriptor =
+          internal_static_Subscribe_descriptor =
             getDescriptor().getMessageTypes().get(0);
-          internal_static_Subscription_updates_fieldAccessorTable = new
+          internal_static_Subscribe_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_Subscription_updates_descriptor,
-              new java.lang.String[] { "Updates", },
-              com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.class,
-              com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Builder.class);
-          internal_static_Subscription_updates_Subscription_update_descriptor =
-            internal_static_Subscription_updates_descriptor.getNestedTypes().get(0);
-          internal_static_Subscription_updates_Subscription_update_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_Subscription_updates_Subscription_update_descriptor,
-              new java.lang.String[] { "ID", "FloatValue", "DoubleValue", "Int32Value", "Int64Value", "StringValue", },
-              com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update.class,
-              com.wikispaces.lsfn.Shared.LSFN.Subscription_updates.Subscription_update.Builder.class);
-          internal_static_IS_descriptor =
+              internal_static_Subscribe_descriptor,
+              new java.lang.String[] { "InputSubscriptionIDs", "OutputSubscriptionIDs", },
+              com.wikispaces.lsfn.Shared.LSFN.Subscribe.class,
+              com.wikispaces.lsfn.Shared.LSFN.Subscribe.Builder.class);
+          internal_static_SubscriptionsAvailable_descriptor =
             getDescriptor().getMessageTypes().get(1);
+          internal_static_SubscriptionsAvailable_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_SubscriptionsAvailable_descriptor,
+              new java.lang.String[] { "InputSubscriptionIDs", "OutputSubscriptionIDs", },
+              com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.class,
+              com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.Builder.class);
+          internal_static_SubscriptionsAvailable_ValueDetails_descriptor =
+            internal_static_SubscriptionsAvailable_descriptor.getNestedTypes().get(0);
+          internal_static_SubscriptionsAvailable_ValueDetails_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_SubscriptionsAvailable_ValueDetails_descriptor,
+              new java.lang.String[] { "Name", "ID", },
+              com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.class,
+              com.wikispaces.lsfn.Shared.LSFN.SubscriptionsAvailable.ValueDetails.Builder.class);
+          internal_static_IS_descriptor =
+            getDescriptor().getMessageTypes().get(2);
           internal_static_IS_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_IS_descriptor,
-              new java.lang.String[] { "Handshake", "Command", "Subscribe", "InputUpdates", "AvailableSubscriptionsList", },
+              new java.lang.String[] { "Handshake", "Subscribe", "Rcon", },
               com.wikispaces.lsfn.Shared.LSFN.IS.class,
               com.wikispaces.lsfn.Shared.LSFN.IS.Builder.class);
-          internal_static_IS_SHIP_ENV_command_descriptor =
-            internal_static_IS_descriptor.getNestedTypes().get(0);
-          internal_static_IS_SHIP_ENV_command_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_IS_SHIP_ENV_command_descriptor,
-              new java.lang.String[] { "Type", "Host", "Port", },
-              com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.class,
-              com.wikispaces.lsfn.Shared.LSFN.IS.SHIP_ENV_command.Builder.class);
-          internal_static_IS_Subscribe_descriptor =
-            internal_static_IS_descriptor.getNestedTypes().get(1);
-          internal_static_IS_Subscribe_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_IS_Subscribe_descriptor,
-              new java.lang.String[] { "OutputIDs", "InputIDs", },
-              com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe.class,
-              com.wikispaces.lsfn.Shared.LSFN.IS.Subscribe.Builder.class);
           internal_static_SI_descriptor =
-            getDescriptor().getMessageTypes().get(2);
+            getDescriptor().getMessageTypes().get(3);
           internal_static_SI_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_SI_descriptor,
-              new java.lang.String[] { "Handshake", "Status", "Positions", "SubscriptionsAvailable", "OutputUpdates", },
+              new java.lang.String[] { "Handshake", "SubscriptionsAvailable", },
               com.wikispaces.lsfn.Shared.LSFN.SI.class,
               com.wikispaces.lsfn.Shared.LSFN.SI.Builder.class);
           internal_static_SI_Handshake_descriptor =
@@ -11171,71 +5372,23 @@ public final class LSFN {
           internal_static_SI_Handshake_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_SI_Handshake_descriptor,
-              new java.lang.String[] { "Type", "PlayerID", },
+              new java.lang.String[] { "Type", "IntID", },
               com.wikispaces.lsfn.Shared.LSFN.SI.Handshake.class,
               com.wikispaces.lsfn.Shared.LSFN.SI.Handshake.Builder.class);
-          internal_static_SI_SHIP_ENV_status_descriptor =
-            internal_static_SI_descriptor.getNestedTypes().get(1);
-          internal_static_SI_SHIP_ENV_status_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_SI_SHIP_ENV_status_descriptor,
-              new java.lang.String[] { "State", "ShipID", },
-              com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.class,
-              com.wikispaces.lsfn.Shared.LSFN.SI.SHIP_ENV_status.Builder.class);
-          internal_static_SI_Ship_positions_descriptor =
-            internal_static_SI_descriptor.getNestedTypes().get(2);
-          internal_static_SI_Ship_positions_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_SI_Ship_positions_descriptor,
-              new java.lang.String[] { "Positions", },
-              com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.class,
-              com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Builder.class);
-          internal_static_SI_Ship_positions_Ship_position_descriptor =
-            internal_static_SI_Ship_positions_descriptor.getNestedTypes().get(0);
-          internal_static_SI_Ship_positions_Ship_position_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_SI_Ship_positions_Ship_position_descriptor,
-              new java.lang.String[] { "ShipID", "Coordinates", },
-              com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position.class,
-              com.wikispaces.lsfn.Shared.LSFN.SI.Ship_positions.Ship_position.Builder.class);
-          internal_static_SI_Subscriptions_available_descriptor =
-            internal_static_SI_descriptor.getNestedTypes().get(3);
-          internal_static_SI_Subscriptions_available_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_SI_Subscriptions_available_descriptor,
-              new java.lang.String[] { "Outputs", "Inputs", },
-              com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.class,
-              com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Builder.class);
-          internal_static_SI_Subscriptions_available_Value_details_descriptor =
-            internal_static_SI_Subscriptions_available_descriptor.getNestedTypes().get(0);
-          internal_static_SI_Subscriptions_available_Value_details_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_SI_Subscriptions_available_Value_details_descriptor,
-              new java.lang.String[] { "Name", "ID", "Type", },
-              com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.class,
-              com.wikispaces.lsfn.Shared.LSFN.SI.Subscriptions_available.Value_details.Builder.class);
           internal_static_SE_descriptor =
-            getDescriptor().getMessageTypes().get(3);
+            getDescriptor().getMessageTypes().get(4);
           internal_static_SE_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_SE_descriptor,
-              new java.lang.String[] { "Handshake", "Movement", },
+              new java.lang.String[] { "Handshake", "Subscribe", "Rcon", },
               com.wikispaces.lsfn.Shared.LSFN.SE.class,
               com.wikispaces.lsfn.Shared.LSFN.SE.Builder.class);
-          internal_static_SE_Ship_movement_descriptor =
-            internal_static_SE_descriptor.getNestedTypes().get(0);
-          internal_static_SE_Ship_movement_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_SE_Ship_movement_descriptor,
-              new java.lang.String[] { "AxisAccel", },
-              com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement.class,
-              com.wikispaces.lsfn.Shared.LSFN.SE.Ship_movement.Builder.class);
           internal_static_ES_descriptor =
-            getDescriptor().getMessageTypes().get(4);
+            getDescriptor().getMessageTypes().get(5);
           internal_static_ES_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ES_descriptor,
-              new java.lang.String[] { "Handshake", "Positions", },
+              new java.lang.String[] { "Handshake", "SubscriptionsAvailable", },
               com.wikispaces.lsfn.Shared.LSFN.ES.class,
               com.wikispaces.lsfn.Shared.LSFN.ES.Builder.class);
           internal_static_ES_Handshake_descriptor =
@@ -11246,22 +5399,6 @@ public final class LSFN {
               new java.lang.String[] { "Type", "ShipID", },
               com.wikispaces.lsfn.Shared.LSFN.ES.Handshake.class,
               com.wikispaces.lsfn.Shared.LSFN.ES.Handshake.Builder.class);
-          internal_static_ES_Ship_positions_descriptor =
-            internal_static_ES_descriptor.getNestedTypes().get(1);
-          internal_static_ES_Ship_positions_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_ES_Ship_positions_descriptor,
-              new java.lang.String[] { "Positions", },
-              com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.class,
-              com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Builder.class);
-          internal_static_ES_Ship_positions_Ship_position_descriptor =
-            internal_static_ES_Ship_positions_descriptor.getNestedTypes().get(0);
-          internal_static_ES_Ship_positions_Ship_position_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_ES_Ship_positions_Ship_position_descriptor,
-              new java.lang.String[] { "ShipID", "Coordinates", },
-              com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position.class,
-              com.wikispaces.lsfn.Shared.LSFN.ES.Ship_positions.Ship_position.Builder.class);
           return null;
         }
       };

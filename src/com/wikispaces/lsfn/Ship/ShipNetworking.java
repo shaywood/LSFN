@@ -86,6 +86,7 @@ public class ShipNetworking {
             return false;
         }
         serverThread = new Thread(server);
+        serverThread.start();
         return true;
     }
     

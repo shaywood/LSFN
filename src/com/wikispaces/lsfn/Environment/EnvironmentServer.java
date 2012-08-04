@@ -27,7 +27,7 @@ public class EnvironmentServer implements Runnable {
         while(running) {
         	processUserInput();
             
-        	handshakeNewSHIPConnections();
+        	//handshakeNewSHIPConnections();
         	processMessagesFromExistingSHIPConnections();
 
             try {
@@ -57,23 +57,6 @@ public class EnvironmentServer implements Runnable {
         if(message.equals("stop")) running = false;
     }
     
-    private void handshakeNewSHIPConnections() {
-        Integer[] SHIP_IDs = network.getNewSHIPConnections();
-        for(int i = 0; i < SHIP_IDs.length; i++) {
-            // This creates a new ship and adds it to the collection that is staic to Ship.
-            Ship ship = new Ship(SHIP_IDs[i], 0, 0);
-            
-            // Send a handshake to the SHIP
-            LSFN.ES handshake = LSFN.ES.newBuilder()
-                    .setHandshake(LSFN.ES.Handshake.newBuilder()
-                            .setType(LSFN.ES.Handshake.Type.HELLO)
-                            .setShipID(ship.get_ID())
-                            .build())
-                    .build();
-            network.sendToSHIP(SHIP_IDs[i], handshake);
-        }
-    }
-    
     private void processMessagesFromExistingSHIPConnections() {    	
         HashMap<Integer, SE[]> messages = network.readAllFromSHIPs();
         Iterator<Integer> message_iterator = messages.keySet().iterator();
@@ -91,10 +74,6 @@ public class EnvironmentServer implements Runnable {
             if(message.hasHandshake()) {
                 switch(message.getHandshake()) {
                     case HELLO:
-                        // Obsolete
-                        break;
-                    case GOODBYE:
-                        network.disconnectSHIP(SHIPID);
                         break;
                 }
             }

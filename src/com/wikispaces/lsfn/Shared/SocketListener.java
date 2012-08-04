@@ -118,7 +118,14 @@ public class SocketListener {
         if(connectionStatus == ConnectionStatus.CONNECTED) {
             if(timeoutManager.shouldDeclareAlive()) {
                 byte[] ping = {(byte)'P'};
-                jockey.send(ping);
+                try {
+                    jockey.send(ping);
+                } catch (IOException e) {
+                    sendDC();
+                    closeSocket();
+                    connectionStatus = ConnectionStatus.DISCONNECTED_UNCLEAN;
+                    throw new IOException("Connection refused PING.");
+                }
             }
             
             if(timeoutManager.shouldTimeout()) {

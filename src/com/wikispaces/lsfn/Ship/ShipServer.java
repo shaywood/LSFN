@@ -12,14 +12,15 @@ import com.wikispaces.lsfn.Shared.LSFN.SI;
 import com.wikispaces.lsfn.Shared.SocketListener.ConnectionStatus;
 
 public class ShipServer implements Runnable {
-
     private ShipNetworking network;
     private boolean running;
     private BufferedReader stdin;
+    private InterfaceManager INTManager;
     
     ShipServer() {
         network = new ShipNetworking();
         stdin = new BufferedReader(new InputStreamReader(System.in));
+        INTManager = new InterfaceManager(network, 500);
     }
     
     /**
@@ -34,8 +35,10 @@ public class ShipServer implements Runnable {
         while(running) {
         	processUserInput();
 
-            handshakeNewInterfaceConnections();
+            INTManager.handleNewConnections();
             processMessagesFromExistingINTConnections();
+            handleDisconnections();
+            
             
             // Get messages from the ENV (if it's connected)
             process_ENV();
@@ -52,7 +55,19 @@ public class ShipServer implements Runnable {
     }
     
 
-	private void processUserInput() {
+	private void handleDisconnections() {
+        Integer[] dcs = network.getControlledINTDisconnections();
+        for(int i = 0; i < dcs.length; i++) {
+            INTManager.handleDisconnect(dcs[i]);
+        }
+        
+        dcs = network.getUncontrolledINTDisconnections();
+        for(int i = 0; i < dcs.length; i++) {
+            INTManager.handleDisconnect(dcs[i]);
+        }
+    }
+
+    private void processUserInput() {
         try {
             while(stdin.ready()) {
                 processStdinMessage(stdin.readLine());
@@ -68,28 +83,31 @@ public class ShipServer implements Runnable {
         if(message.equals("stop")) running = false;
     }
     
-    private void handshakeNewInterfaceConnections() {
-        // Handle new connections
-        Integer[] INT_IDs = network.getNewINTConnections();
-        for(int i = 0; i < INT_IDs.length; i++) {
-            SI handshake = SI.newBuilder()
-                    .setHandshake(SI.Handshake.newBuilder()
-                            .setType(SI.Handshake.Type.HELLO)
-                            .setPlayerID(INT_IDs[i])
-                            .build())
-                    .build();
-            network.sendToINT(INT_IDs[i], handshake);
-        }
-    }
-    
 	private void processMessagesFromExistingINTConnections() {
-		// Handle existing connections
-		HashMap<Integer, IS[]> all_messages = network.readAllFromINTs();
-		Iterator<Integer> INTIDIterator = all_messages.keySet().iterator();
-		while(INTIDIterator.hasNext()) {
-		    Integer INTID = INTIDIterator.next();
-		    IS[] messages = all_messages.get(INTID);
+		HashMap<Integer, IS[]> allMessages = network.readAllFromINTs();
+		for(Integer INTID : allMessages.keySet()) {
+		    IS[] messages = allMessages.get(INTID);
 		    if(messages == null) continue;
+		    
+		    // This section does checks on the handshake of the client.
+		    if(!INTManager.verify(INTID)) {
+		        // If a connection has not been verified
+		        if(messages[0].hasHandshake()) {
+		            // allow it to handshake.
+                    INTManager.handleHandshake(INTID, messages[0].getHandshake());
+                    // If the handshake is successful, start parsing it's messages.
+                    if(!INTManager.verify(INTID)) {
+                        // If the handshake is unsuccessful, disconnect it.
+                        network.disconnectINT(INTID);
+                        continue;
+                    }
+                } else {
+                    // If it won't shake hands, disconnect it.
+                    network.disconnectINT(INTID);
+                    continue;
+                }
+		    }
+		    
 		    for(int i = 0; i < messages.length; i++) {
 		        processINTMessages(INTID, messages[i]);
 		    }
@@ -98,35 +116,8 @@ public class ShipServer implements Runnable {
 
     private void processINTMessages(Integer INTID, IS message) {        
         if(message != null) {
-            if(message.hasHandshake()) {
-                switch(message.getHandshake()) {
-                    case HELLO:
-                        // Obsolete
-                        break;
-                    case GOODBYE:
-                        network.disconnectINT(INTID);
-                        break;
-                }
-            }
-            
-            if(message.hasCommand()) {
-                IS.SHIP_ENV_command command = message.getCommand();
-                switch(command.getType()) {
-                    case CONNECT:
-                        if(network.connectToENV(command.getHost(), command.getPort()) != ConnectionStatus.CONNECTED) {
-                            System.out.println("Failed to connect to server.");
-                        }
-                        break;
-                    case DISCONNECT:
-                        network.disconnectFromENV();
-                        break;
-                    case RECONNECT:
-                        network.disconnectFromENV();
-                        if(network.connectToENV(command.getHost(), command.getPort()) != ConnectionStatus.CONNECTED) {
-                            System.out.println("Failed to reconnect to server.");
-                        }
-                        break;
-                }
+            if(message.hasRcon()) {
+                processStdinMessage(message.getRcon());
             }
         }
     }
@@ -141,28 +132,7 @@ public class ShipServer implements Runnable {
     }
     
     private void processENVMessage(ES message) {
-        if(message.hasHandshake()) {
-            SI return_message = null;
-            switch(message.getHandshake().getType()) {
-                case HELLO:
-                    return_message = SI.newBuilder()
-                            .setStatus(SI.SHIP_ENV_status.newBuilder()
-                                    .setState(SI.SHIP_ENV_status.State.CONNECTED)
-                                    .setShipID(message.getHandshake().getShipID())
-                                    .build())
-                            .build();
-                    break;
-                case GOODBYE:
-                    return_message = SI.newBuilder()
-                            .setStatus(SI.SHIP_ENV_status.newBuilder()
-                                    .setState(SI.SHIP_ENV_status.State.DISCONNECTED)
-                                    .build())
-                            .build();
-                    network.disconnectFromENV();
-                    break;
-            }
-            network.sendToAllINTs(return_message);
-        }
+        // TODO
     }
     
     /**

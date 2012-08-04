@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import com.wikispaces.lsfn.Shared.LSFN.IS;
 import com.wikispaces.lsfn.Shared.LSFN.SI;
 import com.wikispaces.lsfn.Shared.SocketListener.ConnectionStatus;
+import com.wikispaces.lsfn.Interface.InterfaceNetworking;
 
 public class InterfaceClient {
     private InterfaceNetworking network;
@@ -58,44 +59,26 @@ public class InterfaceClient {
         
         if(message.equals("stop")) {
             running = false;
-        } else if(num_parts >= 1 && parts[0].equals("connect")) { // "connect remote" connects the ship to the environment server.
-            if(num_parts == 2) {
-                if(network.isConnectedToSHIP() == ConnectionStatus.CONNECTED) {
-                    IS sendable = IS.newBuilder()
-                            .setCommand(IS.SHIP_ENV_command.newBuilder()
-                                    .setType(IS.SHIP_ENV_command.Type.CONNECT)
-                                    .setHost(parts[2])
-                                    .setPort(Integer.parseInt(parts[3]))
-                                    .build())
-                            .build();
-                    if(network.sendToSHIP(sendable) != ConnectionStatus.CONNECTED) {
-                        System.err.println("Sending failed.");
-                    }
-                } else {
-                    System.err.println("Could not send message. Not connected");
-                }
-            } else if(num_parts == 3) { // "connect" connects the interface to the ship. Port 14613 is default on the Ship server.
-                try {
-                    if(network.connectToSHIP(parts[1], Integer.parseInt(parts[2])) != ConnectionStatus.CONNECTED) {
-                        System.err.println("Could not connect to SHIP");
-                    }
-                } catch (NumberFormatException e) {
-                    System.err.println("\"" + parts[2] + "\" is not a valid integer.");
-                    e.printStackTrace();
-                }
-            }
-        } else if(message.equals("disconnect remote")) { // "disconnect remote" disconnect the ship from the environment server.
+        } else if(parts[0].equals("rcon") && num_parts >= 1) { // "connect remote" connects the ship to the environment server.
             if(network.isConnectedToSHIP() == ConnectionStatus.CONNECTED) {
                 IS sendable = IS.newBuilder()
-                        .setCommand(IS.SHIP_ENV_command.newBuilder()
-                                .setType(IS.SHIP_ENV_command.Type.DISCONNECT)
-                                .build())
+                        .setRcon(message.substring(5))
                         .build();
                 if(network.sendToSHIP(sendable) != ConnectionStatus.CONNECTED) {
                     System.err.println("Sending failed.");
                 }
             } else {
                 System.err.println("Could not send message. Not connected");
+            }
+        } else if(parts[0].equals("connect") && num_parts == 3) { // "connect" connects the interface to the ship. Port 14613 is default on the Ship server.
+            try {
+                if(network.connectToSHIP(parts[1], Integer.parseInt(parts[2])) == ConnectionStatus.CONNECTED) {
+                    System.out.println("Connected to SHIP");
+                } else {
+                    System.err.println("Could not connect to SHIP");
+                }
+            } catch (NumberFormatException e) {
+                System.err.println("\"" + parts[2] + "\" is not a valid integer.");
             }
         } else if(message.equals("disconnect")) {
             network.disconnectFromSHIP();
@@ -106,13 +89,15 @@ public class InterfaceClient {
     }
     
     private void process_network() {
-        SI[] messages;
-        messages = network.receiveFromSHIP();
-        if(messages == null) {
-            System.err.println("Could not receive messages.");
-        } else {
-            for(int i = 0; i < messages.length; i++) {
-                process_SHIP_message(messages[i]);
+        if(network.isConnectedToSHIP() == ConnectionStatus.CONNECTED) {
+            SI[] messages;
+            messages = network.receiveFromSHIP();
+            if(messages == null) {
+                System.err.println("Could not receive messages.");
+            } else {
+                for(int i = 0; i < messages.length; i++) {
+                    process_SHIP_message(messages[i]);
+                }
             }
         }
     }

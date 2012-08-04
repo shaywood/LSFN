@@ -20,6 +20,8 @@ public class SocketBitJockey {
         
         this.bytesRead = -4;
         this.lengthBytes = new byte[4];
+        
+        this.completedMessages = new ArrayList<byte[]>();
     }
     
     public byte[][] readMessages() throws IOException {

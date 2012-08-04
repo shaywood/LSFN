@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.google.protobuf.InvalidProtocolBufferException;
+import com.wikispaces.lsfn.Shared.LSFN.IS.Handshake;
 import com.wikispaces.lsfn.Shared.SocketListener;
 import com.wikispaces.lsfn.Shared.LSFN.SI;
 import com.wikispaces.lsfn.Shared.LSFN.IS;
@@ -19,7 +20,10 @@ public class InterfaceNetworking {
     public ConnectionStatus connectToSHIP(String host, int port) {
         try {
             client.connect(host, port);
+            IS message = IS.newBuilder().setHandshake(Handshake.HELLO).build();
+            client.send(message.toByteArray());
         } catch (IOException e) {
+            System.out.println("Connection error.");
         }
         return client.getConnectionStatus();
     }

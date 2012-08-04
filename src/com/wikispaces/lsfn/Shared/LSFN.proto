@@ -20,13 +20,13 @@ message IS {
     
     enum Handshake {
         HELLO = 0;
-        GOODBYE = 1;
     }
     
     // Subscribable input message types go here
     
     optional Handshake handshake = 16;
     optional Subscribe subscribe = 17;
+    optional string rcon = 18;
     
     // Subscribable input message declarations go here
 }
@@ -57,13 +57,13 @@ message SE {
 
     enum Handshake {
         HELLO = 0;
-        GOODBYE = 1;
     }
     
     // Subscribable input message types go here
     
     optional Handshake handshake = 16;
     optional Subscribe subscribe = 17;
+    optional string rcon = 18;
     
     // Subscribable input message declarations go here
 }
