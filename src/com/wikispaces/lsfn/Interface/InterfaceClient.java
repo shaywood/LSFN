@@ -55,11 +55,11 @@ public class InterfaceClient {
     
     private void process_stdin_message(String message) {
         String[] parts = message.split(" ");
-        int num_parts = parts.length;
+        int numParts = parts.length;
         
         if(message.equals("stop")) {
             running = false;
-        } else if(parts[0].equals("rcon") && num_parts >= 1) { // "connect remote" connects the ship to the environment server.
+        } else if(parts[0].equals("rcon") && numParts >= 1) { // "connect remote" connects the ship to the environment server.
             if(network.isConnectedToSHIP() == ConnectionStatus.CONNECTED) {
                 IS sendable = IS.newBuilder()
                         .setRcon(message.substring(5))
@@ -70,7 +70,7 @@ public class InterfaceClient {
             } else {
                 System.err.println("Could not send message. Not connected");
             }
-        } else if(parts[0].equals("connect") && num_parts == 3) { // "connect" connects the interface to the ship. Port 14613 is default on the Ship server.
+        } else if(parts[0].equals("connect") && numParts == 3) { // "connect" connects the interface to the ship. Port 14613 is default on the Ship server.
             try {
                 if(network.connectToSHIP(parts[1], Integer.parseInt(parts[2])) == ConnectionStatus.CONNECTED) {
                     System.out.println("Connected to SHIP");

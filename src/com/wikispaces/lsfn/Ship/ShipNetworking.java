@@ -2,10 +2,13 @@ package com.wikispaces.lsfn.Ship;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.wikispaces.lsfn.Shared.ClientHandler;
+import com.wikispaces.lsfn.Shared.LSFN;
 import com.wikispaces.lsfn.Shared.SocketListener;
 import com.wikispaces.lsfn.Shared.LSFN.IS;
 import com.wikispaces.lsfn.Shared.LSFN.SI;
@@ -17,13 +20,20 @@ public class ShipNetworking {
     private SocketListener client;
     private ClientHandler server;
     private Thread serverThread;
+    HashSet<Integer> verifiedConnections;
+    HashSet<Integer> brokenConnections;
+    HashMap<Integer, Long> INTConnectionTime;
+    Integer newConnectionTimeout;
     
     /**
      * Creates new server and client objects
      */
-    ShipNetworking() {
+    ShipNetworking(Integer newConnectionTimeout) {
         client = new SocketListener();
         server = new ClientHandler();
+        verifiedConnections = new HashSet<Integer>();
+        this.INTConnectionTime = new HashMap<Integer, Long>();
+        this.newConnectionTimeout = newConnectionTimeout;
     }
     
     // ENV
@@ -105,7 +115,19 @@ public class ShipNetworking {
                     
                 }
             }
-            if(messageList.size() != 0) parsedMessages.put(socketID, messageList.toArray(new IS[0]));
+            
+            IS[] parsedMessageArray = messageList.toArray(new IS[0]);
+            if(parsedMessageArray.length != 0) {
+                if(verifiedConnections.contains(socketID)) {
+                    parsedMessages.put(socketID, messageList.toArray(new IS[0]));
+                } else {
+                    if(parsedMessageArray[0].hasHandshake()) {
+                        handleHandshake(socketID, parsedMessageArray[0].getHandshake());
+                    } else {
+                        server.disconnect(socketID);
+                    }
+                }
+            }
         }
         
         return parsedMessages;
@@ -116,7 +138,7 @@ public class ShipNetworking {
     }
     
     public void sendToAllINTs(SI message) {
-        server.sendToAll( message.toByteArray());
+        server.sendToAll(message.toByteArray());
     }
     
     public void disconnectINT(Integer socketID) {
@@ -142,15 +164,81 @@ public class ShipNetworking {
         serverThread = null;
     }
     
-    public Integer[] getNewINTConnections() {
-        return server.getNewConnections();
+    // INTManager
+    
+    public void handleConnectionUpdates() {
+        handleNewConnections();
+        timeoutSilentNewConnections();
+        handleGoodDisconnections();
+        handleBadDisconnections();
     }
     
-    public Integer[] getControlledINTDisconnections() {
-        return server.getControlledDisconnections();
+    private void handleNewConnections() {
+        Integer[] INTIDs = server.getNewConnections();
+        for(int i = 0; i < INTIDs.length; i++) {
+            INTConnectionTime.put(i, Calendar.getInstance().getTimeInMillis());
+        }
     }
     
-    public Integer[] getUncontrolledINTDisconnections() {
-        return server.getUncontrolledDisconnections();
+    private void timeoutSilentNewConnections() {
+        for(Integer i : INTConnectionTime.keySet()) {
+            if(Calendar.getInstance().getTimeInMillis() - INTConnectionTime.get(i) > newConnectionTimeout) {
+                server.disconnect(i);
+                INTConnectionTime.remove(i);
+            }
+        }
+    }
+    
+    private void handleGoodDisconnections() {
+        Integer[] INTIDs = server.getControlledDisconnections();
+        for(int i = 0; i < INTIDs.length; i++) {
+            INTConnectionTime.remove(INTIDs[i]);
+            verifiedConnections.remove(INTIDs[i]);
+            brokenConnections.remove(INTIDs[i]);
+        }
+    }
+    
+    private void handleBadDisconnections() {
+        Integer[] INTIDs = server.getUncontrolledDisconnections();
+        for(int i = 0; i < INTIDs.length; i++) {
+            INTConnectionTime.remove(INTIDs[i]);
+            if(verifiedConnections.contains(INTIDs[i])) {
+                verifiedConnections.remove(INTIDs[i]);
+                brokenConnections.add(INTIDs[i]);
+            }
+        }
+    }
+    
+    private void handleHandshake(Integer INTID, LSFN.IS.Handshake handshake) {
+        if(handshake == LSFN.IS.Handshake.HELLO) {
+            SI handshakeOut = SI.newBuilder()
+                    .setHandshake(SI.Handshake.newBuilder()
+                            .setType(SI.Handshake.Type.HELLO)
+                            .setIntID(INTID)
+                            .build())
+                    .build();
+            server.send(INTID, handshakeOut.toByteArray());
+            INTConnectionTime.remove(INTID);
+            verifiedConnections.add(INTID);
+            System.out.println("New INT connected with ID " + INTID + ".");
+        }
+    }
+
+    /**
+     * Used to retrieve the current set of verified connections
+     * Must not be modified
+     * @return
+     */
+    public HashSet<Integer> getVerifiedConnections() {
+        return verifiedConnections;
+    }
+    
+    /**
+     * Used to retrieve the current set of broken connections
+     * Must not be modified
+     * @return
+     */
+    public HashSet<Integer> getBrokenConnections() {
+        return brokenConnections;
     }
 }

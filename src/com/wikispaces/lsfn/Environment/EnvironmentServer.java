@@ -16,11 +16,8 @@ public class EnvironmentServer implements Runnable {
     }
     
     public void run() {
-        try {
-            network.openSHIPServer();
-        } catch (IOException e1) {
-            System.out.println("Failed to open SHIP server.");
-            e1.printStackTrace();
+        if(!network.openSHIPServer()) {
+            System.out.println("Failed to open server.");
         }
         
         running = true;

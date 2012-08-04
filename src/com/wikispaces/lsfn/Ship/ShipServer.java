@@ -4,23 +4,21 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
-import java.util.Iterator;
 
-import com.wikispaces.lsfn.Shared.LSFN.ES;
 import com.wikispaces.lsfn.Shared.LSFN.IS;
 import com.wikispaces.lsfn.Shared.LSFN.SI;
+import com.wikispaces.lsfn.Shared.LSFN.SE;
+import com.wikispaces.lsfn.Shared.LSFN.ES;
 import com.wikispaces.lsfn.Shared.SocketListener.ConnectionStatus;
 
 public class ShipServer implements Runnable {
     private ShipNetworking network;
     private boolean running;
     private BufferedReader stdin;
-    private InterfaceManager INTManager;
     
     ShipServer() {
-        network = new ShipNetworking();
+        network = new ShipNetworking(500);
         stdin = new BufferedReader(new InputStreamReader(System.in));
-        INTManager = new InterfaceManager(network, 500);
     }
     
     /**
@@ -35,13 +33,11 @@ public class ShipServer implements Runnable {
         while(running) {
         	processUserInput();
 
-            INTManager.handleNewConnections();
+            network.handleConnectionUpdates();
             processMessagesFromExistingINTConnections();
-            handleDisconnections();
-            
             
             // Get messages from the ENV (if it's connected)
-            process_ENV();
+            processENV();
             
             try {
                 Thread.sleep(20);
@@ -52,19 +48,6 @@ public class ShipServer implements Runnable {
         
         network.closeINTServer();
         network.disconnectFromENV();
-    }
-    
-
-	private void handleDisconnections() {
-        Integer[] dcs = network.getControlledINTDisconnections();
-        for(int i = 0; i < dcs.length; i++) {
-            INTManager.handleDisconnect(dcs[i]);
-        }
-        
-        dcs = network.getUncontrolledINTDisconnections();
-        for(int i = 0; i < dcs.length; i++) {
-            INTManager.handleDisconnect(dcs[i]);
-        }
     }
 
     private void processUserInput() {
@@ -80,7 +63,37 @@ public class ShipServer implements Runnable {
     }
     
     private void processStdinMessage(String message) {
-        if(message.equals("stop")) running = false;
+        String[] parts = message.split(" ");
+        int numParts = parts.length;
+        
+        if(message.equals("stop")) {
+            running = false;
+        } else if(parts[0].equals("rcon") && numParts >= 1) { // "connect remote" connects the ship to the environment server.
+            if(network.isConnectedToENV() == ConnectionStatus.CONNECTED) {
+                SE sendable = SE.newBuilder()
+                        .setRcon(message.substring(5))
+                        .build();
+                if(network.sendToENV(sendable) != ConnectionStatus.CONNECTED) {
+                    System.err.println("Sending failed.");
+                }
+            } else {
+                System.err.println("Could not send message. Not connected");
+            }
+        } else if(parts[0].equals("connect") && numParts == 3) { // "connect" connects the interface to the ship. Port 14613 is default on the Ship server.
+            try {
+                if(network.connectToENV(parts[1], Integer.parseInt(parts[2])) == ConnectionStatus.CONNECTED) {
+                    System.out.println("Connected to SHIP");
+                } else {
+                    System.err.println("Could not connect to SHIP");
+                }
+            } catch (NumberFormatException e) {
+                System.err.println("\"" + parts[2] + "\" is not a valid integer.");
+            }
+        } else if(message.equals("disconnect")) {
+            network.disconnectFromENV();
+        } else {
+            System.err.println("Unknown message: " + message);
+        }
     }
     
 	private void processMessagesFromExistingINTConnections() {
@@ -88,25 +101,6 @@ public class ShipServer implements Runnable {
 		for(Integer INTID : allMessages.keySet()) {
 		    IS[] messages = allMessages.get(INTID);
 		    if(messages == null) continue;
-		    
-		    // This section does checks on the handshake of the client.
-		    if(!INTManager.verify(INTID)) {
-		        // If a connection has not been verified
-		        if(messages[0].hasHandshake()) {
-		            // allow it to handshake.
-                    INTManager.handleHandshake(INTID, messages[0].getHandshake());
-                    // If the handshake is successful, start parsing it's messages.
-                    if(!INTManager.verify(INTID)) {
-                        // If the handshake is unsuccessful, disconnect it.
-                        network.disconnectINT(INTID);
-                        continue;
-                    }
-                } else {
-                    // If it won't shake hands, disconnect it.
-                    network.disconnectINT(INTID);
-                    continue;
-                }
-		    }
 		    
 		    for(int i = 0; i < messages.length; i++) {
 		        processINTMessages(INTID, messages[i]);
@@ -122,7 +116,7 @@ public class ShipServer implements Runnable {
         }
     }
 
-    private void process_ENV() {
+    private void processENV() {
         ES[] messages = network.receiveFromENV();
         if(messages != null) {
             for(int i = 0; i < messages.length; i++) {
