@@ -31,12 +31,10 @@ public class ShipServer implements Runnable {
         
         running = true;
         while(running) {
-        	processUserInput();
+        	processStdin();
 
             network.handleConnectionUpdates();
-            processMessagesFromExistingINTConnections();
-            
-            // Get messages from the ENV (if it's connected)
+            processINTs();
             processENV();
             
             try {
@@ -50,7 +48,7 @@ public class ShipServer implements Runnable {
         network.disconnectFromENV();
     }
 
-    private void processUserInput() {
+    private void processStdin() {
         try {
             while(stdin.ready()) {
                 processStdinMessage(stdin.readLine());
@@ -82,9 +80,9 @@ public class ShipServer implements Runnable {
         } else if(parts[0].equals("connect") && numParts == 3) { // "connect" connects the interface to the ship. Port 14613 is default on the Ship server.
             try {
                 if(network.connectToENV(parts[1], Integer.parseInt(parts[2])) == ConnectionStatus.CONNECTED) {
-                    System.out.println("Connected to SHIP");
+                    System.out.println("Connected to ENV");
                 } else {
-                    System.err.println("Could not connect to SHIP");
+                    System.err.println("Could not connect to ENV");
                 }
             } catch (NumberFormatException e) {
                 System.err.println("\"" + parts[2] + "\" is not a valid integer.");
@@ -96,19 +94,19 @@ public class ShipServer implements Runnable {
         }
     }
     
-	private void processMessagesFromExistingINTConnections() {
+	private void processINTs() {
 		HashMap<Integer, IS[]> allMessages = network.readAllFromINTs();
 		for(Integer INTID : allMessages.keySet()) {
 		    IS[] messages = allMessages.get(INTID);
 		    if(messages == null) continue;
 		    
 		    for(int i = 0; i < messages.length; i++) {
-		        processINTMessages(INTID, messages[i]);
+		        processINTMessage(INTID, messages[i]);
 		    }
 		}
 	}
 
-    private void processINTMessages(Integer INTID, IS message) {        
+    private void processINTMessage(Integer INTID, IS message) {        
         if(message != null) {
             if(message.hasRcon()) {
                 processStdinMessage(message.getRcon());
@@ -117,16 +115,24 @@ public class ShipServer implements Runnable {
     }
 
     private void processENV() {
-        ES[] messages = network.receiveFromENV();
-        if(messages != null) {
-            for(int i = 0; i < messages.length; i++) {
-                processENVMessage(messages[i]);
+        if(network.isConnectedToENV() == ConnectionStatus.CONNECTED) {
+            ES[] messages;
+            messages = network.receiveFromENV();
+            if(messages == null) {
+                System.err.println("Could not receive messages.");
+            } else {
+                for(int i = 0; i < messages.length; i++) {
+                    processENVMessage(messages[i]);
+                }
             }
         }
     }
     
     private void processENVMessage(ES message) {
-        // TODO
+        System.out.print(message.toString());
+        if(message.hasHandshake() && message.getHandshake().getType() == ES.Handshake.Type.GOODBYE) {
+            network.disconnectFromENV();
+        }
     }
     
     /**

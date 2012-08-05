@@ -25,8 +25,8 @@ public class InterfaceClient {
     public void run() {      
         running = true;
         while(running) {
-            process_console_input();
-            process_network();
+            processStdin();
+            processSHIP();
             
             try {
                 Thread.sleep(cycle_time_ms);
@@ -41,10 +41,10 @@ public class InterfaceClient {
         System.exit(0);
     }
 
-	private void process_console_input() {
+	private void processStdin() {
         try {
             while(stdin.ready()) {
-                process_stdin_message(stdin.readLine());
+                processStdinMessage(stdin.readLine());
             }
         } catch (IOException e) {
             System.err.println("Failed to read from stdin.");
@@ -53,7 +53,7 @@ public class InterfaceClient {
         }
     }
     
-    private void process_stdin_message(String message) {
+    private void processStdinMessage(String message) {
         String[] parts = message.split(" ");
         int numParts = parts.length;
         
@@ -88,7 +88,7 @@ public class InterfaceClient {
         
     }
     
-    private void process_network() {
+    private void processSHIP() {
         if(network.isConnectedToSHIP() == ConnectionStatus.CONNECTED) {
             SI[] messages;
             messages = network.receiveFromSHIP();
@@ -96,13 +96,13 @@ public class InterfaceClient {
                 System.err.println("Could not receive messages.");
             } else {
                 for(int i = 0; i < messages.length; i++) {
-                    process_SHIP_message(messages[i]);
+                    processSHIPMessage(messages[i]);
                 }
             }
         }
     }
         
-    private void process_SHIP_message(SI message) {
+    private void processSHIPMessage(SI message) {
         System.out.print(message.toString());
         if(message.hasHandshake() && message.getHandshake().getType() == SI.Handshake.Type.GOODBYE) {
             network.disconnectFromSHIP();

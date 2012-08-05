@@ -1,6 +1,6 @@
 package com.wikispaces.lsfn.Environment;
 
-import com.wikispaces.lsfn.Shared.*;
+import com.wikispaces.lsfn.Shared.LSFN.IS;
 import com.wikispaces.lsfn.Shared.LSFN.SE;
 import java.io.*;
 import java.util.*;
@@ -11,7 +11,7 @@ public class EnvironmentServer implements Runnable {
     private BufferedReader stdin;
     
     EnvironmentServer() {
-        network = new EnvironmentNetworking();
+        network = new EnvironmentNetworking(500);
         stdin = new BufferedReader(new InputStreamReader(System.in));
     }
     
@@ -22,10 +22,10 @@ public class EnvironmentServer implements Runnable {
         
         running = true;
         while(running) {
-        	processUserInput();
+        	processStdin();
             
-        	//handshakeNewSHIPConnections();
-        	processMessagesFromExistingSHIPConnections();
+        	network.handleConnectionUpdates();
+            processSHIPs();
 
             try {
                 Thread.sleep(20);
@@ -38,7 +38,7 @@ public class EnvironmentServer implements Runnable {
         network.closeSHIPServer();
     }
     
-    private void processUserInput() {
+    private void processStdin() {
         try {
             while(stdin.ready()) {
                 processStdinMessage(stdin.readLine());
@@ -54,25 +54,22 @@ public class EnvironmentServer implements Runnable {
         if(message.equals("stop")) running = false;
     }
     
-    private void processMessagesFromExistingSHIPConnections() {    	
-        HashMap<Integer, SE[]> messages = network.readAllFromSHIPs();
-        Iterator<Integer> message_iterator = messages.keySet().iterator();
-        while(message_iterator.hasNext()) {
-            Integer message_ID = message_iterator.next();
-            SE[] message_array = messages.get(message_ID);
-            for(int i = 0; i < message_array.length; i++) {
-                processSHIPMessage(message_ID, message_array[i]);
+    private void processSHIPs() {    	
+        HashMap<Integer, SE[]> allMessages = network.readAllFromSHIPs();
+        for(Integer SHIPID : allMessages.keySet()) {
+            SE[] messages = allMessages.get(SHIPID);
+            if(messages == null) continue;
+            
+            for(int i = 0; i < messages.length; i++) {
+                processSHIPMessage(SHIPID, messages[i]);
             }
         }
     }
     
     private void processSHIPMessage(Integer SHIPID, SE message) {
         if(message != null) {
-            if(message.hasHandshake()) {
-                switch(message.getHandshake()) {
-                    case HELLO:
-                        break;
-                }
+            if(message.hasRcon()) {
+                processStdinMessage(message.getRcon());
             }
         }
     }

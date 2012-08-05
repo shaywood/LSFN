@@ -14,6 +14,7 @@ import com.wikispaces.lsfn.Shared.LSFN.IS;
 import com.wikispaces.lsfn.Shared.LSFN.SI;
 import com.wikispaces.lsfn.Shared.LSFN.SE;
 import com.wikispaces.lsfn.Shared.LSFN.ES;
+import com.wikispaces.lsfn.Shared.LSFN.SE.Handshake;
 import com.wikispaces.lsfn.Shared.SocketListener.ConnectionStatus;
 
 public class ShipNetworking {
@@ -22,17 +23,18 @@ public class ShipNetworking {
     private Thread serverThread;
     HashSet<Integer> verifiedConnections;
     HashSet<Integer> brokenConnections;
-    HashMap<Integer, Long> INTConnectionTime;
+    HashMap<Integer, Long> connectionTimes;
     Integer newConnectionTimeout;
     
     /**
      * Creates new server and client objects
      */
     ShipNetworking(Integer newConnectionTimeout) {
-        client = new SocketListener();
-        server = new ClientHandler();
-        verifiedConnections = new HashSet<Integer>();
-        this.INTConnectionTime = new HashMap<Integer, Long>();
+        this.client = new SocketListener();
+        this.server = new ClientHandler();
+        this.verifiedConnections = new HashSet<Integer>();
+        this.brokenConnections = new HashSet<Integer>();
+        this.connectionTimes = new HashMap<Integer, Long>();
         this.newConnectionTimeout = newConnectionTimeout;
     }
     
@@ -41,6 +43,8 @@ public class ShipNetworking {
     public ConnectionStatus connectToENV(String host, int port) {
         try {
             client.connect(host, port);
+            SE message = SE.newBuilder().setHandshake(Handshake.HELLO).build();
+            client.send(message.toByteArray());
         } catch (IOException e) {
         }
         return client.getConnectionStatus();
@@ -176,15 +180,15 @@ public class ShipNetworking {
     private void handleNewConnections() {
         Integer[] INTIDs = server.getNewConnections();
         for(int i = 0; i < INTIDs.length; i++) {
-            INTConnectionTime.put(i, Calendar.getInstance().getTimeInMillis());
+            connectionTimes.put(i, Calendar.getInstance().getTimeInMillis());
         }
     }
     
     private void timeoutSilentNewConnections() {
-        for(Integer i : INTConnectionTime.keySet()) {
-            if(Calendar.getInstance().getTimeInMillis() - INTConnectionTime.get(i) > newConnectionTimeout) {
+        for(Integer i : connectionTimes.keySet()) {
+            if(Calendar.getInstance().getTimeInMillis() - connectionTimes.get(i) > newConnectionTimeout) {
                 server.disconnect(i);
-                INTConnectionTime.remove(i);
+                connectionTimes.remove(i);
             }
         }
     }
@@ -192,7 +196,7 @@ public class ShipNetworking {
     private void handleGoodDisconnections() {
         Integer[] INTIDs = server.getControlledDisconnections();
         for(int i = 0; i < INTIDs.length; i++) {
-            INTConnectionTime.remove(INTIDs[i]);
+            connectionTimes.remove(INTIDs[i]);
             verifiedConnections.remove(INTIDs[i]);
             brokenConnections.remove(INTIDs[i]);
         }
@@ -201,7 +205,7 @@ public class ShipNetworking {
     private void handleBadDisconnections() {
         Integer[] INTIDs = server.getUncontrolledDisconnections();
         for(int i = 0; i < INTIDs.length; i++) {
-            INTConnectionTime.remove(INTIDs[i]);
+            connectionTimes.remove(INTIDs[i]);
             if(verifiedConnections.contains(INTIDs[i])) {
                 verifiedConnections.remove(INTIDs[i]);
                 brokenConnections.add(INTIDs[i]);
@@ -218,7 +222,7 @@ public class ShipNetworking {
                             .build())
                     .build();
             server.send(INTID, handshakeOut.toByteArray());
-            INTConnectionTime.remove(INTID);
+            connectionTimes.remove(INTID);
             verifiedConnections.add(INTID);
             System.out.println("New INT connected with ID " + INTID + ".");
         }
